@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://scripts/gameplay/Game.gd" id="1"]
+[ext_resource type="Theme" path="res://assets/ui/themes/forest.tres" id="ui_theme"]
 [ext_resource type="PackedScene" path="res://scenes/animals/Animal.tscn" id="2"]
 [ext_resource type="Resource" path="res://resources/animals/mouse.tres" id="3"]
 [ext_resource type="Resource" path="res://resources/animals/hamster.tres" id="4"]
@@ -70,6 +71,7 @@ position = Vector2(490, 218)
 script = ExtResource("11")
 
 [node name="HUD" type="Control" parent="."]
+theme = ExtResource("ui_theme")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

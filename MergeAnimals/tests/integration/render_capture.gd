@@ -28,12 +28,14 @@ func run() -> void:
 		for size in dimensions:
 			DisplayServer.window_set_size(size)
 			DisplayServer.window_set_position(Vector2i(0, 0))
-			await create_timer(0.3).timeout
+			await create_timer(0.8).timeout
 			await RenderingServer.frame_post_draw
 			var path := "%s/theme%d_%dx%d.png" % [out_dir, theme, size.x, size.y]
 			var output := []
-			var cmd := "wid=$(xdotool search --onlyvisible --pid %d | tail -1); test -n \"$wid\" && import -window \"$wid\" \"$1\"" % OS.get_process_id()
-			var result := OS.execute("bash", ["-c", cmd, "capture", path], output, true)
+			# Xvfb has no window manager: the client is placed at (0,0).
+			# Capture that exact rectangle from the X11 root, including letterboxing.
+			var crop := "%dx%d+0+0" % [size.x, size.y]
+			var result := OS.execute("import", ["-window", "root", "-crop", crop, path], output, true)
 			var image := Image.new()
 			var loaded := image.load(path)
 			print("RENDER theme=%d requested=%s window=%s root_viewport=%s image=%s result=%d" % [theme, size, DisplayServer.window_get_size(), root.get_texture().get_image().get_size(), image.get_size(), result])
