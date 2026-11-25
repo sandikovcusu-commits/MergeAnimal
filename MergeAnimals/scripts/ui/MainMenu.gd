@@ -67,16 +67,18 @@ func _play() -> void:
 		new_game_dialog.cancel_button_text = tr("BACK")
 		add_child(new_game_dialog)
 		new_game_dialog.confirmed.connect(_start_new_game)
-		new_game_dialog.close_requested.connect(func(): new_game_dialog.queue_free(); new_game_dialog = null)
-		new_game_dialog.canceled.connect(func(): new_game_dialog.queue_free(); new_game_dialog = null)
+		new_game_dialog.close_requested.connect(_dismiss_new_game_dialog)
+		new_game_dialog.canceled.connect(_dismiss_new_game_dialog)
 		new_game_dialog.popup_centered(Vector2i(500, 250))
 		return
 	_start_new_game()
-func _start_new_game() -> void:
-	if navigating: return
+func _dismiss_new_game_dialog() -> void:
 	if is_instance_valid(new_game_dialog):
 		new_game_dialog.queue_free()
-		new_game_dialog = null
+	new_game_dialog = null
+func _start_new_game() -> void:
+	if navigating: return
+	_dismiss_new_game_dialog()
 	if SessionSave.clear_session() != OK:
 		best_label.text = tr("SAVE_WAIT")
 		return
@@ -95,6 +97,7 @@ func _continue_game() -> void:
 		return
 	navigating = true
 	continue_button.disabled = true
+	if get_tree().has_meta("tutorial_requested"): get_tree().remove_meta("tutorial_requested")
 	get_tree().set_meta("continue_requested", true)
 	get_tree().change_scene_to_file(GAME)
 func _settings() -> void:
