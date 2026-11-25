@@ -44,6 +44,7 @@ jobs:
           }
           run_test 'editor import' --editor --quit
           run_test 'integration' --script res://tests/integration/day2_suite.gd
+          run_test 'day6 save primitive' --script res://tests/integration/day6_save_primitive.gd
           run_test 'day5 tutorial collision' --script res://tests/integration/day5_tutorial.gd
           run_test 'day5 effects' --script res://tests/integration/day5_effects.gd
           run_test 'day5 GUI input' --script res://tests/integration/day5_input.gd
