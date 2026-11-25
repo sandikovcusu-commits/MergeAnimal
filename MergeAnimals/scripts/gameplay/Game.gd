@@ -65,10 +65,14 @@ var tutorial_stage: int = -1
 var tutorial_label: Label
 var tutorial_skip: Button
 const SETTINGS_SCENE := preload("res://scenes/ui/SettingsPanel.tscn")
+const EFFECT_SCRIPT := preload("res://scripts/effects/MergeEffects.gd")
+var reduced_effects := false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	SettingsStore.apply(SettingsStore.load_values())
+	var saved_settings := SettingsStore.load_values()
+	SettingsStore.apply(saved_settings)
+	reduced_effects = saved_settings.reduced_effects
 	pieces.process_mode = Node.PROCESS_MODE_PAUSABLE
 	merge_manager.process_mode = Node.PROCESS_MODE_PAUSABLE
 	danger_monitor.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -313,11 +317,25 @@ func _award_merge(base_score: int) -> void:
 		_save_best()
 	_update_hud()
 
-func _on_merged(data: AnimalData, _point: Vector2) -> void:
+func _on_merged(data: AnimalData, point: Vector2) -> void:
 	_award_merge(data.merge_score)
+	_spawn_effect("soft_burst", point)
+	if not reduced_effects:
+		_spawn_effect("sparkle", point)
+		_spawn_effect("leaves", point)
+		_spawn_effect("score_star", point)
+		if combo_count > 1: _spawn_effect("combo_shine", point)
 	if tutorial_stage == 3: _tutorial_set_stage(4)
 
-func _on_golden_merged(_point: Vector2) -> void:
+func _spawn_effect(kind: String, point: Vector2) -> void:
+	var effect := EFFECT_SCRIPT.new()
+	effect.effect_kind = kind
+	effect.position = to_local(point)
+	add_child(effect)
+
+func _on_golden_merged(point: Vector2) -> void:
+	_spawn_effect("soft_burst", point)
+	if not reduced_effects: _spawn_effect("golden_glow", point)
 	# Golden award is exactly the configured bonus; it does not receive combo multiplication.
 	score += golden_config.bonus_score if golden_config else 1000
 	if score > best_score:
@@ -412,7 +430,8 @@ func _open_settings() -> void:
 		get_tree().paused = false
 		get_tree().reload_current_scene()
 	)
-	settings_panel.settings_changed.connect(func(_values: Dictionary):
+	settings_panel.settings_changed.connect(func(values: Dictionary):
+		reduced_effects = values.reduced_effects
 		_refresh_ui_text()
 		overlay_title.text = tr("PAUSE")
 		_update_hud()
