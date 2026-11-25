@@ -183,6 +183,7 @@ func save_session() -> Error:
 	# Recheck at execution time, after physics/contact callbacks and deferred merges.
 	if not persist_best or game_state == GameState.GAME_OVER or drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled:
 		return ERR_BUSY
+	if not SessionSave.can_write(): return ERR_UNAVAILABLE
 	var snapshot := _session_snapshot()
 	if not SessionSave.valid(snapshot): return ERR_INVALID_DATA
 	var primary := SaveManager._read_envelope(SessionSave.PATH)

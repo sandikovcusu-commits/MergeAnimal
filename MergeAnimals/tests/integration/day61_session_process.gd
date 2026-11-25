@@ -200,3 +200,10 @@ func read_phase() -> void:
 		game = current_scene
 		check(game.has_method("save_session") and game.score == 0 and game.spawn_count == 0, "confirmed new game starts a fresh board")
 		check(SessionSave.load_session().status == "missing", "confirmed new game clears previous session")
+		var future: Dictionary = expected.duplicate(true)
+		future.session_version = 2
+		check(SaveManager.save_progress(future, SessionSave.PATH) == OK, "future schema fixture")
+		var future_hash := FileAccess.get_sha256(SessionSave.PATH)
+		check(SessionSave.load_session().status == "future", "future session schema recognized")
+		check(game.save_session() == ERR_UNAVAILABLE and SessionSave.clear_session() == ERR_UNAVAILABLE, "future session schema cannot be overwritten")
+		check(FileAccess.get_sha256(SessionSave.PATH) == future_hash, "future session remains intact")

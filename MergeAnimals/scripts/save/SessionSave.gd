@@ -35,21 +35,33 @@ static func valid(data: Variant) -> bool:
 		if not _number(body.get("danger"), 0, 10) or typeof(body.get("sleeping")) != TYPE_BOOL: return false
 	return true
 
+static func _future_schema(envelope: Dictionary) -> bool:
+	return envelope.status == "ok" and _integer(envelope.data.get("session_version"), 2, 1000000)
+
+static func can_write() -> bool:
+	for path in [PATH, PATH + ".bak"]:
+		var envelope := SaveManager._read_envelope(path)
+		if envelope.status in ["future", "io_error"] or _future_schema(envelope): return false
+	return true
+
 static func load_session() -> Dictionary:
 	var first := SaveManager._read_envelope(PATH)
 	if first.status in ["future", "io_error"]: return first
+	if _future_schema(first): return {"status": "future"}
 	if first.status == "ok":
 		# Explicitly inactive (game over / new game) suppresses older backups.
 		if first.data.get("session_version") == 1 and first.data.get("active") == false: return {"status": "missing"}
 		if valid(first.data): return first
 	var backup := SaveManager._read_envelope(PATH + ".bak")
 	if backup.status in ["future", "io_error"]: return backup
+	if _future_schema(backup): return {"status": "future"}
 	if backup.status == "ok":
 		if backup.data.get("session_version") == 1 and backup.data.get("active") == false: return {"status": "missing"}
 		if valid(backup.data): return {"status": "recovered", "data": backup.data}
 	return {"status": "missing" if first.status == "missing" and backup.status == "missing" else "corrupt"}
 
 static func clear_session() -> Error:
+	if not can_write(): return ERR_UNAVAILABLE
 	var primary := SaveManager._read_envelope(PATH)
 	var keep_primary: bool = primary.status == "ok" and (valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
 	var tombstone := {"session_version": 1, "active": false}
