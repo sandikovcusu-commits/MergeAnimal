@@ -1,8 +1,8 @@
-# Məlum problemlər — V0.2.1-dev
+# Məlum problemlər — V0.3.0-dev
 
-- P1: 700 px/s divar fixture-də 60 Hz-də 6.636 px-ə qədər anlıq radius nüfuzu ölçülüb; sıfır overlap təmin edilmir. Real gameplay/render təsiri və başqa cihazlar yoxlanmayıb. `PHYSICS_REPORT.md`.
-- P1: Sıx sahədə merge üçün 96 px radiusda boş yer tapılmasa cüt kilidli pending qalır və təkrar yoxlanır; uzun müddətli sıxlıq/Game Over təsiri yoxlanmayıb.
-- P1: Real touch hardware, Windows BAT, vizual render, Android/iOS və müxtəlif ekran ölçüləri, sıçrayış/sleep/focus-loss yoxlanmayıb. Synthetic event real cihaz əvəzi deyil.
-- P1: Placeholder proqramla çəkilmiş vizuallar hələ mövcuddur; istifadəçi yeni sprite istəməyib. Yekun kommersiya qrafikası hazır deyil, DEV statusu saxlanır.
-- P2: Beşinci səviyyə Dog müvəqqəti maksimumdur; eyni üç başlanğıc növü seçilir. UI ingiliscədir. Tam save, audio, tutorial, lokallaşdırma, menyu və son aktivlər yoxdur.
-- P2: Testdə Linux Actions headless ölçüləri mobil performans demək deyil. Rəqib oyunlarının real oynanması və mobil metriklər tədqiq edilməyib (`RESEARCH.md`).
+- P1: 60 Hz normal bot gameplay-də 16.678 px, 120 Hz-də eyni seed-lərlə 9.190 px-ə qədər floor/sərhəd overlap ölçüldü; >0.01 px resting kontakt nüfuzu çox uzun qala bilər; sürətli divar təmasında nüfuz da qalır; sıfır overlap və real cihazda görünməzlik təsdiqlənməyib. Dərinlik, müddət, tam escape və ilişmə ayrıca `PHYSICS_REPORT.md`-dədir.
+- P1: Sıx sahədə böyük merge nəticəsi üçün boş yer tapılmasa cüt kilidli pending qalır və təkrar yoxlanır; uzunmüddətli sıxlıq/Game Over qarşılıqlı təsiri üçün əlavə test lazımdır.
+- P1: Konseptlərin orijinalları 1254×1254 RGB opakdır; `concepts/processed/` 512×512 alpha törəmələr avtomatik təmizlənib, kənar və quyruq bölgəsi əl auditinə ehtiyac duyur. Generasiya aləti model ID-ni bildirməyib; kommersiya hüquqları təsdiqlənməyib; oyun sprite-ı kimi qoşulmayıb.
+- P1: Real GUI rendering, alt guide oxunaqlılığı, telefon touch hardware, Windows BAT, Android/iOS, müxtəlif rezolyusiya input koordinatları və Web export hələ yoxlanmayıb. Stretch keep konfiqurasiyası fiziki cihaz nəticəsi deyil.
+- P2: 100 bot sessiyası məqsədli 90 simulyasiya saniyəsi ilə məhdudlaşdırılıb; nəticələr uzun insan oyunu, oyun müddəti, filə çatma ehtimalı və mobil performans statistikası deyil.
+- P2: Sadə `ConfigFile` yalnız best score saxlayır; lokallaşdırma resursları, audio, tutorial, tam menyu, save, son sprite/effect-lər yoxdur. Debug fixture oyun balansı deyil. 120 Hz fizikanın mobil enerji/CPU xərci ölçülməyib.

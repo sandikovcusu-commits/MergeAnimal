@@ -77,7 +77,7 @@ func run() -> void:
 	game._toggle_pause()
 	game.combo_left = 0.001
 	game._physics_process(0.01)
-	check(game.combo_count == 0, "combo timeout resets")
+	check(game.combo_count == 0 and not game.score_label.text.contains("COMBO"), "combo timeout resets and clears label")
 	game._award_merge(100)
 	check(game.combo_count == 1 and game.score == 1050, "post timeout returns to 1x")
 	game._on_game_over()

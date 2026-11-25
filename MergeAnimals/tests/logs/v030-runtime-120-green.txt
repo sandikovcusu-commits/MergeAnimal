@@ -1,0 +1,401 @@
+===== editor import =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Started Project initialization (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Scanning file structure...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Loading global class names...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Verifying GDExtensions...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Creating autoload scripts...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Initializing plugins...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Starting file scan...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mfirst_scan_filesystem^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Started Registering global classes... (21 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Animal^[[39m^[[0m
+[   4% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AnimalData^[[39m^[[0m
+[   9% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  13% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  18% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | GoldenConfig^[[39m^[[0m
+[  22% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | DangerMonitor^[[39m^[[0m
+[  27% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | MergeManager^[[39m^[[0m
+[  31% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  36% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  40% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  45% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  50% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  54% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  59% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  63% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  68% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  72% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  77% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  81% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  86% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  90% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mupdate_scripts_classes^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | Started Scanning actions... (4 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | cat.png^[[39m^[[0m
+[  20% ] ^[[90m^[[1m_update_scan_actions^[[22m | elephant.png^[[39m^[[0m
+[  40% ] ^[[90m^[[1m_update_scan_actions^[[22m | mouse.png^[[39m^[[0m
+[  60% ] ^[[90m^[[1m_update_scan_actions^[[22m | v030-bot-sessions.csv^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1m_update_scan_actions^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (4 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  20% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  40% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  60% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing pre-reimport operations...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | v030-bot-sessions.csv^[[39m^[[0m
+[  20% ] ^[[90m^[[1mreimport^[[22m | v030-bot-sessions.csv^[[39m^[[0m
+[  40% ] ^[[90m^[[1mreimport^[[22m | cat.png^[[39m^[[0m
+[  60% ] ^[[90m^[[1mreimport^[[22m | elephant.png^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | Finalizing Asset Import...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (4 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing post-reimport operations...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Started Loading editor (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading editor layout...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading docks...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mloading_editor_layout^[[22m
+^[[0m
+exit=0
+===== integration =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: mouse pair accepted
+PASS 2: duplicate contact locked level 1
+PASS 3: level 1 produces next level
+PASS 4: level 1 score counted once
+PASS 5: hamster pair accepted
+PASS 6: duplicate contact locked level 2
+PASS 7: level 2 produces next level
+PASS 8: level 2 score counted once
+PASS 9: rabbit pair accepted
+PASS 10: duplicate contact locked level 3
+PASS 11: level 3 produces next level
+PASS 12: level 3 score counted once
+PASS 13: cat pair accepted
+PASS 14: duplicate contact locked level 4
+PASS 15: level 4 produces next level
+PASS 16: level 4 score counted once
+PASS 17: different levels do not merge
+PASS 18: first of three reserves
+PASS 19: three-way contact cannot reuse animal
+PASS 20: three-way result keeps third and other-level body
+PASS 21: four bodies reserve two legal pairs
+PASS 22: four bodies produce two hamsters and two scores
+PASS 23: result bodies can chain
+PASS 24: chain creates rabbit and correct score
+PASS 25: wall/floor pair accepted
+PASS 26: merge corrected away from left wall
+PASS 27: merge corrected above floor
+PASS 28: left aim clamp
+PASS 29: right aim clamp
+PASS 30: drop request accepted
+PASS 31: duplicate request rejected
+PASS 32: one physical body spawned
+PASS 33: queue advances exactly once
+PASS 34: cooldown active
+PASS 35: cooldown rejects another request
+PASS 36: preview hidden in cooldown
+PASS 37: preview data matches queue
+PASS 38: canceled touch does not drop
+PASS 39: emulated mouse ignored
+PASS 40: blocked spawn does not change queue or add a body
+PASS 41: blocking body not deleted
+PASS 42: falling unsupported body ignored
+PASS 43: supported danger starts grace period
+PASS 44: danger timer resets on loss of support
+PASS 45: persistent danger ends and pauses game
+PASS 46: game over blocks drop
+PASS 47: pause stops tree
+PASS 48: pause blocks drop
+PASS 49: resume unpauses tree
+Checks: 49; failures: 0
+exit=0
+===== day3 evolution =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: 12 configured AnimalData resources
+PASS 2: animal 1 identity radius score
+PASS 3: animal 2 identity radius score
+PASS 4: animal 3 identity radius score
+PASS 5: animal 4 identity radius score
+PASS 6: animal 5 identity radius score
+PASS 7: animal 6 identity radius score
+PASS 8: animal 7 identity radius score
+PASS 9: animal 8 identity radius score
+PASS 10: animal 9 identity radius score
+PASS 11: animal 10 identity radius score
+PASS 12: animal 11 identity radius score
+PASS 13: animal 12 identity radius score
+PASS 14: evolution link 1
+PASS 15: evolution link 2
+PASS 16: evolution link 3
+PASS 17: evolution link 4
+PASS 18: evolution link 5
+PASS 19: evolution link 6
+PASS 20: evolution link 7
+PASS 21: evolution link 8
+PASS 22: evolution link 9
+PASS 23: evolution link 10
+PASS 24: evolution link 11
+PASS 25: elephant golden terminal
+PASS 26: two elephant diameters fit container
+Spawn distribution seed=13579 n=10000: [3012, 2511, 2058, 1479, 940, 0, 0, 0, 0, 0, 0, 0]
+PASS 27: spawn weight mouse within 2 percentage points
+PASS 28: spawn weight hamster within 2 percentage points
+PASS 29: spawn weight rabbit within 2 percentage points
+PASS 30: spawn weight cat within 2 percentage points
+PASS 31: spawn weight dog within 2 percentage points
+PASS 32: no high tier randomly spawns
+PASS 33: level 6+ cannot spawn even with nonzero weight
+PASS 34: spawn seed reproducible
+PASS 35: combo start 1x
+PASS 36: combo x2 1.25
+PASS 37: combo x3 1.5
+PASS 38: combo x4 1.75
+PASS 39: combo x5+ capped 2x
+PASS 40: combo timer pauses
+PASS 41: combo timeout resets
+PASS 42: post timeout returns to 1x
+PASS 43: game over resets combo
+PASS 44: real collision mouse -> hamster (score=4, count=1)
+PASS 45: real collision hamster -> rabbit (score=8, count=1)
+PASS 46: real collision rabbit -> cat (score=12, count=1)
+PASS 47: real collision cat -> dog (score=20, count=1)
+PASS 48: real collision dog -> fox (score=32, count=1)
+PASS 49: real collision fox -> raccoon (score=48, count=1)
+PASS 50: real collision raccoon -> koala (score=70, count=1)
+PASS 51: real collision koala -> panda (score=100, count=1)
+PASS 52: real collision panda -> bear (score=150, count=1)
+PASS 53: real collision bear -> lion (score=220, count=1)
+PASS 54: real collision lion -> elephant (score=500, count=1)
+PASS 55: real collision elephant -> gold (score=1000, count=0)
+PASS 56: golden duplicate protected; play continues
+PASS 57: gold pair reservation
+PASS 58: duplicate gold callback rejected
+PASS 59: custom gold resource awarded once
+PASS 60: new scene resets combo score guide
+PASS 61: guide records highest created animal
+Day3 checks: 61; failures: 0
+exit=0
+===== natural collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Natural collision: bodies=1 score=4 merges=1 result=PASS
+exit=0
+===== input recovery =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: touch quick tap accepted at clear x after blocked cooldown
+PASS: touch creates exactly one drop
+PASS: mouse quick tap accepted at clear x after blocked cooldown
+PASS: mouse creates exactly one drop
+Input recovery failures: 0
+exit=0
+===== multitouch =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: second finger cannot drop or steal the active touch
+PASS: first finger release queues one drop
+PASS: release beyond right edge is clamped
+PASS: multi-touch sequence creates exactly one body
+Multi-touch failures: 0
+exit=0
+===== restart =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: scene restart clears bodies and score, resumes tree
+exit=0
+===== contact chain =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: actual contact chain mouse->hamster->rabbit; bodies=1 score=12 merges=2 pending=0
+exit=0
+===== wall matrix =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.911 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.964 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=64 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.00 max_px=0.360 overlap_frames=158 max_consecutive=158 fully_escaped=false stuck=false final_depth=0.300
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.50 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=14.4 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.288 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.090 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=2.293 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.400 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.264 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.294 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+FLOOR level=1 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=1 speed=700 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false
+FLOOR level=5 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=5 speed=700 max_px=9.958 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+FLOOR level=12 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=12 speed=700 max_px=5.283 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+NATURAL_DROP level=1 ticks=60 max_px=0.360 frames=165 max_consecutive=165 max_speed=1138.00 full_escape=false final_depth=0.250
+NATURAL_DROP level=1 ticks=120 max_px=4.190 frames=305 max_consecutive=303 max_speed=1144.77 full_escape=false final_depth=0.098
+NATURAL_DROP level=1 ticks=240 max_px=1.657 frames=608 max_consecutive=606 max_speed=1144.54 full_escape=false final_depth=0.089
+NATURAL_DROP level=4 ticks=60 max_px=16.678 frames=154 max_consecutive=152 max_speed=1138.00 full_escape=false final_depth=0.253
+NATURAL_DROP level=4 ticks=120 max_px=2.171 frames=306 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.025
+NATURAL_DROP level=4 ticks=240 max_px=4.395 frames=612 max_consecutive=610 max_speed=1133.71 full_escape=false final_depth=0.150
+NATURAL_DROP level=5 ticks=60 max_px=4.712 frames=153 max_consecutive=152 max_speed=1123.53 full_escape=false final_depth=0.300
+NATURAL_DROP level=5 ticks=120 max_px=9.171 frames=307 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.285
+NATURAL_DROP level=5 ticks=240 max_px=1.963 frames=614 max_consecutive=612 max_speed=1126.48 full_escape=false final_depth=0.103
+NATURAL_DROP level=12 ticks=60 max_px=14.259 frames=160 max_consecutive=158 max_speed=1065.45 full_escape=false final_depth=0.209
+NATURAL_DROP level=12 ticks=120 max_px=0.695 frames=317 max_consecutive=316 max_speed=1057.75 full_escape=false final_depth=0.244
+NATURAL_DROP level=12 ticks=240 max_px=2.787 frames=635 max_consecutive=633 max_speed=1061.17 full_escape=false final_depth=0.246
+Wall matrix cases=19 full_escape_or_stuck=0
+exit=0
+===== bot sessions =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak
+BOT_WORST seed=30000 depth=9.190 level=2 x=167.992 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30000,random,75,52,8,1146,25,time_cap,90.00,0,9.190,10625,8994
+BOT_WORST seed=30001 depth=9.171 level=5 x=416.250 y=1061.171 r=42.000 vel=(0.00,1130.33)
+BOT_CSV 30001,same_target,75,56,8,1484,24,time_cap,90.00,0,9.171,10626,4664
+BOT_WORST seed=30002 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30002,lowest_stack,75,39,7,872,22,time_cap,90.00,0,9.190,10626,10478
+BOT_WORST seed=30003 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30003,merge_priority,75,60,7,976,21,time_cap,90.00,0,9.190,10625,8048
+BOT_CSV 30004,random,75,41,7,889,14,time_cap,90.00,0,5.651,10626,8681
+BOT_CSV 30005,same_target,75,59,8,1171,22,time_cap,90.00,0,9.190,10626,6082
+BOT_CSV 30006,lowest_stack,75,36,6,596,13,time_cap,90.00,0,9.190,10625,10188
+BOT_CSV 30007,merge_priority,75,55,7,1009,20,time_cap,90.00,0,9.171,10626,5356
+BOT_CSV 30008,random,75,44,7,815,17,time_cap,90.00,0,9.190,10625,10048
+BOT_CSV 30009,same_target,75,64,8,1378,25,time_cap,90.00,0,9.190,10626,5449
+BOT_CSV 30010,lowest_stack,75,36,6,461,15,time_cap,90.00,0,9.190,10625,8600
+BOT_CSV 30011,merge_priority,75,57,7,1044,22,time_cap,90.00,0,9.190,10626,5683
+BOT_CSV 30012,random,75,49,8,1312,23,time_cap,90.00,0,9.171,10626,9636
+BOT_CSV 30013,same_target,75,53,8,1066,21,time_cap,90.00,0,9.190,10625,5599
+BOT_CSV 30014,lowest_stack,75,37,7,748,14,time_cap,90.00,0,9.190,10625,9778
+BOT_CSV 30015,merge_priority,75,49,7,952,20,time_cap,90.00,0,9.190,10625,6717
+BOT_CSV 30016,random,75,40,7,780,16,time_cap,90.00,0,9.190,10625,9224
+BOT_CSV 30017,same_target,75,52,7,973,15,time_cap,90.00,0,9.190,10598,6767
+BOT_CSV 30018,lowest_stack,75,43,7,910,17,time_cap,90.00,0,9.171,10626,7852
+BOT_CSV 30019,merge_priority,75,57,8,1095,23,time_cap,90.00,0,9.190,10626,4840
+BOT_CSV 30020,random,75,39,7,905,17,time_cap,90.00,0,9.171,10626,10333
+BOT_CSV 30021,same_target,75,60,8,1551,20,time_cap,90.00,0,4.190,10625,7116
+BOT_CSV 30022,lowest_stack,75,38,6,493,13,time_cap,90.00,0,9.190,10627,9040
+BOT_CSV 30023,merge_priority,75,53,8,1068,19,time_cap,90.00,0,9.190,10627,5444
+BOT_CSV 30024,random,75,43,7,631,17,time_cap,90.00,0,9.190,10625,10623
+BOT_CSV 30025,same_target,75,62,8,1317,18,time_cap,90.00,0,9.190,10626,5060
+BOT_CSV 30026,lowest_stack,75,46,7,959,24,time_cap,90.00,0,9.190,10626,10333
+BOT_CSV 30027,merge_priority,75,56,8,1078,21,time_cap,90.00,0,9.190,10626,4819
+BOT_CSV 30028,random,75,48,7,940,21,time_cap,90.00,0,9.190,10627,8331
+BOT_CSV 30029,same_target,75,59,8,1171,25,time_cap,90.00,0,9.190,10626,4840
+BOT_CSV 30030,lowest_stack,75,46,7,990,24,time_cap,90.00,0,9.190,10625,9758
+BOT_CSV 30031,merge_priority,75,58,7,1349,24,time_cap,90.00,0,5.651,10606,9763
+BOT_CSV 30032,random,75,52,8,1029,22,time_cap,90.00,0,9.190,10611,6569
+BOT_CSV 30033,same_target,75,57,7,997,20,time_cap,90.00,0,9.190,10625,4858
+BOT_CSV 30034,lowest_stack,75,48,7,890,22,time_cap,90.00,0,9.171,10627,6854
+BOT_CSV 30035,merge_priority,75,61,7,1123,21,time_cap,90.00,0,9.190,10625,3115
+BOT_CSV 30036,random,75,55,7,1123,28,time_cap,90.00,0,9.190,10627,9420
+BOT_CSV 30037,same_target,75,54,6,747,16,time_cap,90.00,0,9.190,10626,7463
+BOT_CSV 30038,lowest_stack,75,47,7,985,26,time_cap,90.00,0,9.190,10627,9612
+BOT_CSV 30039,merge_priority,75,57,8,1029,20,time_cap,90.00,0,9.171,10626,7119
+BOT_CSV 30040,random,75,51,7,843,23,time_cap,90.00,0,9.190,10626,9499
+BOT_CSV 30041,same_target,75,60,7,1200,22,time_cap,90.00,0,5.651,10625,8180
+BOT_CSV 30042,lowest_stack,75,47,7,915,21,time_cap,90.00,0,9.190,10625,6574
+BOT_CSV 30043,merge_priority,75,60,8,1444,24,time_cap,90.00,0,9.171,10596,8752
+BOT_CSV 30044,random,75,40,7,938,15,time_cap,90.00,0,9.190,10625,9187
+BOT_CSV 30045,same_target,75,61,8,1628,29,time_cap,90.00,0,9.190,10627,7845
+BOT_CSV 30046,lowest_stack,75,46,7,905,24,time_cap,90.00,0,9.190,10625,9617
+BOT_CSV 30047,merge_priority,75,56,7,942,16,time_cap,90.00,0,9.190,10626,4024
+BOT_CSV 30048,random,75,43,7,1020,20,time_cap,90.00,0,9.190,10626,9744
+BOT_CSV 30049,same_target,75,60,7,1227,24,time_cap,90.00,0,9.190,10626,6975
+BOT_CSV 30050,lowest_stack,75,53,8,1333,27,time_cap,90.00,0,9.190,10626,10478
+BOT_CSV 30051,merge_priority,75,63,8,1192,22,time_cap,90.00,0,9.190,10606,4094
+BOT_CSV 30052,random,75,49,8,1231,29,time_cap,90.00,0,9.190,10626,4784
+BOT_CSV 30053,same_target,75,56,7,1058,28,time_cap,90.00,0,9.190,10625,7157
+BOT_CSV 30054,lowest_stack,75,43,7,857,21,time_cap,90.00,0,9.190,10626,9900
+BOT_CSV 30055,merge_priority,75,56,7,840,19,time_cap,90.00,0,9.190,10625,4699
+BOT_CSV 30056,random,75,47,7,732,22,time_cap,90.00,0,9.171,10626,8216
+BOT_CSV 30057,same_target,75,55,7,1016,17,time_cap,90.00,0,5.651,10626,10055
+BOT_CSV 30058,lowest_stack,75,42,7,768,19,time_cap,90.00,0,9.190,10626,7474
+BOT_CSV 30059,merge_priority,75,57,8,1282,21,time_cap,90.00,0,9.171,10606,7587
+BOT_CSV 30060,random,75,51,8,1124,24,time_cap,90.00,0,9.190,10626,5955
+BOT_CSV 30061,same_target,75,59,8,1099,16,time_cap,90.00,0,9.190,10604,6020
+BOT_CSV 30062,lowest_stack,75,51,8,1174,24,time_cap,90.00,0,9.190,10625,8168
+BOT_CSV 30063,merge_priority,75,56,7,1112,22,time_cap,90.00,0,9.190,10625,7689
+BOT_CSV 30064,random,75,43,7,722,21,time_cap,90.00,0,9.190,10626,9290
+BOT_CSV 30065,same_target,75,61,8,1374,25,time_cap,90.00,0,9.190,10625,8894
+BOT_CSV 30066,lowest_stack,75,47,8,995,24,time_cap,90.00,0,9.190,10625,9188
+BOT_CSV 30067,merge_priority,75,56,7,878,22,time_cap,90.00,0,9.190,10625,4481
+BOT_CSV 30068,random,75,39,7,739,16,time_cap,90.00,0,2.807,10626,10219
+BOT_CSV 30069,same_target,75,60,8,1417,27,time_cap,90.00,0,9.190,10625,3912
+BOT_CSV 30070,lowest_stack,75,42,8,1138,22,time_cap,90.00,0,9.190,10626,10188
+BOT_CSV 30071,merge_priority,75,59,8,1226,22,time_cap,90.00,0,9.190,10625,4767
+BOT_CSV 30072,random,75,56,8,1390,30,time_cap,90.00,0,5.651,10626,8567
+BOT_CSV 30073,same_target,75,57,7,1118,17,time_cap,90.00,0,9.171,10606,6470
+BOT_CSV 30074,lowest_stack,75,54,7,1220,35,time_cap,90.00,0,9.190,10625,10623
+BOT_CSV 30075,merge_priority,75,57,7,1092,23,time_cap,90.00,0,9.190,10625,8743
+BOT_CSV 30076,random,75,40,7,916,15,time_cap,90.00,0,9.171,10626,8855
+BOT_CSV 30077,same_target,75,52,8,1018,11,time_cap,90.00,0,9.190,10625,8038
+BOT_CSV 30078,lowest_stack,75,39,8,792,16,time_cap,90.00,0,9.190,10625,10188
+BOT_CSV 30079,merge_priority,75,57,7,1176,22,time_cap,90.00,0,9.190,10625,4338
+BOT_CSV 30080,random,75,44,7,964,23,time_cap,90.00,0,9.190,10625,8757
+BOT_CSV 30081,same_target,75,58,7,1103,22,time_cap,90.00,0,9.190,10625,7028
+BOT_CSV 30082,lowest_stack,75,38,7,616,14,time_cap,90.00,0,9.190,10625,9054
+BOT_CSV 30083,merge_priority,75,61,7,1123,22,time_cap,90.00,0,9.190,10626,8516
+BOT_CSV 30084,random,75,43,7,927,19,time_cap,90.00,0,9.171,10626,8181
+BOT_CSV 30085,same_target,75,62,8,1398,28,time_cap,90.00,0,9.190,10625,5377
+BOT_CSV 30086,lowest_stack,75,37,6,612,15,time_cap,90.00,0,9.190,10626,9757
+BOT_CSV 30087,merge_priority,75,65,8,1509,23,time_cap,90.00,0,9.190,10625,4520
+BOT_CSV 30088,random,75,32,7,552,14,time_cap,90.00,0,9.190,10626,9614
+BOT_CSV 30089,same_target,75,55,7,1119,18,time_cap,90.00,0,9.190,10606,5712
+BOT_CSV 30090,lowest_stack,75,50,7,954,26,time_cap,90.00,0,9.190,10625,10333
+BOT_CSV 30091,merge_priority,75,59,8,1199,19,time_cap,90.00,0,9.190,10626,9713
+BOT_CSV 30092,random,75,44,7,762,19,time_cap,90.00,0,5.651,10625,8415
+BOT_CSV 30093,same_target,75,58,8,1204,22,time_cap,90.00,0,9.190,10625,6502
+BOT_CSV 30094,lowest_stack,75,45,6,684,22,time_cap,90.00,0,9.190,10626,9900
+BOT_CSV 30095,merge_priority,75,56,8,1184,18,time_cap,90.00,0,9.190,10625,4501
+BOT_CSV 30096,random,75,50,7,1035,27,time_cap,90.00,0,9.190,10625,7375
+BOT_CSV 30097,same_target,75,59,8,1207,22,time_cap,90.00,0,9.190,10626,6843
+BOT_CSV 30098,lowest_stack,75,51,8,1273,19,time_cap,90.00,0,9.190,10625,7654
+BOT_CSV 30099,merge_priority,75,57,8,1251,24,time_cap,90.00,0,9.190,10626,6390
+BOT_COMPLETE sessions=100
+exit=0
+===== wall collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+INFO: CCD mode=1 ticks=60 left_gap=-0.664 right_gap=-6.636 floor_gap=-0.506 landed=true full_escape=false center_in_wall=false
+PASS: no full escape or trapped center; overlap measurement is not a zero-penetration pass
+exit=0
+===== real gameplay =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: pause stops actual rigid body movement
+PASS: resume continues actual rigid body movement
+Real overflow: bodies=48 supported=48 peak_time=2.008 game_state=GAME_OVER
+PASS: stable physical pile triggers game over
+PASS: real game over blocks spawn
+Real gameplay failures: 0
+exit=0
+===== 100 drops =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+100-drop fixture: requests=100 spawned=100 result=PASS
+exit=0
+===== stress =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+count=100 actual=100 fps=145.0 physics_seconds=0.000529 static_bytes=34043850 escaped=0 merge_count=0 pending=0
+count=150 actual=150 fps=145.0 physics_seconds=0.000653 static_bytes=35503034 escaped=0 merge_count=0 pending=0
+count=200 actual=200 fps=145.0 physics_seconds=0.000848 static_bytes=37034738 escaped=0 merge_count=0 pending=0
+exit=0
+

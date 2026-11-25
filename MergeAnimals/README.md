@@ -1,26 +1,14 @@
-# Merge Animals: Wild Garden
+# Merge Animals: Wild Garden — V0.3.0-dev
 
-**V0.2.1-dev — headless sınaqdan keçən mənbə prototipi, kommersiya buraxılışı deyil.** Godot 4.7.2 rəsmi Linux GitHub Actions runner-də işlədilib; real cihaz, Windows və vizual render yoxlanmayıb. Placeholder qrafika hələ mövcuddur.
+Godot 4.7.2, Compatibility renderer, 120 Hz fizika, redaktə edilə bilən 2D mənbə layihəsi. V0.2.1 üzərindən inkişaf etdirilib. Başsız Linux Actions testləri `QA_REPORT.md`-dədir. **DEV:** real render, mobil touch və Windows test edilməyib; qrafikalar müvəqqətidir.
 
-## Lokal başlatma
-1. Godot **4.7.2.stable** quraşdırın; Project Manager-də bu qovluqdakı `project.godot` faylını import edin.
-2. Editor importu tamamladıqdan sonra F5 basın. Sahədə basın/sürüşdürün və buraxın. Məqsəd eyni növləri böyütməkdir. Hazırkı resource ardıcıllığı Mouse → Hamster → Rabbit → Cat → Dog; Dog müvəqqəti maksimumdur və birləşmir. İlkin təsadüfi spawn əvvəlki üç növ arasında bərabərdir.
-3. Ekrandakı PAUSE/RESUME və RESTART idarəetmələrini yoxlayın. Cari və növbəti heyvanın preview-si, xal və rekord göstəriciləri mövcuddur. Best `user://wild_garden.cfg`-də saxlanır; bu tam save sistemi deyil.
-4. Inspector: `Game.tscn` root-da sərhədlər, spawn hündürlüyü, cooldown, seed və resurslar; `DangerMonitor`-da grace period; `resources/animals/*.tres`-də fizika və görünüş məlumatları dəyişir. Divar shape-ləri və ayrıca bound dəyərləri uyğun qalmalıdır.
+## Açmaq və oynamaq
+Windows: Godot 4.7.2 ayrıca quraşdırın, `RUN_GAME.bat`-ı açın. Testlər üçün `RUN_TESTS.bat` (Windows-da yoxlanmayıb). Başqa sistemlərdə Project Manager-də `project.godot` import edin və F5. Mouse və ya touch ilə yeri seçib buraxın; UI PAUSE/RESTART düymələri var. `user://wild_garden.cfg` best score üçündür.
 
-## Debug və test
-`Game.tscn` root Inspector-da **Debug Enabled** seçin və debug/editor build-də işə salın; paneldə spawn leveli, pair, chain, fill, overflow və təxmini collision outline var. Panel release build-də `OS.is_debug_build()` şərti ilə gizlənir. Debug fixture-larının davranışı normal gameplay balansı deyil.
+## Redaktə
+`resources/animals/*.tres`: ID, ad, translation key, level, radius, mass, friction, bounce, damping, score, spawn weight, sprite və səslər, sonrakı ID. İlk beş səviyyə çəkili spawn üçün uyğundur, digər səviyyələr təsadüfi düşmür. `Game.tscn` root-da 12 resource, cooldown, combo pəncərəsi və golden config resursu dəyişdirilə bilər. Golden merge iki filin yerini boşaldır; bonus combo ilə vurulmur. Combo 1 s, x2=1.25, x3=1.5, x4=1.75, x5+=2; yeni oyunda sıfırlanır.
 
-Lokal başsız testlər (Linux/macOS terminalında Godot icra faylı `godot` adındadırsa):
-```sh
-python3 tests/unit/check_project.py
-python3 tests/unit/test_static_contract.py
-godot --headless --path . --editor --quit
-godot --headless --path . --script res://tests/integration/day2_suite.gd
-godot --headless --path . --script res://tests/physics/natural_collision.gd
-godot --headless --path . --script res://tests/physics/drop_100.gd
-godot --headless --path . --script res://tests/physics/stress.gd
-```
-Windows-da `RUN_GAME.bat` və `RUN_TESTS.bat` fayllarından istifadə edin; Godot ayrıca quraşdırılmalıdır. Exe-ni layihə qovluğuna qoyun, PATH-ə əlavə edin və ya soruşulduqda tam yolunu daxil edin. Windows skriptləri həmin platformada hələ sınanmayıb; test çıxışları `test-results` qovluğundadır. Editor-un Output panelindəki bütün xətaları və test çıxışlarını saxlayın; xətasız parse real touch, rendering və fiziki keyfiyyət sübutu deyil. 100-drop fixture hər düşürmədən sonra öz obyektini silir, ayrıca 100/150/200-body stress fixture sabit say üçün merge və danger-ı söndürür; bunlar normal oyun testi deyil. Debugger → **Visible Collision Shapes** ilə real shape-ləri vizual yoxlayın; debug panelin OUTLINES düyməsi yalnız təxmini render konturudur.
+Alt Evolution Guide rəngli dairə və adın ilk üç hərfi ilə 12 səviyyəni göstərir; yalnız cari sessiyanın ən yüksək səviyyəsini vurğulayır. Kiçik ekranda oxunaqlılıq **vizual yoxlanmayıb**. Konsept şəkillər `concepts/`-da, oyun sprite-larına qoşulmayıb; 512×512 alpha törəmələri avtomatik hazırlanıb, lakin kənarlar və kommersiya hüquqları yekun təsdiqlənməyib (`ASSET_LICENSES.md`).
 
-Manual yoxlayın: təbii fizika kontaktı ilə merge, 3/4 eyni cisim, sıx zəncir, divar/döşəmə yaxınlığı, game-over grace və yanlış sıçrayış, pause zamanı fizikanın dayanması, restart, mouse/touch/emulated mouse, iki barmaq, ləğv, UI basması, mobil portret və landşaft. 18 V0.1 screenshot ayrıca audit edilib, orijinalları məxfilik üçün repoya daxil edilməyib. Ətraflı status: `QA_REPORT.md`, `SCREENSHOT_AUDIT.md`, `KNOWN_ISSUES.md`, `PHYSICS_REPORT.md`.
+## Test və məhdudiyyət
+Godot import və skriptləri `.github/workflows/godot-tests.yml` və `RUN_TESTS.bat` göstərir. `tests/logs/` əvvəlki və yeni faktiki loglar, 100 bot sessiyasının CSV-si; hesabatlar `BALANCE_RESEARCH.md`, `BALANCE_REPORT.md`, `PHYSICS_REPORT.md`, `QA_REPORT.md`, `ROOT_CAUSE_REPORT.md`, `KNOWN_ISSUES.md`-dədir. Botlar insan testi deyil; headless stress mobil performans deyil. Web export bu mərhələdə edilməyib.
