@@ -81,6 +81,37 @@ func floor_case(level: int, speed: float) -> bool:
 	await process_frame
 	return not escaped and not stuck
 
+func natural_drop_case(level: int, ticks: int) -> void:
+	Engine.physics_ticks_per_second = ticks
+	var game = scene.instantiate()
+	game.persist_best = false
+	root.add_child(game)
+	await process_frame
+	game.danger_monitor.set_physics_process(false)
+	var data = game.animals[level - 1]
+	var body = game.create_animal(data, Vector2(360, game.spawn_height))
+	var peak_depth := 0.0
+	var peak_speed := 0.0
+	var frames := 0
+	var streak := 0
+	var max_streak := 0
+	var escape := false
+	for i in range(ticks * 4):
+		await physics_frame
+		var depth: float = maxf(0.0, body.position.y + data.radius - game.floor_height)
+		peak_depth = maxf(peak_depth, depth)
+		peak_speed = maxf(peak_speed, body.linear_velocity.length())
+		if depth > 0.01:
+			frames += 1
+			streak += 1
+			max_streak = maxi(max_streak, streak)
+		else:
+			streak = 0
+		escape = escape or body.position.y - data.radius > game.floor_height + 32.0
+	print("NATURAL_DROP level=%d ticks=%d max_px=%.3f frames=%d max_consecutive=%d max_speed=%.2f full_escape=%s final_depth=%.3f" % [level, ticks, peak_depth, frames, max_streak, peak_speed, escape, maxf(0.0, body.position.y + data.radius - game.floor_height)])
+	game.queue_free()
+	await process_frame
+
 func run() -> void:
 	var cases := [
 		[1,0,60,32,120,0.1,1.0], [1,1,60,32,120,0.1,1.0], [1,2,60,32,120,0.1,1.0],
@@ -99,6 +130,9 @@ func run() -> void:
 		for speed in [120.0, 700.0]:
 			if not await floor_case(level, speed):
 				failures += 1
+	for level in [1, 4, 5, 12]:
+		for ticks in [60, 120, 240]:
+			await natural_drop_case(level, ticks)
 	Engine.physics_ticks_per_second = 60
 	print("Wall matrix cases=%d full_escape_or_stuck=%d" % [cases.size(), failures])
 	quit(1 if failures else 0)
