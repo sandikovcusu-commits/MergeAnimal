@@ -62,7 +62,7 @@ jobs:
           run_test '100 drops' --script res://tests/physics/drop_100.gd
           run_test 'stress' --script res://tests/physics/stress.gd
           cat /tmp/godot-test-log.txt
-          if grep -E 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL([ :]|$)' /tmp/godot-test-log.txt; then status=1; fi
+          if grep -E 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL([ :]|$)' /tmp/godot-test-log.txt; then status=1; fi
           echo "$status" > /tmp/godot-test-status
           exit "$status"
       - name: Publish diagnostic check

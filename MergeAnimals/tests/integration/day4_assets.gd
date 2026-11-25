@@ -1,5 +1,5 @@
 extends SceneTree
-# DEV tests: 10 generated sprites exist; Bear/Lion and expression art remain missing.
+# DEV integration checks; release acceptance is tested separately.
 var scene := preload("res://scenes/game/Game.tscn")
 var checks := 0
 var failures := 0
@@ -16,7 +16,7 @@ func run() -> void:
 	game.test_seed = 42
 	root.add_child(game)
 	await process_frame
-	var present := [&"mouse", &"hamster", &"rabbit", &"cat", &"dog", &"fox", &"raccoon", &"koala", &"panda", &"elephant"]
+	var present := [&"mouse", &"hamster", &"rabbit", &"cat", &"dog", &"fox", &"raccoon", &"koala", &"panda", &"bear", &"lion", &"elephant"]
 	for d in game.animals:
 		var available: bool = d.id in present
 		check((d.sprite != null) == available, "%s expected present/missing status" % d.id)
@@ -38,5 +38,5 @@ func run() -> void:
 		game.visual_theme = theme
 		game.queue_redraw()
 		check(game.visual_theme == theme and game.THEME_BACKGROUNDS[theme] != null, "theme %d can be selected" % theme)
-	print("Day4 DEV asset checks: %d; failures: %d; missing=bear,lion; happy/surprise=not supplied" % [checks, failures])
+	print("Day4 DEV asset checks: %d; failures: %d; normal sprites=12; happy/surprise=not supplied" % [checks, failures])
 	quit(1 if failures else 0)

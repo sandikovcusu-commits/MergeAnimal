@@ -208,11 +208,49 @@
   },
   {
     "id": "bear",
-    "status": "missing"
+    "path": "assets/animals/bear/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      13,
+      6,
+      500,
+      506
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 6.72,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
   },
   {
     "id": "lion",
-    "status": "missing"
+    "path": "assets/animals/lion/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      24,
+      6,
+      488,
+      506
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 0.25,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
   },
   {
     "id": "elephant",

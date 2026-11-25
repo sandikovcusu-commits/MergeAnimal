@@ -40,3 +40,21 @@ for mode in ['white','black','collision']:
         draw.text((x+10,y+cell+4), name.upper() + (' (missing)' if not path.exists() else ''), fill=('#fff' if mode=='black' else '#40342f'),font=font)
     sheet.save(out / ('contact_'+mode+'_WIP.png'))
 print(json.dumps(results, indent=2))
+import re
+ov = out/'collision_overlays'; ov.mkdir(exist_ok=True)
+radii = []
+for name in NAMES:
+    im=Image.open(ROOT/'assets'/'animals'/name/'normal.png').convert('RGBA')
+    canvas=Image.new('RGBA',(512,512),'#f4ead6');canvas.alpha_composite(im)
+    d=ImageDraw.Draw(canvas);d.ellipse((0,0,511,511),outline='#00a9dd',width=3)
+    canvas.convert('RGB').save(ov/(name+'.png'))
+    text=(ROOT/'resources'/'animals'/(name+'.tres')).read_text()
+    radii.append(float(re.search(r'^radius = ([\d.]+)',text,re.M).group(1)))
+# pixels use the 720-wide design-coordinate radius, not a normalized/illustrative size
+sheet=Image.new('RGB',(1100,650),'#f4ead6'); d=ImageDraw.Draw(sheet)
+for i,(name,r) in enumerate(zip(NAMES,radii)):
+    x=135+(i%4)*270; y=90+(i//4)*200
+    im=Image.open(ROOT/'assets'/'animals'/name/'normal.png').convert('RGBA').resize((round(r*2),round(r*2)),Image.Resampling.LANCZOS)
+    sheet.paste(im,(round(x-r),round(y-r)),im)
+    d.text((x-45,y+max(50,r)+4),f'{name} r={r:g}',fill='#30251f',font=font)
+sheet.save(out/'contact_game_scale_WIP.png')

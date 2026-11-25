@@ -15,7 +15,7 @@ jobs:
       - name: Install Xvfb and official Godot
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool
           wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
           unzip -q /tmp/godot.zip -d /tmp/godot
       - name: Import and render
@@ -27,7 +27,7 @@ jobs:
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
           "$GODOT" --headless --path MergeAnimals --editor --quit
           xvfb-run -a -s '-screen 0 1920x1920x24' "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --script res://tests/integration/render_capture.gd 2>&1 | tee /tmp/render-log.txt
-          if grep -E 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/render-log.txt; then exit 1; fi
+          if grep -E 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL' /tmp/render-log.txt; then exit 1; fi
           ls -l "$CAPTURE_DIR"
       - name: Upload renders
         if: always()
