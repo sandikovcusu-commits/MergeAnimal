@@ -2,8 +2,8 @@ extends Node2D
 
 # Shared by bodies and previews. Experimental art is not cleared for commercial use.
 static var warned_missing: Dictionary = {}
-enum Expression { NORMAL, HAPPY, SURPRISE }
-var expression: Expression = Expression.NORMAL:
+enum AnimalExpression { NORMAL, HAPPY, SURPRISE }
+var expression: AnimalExpression = AnimalExpression.NORMAL:
 	set(value):
 		expression = value
 		queue_redraw()
@@ -17,9 +17,9 @@ func _draw() -> void:
 		return
 	var r := data.radius
 	var texture: Texture2D = data.sprite
-	if expression == Expression.HAPPY and data.happy_sprite:
+	if expression == AnimalExpression.HAPPY and data.happy_sprite:
 		texture = data.happy_sprite
-	elif expression == Expression.SURPRISE and data.surprise_sprite:
+	elif expression == AnimalExpression.SURPRISE and data.surprise_sprite:
 		texture = data.surprise_sprite
 	if texture:
 		draw_texture_rect(texture, Rect2(-r, -r, r * 2.0, r * 2.0), false)
