@@ -11,6 +11,9 @@ func frames(count: int = 3) -> void:
 	for i in range(count): await process_frame
 func run() -> void:
 	var old_settings := SettingsStore.load_values()
+	var tutorial_path := "user://wild_garden_tutorial.cfg"
+	var tutorial_existed := FileAccess.file_exists(tutorial_path)
+	var tutorial_backup := FileAccess.get_file_as_bytes(tutorial_path) if tutorial_existed else PackedByteArray()
 	var startup := load("res://scenes/ui/MainMenu.tscn") as PackedScene
 	var menu = startup.instantiate()
 	root.add_child(menu); current_scene = menu
@@ -31,10 +34,14 @@ func run() -> void:
 	await frames()
 	check(not is_instance_valid(menu.settings_panel), "settings back closes modal")
 	SettingsStore.save_values(old_settings); SettingsStore.apply(old_settings)
+	set_meta("tutorial_requested", true)
 	menu.play_button.pressed.emit()
 	await frames(5)
 	var game = current_scene
 	check(game != menu and game.has_method("_toggle_pause") and game.is_playing(), "Play transitions to live game")
+	check(game.tutorial_stage == 0 and game.current_data.id == game.next_data.id, "tutorial starts with matching pair")
+	game.get_node("HUD/Tutorial/Skip").pressed.emit(); await frames()
+	check(game.tutorial_stage == -1 and FileAccess.file_exists(tutorial_path), "tutorial skip persists completion")
 	game.pause_button.pressed.emit()
 	await frames()
 	check(paused and game.game_state == game.GameState.PAUSED and game.overlay.visible, "pause freezes game and shows overlay")
@@ -47,6 +54,12 @@ func run() -> void:
 	game.resume_button.pressed.emit()
 	await frames()
 	check(not paused and game.is_playing() and not game.overlay.visible, "resume restores gameplay")
+	game.pause_button.pressed.emit(); await frames()
+	game.get_node("HUD/Overlay/SettingsButton").pressed.emit(); await frames()
+	game.settings_panel.find_child("ReplayTutorial", true, false).pressed.emit(); await frames(5)
+	game = current_scene
+	check(not paused and game.tutorial_stage == 0 and game.current_data.id == game.next_data.id, "replay tutorial restarts with matching pair")
+	game.get_node("HUD/Tutorial/Skip").pressed.emit(); await frames()
 	game._on_game_over()
 	await frames()
 	check(paused and game.game_state == game.GameState.GAME_OVER and not game.resume_button.visible, "game over freezes and cannot resume")
@@ -58,5 +71,9 @@ func run() -> void:
 	fresh.get_node("HUD/Overlay/MainMenuButton").pressed.emit(); await frames(5)
 	check(not paused and current_scene.has_method("_play"), "pause to main menu unpauses tree")
 	SettingsStore.save_values(old_settings); SettingsStore.apply(old_settings)
+	if tutorial_existed:
+		var file := FileAccess.open(tutorial_path, FileAccess.WRITE); file.store_buffer(tutorial_backup); file.close()
+	else:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(tutorial_path))
 	print("Day5 UI integration: checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures else 0)

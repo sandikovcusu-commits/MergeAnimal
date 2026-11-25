@@ -46,11 +46,18 @@ func _refresh_best() -> void:
 	best_label.text = "%s  %d" % [tr("BEST_SCORE"), best]
 func _play() -> void:
 	if is_instance_valid(settings_panel): return
+	var config := ConfigFile.new()
+	if config.load("user://wild_garden_tutorial.cfg") != OK or not bool(config.get_value("tutorial", "completed", false)):
+		get_tree().set_meta("tutorial_requested", true)
 	get_tree().change_scene_to_file(GAME)
 func _settings() -> void:
 	if is_instance_valid(settings_panel): return
 	settings_panel = SETTINGS.instantiate()
 	add_child(settings_panel)
+	settings_panel.replay_requested.connect(func():
+		get_tree().set_meta("tutorial_requested", true)
+		get_tree().change_scene_to_file(GAME)
+	)
 	settings_panel.settings_changed.connect(func(_values: Dictionary): _refresh_best())
 	settings_panel.closed.connect(func(): settings_panel = null; settings_button.grab_focus())
 func _draw() -> void:

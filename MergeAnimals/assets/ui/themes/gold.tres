@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3]
+[gd_resource type="Theme" load_steps=6 format=3]
 
 [sub_resource type="StyleBoxFlat" id="normal"]
 bg_color = Color(0.90196, 0.74118, 0.36078, 1)
@@ -64,7 +64,20 @@ content_margin_right = 10.0
 content_margin_top = 5.0
 content_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxFlat" id="focus"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.85098, 0.65098, 0.21961, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [resource]
+Button/styles/focus = SubResource("focus")
 Button/styles/normal = SubResource("normal")
 Button/styles/hover = SubResource("hover")
 Button/styles/pressed = SubResource("pressed")

@@ -61,6 +61,9 @@ var golden_tween: Tween
 var max_combo: int = 0
 var best_at_start: int = 0
 var settings_panel: Control
+var tutorial_stage: int = -1
+var tutorial_label: Label
+var tutorial_skip: Button
 const SETTINGS_SCENE := preload("res://scenes/ui/SettingsPanel.tscn")
 
 func _ready() -> void:
@@ -97,6 +100,11 @@ func _ready() -> void:
 	best_at_start = best_score
 	current_data = _pick_animal()
 	next_data = _pick_animal()
+	if bool(get_tree().get_meta("tutorial_requested", false)):
+		get_tree().remove_meta("tutorial_requested")
+		current_data = animals[0]
+		next_data = animals[0]
+		_begin_tutorial()
 	debug_panel.visible = debug_enabled and OS.is_debug_build()
 	if debug_panel.visible:
 		$HUD/DebugPanel/Pair.pressed.connect(_debug_pair)
@@ -194,8 +202,10 @@ func _unhandled_input(event: InputEvent) -> void:
 					drop_animal()
 	elif event is InputEventScreenDrag and event.index == active_touch:
 		_set_aim(event.position.x)
+		if tutorial_stage == 0: _tutorial_set_stage(1)
 	elif event is InputEventMouseMotion and active_touch == -1 and (_can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0)):
 		_set_aim(event.position.x)
+		if mouse_down and tutorial_stage == 0: _tutorial_set_stage(1)
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and active_touch == -1:
 		if event.pressed and _can_begin_input() and _inside_input_area(event.position):
 			mouse_down = true
@@ -246,6 +256,8 @@ func _attempt_drop() -> void:
 	var dropped := current_data
 	create_animal(dropped, Vector2(aim_x, spawn_height))
 	spawn_count += 1
+	if tutorial_stage >= 0 and tutorial_stage < 3:
+		_tutorial_set_stage(2 if spawn_count == 1 else 3)
 	current_data = next_data
 	next_data = _pick_animal()
 	_set_aim(aim_x)
@@ -303,6 +315,7 @@ func _award_merge(base_score: int) -> void:
 
 func _on_merged(data: AnimalData, _point: Vector2) -> void:
 	_award_merge(data.merge_score)
+	if tutorial_stage == 3: _tutorial_set_stage(4)
 
 func _on_golden_merged(_point: Vector2) -> void:
 	# Golden award is exactly the configured bonus; it does not receive combo multiplication.
@@ -394,12 +407,39 @@ func _open_settings() -> void:
 		return
 	settings_panel = SETTINGS_SCENE.instantiate()
 	$HUD.add_child(settings_panel)
+	settings_panel.replay_requested.connect(func():
+		get_tree().set_meta("tutorial_requested", true)
+		get_tree().paused = false
+		get_tree().reload_current_scene()
+	)
 	settings_panel.settings_changed.connect(func(_values: Dictionary):
 		_refresh_ui_text()
 		overlay_title.text = tr("PAUSE")
 		_update_hud()
 	)
 	settings_panel.closed.connect(func(): settings_panel = null; $HUD/Overlay/SettingsButton.grab_focus())
+
+func _begin_tutorial() -> void:
+	var hint := Control.new(); hint.name = "Tutorial"; hint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$HUD.add_child(hint)
+	var panel := ColorRect.new(); panel.color = Color(0.12, 0.2, 0.15, 0.88); panel.position = Vector2(92, 245); panel.size = Vector2(536, 62); panel.mouse_filter = Control.MOUSE_FILTER_IGNORE; hint.add_child(panel)
+	tutorial_label = Label.new(); tutorial_label.position = Vector2(105, 253); tutorial_label.size = Vector2(400, 46); tutorial_label.add_theme_font_size_override("font_size", 19); tutorial_label.mouse_filter = Control.MOUSE_FILTER_IGNORE; hint.add_child(tutorial_label)
+	tutorial_skip = Button.new(); tutorial_skip.name = "Skip"; tutorial_skip.position = Vector2(512, 251); tutorial_skip.size = Vector2(108, 48); hint.add_child(tutorial_skip); tutorial_skip.pressed.connect(_finish_tutorial)
+	_tutorial_set_stage(0)
+
+func _tutorial_set_stage(stage: int) -> void:
+	tutorial_stage = stage
+	if is_instance_valid(tutorial_label):
+		var keys := ["TUTORIAL_MOVE", "TUTORIAL_DROP", "TUTORIAL_MATCH", "TUTORIAL_MERGE", "TUTORIAL_DANGER"]
+		tutorial_label.text = tr(keys[clampi(stage, 0, 4)])
+		tutorial_skip.text = tr("DONE" if stage == 4 else "SKIP")
+
+func _finish_tutorial() -> void:
+	tutorial_stage = -1
+	var config := ConfigFile.new(); config.set_value("tutorial", "completed", true)
+	if config.save("user://wild_garden_tutorial.cfg") != OK: push_warning("Tutorial state could not be saved")
+	var tutorial := $HUD.get_node_or_null("Tutorial")
+	if tutorial: tutorial.queue_free()
 
 func _main_menu() -> void:
 	get_tree().paused = false

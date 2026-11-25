@@ -33,6 +33,11 @@ jobs:
                 CAPTURE_THEME=$theme CAPTURE_SIZE=$size "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_capture.gd
               done
             done
+            for screen in menu pause settings gameover tutorial; do
+              for size in 360x640 720x1280 1366x768; do
+                CAPTURE_SCREEN=$screen CAPTURE_SIZE=$size "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_ui.gd
+              done
+            done
           ' 2>&1 | tee -a /tmp/render-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL' /tmp/render-log.txt; then exit 1; fi
           ls -l "$CAPTURE_DIR"

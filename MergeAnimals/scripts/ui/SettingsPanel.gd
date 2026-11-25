@@ -1,5 +1,6 @@
 extends Control
 signal closed
+signal replay_requested
 signal settings_changed(values: Dictionary)
 var values: Dictionary
 var sliders: Dictionary = {}
@@ -24,7 +25,7 @@ func _build() -> void:
 	add_child(shade)
 	var card := PanelContainer.new()
 	card.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	card.offset_left = -285; card.offset_right = 285; card.offset_top = -420; card.offset_bottom = 420
+	card.offset_left = -285; card.offset_right = 285; card.offset_top = -470; card.offset_bottom = 470
 	add_child(card)
 	var margin := MarginContainer.new()
 	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]: margin.add_theme_constant_override(side, 24)
@@ -47,6 +48,8 @@ func _build() -> void:
 	language_select = OptionButton.new(); language_select.name = "Language"; language_select.custom_minimum_size.y = 55
 	for option in ["English", "Azərbaycanca", "Türkçe", "Русский"]: language_select.add_item(option)
 	language_select.select(LOCALES.find(values.language)); column.add_child(language_select); language_select.item_selected.connect(_on_language)
+	var replay := Button.new(); replay.name = "ReplayTutorial"; replay.text = "REPLAY_TUTORIAL"; replay.custom_minimum_size.y = 55
+	replay.icon = load("res://assets/ui/icons/restart.svg"); column.add_child(replay); replay.pressed.connect(func(): replay_requested.emit())
 	var back := Button.new(); back.name = "Back"; back.text = "BACK"; back.icon = load("res://assets/ui/icons/back.svg"); back.custom_minimum_size.y = 66
 	column.add_child(back); back.pressed.connect(_close)
 
