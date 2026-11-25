@@ -35,7 +35,7 @@ func _build() -> void:
 		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(100, 86); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if not unlocked: art.modulate = Color(0.12, 0.16, 0.13, 0.92)
 		column.add_child(art)
-		for line in ["%s · %d" % [tr(data.translation_key), i + 1], tr("UNLOCKED") if unlocked else "🔒 " + tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), DESCRIPTIONS[i] if unlocked else tr("UNLOCK_HINT")]:
+		for line in ["%s · %d" % [tr(data.translation_key), i + 1], tr("UNLOCKED") if unlocked else tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), DESCRIPTIONS[i] if unlocked else tr("UNLOCK_HINT")]:
 			var label := Label.new(); label.text = line; label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.add_theme_font_size_override("font_size", 15); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; label.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_child(label)
 		if not unlocked:
 			var lock := TextureRect.new(); lock.name = "Lock"; lock.texture = load("res://assets/ui/icons/lock.svg"); lock.position = Vector2(148, 10); lock.size = Vector2(24, 24); lock.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; lock.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(lock)

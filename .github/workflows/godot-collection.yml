@@ -1,0 +1,69 @@
+name: Godot collection integration and X11
+on:
+  push:
+    branches: ['arena/2b071717-mergeanimal']
+  workflow_dispatch:
+permissions:
+  contents: read
+  checks: write
+jobs:
+  collection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot and X11
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+      - name: Integration and real windows
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/day62-captures
+          XDG_DATA_HOME: /tmp/day62-visual-user
+        run: |
+          set -o pipefail
+          mkdir -p "$CAPTURE_DIR" "$XDG_DATA_HOME"
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/day62-log.txt 2>&1
+          timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day62_collection.gd 2>&1 | tee -a /tmp/day62-log.txt
+          export GODOT
+          xvfb-run -a -s '-screen 0 1920x1920x24' bash -e -o pipefail -c '
+            for screen in menu collection locked unlocked details statistics notification; do
+              for size in 360x640 720x1280 1366x768; do
+                CAPTURE_SCREEN=$screen CAPTURE_SIZE=$size timeout 30s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/day62_visual.gd
+              done
+            done
+          ' 2>&1 | tee -a /tmp/day62-log.txt
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/day62-log.txt; then exit 1; fi
+      - name: Upload real window captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: day62-collection-windows
+          path: /tmp/day62-captures/*.png
+          if-no-files-found: warn
+      - name: Publish diagnostic and inspection thumbnails
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import base64, json, os, pathlib, subprocess
+          repo=os.environ['REPO']; sha=os.environ['SHA']
+          log=pathlib.Path('/tmp/day62-log.txt')
+          data=log.read_text(errors='replace')[-50000:] if log.exists() else 'No log available'
+          def post(name,text,summary):
+              p=pathlib.Path('/tmp/day62-check.json')
+              p.write_text(json.dumps({'name':name,'head_sha':sha,'status':'completed','conclusion':'neutral','output':{'title':name,'summary':summary,'text':text}}))
+              subprocess.run(['gh','api','--method','POST',f'repos/{repo}/check-runs','--input',str(p)],check=True,stdout=subprocess.DEVNULL)
+          post('Day62 collection diagnostic',data,'Real Godot integration; screenshots are explicitly seeded fixtures')
+          for f in sorted(pathlib.Path('/tmp/day62-captures').glob('*.png')):
+              thumb=pathlib.Path('/tmp')/(f.stem+'.jpg')
+              subprocess.run(['convert',str(f),'-resize','360x640>','-quality','45',str(thumb)],check=True)
+              post('Day62 capture '+f.stem,base64.b64encode(thumb.read_bytes()).decode(),'Real X11 window; reduced JPEG from scripted fixture')
+          PY
