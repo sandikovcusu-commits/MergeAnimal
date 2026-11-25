@@ -21,26 +21,32 @@ func run() -> void:
 		printerr("FAIL: CAPTURE_DIR is required")
 		quit(1)
 		return
-	var dimensions := [Vector2i(360,640), Vector2i(360,800), Vector2i(720,1280), Vector2i(1080,1920), Vector2i(1366,768), Vector2i(1920,1080)]
-	for theme in range(3):
-		game.visual_theme = theme
-		game.queue_redraw()
-		for size in dimensions:
-			DisplayServer.window_set_size(size)
-			DisplayServer.window_set_position(Vector2i(0, 0))
-			await create_timer(0.8).timeout
-			await RenderingServer.frame_post_draw
-			var path := "%s/theme%d_%dx%d.png" % [out_dir, theme, size.x, size.y]
-			var output := []
-			# Xvfb has no window manager: the client is placed at (0,0).
-			# Capture that exact rectangle from the X11 root, including letterboxing.
-			var crop := "%dx%d+0+0" % [size.x, size.y]
-			var result := OS.execute("import", ["-window", "root", "-crop", crop, path], output, true)
-			var image := Image.new()
-			var loaded := image.load(path)
-			print("RENDER theme=%d requested=%s window=%s root_viewport=%s image=%s result=%d" % [theme, size, DisplayServer.window_get_size(), root.get_texture().get_image().get_size(), image.get_size(), result])
-			if result != 0 or loaded != OK or image.get_size() != size:
-				printerr("FAIL: full-window screenshot failed or has unexpected size: %s %s" % [path, output])
-				quit(1)
-				return
+	var theme := int(OS.get_environment("CAPTURE_THEME"))
+	var size_parts := OS.get_environment("CAPTURE_SIZE").split("x")
+	if size_parts.size() != 2 or theme < 0 or theme > 2:
+		printerr("FAIL: invalid capture parameters")
+		quit(1)
+		return
+	var size := Vector2i(int(size_parts[0]), int(size_parts[1]))
+	game.visual_theme = theme
+	game.queue_redraw()
+	await create_timer(2.0).timeout
+	await RenderingServer.frame_post_draw
+	var ids := []
+	var find_result := OS.execute("xdotool", ["search", "--onlyvisible", "--pid", str(OS.get_process_id())], ids, true)
+	var id_list := str(ids[0]).strip_edges().split("\n", false) if not ids.is_empty() else PackedStringArray()
+	if find_result != 0 or id_list.is_empty():
+		printerr("FAIL: X11 game window not found: %s" % ids)
+		quit(1)
+		return
+	var path := "%s/theme%d_%dx%d.png" % [out_dir, theme, size.x, size.y]
+	var output := []
+	var result := OS.execute("import", ["-window", id_list[0], path], output, true)
+	var image := Image.new()
+	var loaded := image.load(path) if result == 0 else ERR_CANT_OPEN
+	print("RENDER theme=%d requested=%s window=%s root_viewport=%s image=%s result=%d id=%s" % [theme, size, DisplayServer.window_get_size(), root.get_texture().get_image().get_size(), image.get_size(), result, id_list[0]])
+	if result != 0 or loaded != OK or image.get_size() != size or DisplayServer.window_get_size() != size:
+		printerr("FAIL: full-window screenshot failed or has unexpected size: %s %s" % [path, output])
+		quit(1)
+		return
 	quit()
