@@ -115,6 +115,9 @@ func _ready() -> void:
 			_restore_session(loaded.data)
 		else:
 			push_warning("Continue unavailable: %s" % loaded.status)
+			set_physics_process(false)
+			get_tree().set_meta("continue_error", true)
+			call_deferred("_return_to_menu_after_load_failure")
 	if not continuing and bool(get_tree().get_meta("tutorial_requested", false)):
 		get_tree().remove_meta("tutorial_requested")
 		current_data = animals[0]
@@ -130,6 +133,10 @@ func _ready() -> void:
 		$HUD/DebugPanel/Spawn.pressed.connect(_debug_spawn_selected)
 	_update_hud()
 	_set_aim(aim_x)
+
+func _return_to_menu_after_load_failure() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func is_playing() -> bool:
 	return game_state == GameState.PLAYING
@@ -179,7 +186,7 @@ func save_session() -> Error:
 	var snapshot := _session_snapshot()
 	if not SessionSave.valid(snapshot): return ERR_INVALID_DATA
 	var primary := SaveManager._read_envelope(SessionSave.PATH)
-	var keep_primary := primary.status == "ok" and (SessionSave.valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
+	var keep_primary: bool = primary.status == "ok" and (SessionSave.valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
 	save_status = SaveManager.save_progress(snapshot, SessionSave.PATH, keep_primary)
 	return save_status
 
@@ -445,8 +452,9 @@ func _on_game_over() -> void:
 	if not is_playing():
 		return
 	game_state = GameState.GAME_OVER
-	if persist_best and SessionSave.clear_session() != OK:
-		push_warning("Could not invalidate finished session")
+	if persist_best:
+		save_status = SessionSave.clear_session()
+		if save_status != OK: push_warning("Could not invalidate finished session")
 	combo_count = 0
 	combo_left = 0.0
 	drop_requested = false
@@ -536,6 +544,11 @@ func _finish_tutorial() -> void:
 	if tutorial: tutorial.queue_free()
 
 func _main_menu() -> void:
+	if game_state == GameState.GAME_OVER and persist_best and save_status != OK:
+		save_status = SessionSave.clear_session()
+		if save_status != OK:
+			overlay_title.text = tr("SAVE_WAIT")
+			return
 	if game_state == GameState.PAUSED and persist_best:
 		if save_session() != OK:
 			overlay_title.text = tr("SAVE_WAIT")

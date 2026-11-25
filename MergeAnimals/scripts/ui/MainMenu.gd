@@ -37,6 +37,9 @@ func _build() -> void:
 	best_label = Label.new(); best_label.name = "Best"; best_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	best_label.add_theme_font_size_override("font_size", 27); best_label.add_theme_color_override("font_color", Color("f3ecd7")); list.add_child(best_label)
 	_refresh_best()
+	if bool(get_tree().get_meta("continue_error", false)):
+		get_tree().remove_meta("continue_error")
+		best_label.text = tr("SAVE_UNAVAILABLE")
 	play_button.grab_focus()
 
 func _button(node_name: String, key: String, icon: String, height: float) -> Button:

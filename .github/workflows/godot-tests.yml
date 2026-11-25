@@ -45,6 +45,11 @@ jobs:
           run_test 'editor import' --editor --quit
           run_test 'integration' --script res://tests/integration/day2_suite.gd
           run_test 'day6 save primitive' --script res://tests/integration/day6_save_primitive.gd
+          mkdir -p /tmp/day61-runtime-user
+          export XDG_DATA_HOME=/tmp/day61-runtime-user
+          SESSION_PHASE=write run_test 'day61 session write process' --fixed-fps 60 --script res://tests/integration/day61_session_process.gd
+          SESSION_PHASE=read run_test 'day61 session read process' --fixed-fps 60 --script res://tests/integration/day61_session_process.gd
+          unset XDG_DATA_HOME
           run_test 'day5 tutorial collision' --script res://tests/integration/day5_tutorial.gd
           run_test 'day5 effects' --script res://tests/integration/day5_effects.gd
           run_test 'day5 GUI input' --script res://tests/integration/day5_input.gd
