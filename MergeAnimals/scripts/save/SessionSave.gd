@@ -23,6 +23,8 @@ static func valid(data: Variant) -> bool:
 	if data.get("current") not in IDS.slice(0, 5) or data.get("next") not in IDS.slice(0, 5): return false
 	if typeof(data.get("rng_state")) != TYPE_STRING or not data.rng_state.is_valid_int(): return false
 	if not _integer(data.get("tutorial_stage"), -1, 4): return false
+	if data.has("progression") and not Progression.valid(data.progression): return false
+	if data.has("tainted") and typeof(data.tainted) != TYPE_BOOL: return false
 	if typeof(data.get("bodies")) != TYPE_ARRAY or data.bodies.size() > 500: return false
 	var seen := {}
 	for body in data.bodies:
@@ -33,10 +35,11 @@ static func valid(data: Variant) -> bool:
 		if not _number(body.get("rotation"), -1000000, 1000000): return false
 		if not _number(body.get("vx"), -10000, 10000) or not _number(body.get("vy"), -10000, 10000) or not _number(body.get("angular_velocity"), -10000, 10000): return false
 		if not _number(body.get("danger"), 0, 10) or typeof(body.get("sleeping")) != TYPE_BOOL: return false
+		if body.has("eligible") and typeof(body.eligible) != TYPE_BOOL: return false
 	return true
 
 static func _future_schema(envelope: Dictionary) -> bool:
-	return envelope.status == "ok" and _integer(envelope.data.get("session_version"), 2, 1000000)
+	return envelope.status == "ok" and (_integer(envelope.data.get("session_version"), 2, 1000000) or (typeof(envelope.data.get("progression")) == TYPE_DICTIONARY and _integer(envelope.data.progression.get("version"), 2, 1000000)))
 
 static func can_write() -> bool:
 	for path in [PATH, PATH + ".bak"]:
@@ -44,29 +47,47 @@ static func can_write() -> bool:
 		if envelope.status in ["future", "io_error"] or _future_schema(envelope): return false
 	return true
 
-static func load_session() -> Dictionary:
+static func _inactive(data: Dictionary) -> bool:
+	return data.get("session_version") == 1 and data.get("active") == false and (not data.has("progression") or Progression.valid(data.progression))
+
+static func load_document() -> Dictionary:
 	var first := SaveManager._read_envelope(PATH)
 	if first.status in ["future", "io_error"]: return first
 	if _future_schema(first): return {"status": "future"}
-	if first.status == "ok":
-		# Explicitly inactive (game over / new game) suppresses older backups.
-		if first.data.get("session_version") == 1 and first.data.get("active") == false: return {"status": "missing"}
-		if valid(first.data): return first
+	if first.status == "ok" and (valid(first.data) or _inactive(first.data)): return first
 	var backup := SaveManager._read_envelope(PATH + ".bak")
 	if backup.status in ["future", "io_error"]: return backup
 	if _future_schema(backup): return {"status": "future"}
-	if backup.status == "ok":
-		if backup.data.get("session_version") == 1 and backup.data.get("active") == false: return {"status": "missing"}
-		if valid(backup.data): return {"status": "recovered", "data": backup.data}
+	if backup.status == "ok" and (valid(backup.data) or _inactive(backup.data)):
+		return {"status": "recovered", "data": backup.data}
 	return {"status": "missing" if first.status == "missing" and backup.status == "missing" else "corrupt"}
 
-static func clear_session() -> Error:
+static func load_session() -> Dictionary:
+	var document := load_document()
+	if document.status in ["ok", "recovered"] and _inactive(document.data): return {"status": "missing"}
+	return document
+
+static func load_progression(best: int = 0) -> Dictionary:
+	var doc := load_document()
+	if doc.status in ["ok", "recovered"] and doc.data.has("progression"):
+		return doc.data.progression.duplicate(true)
+	var legacy_best: int = int(SaveManager.legacy_seed().best_score)
+	if doc.status in ["ok", "recovered"] and doc.data.get("active") == true:
+		legacy_best = maxi(legacy_best, int(doc.data.get("best_score", 0)))
+	var fresh := Progression.empty(maxi(best, legacy_best))
+	# A live legacy session is one known game; prior totals and dates are unknown.
+	if doc.status in ["ok", "recovered"] and doc.data.get("active") == true:
+		fresh.total_games = 1
+	return fresh
+
+static func clear_session(progress: Variant = null) -> Error:
 	if not can_write(): return ERR_UNAVAILABLE
 	var primary := SaveManager._read_envelope(PATH)
-	var keep_primary: bool = primary.status == "ok" and (valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
-	var tombstone := {"session_version": 1, "active": false}
+	var keep_primary: bool = primary.status == "ok" and (valid(primary.data) or _inactive(primary.data))
+	if progress == null: progress = load_progression()
+	if not Progression.valid(progress): return ERR_INVALID_DATA
+	var tombstone := {"session_version": 1, "active": false, "progression": progress}
 	var result := SaveManager.save_progress(tombstone, PATH, keep_primary)
 	if result != OK: return result
-	# Replace the backup as well, otherwise corrupting the tombstone could revive
-	# a previously finished or deliberately replaced game.
+	# Replace both copies so a damaged tombstone cannot revive an older game.
 	return SaveManager.save_progress(tombstone, PATH)

@@ -5,6 +5,8 @@ extends RigidBody2D
 @onready var circle: CollisionShape2D = $CollisionShape2D
 @onready var visual = $Visual
 var merge_locked: bool = false
+# False for debug/fixtures; genuine drops and their descendants are true.
+var progression_eligible: bool = false
 var supported: bool = false
 var instance_uid: int = 0
 

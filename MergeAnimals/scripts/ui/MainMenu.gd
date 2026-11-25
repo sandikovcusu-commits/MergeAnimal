@@ -32,7 +32,10 @@ func _build() -> void:
 	continue_button = _button("Continue", "CONTINUE", "play", 70); list.add_child(continue_button)
 	continue_button.disabled = SessionSave.load_session().status not in ["ok", "recovered"]
 	continue_button.pressed.connect(_continue_game)
-	var collection := _button("Collection", "COLLECTION", "collection", 70); collection.disabled = true; list.add_child(collection)
+	var collection := _button("Collection", "COLLECTION", "collection", 65); list.add_child(collection)
+	collection.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Collection.tscn"))
+	var statistics := _button("Statistics", "STATISTICS", "star", 65); list.add_child(statistics)
+	statistics.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Statistics.tscn"))
 	var challenges := _button("Challenges", "CHALLENGES", "challenge", 70); challenges.disabled = true; list.add_child(challenges)
 	settings_button = _button("Settings", "SETTINGS", "settings", 70); list.add_child(settings_button); settings_button.pressed.connect(_settings)
 	best_label = Label.new(); best_label.name = "Best"; best_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

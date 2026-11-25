@@ -8,6 +8,7 @@ var game
 var pending: Array[Dictionary] = []
 var merge_count: int = 0
 var commit_scheduled: bool = false
+var last_merge_eligible: bool = false
 
 func setup(owner_game: Node2D) -> void:
 	game = owner_game
@@ -72,8 +73,10 @@ func _commit_pending() -> void:
 		a.queue_free()
 		b.queue_free()
 		merge_count += 1
+		last_merge_eligible = a.progression_eligible and b.progression_eligible
 		if pair["golden"]:
 			golden_merged.emit(midpoint)
 		else:
-			game.create_animal(target, safe_point)
+			var result: Animal = game.create_animal(target, safe_point)
+			result.progression_eligible = last_merge_eligible
 			merged.emit(target, safe_point)

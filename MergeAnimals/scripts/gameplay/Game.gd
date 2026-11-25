@@ -70,6 +70,9 @@ var reduced_effects := false
 var autosave_elapsed := 0.0
 var save_scheduled := false
 var save_status: Error = OK
+var progression: Dictionary = {}
+var session_tainted := false
+var discovery_notifier: Control
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -103,8 +106,12 @@ func _ready() -> void:
 	$HUD/Overlay/SettingsButton.icon = load("res://assets/ui/icons/settings.svg")
 	$HUD/Overlay/MainMenuButton.icon = load("res://assets/ui/icons/home.svg")
 	_refresh_ui_text()
+	discovery_notifier = preload("res://scripts/ui/DiscoveryNotification.gd").new()
+	$HUD.add_child(discovery_notifier)
+	discovery_notifier.reduced_effects = reduced_effects
 	best_score = _load_best()
 	best_at_start = best_score
+	progression = SessionSave.load_progression(best_score) if persist_best else Progression.empty()
 	current_data = _pick_animal()
 	next_data = _pick_animal()
 	var continuing := bool(get_tree().get_meta("continue_requested", false))
@@ -118,6 +125,8 @@ func _ready() -> void:
 			set_physics_process(false)
 			get_tree().set_meta("continue_error", true)
 			call_deferred("_return_to_menu_after_load_failure")
+	if not continuing and persist_best:
+		progression.total_games = int(progression.total_games) + 1
 	if not continuing and bool(get_tree().get_meta("tutorial_requested", false)):
 		get_tree().remove_meta("tutorial_requested")
 		current_data = animals[0]
@@ -160,6 +169,7 @@ func _physics_process(delta: float) -> void:
 	elif _can_aim():
 		current_preview.visible = _spawn_clear(current_data, aim_x)
 	if persist_best:
+		progression.play_seconds = float(progression.play_seconds) + delta
 		autosave_elapsed += delta
 		if autosave_elapsed >= 1.0 and not save_scheduled:
 			save_scheduled = true
@@ -176,8 +186,8 @@ func _session_snapshot() -> Dictionary:
 		if not animal is Animal or animal.is_queued_for_deletion() or animal.merge_locked:
 			return {}
 		uid += 1
-		bodies.append({"uid": uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
-	return {"session_version": 1, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies}
+		bodies.append({"uid": uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
+	return {"session_version": 1, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted}
 
 func save_session() -> Error:
 	# Recheck at execution time, after physics/contact callbacks and deferred merges.
@@ -187,7 +197,7 @@ func save_session() -> Error:
 	var snapshot := _session_snapshot()
 	if not SessionSave.valid(snapshot): return ERR_INVALID_DATA
 	var primary := SaveManager._read_envelope(SessionSave.PATH)
-	var keep_primary: bool = primary.status == "ok" and (SessionSave.valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
+	var keep_primary: bool = primary.status == "ok" and (SessionSave.valid(primary.data) or SessionSave._inactive(primary.data))
 	save_status = SaveManager.save_progress(snapshot, SessionSave.PATH, keep_primary)
 	return save_status
 
@@ -205,6 +215,8 @@ func _autosave_safe() -> void:
 
 func _restore_session(data: Dictionary) -> void:
 	# SessionSave.valid ran before creating any body; a fresh scene has an empty board.
+	if data.has("progression"): progression = data.progression.duplicate(true)
+	session_tainted = bool(data.get("tainted", false))
 	score = int(data.score); best_score = maxi(best_score, int(data.best_score)); best_at_start = int(data.best_at_start)
 	spawn_count = int(data.spawn_count); merge_manager.merge_count = int(data.merge_count)
 	combo_count = int(data.combo_count); combo_left = float(data.combo_left); combo_events = int(data.combo_events); max_combo = int(data.max_combo)
@@ -219,6 +231,7 @@ func _restore_session(data: Dictionary) -> void:
 		body.linear_velocity = Vector2(float(item.vx), float(item.vy))
 		body.angular_velocity = float(item.angular_velocity)
 		body.sleeping = item.sleeping
+		body.progression_eligible = bool(item.get("eligible", false))
 		if float(item.danger) > 0.0: danger_monitor.timers[body.instance_uid] = float(item.danger)
 	if int(data.tutorial_stage) >= 0:
 		_begin_tutorial()
@@ -336,8 +349,12 @@ func _attempt_drop() -> void:
 		_update_preview()
 		return
 	var dropped := current_data
-	create_animal(dropped, Vector2(aim_x, spawn_height))
+	var dropped_body := create_animal(dropped, Vector2(aim_x, spawn_height))
+	dropped_body.progression_eligible = true
 	spawn_count += 1
+	if persist_best and not session_tainted:
+		progression.total_drops = int(progression.total_drops) + 1
+		_record_discovery(dropped)
 	if tutorial_stage >= 0 and tutorial_stage < 3:
 		_tutorial_set_stage(2 if spawn_count == 1 else 3)
 	current_data = next_data
@@ -397,6 +414,11 @@ func _award_merge(base_score: int) -> void:
 
 func _on_merged(data: AnimalData, point: Vector2) -> void:
 	_award_merge(data.merge_score)
+	if persist_best and not session_tainted and merge_manager.last_merge_eligible:
+		progression.total_merges = int(progression.total_merges) + 1
+		progression.best_score = maxi(int(progression.best_score), score)
+		progression.max_combo = maxi(int(progression.max_combo), combo_count)
+		_record_discovery(data)
 	_spawn_effect("soft_burst", point)
 	if not reduced_effects:
 		_spawn_effect("sparkle", point)
@@ -404,6 +426,10 @@ func _on_merged(data: AnimalData, point: Vector2) -> void:
 		_spawn_effect("score_star", point)
 		if combo_count > 1: _spawn_effect("combo_shine", point)
 	if tutorial_stage == 3: _tutorial_set_stage(4)
+
+func _record_discovery(data: AnimalData) -> void:
+	if Progression.record_animal(progression, data) and is_instance_valid(discovery_notifier):
+		discovery_notifier.enqueue(data)
 
 func _spawn_effect(kind: String, point: Vector2) -> void:
 	var effect := EFFECT_SCRIPT.new()
@@ -416,6 +442,10 @@ func _on_golden_merged(point: Vector2) -> void:
 	if not reduced_effects: _spawn_effect("golden_glow", point)
 	# Golden award is exactly the configured bonus; it does not receive combo multiplication.
 	score += golden_config.bonus_score if golden_config else 1000
+	if persist_best and not session_tainted and merge_manager.last_merge_eligible:
+		progression.total_merges = int(progression.total_merges) + 1
+		progression.golden_merges = int(progression.golden_merges) + 1
+		progression.best_score = maxi(int(progression.best_score), score)
 	if score > best_score:
 		best_score = score
 		_save_best()
@@ -457,7 +487,8 @@ func _on_game_over() -> void:
 		return
 	game_state = GameState.GAME_OVER
 	if persist_best:
-		save_status = SessionSave.clear_session()
+		progression.completed_games = int(progression.completed_games) + 1
+		save_status = SessionSave.clear_session(progression)
 		if save_status != OK: push_warning("Could not invalidate finished session")
 	combo_count = 0
 	combo_left = 0.0
@@ -513,12 +544,16 @@ func _open_settings() -> void:
 	settings_panel = SETTINGS_SCENE.instantiate()
 	$HUD.add_child(settings_panel)
 	settings_panel.replay_requested.connect(func():
+		if persist_best and SessionSave.clear_session(progression) != OK:
+			overlay_title.text = tr("SAVE_WAIT")
+			return
 		get_tree().set_meta("tutorial_requested", true)
 		get_tree().paused = false
 		get_tree().reload_current_scene()
 	)
 	settings_panel.settings_changed.connect(func(values: Dictionary):
 		reduced_effects = values.reduced_effects
+		if is_instance_valid(discovery_notifier): discovery_notifier.reduced_effects = reduced_effects
 		_refresh_ui_text()
 		overlay_title.text = tr("PAUSE")
 		_update_hud()
@@ -549,7 +584,7 @@ func _finish_tutorial() -> void:
 
 func _main_menu() -> void:
 	if game_state == GameState.GAME_OVER and persist_best and save_status != OK:
-		save_status = SessionSave.clear_session()
+		save_status = SessionSave.clear_session(progression)
 		if save_status != OK:
 			overlay_title.text = tr("SAVE_WAIT")
 			return
@@ -561,7 +596,7 @@ func _main_menu() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func _restart() -> void:
-	if persist_best and SessionSave.clear_session() != OK:
+	if persist_best and SessionSave.clear_session(progression) != OK:
 		overlay_title.text = tr("SAVE_WAIT")
 		return
 	get_tree().paused = false
@@ -632,29 +667,34 @@ func _update_debug() -> void:
 
 func _debug_spawn_selected() -> void:
 	if is_playing() and debug_panel.visible:
+		session_tainted = true
 		var level: int = int($HUD/DebugPanel/Level.value)
 		create_animal(animals[clampi(level - 1, 0, animals.size() - 1)], Vector2(360, 600))
 
 func _debug_pair() -> void:
 	if is_playing() and debug_panel.visible:
+		session_tainted = true
 		var data: AnimalData = animals[clampi(int($HUD/DebugPanel/Level.value) - 1, 0, animals.size() - 1)]
 		create_animal(data, Vector2(300, 700))
 		create_animal(data, Vector2(300 + data.radius * 2.0 + 1.0, 700))
 
 func _debug_chain() -> void:
 	if is_playing() and debug_panel.visible:
+		session_tainted = true
 		create_animal(animals[1], Vector2(360, 1000))
 		create_animal(animals[0], Vector2(340, 880))
 		create_animal(animals[0], Vector2(380, 880))
 
 func _debug_fill() -> void:
 	if is_playing() and debug_panel.visible:
+		session_tainted = true
 		for y in range(4):
 			for x in range(8):
 				create_animal(animals[(x + y) % 3], Vector2(120 + x * 65, 660 + y * 75))
 
 func _debug_overflow() -> void:
 	if is_playing() and debug_panel.visible:
+		session_tainted = true
 		# Fill a supported pile using the temporary max level, which cannot merge.
 		# The regular danger monitor still decides whether overflow occurs.
 		for row in range(8):
