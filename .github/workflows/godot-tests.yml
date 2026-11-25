@@ -38,6 +38,8 @@ jobs:
           run_test 'editor import' --editor --quit
           run_test 'integration' --script res://tests/integration/day2_suite.gd
           run_test 'natural collision' --script res://tests/physics/natural_collision.gd
+          run_test 'input recovery' --script res://tests/integration/input_recovery.gd
+          run_test 'real gameplay' --script res://tests/physics/real_gameplay.gd
           run_test '100 drops' --script res://tests/physics/drop_100.gd
           run_test 'stress' --script res://tests/physics/stress.gd
           cat /tmp/godot-test-log.txt
