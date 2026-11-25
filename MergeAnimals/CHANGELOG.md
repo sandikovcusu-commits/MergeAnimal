@@ -42,3 +42,8 @@
 - Rəqib səhifələri araşdırması, GDD, art bible və arxitektura planı.
 - Godot 4 Compatibility layihəsi, portret əsas səhnə, üç diaqnostik heyvan, fizikalı düşürmə və divarlar üçün mənbə.
 
+
+## Day 6 work in progress — not V0.6.0 completion
+- Exclude historical test logs/CSV from Godot resource importing after an intermittent editor-import crash; cause not conclusively proven.
+- Add isolated, experimental versioned JSON/backup save primitive, legacy read seed and CI tests; no gameplay integration or completed migration. Earlier failed test log retained. See `SAVE_SYSTEM_REPORT.md`.
+- Requested gameplay progression, challenge system, power-ups and associated acceptance remain outstanding; existing AI art rights blockers remain.

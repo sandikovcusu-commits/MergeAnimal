@@ -22,3 +22,8 @@
 - 18 gameplay and 18 interface/effect scripted X11 fixtures have been captured for a tested commit; they are not videos or interactive human play. Real mobile touch, safe areas, CPU/FPS and Web export remain untested.
 - AI sprite output is from Arena image tool but exact vendor/model and applicable supplemental/provider terms remain unknown. See `ASSET_LICENSES.md`; **commercial/final release remains blocked**.
 - Physical overlap and Bear silhouette mismatch are separate unresolved risks; `PHYSICS_REPORT.md`.
+
+## Day 6 WIP
+- SaveManager is an isolated experimental primitive and is not connected to gameplay; no Continue, persistence migration or progression exists yet. See `SAVE_SYSTEM_REPORT.md`.
+- Challenges, Collection, Achievements, unlocks, statistics and requested power-ups remain unimplemented. No V0.6.0 release acceptance, stress matrix or new UI screenshot suite has been completed. See `PROGRESSION_REPORT.md`.
+- Intermittent Godot editor import double-free on V0.5 baseline: observed twice in three reruns; excluding non-asset test logs from import is a mitigation with two passing runs, not a confirmed root cause.
