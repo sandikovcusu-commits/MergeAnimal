@@ -23,6 +23,9 @@ func touch(control: Control) -> void:
 		root.push_input(event, true)
 		await process_frame
 func run() -> void:
+	var tutorial_path := "user://wild_garden_tutorial.cfg"
+	var tutorial_existed := FileAccess.file_exists(tutorial_path)
+	var tutorial_backup := FileAccess.get_file_as_bytes(tutorial_path) if tutorial_existed else PackedByteArray()
 	var menu = (load("res://scenes/ui/MainMenu.tscn") as PackedScene).instantiate()
 	root.add_child(menu); current_scene = menu; await frames()
 	await click(menu.settings_button); await frames()
@@ -30,10 +33,14 @@ func run() -> void:
 	if is_instance_valid(menu.settings_panel):
 		await click(menu.settings_panel.find_child("Back", true, false)); await frames()
 		check(not is_instance_valid(menu.settings_panel), "mouse click Back closes Settings")
+	set_meta("tutorial_requested", true)
 	await click(menu.play_button); await frames(5)
 	var game = current_scene
 	check(game.has_method("_toggle_pause") and game.is_playing(), "mouse click Play transitions to game")
 	if game.has_method("_toggle_pause"):
+		if game.has_node("HUD/Tutorial/Skip"):
+			await touch(game.get_node("HUD/Tutorial/Skip")); await frames()
+			check(game.tutorial_stage == -1 and game.spawn_count == 0 and not game.drop_requested, "touch Skip is consumed without dropping a piece")
 		await touch(game.pause_button); await frames()
 		check(paused and game.game_state == game.GameState.PAUSED, "simulated touch opens Pause")
 		if paused:
@@ -44,5 +51,9 @@ func run() -> void:
 			await frames()
 			check(not paused and game.is_playing(), "keyboard accept activates focused Resume")
 	paused = false
+	if tutorial_existed:
+		var file := FileAccess.open(tutorial_path, FileAccess.WRITE); file.store_buffer(tutorial_backup); file.close()
+	else:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(tutorial_path))
 	print("Day5 GUI dispatch: checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures else 0)

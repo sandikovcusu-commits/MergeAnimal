@@ -390,6 +390,9 @@ func _on_game_over() -> void:
 	$HUD/Overlay/SettingsButton.visible = false
 	overlay.visible = true
 	get_tree().paused = true
+	if not record.is_empty() and not reduced_effects:
+		overlay_title.modulate = Color("ffd96c")
+		create_tween().tween_property(overlay_title, "modulate", Color.WHITE, 0.8)
 	queue_redraw()
 
 func _toggle_pause() -> void:
