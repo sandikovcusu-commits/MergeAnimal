@@ -42,8 +42,11 @@ func run() -> void:
 	check(game.tutorial_stage == 0 and game.current_data.id == game.next_data.id, "tutorial starts with matching pair")
 	game.get_node("HUD/Tutorial/Skip").pressed.emit(); await frames()
 	check(game.tutorial_stage == -1 and FileAccess.file_exists(tutorial_path), "tutorial skip persists completion")
+	game.drop_requested = true
+	game.spawn_state = game.SpawnState.DROPPING
 	game.pause_button.pressed.emit()
 	await frames()
+	check(not game.drop_requested and game.spawn_state == game.SpawnState.READY, "pause cancels an uncommitted drop")
 	check(paused and game.game_state == game.GameState.PAUSED and game.overlay.visible, "pause freezes game and shows overlay")
 	game.get_node("HUD/Overlay/SettingsButton").pressed.emit()
 	await frames()

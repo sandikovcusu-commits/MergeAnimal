@@ -399,7 +399,9 @@ func _toggle_pause() -> void:
 		game_state = GameState.PAUSED
 		active_touch = -1
 		mouse_down = false
-		if spawn_state == SpawnState.AIMING:
+		# Cancel uncommitted input when pausing; it must not drop on resume.
+		drop_requested = false
+		if spawn_state == SpawnState.AIMING or spawn_state == SpawnState.DROPPING:
 			spawn_state = SpawnState.READY
 		overlay_title.text = tr("PAUSE")
 		resume_button.visible = true

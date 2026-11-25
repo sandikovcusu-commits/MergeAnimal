@@ -33,7 +33,7 @@ jobs:
                 CAPTURE_THEME=$theme CAPTURE_SIZE=$size timeout 35s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_capture.gd
               done
             done
-            for screen in menu pause settings gameover tutorial; do
+            for screen in menu pause settings gameover tutorial effects; do
               for size in 360x640 720x1280 1366x768; do
                 CAPTURE_SCREEN=$screen CAPTURE_SIZE=$size timeout 35s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_ui.gd
               done
