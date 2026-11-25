@@ -45,6 +45,7 @@ jobs:
           run_test 'editor import' --editor --quit
           run_test 'integration' --script res://tests/integration/day2_suite.gd
           run_test 'day6 save primitive' --script res://tests/integration/day6_save_primitive.gd
+          run_test 'day63 reward gateway' --script res://tests/integration/day63_reward_gateway.gd
           mkdir -p /tmp/day61-runtime-user
           export XDG_DATA_HOME=/tmp/day61-runtime-user
           SESSION_PHASE=write run_test 'day61 session write process' --fixed-fps 60 --script res://tests/integration/day61_session_process.gd
