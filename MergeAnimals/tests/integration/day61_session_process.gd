@@ -111,7 +111,7 @@ func read_phase() -> void:
 	check(game.combo_count == int(expected.combo_count) and is_equal_approx(game.combo_left, float(expected.combo_left)), "combo restored")
 	check(str(game.current_data.id) == expected.current and str(game.next_data.id) == expected.next and str(game.rng.state) == expected.rng_state, "current next and exact RNG state restored")
 	check(game.pieces.get_child_count() == expected.bodies.size(), "exact body count restored")
-	var actual := game.pieces.get_children()
+	var actual: Array = game.pieces.get_children()
 	if actual.size() == expected.bodies.size():
 		for i in range(actual.size()):
 			var body: Animal = actual[i]
