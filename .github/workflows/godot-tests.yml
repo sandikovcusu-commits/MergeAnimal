@@ -10,7 +10,7 @@ permissions:
 jobs:
   godot:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - name: Install official Godot 4.7.2
@@ -30,7 +30,7 @@ jobs:
           run_test() {
             echo "===== $1 =====" | tee -a /tmp/godot-test-log.txt
             limit=120
-            if [ "$1" = 'bot sessions' ]; then limit=300; fi
+            if [ "$1" = 'bot sessions' ]; then limit=600; fi
             shift
             timeout "$limit" "$GODOT" --headless --path MergeAnimals "$@" >> /tmp/godot-test-log.txt 2>&1
             code=$?

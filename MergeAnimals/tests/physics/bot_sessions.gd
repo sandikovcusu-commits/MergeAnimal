@@ -56,7 +56,7 @@ func run() -> void:
 		# Time cap is reported as such, not mislabelled game-over.
 		while game.is_playing() and elapsed < 90.0:
 			await physics_frame
-			elapsed += 1.0 / 60.0
+			elapsed += 1.0 / float(Engine.physics_ticks_per_second)
 			if elapsed >= next_drop:
 				game._set_aim(choose_x(game, strategy))
 				if game.drop_animal():
