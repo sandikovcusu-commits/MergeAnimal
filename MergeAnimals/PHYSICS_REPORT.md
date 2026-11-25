@@ -25,3 +25,8 @@ Son əlavə matris 60/120/240 Hz-də spawn hündürlüyündən gravity ilə dü�
 
 ## 120 Hz sonrası real bot nəticəsi
 Run [45670121999](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45670121999) 100 botda 120 Hz, eyni 30000–30099 seed və 90 s cap ilə maksimum overlap **9.190 px**, 0 tam escape-frame; 60 Hz-də eyni testin piki 16.678 px idi. 120 Hz-də >0.01 px üzrə ən uzun tək body streak 10623 tick ≈88.5 saniyədir (pik boyu deyil, resting contact nüfuzunu da daxil edir); 60 Hz 5326 tick ≈88.8 saniyə idi. 120 Hz bütün rəqəmləri eyni davranışlı trajektoriya kimi qəbul etmək olmaz: fizika dəyişdiyi üçün yığınlar da fərqlənir. Rəqəmlər headless-dir, insan/vizual təsir deyil. 120 Hz daha yüksək CPU yükü ola bilər; mobil cihazda sınanmadan keyfiyyət/performance qəbul edilmiş deyil.
+
+## V0.5.0 — fiziki nüfuz və siluet ayrı məsələlərdir
+Bu mərhələdə gravity, sürət, CCD, fiziki material, divar qalınlığı, radius və 120 Hz dəyişdirilmədi. Əvvəlki real ssenari və matrix nəticələri yuxarıdadır: 32/64 px divar, ray/shape/disabled CCD, material bounce, 120/700 px/s, 60/120/240 Hz və natural gravity seçilmiş hallarda müqayisə edilib. Maksimum düşmə sürəti limiti ayrıca implementasiya və nəzarətli müqayisə edilməyib. Normal 120 Hz bot nümunəsində **9.190 px** maksimum həqiqi radius/floor nüfuzu qalır; synthetic stress eyni nəticə və ya normal insan oyunu deyil. 120 Hz-in mobil CPU/enerji təsiri ölçülməyib.
+
+Bear qulaqlarının 512 px sprite alfa pikselinin dairədən kənara çıxması (`art_reports/collision_overlays/bear.png`; 6.72%) **siluet/collision mismatch**-dir, yuxarıdakı fizika nüfuzu ilə eyni ölçü deyil. Yerləşmə və sprite miqyası gizlədilmək üçün dəyişdirilməyib; yeni vizual həll və contact-wall yoxlaması tələb olunur.

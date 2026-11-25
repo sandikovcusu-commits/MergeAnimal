@@ -1,3 +1,10 @@
+# V0.5.0-dev — Day 5 WIP, release blocked
+
+- Functional Main Menu → Play, pause/resume/settings/restart/main-menu and game-over navigation; collection/challenge visibly disabled.
+- Persistent volume/mute/reduced-effects/language settings and AudioBus scaffolding; basic first-run, skip and replay tutorial with real matching-pair collision test.
+- Two-row evolution guide, six procedural effects with reduced-effects option, new-record highlight, subset of icons and keyboard focus styles.
+- Real X11 fixtures for gameplay and five implemented UI screens plus effects. 24 expression states, blink, standalone logo, two future-mode screens, complete locale coverage, audio, full motion set and verified commercial rights are still missing. `UI_QA_REPORT.md`.
+
 # V0.4.1-dev — Graphics completion WIP, release bloklu
 
 - Bear/Lion 512² RGBA normal sprite, AnimalData bağlantısı və 12 fərdi collision overlay; kommersiya mənşəyi məlum deyil.

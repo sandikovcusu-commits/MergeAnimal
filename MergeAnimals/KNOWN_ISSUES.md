@@ -13,3 +13,12 @@
 - 20 SVG ikon və səkkiz StyleBox theme var, icon-lar HUD-a bağlanmayıb, UI/kiçik ölçülü vizual qəbul və bütün state-lərin interaktiv yoxlaması yoxdur.
 - 8eefda7-də pəncərə screenshot sınağı səhvən köhnə ölçüdə viewport və qara boşluğu capture edirdi; format/ölçü testi tək başına yetərli deyil. Düzəldilmiş capture `45682074271`-də hər ölçü üçün ayrı X11 pəncərəsi çəkir; screenshot-lara baxış barədə `VISUAL_QA_REPORT.md`.
 - İnsan oyun testi, mobil touch, FPS və enerji, Web/Windows export və yüksək pikli floor overlap həll edilməyib.
+
+## V0.5.0 DEV
+- 24 happy/surprise states and blink are still absent; normal fallback must not be described as 36 distinct states. The separate release acceptance test flags 24 missing plus rights blocker.
+- Collection and Challenge screens/progression remain absent and their main-menu buttons are intentionally disabled. No fake Continue/ad, Undo or Remove feature is shown.
+- Four-language dictionaries cover new main controls but existing animal names, some HUD/debug text, the logo and other strings remain English; localized clipping was not visually tested.
+- 8 of 20 icons are placed, including the two disabled mode entries; other icons, 8 visual themes, and all button states have not received full on-device UX review. Standalone final logo, full motion list, game settings theme selection, new-unlock animation and complete UI polish remain undone.
+- 18 gameplay and 18 interface/effect scripted X11 fixtures have been captured for a tested commit; they are not videos or interactive human play. Real mobile touch, safe areas, CPU/FPS and Web export remain untested.
+- AI sprite output is from Arena image tool but exact vendor/model and applicable supplemental/provider terms remain unknown. See `ASSET_LICENSES.md`; **commercial/final release remains blocked**.
+- Physical overlap and Bear silhouette mismatch are separate unresolved risks; `PHYSICS_REPORT.md`.

@@ -16,3 +16,8 @@
 
 ## Məhdudiyyətlər
 Fiziki merge, golden, input və restart regression gameplay testlərində yoxlanır; bu capture onların animasiya/insan oynanışı testini əvəz etmir. UI ikonları ayrı SVG-lərdir, HUD-a qoşulmayıb. Logo və 6 effekt, 24 expression yoxdur. Mobile touch/GPU/FPS, Web export və ətraflı accessibility/kontrast təsdiqi yoxdur. 12 sprite-ın AI mənşə və kommersiya hüquqları **release blokeridir**.
+
+## V0.5.0 DEV
+Real Godot full-window [dfb9b9c Actions 45689676914](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45689676914): previous three themes × six gameplay windows plus menu, pause, settings, game-over, tutorial and six-effect fixtures × three sizes. Original full-size PNGs are in Actions; `art_reports/v050_ui/` JPEGs are downscaled previews. The fixture is not human gameplay; Collection/Challenge screens are absent. A before screenshot exposed cropped/behind-overlay Settings; corrected screenshot and test are in `UI_QA_REPORT.md`. Settings/guide small text, long translated strings, safe areas and simulated versus physical touch remain open. Prior asset/collision risks still apply.
+
+Latest code render [ee9d33c / 45690860630](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45690860630) refreshed 36 inspection thumbnails under `art_reports/v050_ui/`; it includes the distinct leaf and combo effects. Captures and automated size checks are not a substitute for pixel-semantic or real-device review.

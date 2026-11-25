@@ -1,4 +1,4 @@
-> **V0.4.1 DEV / buraxılışa hazır deyil:** 12 eksperimental AI sprite-ın model və kommersiya hüquqları təsdiqlənməyib. 24 üz vəziyyəti, effektlər və logo tamamlanmayıb. `VISUAL_QA_REPORT.md`, `ASSET_QA_REPORT.md` və `ASSET_LICENSES.md` sənədlərinə baxın.
+> **V0.5.0 DEV / release blocked:** Main Menu, gameplay, pause, settings and tutorial are WIP; Collection and Challenges are disabled. AI sprite commercial rights are unresolved, and 24 expression states remain missing. See `UI_QA_REPORT.md` and `ASSET_LICENSES.md`.
 
 # Merge Animals: Wild Garden — V0.3.0-dev
 
