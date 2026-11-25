@@ -369,6 +369,8 @@ func _update_hud() -> void:
 	next_preview.data = next_data
 	next_label.text = "NEXT  ·  " + next_data.display_name.to_upper()
 	score_label.text = "SCORE  %d" % score
+	if combo_count > 1:
+		score_label.text += "  x%d" % combo_count
 	best_label.text = "BEST  %d" % best_score
 	_update_preview()
 
@@ -391,7 +393,7 @@ func _draw() -> void:
 		draw_circle(Vector2(x, 1190), 16, color)
 		if item.level == highest_level:
 			draw_arc(Vector2(x, 1190), 20, 0, TAU, 32, Color("d29b31"), 3.0)
-		draw_string(font, Vector2(x - 8, 1224), str(item.level), HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color("394f39"))
+		draw_string(font, Vector2(x - 16, 1224), item.display_name.substr(0, 3).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color("394f39"))
 	if debug_outlines and is_instance_valid(pieces):
 		for body in pieces.get_children():
 			if body is Animal:
@@ -429,7 +431,8 @@ func _debug_overflow() -> void:
 		# The regular danger monitor still decides whether overflow occurs.
 		for row in range(8):
 			for column in range(6):
-				create_animal(animals[4], Vector2(140 + column * 84, 1052 - row * 84))
+				var body := create_animal(animals[4], Vector2(140 + column * 84, 1052 - row * 84))
+				body.merge_locked = true # Debug fixture only, to retain a stable overflow pile.
 
 func _toggle_debug_outlines() -> void:
 	debug_outlines = not debug_outlines
