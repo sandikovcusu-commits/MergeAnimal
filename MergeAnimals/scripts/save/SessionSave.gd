@@ -48,4 +48,6 @@ static func load_session() -> Dictionary:
 	return {"status": "missing" if first.status == "missing" and backup.status == "missing" else "corrupt"}
 
 static func clear_session() -> Error:
-	return SaveManager.save_progress({"session_version": 1, "active": false}, PATH)
+	var primary := SaveManager._read_envelope(PATH)
+	var keep_primary: bool = primary.status == "ok" and (valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
+	return SaveManager.save_progress({"session_version": 1, "active": false}, PATH, keep_primary)

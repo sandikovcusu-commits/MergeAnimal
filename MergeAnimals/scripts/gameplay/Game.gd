@@ -142,7 +142,7 @@ func is_playing() -> bool:
 	return game_state == GameState.PLAYING
 
 func _physics_process(delta: float) -> void:
-	if not is_playing():
+	if not is_playing() or get_tree().paused:
 		return
 	cooldown_left = maxf(0.0, cooldown_left - delta)
 	combo_left = maxf(0.0, combo_left - delta)
