@@ -17,13 +17,18 @@ func _draw() -> void:
 	var t := clampf(elapsed / duration, 0.0, 1.0)
 	var alpha := 1.0 - t
 	match effect_kind:
-		"sparkle", "combo_shine":
+		"sparkle":
 			var color := Color(1.0, 0.88, 0.48, alpha)
 			for i in range(8):
 				var angle := TAU * i / 8.0 + t * 0.25
 				var unit := Vector2.from_angle(angle)
 				var distance := 16.0 + t * 35.0
 				draw_line(unit * distance, unit * (distance + 10.0 * alpha), color, 3.0)
+		"combo_shine":
+			var shine := Color(1.0, 0.76, 0.20, alpha)
+			for i in range(3):
+				var offset := Vector2((i - 1) * 18.0, -20.0 - 14.0 * t)
+				draw_line(offset + Vector2(-9, 12), offset + Vector2(9, -12), shine, 4.0)
 		"soft_burst":
 			draw_arc(Vector2.ZERO, 12.0 + 35.0 * t, 0.0, TAU, 40, Color(1.0, 0.90, 0.65, alpha * 0.65), 4.0)
 		"golden_glow":
@@ -33,7 +38,10 @@ func _draw() -> void:
 			for i in range(5):
 				var a := TAU * i / 5.0 + t
 				var center := Vector2.from_angle(a) * (14.0 + 42.0 * t) + Vector2(0, 16 * t * t)
-				draw_circle(center, 4.5, Color(0.45, 0.7, 0.32, alpha))
+				var axis := Vector2.from_angle(a + t * 2.0) * 7.0
+				var side := axis.rotated(PI / 2.0) * 0.55
+				var leaf := PackedVector2Array([center - axis, center + side, center + axis, center - side])
+				draw_colored_polygon(leaf, Color(0.45, 0.7, 0.32, alpha))
 		"score_star":
 			var points := PackedVector2Array()
 			for i in range(10):
