@@ -52,3 +52,8 @@
 - Added validated, versioned Classic session autosave and menu Continue; physical bodies, score/combo, spawn queue and RNG are restored.
 - Refuse incomplete merges, preserve/recover a prior backup, protect future schemas, and invalidate finished sessions. New-game replacement requires confirmation.
 - Added two-process real-physics integration and X11 captures; platform and durability limits are documented in `SAVE_SYSTEM_REPORT.md`.
+
+## V0.6.2-dev — Animal Collection & Statistics
+- Added 12 local collection cards, scrollable details, progress and queued nonblocking discovery notifications using existing sprites and icons.
+- Added actual Classic-game statistics and integrated both systems with session-version-2 transactional snapshots and V0.6.1 migration. Prior unknown counts are not fabricated; debug and unverified legacy body creation are excluded.
+- Added Godot gameplay, cross-process, recovery and four-locale layout tests, plus 21 X11 fixture captures. No Challenge, Achievement, Undo, Remove or Rescue implementation.

@@ -14,7 +14,7 @@
 - 8eefda7-də pəncərə screenshot sınağı səhvən köhnə ölçüdə viewport və qara boşluğu capture edirdi; format/ölçü testi tək başına yetərli deyil. Düzəldilmiş capture `45682074271`-də hər ölçü üçün ayrı X11 pəncərəsi çəkir; screenshot-lara baxış barədə `VISUAL_QA_REPORT.md`.
 - İnsan oyun testi, mobil touch, FPS və enerji, Web/Windows export və yüksək pikli floor overlap həll edilməyib.
 
-## V0.5.0 DEV
+## V0.5.0 DEV (historical; superseded where noted)
 - 24 happy/surprise states and blink are still absent; normal fallback must not be described as 36 distinct states. The separate release acceptance test flags 24 missing plus rights blocker.
 - Collection and Challenge screens/progression remain absent and their main-menu buttons are intentionally disabled. No fake Continue/ad, Undo or Remove feature is shown.
 - Four-language dictionaries cover new main controls but existing animal names, some HUD/debug text, the logo and other strings remain English; localized clipping was not visually tested.
@@ -23,7 +23,15 @@
 - AI sprite output is from Arena image tool but exact vendor/model and applicable supplemental/provider terms remain unknown. See `ASSET_LICENSES.md`; **commercial/final release remains blocked**.
 - Physical overlap and Bear silhouette mismatch are separate unresolved risks; `PHYSICS_REPORT.md`.
 
-## Day 6 WIP
+## Day 6 WIP (historical; superseded where noted)
 - Classic session saving and Continue are connected in V0.6.1; cross-platform durability, interrupted writes, human play and mobile/Web remain unverified. See `SAVE_SYSTEM_REPORT.md`.
 - Challenges, Collection, Achievements, unlocks, statistics and requested power-ups remain unimplemented. No V0.6.0 release acceptance, stress matrix or new UI screenshot suite has been completed. See `PROGRESSION_REPORT.md`.
 - Intermittent Godot editor import double-free on V0.5 baseline: observed twice in three reruns; excluding non-asset test logs from import is a mitigation with two passing runs, not a confirmed root cause.
+
+## V0.6.2 DEV — current limitations
+- AI sprite provider/model and applicable commercial terms remain unverified; final commercial release is blocked. The 24 facial states are still missing.
+- Previously measured wall/floor penetration and Bear silhouette mismatch remain unresolved; no physics parameters or sprites were changed for V0.6.2.
+- Recovery can roll back to an earlier transaction. Power-loss/fsync, multi-writer, mobile/Web/Windows persistence and real device performance remain untested.
+- Legacy v0.6.1 body provenance is unknown and therefore ineligible for collection events; their merges make the current score untrusted for lifetime best/combo. Earlier totals and dates cannot be reconstructed. Debug sessions suppress further progression.
+- 21 Godot X11 captures are scripted visual fixtures, not human play; 1366×768 uses portrait letterboxing. Mobile touch, safe areas and human visual acceptance are unverified.
+- Challenge, Achievement, Undo, Remove and Rescue remain out of scope/unimplemented.

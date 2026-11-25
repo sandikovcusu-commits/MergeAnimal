@@ -1,8 +1,8 @@
-> **V0.5.0 DEV / release blocked:** Main Menu, gameplay, pause, settings and tutorial are WIP; Collection and Challenges are disabled. AI sprite commercial rights are unresolved, and 24 expression states remain missing. See `UI_QA_REPORT.md` and `ASSET_LICENSES.md`.
+> **V0.6.2 DEV / release blocked:** Collection, Statistics and local Classic Continue are available; Challenges remain disabled. AI sprite commercial rights are unresolved and 24 expression states remain missing. See `COLLECTION_REPORT.md`, `STATISTICS_REPORT.md` and `ASSET_LICENSES.md`.
 
-# Merge Animals: Wild Garden — V0.3.0-dev
+# Merge Animals: Wild Garden — V0.6.2-dev
 
-Godot 4.7.2, Compatibility renderer, 120 Hz fizika, redaktə edilə bilən 2D mənbə layihəsi. V0.2.1 üzərindən inkişaf etdirilib. Başsız Linux Actions testləri `QA_REPORT.md`-dədir. **DEV:** real render, mobil touch və Windows test edilməyib; qrafikalar müvəqqətidir.
+Godot 4.7.2, Compatibility renderer, 120 Hz fizika, redaktə edilə bilən 2D mənbə layihəsi. V0.2.1 üzərindən inkişaf etdirilib. Başsız Linux Actions testləri `QA_REPORT.md`-dədir. **DEV:** X11 proqram renderi yoxlanıb; real mobil touch və Windows yoxlanmayıb; qrafikalar son kommersiya qəbulundan keçməyib.
 
 ## Açmaq və oynamaq
 Windows: Godot 4.7.2 ayrıca quraşdırın, `RUN_GAME.bat`-ı açın. Testlər üçün `RUN_TESTS.bat` (Windows-da yoxlanmayıb). Başqa sistemlərdə Project Manager-də `project.godot` import edin və F5. Mouse və ya touch ilə yeri seçib buraxın; UI PAUSE/RESTART düymələri var. `user://wild_garden.cfg` best score üçündür.
@@ -17,3 +17,6 @@ Godot import və skriptləri `.github/workflows/godot-tests.yml` və `RUN_TESTS.
 
 ### Classic Continue (V0.6.1-dev)
 Play autosaves locally at safe points. Pause to save before returning to the menu; if a merge is still pending, resume and wait. Continue restores the most recent validated checkpoint. Starting a new game asks before replacing a saved session; game over clears it. Recovery can fall back to an older checkpoint. See `SAVE_SYSTEM_REPORT.md` for testing and limitations.
+
+### Collection and statistics (V0.6.2-dev)
+Open Collection or Statistics from the main menu. A normal first-tier drop or merge result records a creation; locked tiers show their discovery condition. Details and statistics use local save data. See `COLLECTION_REPORT.md` and `STATISTICS_REPORT.md` for rules, migration and test limits.

@@ -1,3 +1,13 @@
+# V0.6.2 — collection and statistics integration
+
+The SaveManager versioned envelope remains version 1. Its Classic-session payload is now **session version 2**, containing validated progression version 1 in the same atomic checkpoint as the board, score and RNG. V0.6.1 session-version-1 files remain readable; on the next safe save they migrate to version 2 without clearing the board, best or settings. The V0.6.1 version guard treats session version 2 as future rather than silently discarding new progression; running the older build against this new save was not separately tested. A version newer than 2 or a newer progression version is protected against overwrite. Recovery uses the previous validated primary/backup transaction. If both copies are unreadable/invalid, the UI reports unavailability and the application refuses to replace them automatically.
+
+Progression carries all per-animal counts/dates and lifetime counters. It is written together with the session/tombstone so a restored checkpoint does not replay an already-saved event against separately saved totals. Golden, restart and game-over retain the collection; completed-game tombstones replace both copies. Discovery notifications are transient UI and are not replayed on load. Ineligible old/debug body provenance and `score_untrusted` are retained with the session. See `COLLECTION_REPORT.md` and `STATISTICS_REPORT.md` for migration limits, counting rules and Undo design.
+
+[Runtime CI 45713935132](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45713935132) and [two-process session CI 45713935056](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45713935056) passed at `1d31b52`; the two-process test now also compares collection counts, dates and totals after Continue and backup recovery. Sudden power loss, simultaneous writers and Windows/mobile/Web persistence remain unverified; recovery may roll both progression and board back to the earlier checkpoint.
+
+---
+
 # V0.6.1 — Classic Save / Continue
 
 ## Behaviour
