@@ -15,6 +15,8 @@ func _ready() -> void:
 	shape.radius = data.radius
 	circle.shape = shape
 	mass = data.body_mass
+	linear_damp = data.linear_damping
+	angular_damp = data.angular_damping
 	var material := PhysicsMaterial.new()
 	material.friction = data.friction
 	material.bounce = data.bounce

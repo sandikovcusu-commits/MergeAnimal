@@ -2,6 +2,7 @@ class_name MergeManager
 extends Node
 
 signal merged(result: AnimalData, point: Vector2)
+signal golden_merged(point: Vector2)
 
 var game
 var pending: Array[Dictionary] = []
@@ -26,13 +27,14 @@ func request_merge(a: Animal, b: Animal) -> bool:
 		return false
 	if a.data.level != b.data.level or a.data.id != b.data.id:
 		return false
-	var target: AnimalData = game.find_next_level(a.data.level)
-	if target == null: # Level 5 is a temporary cap, not a golden merge.
+	var target: AnimalData = game.find_animal(a.data.next_evolution_id)
+	var golden: bool = a.data.golden_terminal
+	if target == null and not golden:
 		return false
 	# Reserve both synchronously inside the callback. No scene/physics mutation here.
 	a.merge_locked = true
 	b.merge_locked = true
-	pending.append({"a": a, "b": b, "target": target})
+	pending.append({"a": a, "b": b, "target": target, "golden": golden})
 	return true
 
 func _physics_process(_delta: float) -> void:
@@ -58,15 +60,20 @@ func _commit_pending() -> void:
 			continue
 		var target: AnimalData = pair["target"]
 		var midpoint: Vector2 = (a.global_position + b.global_position) * 0.5
-		var safe_point: Variant = game.find_merge_position(midpoint, target.radius, a, b)
-		if safe_point == null:
-			continue
+		var safe_point: Variant = midpoint
+		if not pair["golden"]:
+			safe_point = game.find_merge_position(midpoint, target.radius, a, b)
+			if safe_point == null:
+				continue
 		pending.erase(pair)
 		# Remove from the tree outside physics callbacks before creating the replacement.
 		game.pieces.remove_child(a)
 		game.pieces.remove_child(b)
 		a.queue_free()
 		b.queue_free()
-		game.create_animal(target, safe_point)
 		merge_count += 1
-		merged.emit(target, safe_point)
+		if pair["golden"]:
+			golden_merged.emit(midpoint)
+		else:
+			game.create_animal(target, safe_point)
+			merged.emit(target, safe_point)

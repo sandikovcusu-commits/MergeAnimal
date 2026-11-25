@@ -37,6 +37,7 @@ jobs:
           }
           run_test 'editor import' --editor --quit
           run_test 'integration' --script res://tests/integration/day2_suite.gd
+          run_test 'day3 evolution' --script res://tests/integration/day3_suite.gd
           run_test 'natural collision' --script res://tests/physics/natural_collision.gd
           run_test 'input recovery' --script res://tests/integration/input_recovery.gd
           run_test 'multitouch' --script res://tests/integration/input_multitouch.gd

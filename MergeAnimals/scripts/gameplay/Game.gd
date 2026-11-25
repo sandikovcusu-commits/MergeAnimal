@@ -14,6 +14,9 @@ enum GameState { PLAYING, PAUSED, GAME_OVER }
 @export var test_seed: int = 0
 @export var animals: Array[AnimalData] = []
 @export var animal_scene: PackedScene
+@export var golden_config: GoldenConfig
+@export var combo_enabled: bool = true
+@export_range(0.1, 5.0) var combo_window: float = 1.0
 @export var debug_enabled: bool = false
 @export var persist_best: bool = true
 
@@ -29,6 +32,7 @@ enum GameState { PLAYING, PAUSED, GAME_OVER }
 @onready var overlay: Control = $HUD/Overlay
 @onready var overlay_title: Label = $HUD/Overlay/Title
 @onready var resume_button: Button = $HUD/Overlay/ResumeButton
+@onready var golden_label: Label = $HUD/GoldenLabel
 @onready var debug_panel: Control = $HUD/DebugPanel
 @onready var debug_label: Label = $HUD/DebugPanel/Info
 var current_data: AnimalData
@@ -45,6 +49,11 @@ var best_score: int = 0
 var spawn_count: int = 0
 var debug_outlines: bool = false
 var drop_requested: bool = false
+var combo_count: int = 0
+var combo_left: float = 0.0
+var combo_events: int = 0
+var highest_level: int = 1
+var golden_tween: Tween
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -58,6 +67,7 @@ func _ready() -> void:
 		rng.seed = test_seed
 	merge_manager.setup(self)
 	merge_manager.merged.connect(_on_merged)
+	merge_manager.golden_merged.connect(_on_golden_merged)
 	danger_monitor.setup(self)
 	danger_monitor.overflow.connect(_on_game_over)
 	danger_monitor.danger_changed.connect(_on_danger_changed)
@@ -86,6 +96,9 @@ func _physics_process(delta: float) -> void:
 	if not is_playing():
 		return
 	cooldown_left = maxf(0.0, cooldown_left - delta)
+	combo_left = maxf(0.0, combo_left - delta)
+	if combo_left <= 0.0:
+		combo_count = 0
 	if drop_requested:
 		drop_requested = false
 		_attempt_drop()
@@ -102,13 +115,28 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 
 func _pick_animal() -> AnimalData:
-	# Day 2 keeps the original three equally likely; weights are scheduled for Day 3.
-	return animals[rng.randi_range(0, mini(2, animals.size() - 1))]
+	var total := 0.0
+	for data in animals:
+		total += maxf(0.0, data.spawn_weight)
+	if total <= 0.0:
+		return animals[0]
+	var choice := rng.randf() * total
+	for data in animals:
+		choice -= maxf(0.0, data.spawn_weight)
+		if choice < 0.0:
+			return data
+	return animals[0]
+
+func find_animal(id: StringName) -> AnimalData:
+	for data in animals:
+		if data.id == id:
+			return data
+	return null
 
 func find_next_level(level: int) -> AnimalData:
 	for data in animals:
-		if data.level == level + 1:
-			return data
+		if data.level == level:
+			return find_animal(data.next_evolution_id)
 	return null
 
 func _set_aim(x: float) -> void:
@@ -202,6 +230,8 @@ func _attempt_drop() -> void:
 func create_animal(data: AnimalData, point: Vector2) -> Animal:
 	var animal := animal_scene.instantiate() as Animal
 	animal.data = data
+	highest_level = maxi(highest_level, data.level)
+	queue_redraw()
 	animal.position = point
 	pieces.add_child(animal)
 	merge_manager.observe(animal)
@@ -229,12 +259,39 @@ func find_merge_position(midpoint: Vector2, radius: float, a: Animal, b: Animal)
 				return point
 	return null
 
-func _on_merged(data: AnimalData, _point: Vector2) -> void:
-	score += data.merge_score
+func _award_merge(base_score: int) -> void:
+	if combo_enabled:
+		combo_count = combo_count + 1 if combo_left > 0.0 else 1
+		combo_left = combo_window
+		if combo_count > 1:
+			combo_events += 1
+	else:
+		combo_count = 1
+	var multiplier := minf(2.0, 1.0 + maxf(0, combo_count - 1) * 0.25)
+	score += roundi(base_score * multiplier)
 	if score > best_score:
 		best_score = score
 		_save_best()
 	_update_hud()
+
+func _on_merged(data: AnimalData, _point: Vector2) -> void:
+	_award_merge(data.merge_score)
+
+func _on_golden_merged(_point: Vector2) -> void:
+	# Golden award is exactly the configured bonus; it does not receive combo multiplication.
+	score += golden_config.bonus_score if golden_config else 1000
+	if score > best_score:
+		best_score = score
+		_save_best()
+	_update_hud()
+	golden_label.visible = true
+	golden_label.modulate.a = 1.0
+	if golden_tween and golden_tween.is_running():
+		golden_tween.kill()
+	golden_tween = create_tween()
+	golden_tween.tween_interval(0.7)
+	golden_tween.tween_property(golden_label, "modulate:a", 0.0, 0.5)
+	golden_tween.tween_callback(func(): golden_label.visible = false)
 
 func _load_best() -> int:
 	if not persist_best:
@@ -263,6 +320,8 @@ func _on_game_over() -> void:
 	if not is_playing():
 		return
 	game_state = GameState.GAME_OVER
+	combo_count = 0
+	combo_left = 0.0
 	drop_requested = false
 	active_touch = -1
 	mouse_down = false
@@ -321,6 +380,18 @@ func _draw() -> void:
 	draw_line(Vector2(left_bound, danger_height), Vector2(right_bound, danger_height), line_color, 3.0)
 	if current_data and is_playing() and _can_aim():
 		draw_dashed_line(Vector2(aim_x, spawn_height + current_data.radius + 12), Vector2(aim_x, floor_height - 8), Color(0.38, 0.48, 0.37, 0.35), 2.0, 8.0)
+	# Compact evolution guide occupies the bottom margin, below the floor.
+	var font := ThemeDB.fallback_font
+	for i in range(animals.size()):
+		var item := animals[i]
+		var x := 40.0 + i * 58.0
+		var color: Color = item.placeholder_color
+		if item.level > highest_level:
+			color = color.darkened(0.55)
+		draw_circle(Vector2(x, 1190), 16, color)
+		if item.level == highest_level:
+			draw_arc(Vector2(x, 1190), 20, 0, TAU, 32, Color("d29b31"), 3.0)
+		draw_string(font, Vector2(x - 8, 1224), str(item.level), HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color("394f39"))
 	if debug_outlines and is_instance_valid(pieces):
 		for body in pieces.get_children():
 			if body is Animal:

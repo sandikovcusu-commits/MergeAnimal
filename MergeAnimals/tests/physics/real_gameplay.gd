@@ -41,7 +41,8 @@ func run() -> void:
 	# Non-merging maximum level: broad supported grid extends above danger line.
 	for row in range(8):
 		for column in range(6):
-			game.create_animal(game.animals[4], Vector2(140 + column * 84, 1052 - row * 84))
+			var locked = game.create_animal(game.animals[4], Vector2(140 + column * 84, 1052 - row * 84))
+			locked.merge_locked = true
 	for i in range(360):
 		await physics_frame
 		if not game.is_playing():

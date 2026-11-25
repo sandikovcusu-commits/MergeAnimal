@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scripts/gameplay/Game.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/animals/Animal.tscn" id="2"]
@@ -12,6 +12,19 @@
 [ext_resource type="Script" path="res://scripts/managers/DangerMonitor.gd" id="10"]
 [ext_resource type="Script" path="res://scripts/gameplay/AnimalVisual.gd" id="11"]
 
+[ext_resource type="Resource" path="res://resources/animals/fox.tres" id="animal6"]
+[ext_resource type="Resource" path="res://resources/animals/raccoon.tres" id="animal7"]
+[ext_resource type="Resource" path="res://resources/animals/koala.tres" id="animal8"]
+[ext_resource type="Resource" path="res://resources/animals/panda.tres" id="animal9"]
+[ext_resource type="Resource" path="res://resources/animals/bear.tres" id="animal10"]
+[ext_resource type="Resource" path="res://resources/animals/lion.tres" id="animal11"]
+[ext_resource type="Resource" path="res://resources/animals/elephant.tres" id="animal12"]
+[ext_resource type="Script" path="res://scripts/gameplay/GoldenConfig.gd" id="gold_config"]
+
+[sub_resource type="Resource" id="gold_settings"]
+script = ExtResource("gold_config")
+bonus_score = 1000
+
 [sub_resource type="RectangleShape2D" id="wall"]
 size = Vector2(32, 830)
 
@@ -20,7 +33,8 @@ size = Vector2(570, 32)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
-animals = Array[ExtResource("6")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("7"), ExtResource("8")])
+animals = Array[ExtResource("6")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("7"), ExtResource("8"), ExtResource("animal6"), ExtResource("animal7"), ExtResource("animal8"), ExtResource("animal9"), ExtResource("animal10"), ExtResource("animal11"), ExtResource("animal12")])
+golden_config = SubResource("gold_settings")
 animal_scene = ExtResource("2")
 
 [node name="Walls" type="StaticBody2D" parent="."]
@@ -117,12 +131,24 @@ text = "RESTART"
 
 [node name="Hint" type="Label" parent="HUD"]
 offset_left = 60.0
-offset_top = 1140.0
+offset_top = 1130.0
 offset_right = 660.0
-offset_bottom = 1240.0
+offset_bottom = 1160.0
 theme_override_colors/font_color = Color(0.25, 0.34, 0.25, 1)
 theme_override_font_sizes/font_size = 19
-text = "DRAG TO AIM  ·  RELEASE TO DROP\nMOUSE  →  HAMSTER  →  RABBIT  →  CAT  →  DOG\nTemporary prototype art"
+text = "EVOLUTION GUIDE"
+horizontal_alignment = 1
+mouse_filter = 2
+
+[node name="GoldenLabel" type="Label" parent="HUD"]
+visible = false
+offset_left = 150.0
+offset_top = 420.0
+offset_right = 570.0
+offset_bottom = 480.0
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(0.95, 0.70, 0.12, 1)
+text = "GOLDEN MERGE!"
 horizontal_alignment = 1
 mouse_filter = 2
 

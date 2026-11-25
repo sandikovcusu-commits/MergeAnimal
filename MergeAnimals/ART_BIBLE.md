@@ -13,3 +13,6 @@ Bu sənəd qrafika istehsalından əvvəl üslub istiqamətidir; hələ təsdiql
 - Növbəti mərhələdə əvvəl 2–3 konsept hazırlayıb üslub təsdiqlənməli, sonra 12 × 3 şəffaf PNG hazırlanmalıdır. 512 px mənbə və kiçildilmiş runtime ayrılmalıdır. Alpha, kəsilmə, mərkəz və oxunaqlılıq ayrıca yoxlanmalıdır.
 
 Gün 1-də kodla çəkilən rəngli dairələr yalnız fizika diaqnostikası üçün müvəqqəti placeholder-dır, kommersiya sprite-ı deyil.
+
+## Gün 3 ilkin konsepsiya istiqaməti
+Mouse, Cat və Elephant üçün vahid orijinal, yumru-kompakt siluet; yuxarı soldan yumşaq işıq, isti krem fon atmosferi, tünd qəhvəyi kontur, sadə üz, doymamış təbii rənglər. Konsept hədəfi şəffaf fonlu 512×512 PNG və dairə collision sərhədinə uyğunluqdur; qulaq/xortum collision xaricinə uzanarsa oyun istifadəsindən öncə ayrıca uyğunlaşdırılmalıdır. Konseptlər yekun sprite deyil; 36 variasiya Gün 4-də hazırlanacaq. Model/şərt şəffaflığı `ASSET_LICENSES.md`-də qeyd olunacaq.

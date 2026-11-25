@@ -4,6 +4,7 @@ func _initialize() -> void:
 	call_deferred("run")
 func run() -> void:
 	var game = scene.instantiate()
+	game.combo_enabled = false
 	game.test_seed = 42
 	game.persist_best = false
 	root.add_child(game)

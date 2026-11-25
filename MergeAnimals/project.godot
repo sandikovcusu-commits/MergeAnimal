@@ -1,9 +1,9 @@
-; Merge Animals: Wild Garden — day 2 unverified development build
+; Merge Animals: Wild Garden — day 3 development build
 config_version=5
 
 [application]
 config/name="Merge Animals: Wild Garden"
-config/version="0.2.0-dev"
+config/version="0.3.0-dev"
 run/main_scene="res://scenes/game/Game.tscn"
 
 [display]

@@ -18,7 +18,7 @@ def animal(name):
 class StaticContract(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.names = ['mouse', 'hamster', 'rabbit', 'cat', 'dog']
+        cls.names = ['mouse', 'hamster', 'rabbit', 'cat', 'dog', 'fox', 'raccoon', 'koala', 'panda', 'bear', 'lion', 'elephant']
         cls.animals = [animal(name) for name in cls.names]
         cls.game = read('scripts/gameplay/Game.gd')
         cls.merge = read('scripts/managers/MergeManager.gd')
@@ -28,11 +28,11 @@ class StaticContract(unittest.TestCase):
         self.assertEqual([a['id'] for a in self.animals], [f'&"{n}"' for n in self.names])
 
     def test_contiguous_levels(self):
-        self.assertEqual([int(a['level']) for a in self.animals], list(range(1, 6)))
+        self.assertEqual([int(a['level']) for a in self.animals], list(range(1, 13)))
 
     def test_strict_radius_progression(self):
         radii = [float(a['radius']) for a in self.animals]
-        self.assertEqual(radii, [18, 23, 29, 35, 42])
+        self.assertEqual(radii, [18, 23, 29, 35, 42, 50, 59, 69, 80, 93, 108, 125])
         self.assertTrue(all(a < b for a, b in zip(radii, radii[1:])))
 
     def test_positive_mass(self):
@@ -44,7 +44,7 @@ class StaticContract(unittest.TestCase):
                 self.assertTrue(0 <= float(a[key]) <= 1)
 
     def test_scores_match_balance_table(self):
-        self.assertEqual([int(a['merge_score']) for a in self.animals], [2, 4, 8, 12, 20])
+        self.assertEqual([int(a['merge_score']) for a in self.animals], [2, 4, 8, 12, 20, 32, 48, 70, 100, 150, 220, 500])
 
     def test_same_scene_references_all_resources(self):
         for name in self.names:
