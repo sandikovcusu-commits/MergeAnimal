@@ -45,7 +45,8 @@ static func can_write() -> bool:
 	for path in [PATH, PATH + ".bak"]:
 		var envelope := SaveManager._read_envelope(path)
 		if envelope.status in ["future", "io_error"] or _future_schema(envelope): return false
-	return true
+	var doc := load_document()
+	return doc.status in ["ok", "recovered", "missing"]
 
 static func _inactive(data: Dictionary) -> bool:
 	return data.get("session_version") == 1 and data.get("active") == false and (not data.has("progression") or Progression.valid(data.progression))

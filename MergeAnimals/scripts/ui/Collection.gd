@@ -2,8 +2,6 @@ extends Control
 const FOREST := preload("res://assets/backgrounds/forest_garden.svg")
 const THEME := preload("res://assets/ui/themes/forest.tres")
 const IDS := Progression.IDS
-const NAMES := ["Mouse", "Hamster", "Rabbit", "Cat", "Dog", "Fox", "Raccoon", "Koala", "Panda", "Bear", "Lion", "Elephant"]
-const DESCRIPTIONS := ["A curious little garden visitor.", "A tiny friend with full cheeks.", "A gentle, energetic hopper.", "A playful and watchful companion.", "A loyal friend with a happy spirit.", "A clever explorer of the woods.", "A nimble collector with a striped tail.", "A peaceful tree-loving friend.", "A calm bear with a love of leaves.", "A large and gentle forest friend.", "A proud and warm-hearted guardian.", "A mighty friend with a gentle trunk."]
 var progress: Dictionary
 var cards: Array[Button] = []
 var detail: PanelContainer
@@ -20,8 +18,12 @@ func _ready() -> void:
 
 func _build() -> void:
 	var background := TextureRect.new(); background.texture = FOREST; background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; background.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(background)
-	var heading := Label.new(); heading.position = Vector2(80, 38); heading.size = Vector2(560, 55); heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; heading.add_theme_font_size_override("font_size", 36); heading.text = tr("COLLECTION_TITLE"); add_child(heading)
-	var progress_text := Label.new(); progress_text.position = Vector2(80, 108); progress_text.size = Vector2(560, 35); progress_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; progress_text.add_theme_font_size_override("font_size", 24); progress_text.text = "%s  %d / 12" % [tr("DISCOVERED"), Progression.discovered(progress)]; add_child(progress_text)
+	var heading := Label.new(); heading.position = Vector2(80, 38); heading.size = Vector2(560, 55); heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; heading.add_theme_font_size_override("font_size", 36); heading.add_theme_color_override("font_color", Color("263e2b")); heading.text = tr("COLLECTION_TITLE"); add_child(heading)
+	if SessionSave.load_document().status in ["corrupt", "future", "io_error"]:
+		var warning := Label.new(); warning.position = Vector2(100, 300); warning.size = Vector2(520, 180); warning.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; warning.text = tr("DATA_UNAVAILABLE"); warning.add_theme_font_size_override("font_size", 26); warning.add_theme_color_override("font_color", Color("263e2b")); add_child(warning)
+		_add_back()
+		return
+	var progress_text := Label.new(); progress_text.position = Vector2(80, 108); progress_text.size = Vector2(560, 35); progress_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; progress_text.add_theme_font_size_override("font_size", 24); progress_text.add_theme_color_override("font_color", Color("263e2b")); progress_text.text = "%s  %d / 12" % [tr("DISCOVERED"), Progression.discovered(progress)]; add_child(progress_text)
 	var bar := ProgressBar.new(); bar.position = Vector2(110, 150); bar.size = Vector2(500, 24); bar.max_value = 12; bar.value = Progression.discovered(progress); bar.show_percentage = false; add_child(bar)
 	scroll = ScrollContainer.new(); scroll.name = "CollectionScroll"; scroll.position = Vector2(55, 195); scroll.size = Vector2(610, 938); scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; add_child(scroll)
 	var grid := GridContainer.new(); grid.name = "AnimalGrid"; grid.columns = 3; grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL; grid.add_theme_constant_override("h_separation", 8); grid.add_theme_constant_override("v_separation", 8); scroll.add_child(grid)
@@ -35,13 +37,16 @@ func _build() -> void:
 		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(100, 86); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if not unlocked: art.modulate = Color(0.12, 0.16, 0.13, 0.92)
 		column.add_child(art)
-		for line in ["%s · %d" % [tr(data.translation_key), i + 1], tr("UNLOCKED") if unlocked else tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), DESCRIPTIONS[i] if unlocked else tr("UNLOCK_HINT")]:
-			var label := Label.new(); label.text = line; label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.add_theme_font_size_override("font_size", 15); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; label.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_child(label)
+		for line in ["%s · %s %d" % [tr(data.translation_key), tr("LEVEL"), i + 1], tr("UNLOCKED") if unlocked else tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), tr("ANIMAL_DESC_" + IDS[i].to_upper()) if unlocked else tr("UNLOCK_HINT")]:
+			var label := Label.new(); label.text = line; label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.add_theme_font_size_override("font_size", 18); label.add_theme_color_override("font_color", Color("203a28")); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; label.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_child(label)
 		if not unlocked:
 			var lock := TextureRect.new(); lock.name = "Lock"; lock.texture = load("res://assets/ui/icons/lock.svg"); lock.position = Vector2(148, 10); lock.size = Vector2(24, 24); lock.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; lock.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(lock)
 		card.pressed.connect(func(): _show_detail(index))
-	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.position = Vector2(210, 1160); back.size = Vector2(300, 65); add_child(back); back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
+	_add_back()
 	_build_detail()
+
+func _add_back() -> void:
+	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.position = Vector2(210, 1160); back.size = Vector2(300, 65); add_child(back); back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
 
 func _build_detail() -> void:
 	detail = PanelContainer.new(); detail.name = "AnimalDetails"; detail.position = Vector2(95, 300); detail.size = Vector2(530, 600); detail.z_index = 10; detail.visible = false; add_child(detail)
@@ -56,5 +61,5 @@ func _show_detail(index: int) -> void:
 	var unlocked := int(entry.count) > 0
 	detail_image.texture = data.sprite
 	detail_image.modulate = Color.WHITE if unlocked else Color(0.12, 0.16, 0.13, 0.92)
-	detail_label.text = "%s\n%s %d · %s\n%s: %d\n%s: %s\n\n%s" % [tr(data.translation_key), tr("LEVEL"), index + 1, tr("UNLOCKED") if unlocked else tr("LOCKED"), tr("CREATED"), int(entry.count), tr("FIRST_FOUND"), entry.date if unlocked else "—", DESCRIPTIONS[index] if unlocked else tr("UNLOCK_HINT")]
+	detail_label.text = "%s\n%s %d · %s\n%s: %d\n%s: %s\n\n%s" % [tr(data.translation_key), tr("LEVEL"), index + 1, tr("UNLOCKED") if unlocked else tr("LOCKED"), tr("CREATED"), int(entry.count), tr("FIRST_FOUND"), entry.date if unlocked else "—", tr("ANIMAL_DESC_" + IDS[index].to_upper()) if unlocked else tr("UNLOCK_HINT")]
 	detail.visible = true

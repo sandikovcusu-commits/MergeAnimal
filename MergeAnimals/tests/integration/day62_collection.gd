@@ -27,6 +27,16 @@ func run() -> void:
 	check(migrated.best_score == 432 and migrated.total_games == 1 and Progression.discovered(migrated) == 0, "legacy migration preserves best without invented animals")
 	check(SettingsStore.load_values().language == "az", "legacy settings preserved")
 	legacy_game.queue_free(); await process_frame
+	paused = true
+	var legacy_menu = (load("res://scenes/ui/MainMenu.tscn") as PackedScene).instantiate()
+	root.add_child(legacy_menu); current_scene = legacy_menu; await process_frame
+	legacy_menu.continue_button.pressed.emit(); await frames(5)
+	var restored_legacy = current_scene
+	check(restored_legacy.has_method("save_session") and str(restored_legacy.rng.state) == legacy.rng_state and str(restored_legacy.current_data.id) == legacy.current and restored_legacy.best_score == 432, "legacy Continue restores session and best")
+	check(restored_legacy.save_session() == OK and SessionSave.load_session().data.has("progression") and Progression.discovered(restored_legacy.progression) == 0, "legacy session migrates without fake discovery")
+	paused = false
+	restored_legacy.queue_free(); await process_frame
+	current_scene = null
 	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
 	set_meta("tutorial_requested", true)
@@ -59,7 +69,9 @@ func run() -> void:
 	game.debug_panel.visible = true
 	var before_count: int = int(game.progression.animals.rabbit.count)
 	game._debug_pair()
-	check(game.session_tainted and int(game.progression.animals.rabbit.count) == before_count, "debug spawn cannot progress collection")
+	var merges_before_debug: int = int(game.progression.total_merges)
+	for i in range(250): await physics_frame
+	check(game.session_tainted and int(game.progression.animals.rabbit.count) == before_count and int(game.progression.total_merges) == merges_before_debug, "debug spawn and subsequent collisions cannot progress collection or merge stats")
 	# New untainted session retains prior progress. Restart itself does not complete a game.
 	game._restart(); await frames(5); game = current_scene
 	check(int(game.progression.total_games) == 2 and int(game.progression.completed_games) == 0, "restart starts another game without completion")
@@ -81,6 +93,9 @@ func run() -> void:
 	var collection = current_scene
 	check(collection.cards.size() == 12 and collection.get_node_or_null("CollectionScroll/AnimalGrid") != null, "collection has 12 cards in three-column grid")
 	check(collection.cards[0].find_child("Lock", true, false) == null and collection.cards[11].find_child("Lock", true, false) != null, "unlocked and locked cards render appropriate state")
+	collection.scroll.scroll_vertical = int(collection.scroll.get_v_scroll_bar().max_value)
+	await frames()
+	check(collection.scroll.scroll_vertical > 0, "collection grid scrolls to later animals")
 	collection.cards[0].pressed.emit(); await frames()
 	check(collection.detail.visible and collection.detail_label.text.contains("2"), "animal detail opens with persisted count")
 	collection.detail_close.pressed.emit(); await frames()
@@ -103,6 +118,9 @@ func run() -> void:
 	paused = false
 	# Simulated bodies with legitimate eligibility exercise real physics golden contact in this isolated test.
 	game.danger_monitor.set_physics_process(false)
+	# A pre-existing Elephant discovery is a test fixture, not an awarded discovery.
+	game.progression.animals.elephant = {"count": 3, "date": "2026-01-01 12:00:00"}
+	game.progression.highest_animal = 12
 	var a: Animal = game.create_animal(game.animals[11], Vector2(225, 700))
 	var b: Animal = game.create_animal(game.animals[11], Vector2(495, 700))
 	a.progression_eligible = true; b.progression_eligible = true
@@ -111,11 +129,19 @@ func run() -> void:
 		await physics_frame
 		if int(game.progression.golden_merges) > 0: break
 	check(int(game.progression.golden_merges) == 1 and int(game.progression.total_merges) == 2, "real golden collision counted once")
-	check(int(game.progression.animals.mouse.count) == 2 and int(game.progression.animals.hamster.count) == 1 and int(game.progression.animals.elephant.count) == 0, "golden merge does not erase collection or invent fixture discovery")
+	check(int(game.progression.animals.mouse.count) == 2 and int(game.progression.animals.hamster.count) == 1 and int(game.progression.animals.elephant.count) == 3 and game.progression.animals.elephant.date == "2026-01-01 12:00:00", "golden merge preserves existing Elephant discovery")
 	game._on_game_over()
 	check(int(game.progression.completed_games) == 1 and SessionSave.load_session().status == "missing", "completion counted once, no continue after game over")
 	game._on_game_over()
 	check(int(game.progression.completed_games) == 1, "game-over reentry does not duplicate completion")
+	check(int(SessionSave.load_progression().animals.elephant.count) == 3, "golden collection persists after game over")
+	file = FileAccess.open(SessionSave.PATH, FileAccess.WRITE); file.store_string("broken primary"); file.close()
+	file = FileAccess.open(SessionSave.PATH + ".bak", FileAccess.WRITE); file.store_string("broken backup"); file.close()
+	check(SessionSave.load_document().status == "corrupt" and SessionSave.clear_session() == ERR_UNAVAILABLE, "two corrupt copies are not overwritten")
 	paused = false
+	var unavailable = (load("res://scenes/ui/Collection.tscn") as PackedScene).instantiate()
+	root.add_child(unavailable); await process_frame
+	check(unavailable.cards.is_empty(), "unrecoverable data is not presented as empty collection")
+	unavailable.queue_free()
 	print("DAY62 collection and statistics checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures else 0)
