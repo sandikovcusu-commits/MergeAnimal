@@ -2,7 +2,8 @@ extends SceneTree
 var scene := preload("res://scenes/game/Game.tscn")
 func _initialize() -> void:
 	call_deferred("run")
-func run() -> void:
+
+func measure(mode: int) -> bool:
 	var game = scene.instantiate()
 	game.test_seed = 42
 	game.persist_best = false
@@ -11,13 +12,28 @@ func run() -> void:
 	game.danger_monitor.set_physics_process(false)
 	var left = game.create_animal(game.animals[0], Vector2(200, 550))
 	var right = game.create_animal(game.animals[1], Vector2(520, 550))
+	left.continuous_cd = mode
+	right.continuous_cd = mode
 	left.linear_velocity = Vector2(-700, 0)
 	right.linear_velocity = Vector2(700, 0)
-	var escaped := false
+	var min_left := INF
+	var min_right := INF
+	var min_floor := INF
 	for i in range(180):
 		await physics_frame
-		if left.position.x - left.data.radius < game.left_bound - 2.0 or right.position.x + right.data.radius > game.right_bound + 2.0 or left.position.y + left.data.radius > game.floor_height + 2.0 or right.position.y + right.data.radius > game.floor_height + 2.0:
-			escaped = true
+		min_left = minf(min_left, left.position.x - left.data.radius - game.left_bound)
+		min_right = minf(min_right, game.right_bound - right.position.x - right.data.radius)
+		min_floor = minf(min_floor, game.floor_height - maxf(left.position.y + left.data.radius, right.position.y + right.data.radius))
 	var landed: bool = left.position.y > 900 and right.position.y > 900
-	print("%s: left/right walls and floor contain fast bodies; escaped=%s landed=%s" % ["PASS" if not escaped and landed else "FAIL", escaped, landed])
-	quit(0 if not escaped and landed else 1)
+	var ok: bool = minf(min_left, minf(min_right, min_floor)) >= -2.0 and landed
+	print("%s: CCD mode=%d left_gap=%.3f right_gap=%.3f floor_gap=%.3f landed=%s" % ["PASS" if ok else ("INFO" if mode == RigidBody2D.CCD_MODE_CAST_RAY else "FAIL"), mode, min_left, min_right, min_floor, landed])
+	game.queue_free()
+	await process_frame
+	return ok
+
+func run() -> void:
+	# Ray is an informational baseline; shape mode is the required regression.
+	var ray_ok: bool = await measure(RigidBody2D.CCD_MODE_CAST_RAY)
+	var shape_ok: bool = await measure(RigidBody2D.CCD_MODE_CAST_SHAPE)
+	print("CCD comparison: ray_ok=%s shape_ok=%s" % [ray_ok, shape_ok])
+	quit(0 if shape_ok else 1)
