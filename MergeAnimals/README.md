@@ -1,3 +1,5 @@
+> **V0.4.1 DEV / buraxılışa hazır deyil:** 12 eksperimental AI sprite-ın model və kommersiya hüquqları təsdiqlənməyib. 24 üz vəziyyəti, effektlər və logo tamamlanmayıb. `VISUAL_QA_REPORT.md`, `ASSET_QA_REPORT.md` və `ASSET_LICENSES.md` sənədlərinə baxın.
+
 # Merge Animals: Wild Garden — V0.3.0-dev
 
 Godot 4.7.2, Compatibility renderer, 120 Hz fizika, redaktə edilə bilən 2D mənbə layihəsi. V0.2.1 üzərindən inkişaf etdirilib. Başsız Linux Actions testləri `QA_REPORT.md`-dədir. **DEV:** real render, mobil touch və Windows test edilməyib; qrafikalar müvəqqətidir.
