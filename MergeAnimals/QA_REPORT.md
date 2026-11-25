@@ -14,3 +14,6 @@ Real telefon touch, Windows BAT, GUI/F5, vizual screenshot, 6 ekran ölçüsünd
 Bu DEV namizədidir, mobil və vizual qəbul yekun deyil. Hər problem və regression xəritəsi `ROOT_CAUSE_REPORT.md`-də, bot metodologiyası `BALANCE_REPORT.md`-dədir.
 
 120 Hz test run 45668965282: köhnə 49/49 və yeni 61/61, 100 bot işləsə də 100-drop fixture 99/99 ilə FAIL idi. Sabit 60 Hz frame fərziyyəsi aradan qaldırılıb; sonrakı [45670121999](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45670121999) run-da 100/100 PASS, köhnə 49 və yeni 61 yoxlama da PASS oldu. Mobil 120 Hz CPU/batareya testi yoxdur.
+
+## V0.4.1 DEV regression
+[45681741743](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45681741743), `8eefda7`: Day2 49/0, Day3 61/0, genişləndirilmiş Day4 DEV 64/0 (əvvəlki 56 və Bear/Lion əlavə yoxlamaları), yeni UI 53/0. 20 ikon və 8×4 StyleBox resurs import/varlıq assertion-ları və HUD theme bağlantısı işləyib; test gözlə vizual keyfiyyətə zəmanət deyil. Başqa real collision/input/restart/bot testləri logdadır. Ayrı release acceptance testi missing expression və hüquqlar səbəbindən FAIL gözlənilir. 18 X11 tam pəncərə capture [45682074271](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45682074271); məhdudiyyətlər və vizual nəticə `VISUAL_QA_REPORT.md`-dədir. Yoxlamalar insan/mobile/Web playtest deyil.

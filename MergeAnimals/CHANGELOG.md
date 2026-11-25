@@ -1,3 +1,10 @@
+# V0.4.1-dev — Graphics completion WIP, release bloklu
+
+- Bear/Lion 512² RGBA normal sprite, AnimalData bağlantısı və 12 fərdi collision overlay; kommersiya mənşəyi məlum deyil.
+- 20 orijinal kod SVG ikonu, 8 native Theme/StyleBox palitrası; Forest tema HUD düymələrində istifadə edilir.
+- 24 expression, blink, effekt və logo hələ yoxdur. Capture testlərində yaşıl status yalnız fayl/ölçü/skript şərtidir; vizual baxış ayrıca tələb olunur.
+- Əvvəlki gameplay saxlanılıb, fizika parametrləri dəyişməyib.
+
 # V0.4.0-dev — DAY 4 WIP, RELEASE BLOKLU
 
 - 10 eksperimental, kommersiya mənşəyi təsdiqlənməmiş sprite, üç kodla yazılmış tema, alpha və collision hesabatları, ortaq preview/body inteqrasiyası.

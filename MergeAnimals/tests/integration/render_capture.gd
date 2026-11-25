@@ -10,7 +10,8 @@ func run() -> void:
 	root.add_child(game)
 	await process_frame
 	game.danger_monitor.set_physics_process(false)
-	var positions := [Vector2(120,530), Vector2(180,530), Vector2(250,530), Vector2(330,530), Vector2(420,530), Vector2(520,530), Vector2(160,670), Vector2(300,680), Vector2(455,680), Vector2(185,830), Vector2(425,850), Vector2(300,1040-125)]
+	# Non-overlapping physical circles, including all twelve sizes, within the board.
+	var positions := [Vector2(373,1064), Vector2(606,798), Vector2(143,535), Vector2(421,1017), Vector2(136,796), Vector2(579,1026), Vector2(552,715), Vector2(382,786), Vector2(502,901), Vector2(453,587), Vector2(251,647), Vector2(237,949)]
 	for index in range(12):
 		var piece = game.create_animal(game.animals[index], positions[index])
 		piece.freeze = true
@@ -32,6 +33,10 @@ func run() -> void:
 	game.queue_redraw()
 	await create_timer(2.0).timeout
 	await RenderingServer.frame_post_draw
+	if game.pieces.get_child_count() != 12 or game.current_preview.data != game.current_data or game.next_preview.data != game.next_data or game.score_label.text.is_empty() or game.next_label.text.is_empty():
+		printerr("FAIL: render fixture has missing bodies, previews or HUD")
+		quit(1)
+		return
 	var ids := []
 	var find_result := OS.execute("xdotool", ["search", "--onlyvisible", "--pid", str(OS.get_process_id())], ids, true)
 	var id_list := str(ids[0]).strip_edges().split("\n", false) if not ids.is_empty() else PackedStringArray()
@@ -47,6 +52,18 @@ func run() -> void:
 	print("RENDER theme=%d requested=%s window=%s root_viewport=%s image=%s result=%d id=%s" % [theme, size, DisplayServer.window_get_size(), root.get_texture().get_image().get_size(), image.get_size(), result, id_list[0]])
 	if result != 0 or loaded != OK or image.get_size() != size or DisplayServer.window_get_size() != size:
 		printerr("FAIL: full-window screenshot failed or has unexpected size: %s %s" % [path, output])
+		quit(1)
+		return
+	var darkest := 1.0
+	var lightest := 0.0
+	for y in range(1, 20):
+		for x in range(1, 20):
+			var c := image.get_pixel(int(size.x * x / 20.0), int(size.y * y / 20.0))
+			var lum := (c.r + c.g + c.b) / 3.0
+			darkest = minf(darkest, lum)
+			lightest = maxf(lightest, lum)
+	if lightest - darkest < 0.15:
+		printerr("FAIL: screenshot has too little luminance variation")
 		quit(1)
 		return
 	quit()

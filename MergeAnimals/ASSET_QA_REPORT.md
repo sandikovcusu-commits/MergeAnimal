@@ -1,22 +1,22 @@
-# Asset QA — V0.4.0-dev / tamamlanmayıb
+# Asset QA — V0.4.1 DEV
 
-10/12 normal şəkil: kodla təmizlənmiş 512×512 PNG RGBA; Bear və Lion **MISSING**. Əsl alpha, ölçü və tam kənar yoxlamaları aşağıdadır. 24 happy/surprise şəkli yoxdur; expression seçicisi yalnız infrastruktur səviyyəsindədir. Alpha-ya PASS kommersiya, estetika və collision üçün qəbul demək deyil. Mənbələrdə opak şahmat fonu var idi, 26% fuzz flood-fill ilə çıxarılıb; ağ Rabbit və Panda ağ/qara kompozitdə baxılıb, konturlar və daxili şəffaf boşluqlar üçün peşəkar piksel auditi hələ lazımdır. `art_reports/contact_white_WIP.png`, `contact_black_WIP.png` və `contact_collision_WIP.png` oyun screenshot-u deyil.
+Aşağıdakı 12 resurs `AnimalData.sprite`-a bağlanıb. 512×512 PNG RGBA, alpha 0–255, bütün kənarların alpha maksimumu 0; ölçülər və bounding box skriptlə yoxlanıb. Kompozitlərə baxış vahid ön görünüş və isti tünd kontur istiqamətini göstərir; kontur qalınlığı və işıq istiqaməti ölçülməyib, yekun art-director təsdiqi deyil. Şahmat fonu opak AI mənbələrdən flood-fill ilə çıxarılıb, halo, incə detallar və daxili deşiklər əl piksel auditi tələb edir. 12-si də kommersiya üçün BLOKLU, Arena model/vendor UNKNOWN.
 
-| Heyvan | PNG/RGBA/512 | Alpha aralığı | kənar alpha max | bbox | Dairədən kənar alpha>32 (%) | Status |
-|---|---|---|---:|---|---:|---|
-| mouse | PNG/RGBA/512×512 | [0, 255] | 0 | [6, 11, 506, 502] | 8.95% | WIP; collision və lisenziya BLOCKED |
-| hamster | PNG/RGBA/512×512 | [0, 255] | 0 | [32, 6, 481, 506] | 4.40% | WIP; collision və lisenziya BLOCKED |
-| rabbit | PNG/RGBA/512×512 | [0, 255] | 0 | [6, 32, 506, 480] | 1.37% | WIP; collision və lisenziya BLOCKED |
-| cat | PNG/RGBA/512×512 | [0, 255] | 0 | [8, 6, 505, 506] | 4.36% | WIP; collision və lisenziya BLOCKED |
-| dog | PNG/RGBA/512×512 | [0, 255] | 0 | [6, 15, 506, 498] | 6.47% | WIP; collision və lisenziya BLOCKED |
-| fox | PNG/RGBA/512×512 | [0, 255] | 0 | [8, 6, 504, 506] | 5.12% | WIP; collision və lisenziya BLOCKED |
-| raccoon | PNG/RGBA/512×512 | [0, 255] | 0 | [7, 6, 505, 506] | 7.78% | WIP; collision və lisenziya BLOCKED |
-| koala | PNG/RGBA/512×512 | [0, 255] | 0 | [6, 43, 506, 470] | 5.00% | WIP; collision və lisenziya BLOCKED |
-| panda | PNG/RGBA/512×512 | [0, 255] | 0 | [20, 6, 492, 506] | 8.26% | WIP; collision və lisenziya BLOCKED |
-| bear | MISSING | — | — | — | — | BLOCKED |
-| lion | MISSING | — | — | — | — | BLOCKED |
-| elephant | PNG/RGBA/512×512 | [0, 255] | 0 | [6, 9, 506, 504] | 1.47% | WIP; collision və lisenziya BLOCKED |
+| Heyvan | Fayl yolu | Bbox | Dairədən kənar alpha>32 | Fərdi vizual audit / risk |
+|---|---|---|---:|---|
+| mouse | `assets/animals/mouse/normal.png` | [6, 11, 506, 502] | 8.95% | boz, böyük qulaqlar və quyruq; Koaladan burun və bığla seçilir |
+| hamster | `assets/animals/hamster/normal.png` | [32, 6, 481, 506] | 4.40% | qızılı, iri açıq yanaqlar; Bear-dən kiçik ağız və rənglə seçilir |
+| rabbit | `assets/animals/rabbit/normal.png` | [6, 32, 506, 480] | 1.37% | açıq rəngli, uzun əyik qulaqlar; ağ fonda kənar auditi lazımdır |
+| cat | `assets/animals/cat/normal.png` | [8, 6, 505, 506] | 4.36% | narıncı zolaq və bığ; Fox-dan zolaqlı alın və quyruqla seçilir |
+| dog | `assets/animals/dog/normal.png` | [6, 15, 506, 498] | 6.47% | açıq qəhvəyi, sallanan qulaq və xəz |
+| fox | `assets/animals/fox/normal.png` | [8, 6, 504, 506] | 5.12% | narıncı, iti qulaq və ağ enli yanaq |
+| raccoon | `assets/animals/raccoon/normal.png` | [7, 6, 505, 506] | 7.78% | boz, qara göz maskası və zolaqlı quyruq |
+| koala | `assets/animals/koala/normal.png` | [6, 43, 506, 470] | 5.00% | boz-mavi, iri qara burun, tüklü qulaq; dairənin içində boşluq |
+| panda | `assets/animals/panda/normal.png` | [20, 6, 492, 506] | 8.26% | qara/ağ, göz ətrafı ləkələr və qara ətraflar |
+| bear | `assets/animals/bear/normal.png` | [13, 6, 500, 506] | 6.72% | tünd qəhvəyi, açıq dairəvi ağız; qulaqlar dairədən çıxır |
+| lion | `assets/animals/lion/normal.png` | [24, 6, 488, 506] | 0.25% | qızılı üz və narıncı yal; kontur bir az daha dekorativ |
+| elephant | `assets/animals/elephant/normal.png` | [6, 9, 506, 504] | 1.47% | mavi-boz, xortum və böyük qulaqlar |
 
-Dairə testi vizual texture düzbucaqlısının mərkəzinə çəkilmiş radius 256 px üzrə alfa>32 olan piksellərin faizidir; bu **Sprite vs CircleShape2D** yaxınlaşmasıdır, real fizika təması testi deyil. Mouse qulaqları, Panda qulaqları və bir neçə quyruq/ayaq dairədən aydın kənara çıxır; cisim divara toxunanda vizual kəsişmə riski var. Koala və başqalarında dairə içində vizual boşluq da görünür. Radiusu və sprite-ı gizlətmək üçün kiçiltmədik. Kəsilməməyə yalnız şəffaf kənarlar və kontakt vərəqində baxış dəstək verir; bütün saç/ətraf orqanlar üzrə incə audit ayrıca tələb olunur.
+Dairə canvas mərkəzində radius 256 olan təxmini collision proyeksiyasıdır. Kənardakı piksellərin bədən və ya aksesuar olması ayrıca vizual nəzərdən keçirilməlidir; bu ölçü divar fizikasının sıfır nüfuzlu olmasını göstərmir. Scale/radius problemi gizlətmək üçün dəyişdirilməyib. 12 fərdi overlay `art_reports/collision_overlays/`, bərabər ölçülü ağ/qara/collision kontaktlar və dizayn radiuslarına uyğun `contact_game_scale_WIP.png` mövcuddur. Eyni heyvanın fərqli context-lərdə istifadəsi və 36 state üçün faktiki inteqrasiya/qəbul ayrıca sınaq tələb edir.
 
-Üç programmatik vektor fon var; 20 ikon, 8 düymə variantı, 6 effekt və logo hazırlanmayıb. Mövcud `Forest Garden`, `Sunset Safari`, `Snowy Valley` Inspector seçicisi DEV-dir; UI/menyu dizaynı yekun deyil. Mənbə modeli və kommersiya şərti **təsdiqlənməyib** (`ASSET_MANIFEST.json`, `MODEL_AUDIT.md`). Runtime istifadə DEV test məqsədlidir, kommersiya buraxılışı qadağan statusundadır.
+Mənbə, texniki emal və SHA `ASSET_MANIFEST.json`; komersiya şərti `ASSET_LICENSES.md`. 20 SVG və 8 button theme əlavə olunub; son vizual oxunaqlılıq və bütün istifadələr yoxlanmayıb. 24 üz vəziyyəti, blink, 6 effekt, logo hələ hazırlanmayıb.

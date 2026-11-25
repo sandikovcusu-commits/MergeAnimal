@@ -34,7 +34,7 @@ jobs:
               done
             done
           ' 2>&1 | tee /tmp/render-log.txt
-          if grep -E 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL' /tmp/render-log.txt; then exit 1; fi
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL' /tmp/render-log.txt; then exit 1; fi
           ls -l "$CAPTURE_DIR"
       - name: Upload renders
         if: always()
