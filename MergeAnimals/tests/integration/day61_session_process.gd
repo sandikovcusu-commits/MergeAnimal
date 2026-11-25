@@ -124,6 +124,11 @@ func read_phase() -> void:
 	check(game.spawn_count == int(expected.spawn_count) and game.merge_manager.merge_count == int(expected.merge_count), "drop and merge counters restored without duplicates")
 	check(game.score == int(expected.score) and game.best_score >= int(expected.best_score), "score and best restored without duplicate award")
 	check(game.combo_count == int(expected.combo_count) and is_equal_approx(game.combo_left, float(expected.combo_left)), "combo restored")
+	check(Progression.valid(expected.progression) and int(game.progression.total_games) == int(expected.progression.total_games) and int(game.progression.total_drops) == int(expected.progression.total_drops) and int(game.progression.total_merges) == int(expected.progression.total_merges), "collection statistics restored across processes")
+	var same_counts := true
+	for id in Progression.IDS:
+		if int(game.progression.animals[id].count) != int(expected.progression.animals[id].count) or game.progression.animals[id].date != expected.progression.animals[id].date: same_counts = false
+	check(same_counts, "discovery dates and animal counts restored across processes")
 	check(str(game.current_data.id) == expected.current and str(game.next_data.id) == expected.next and str(game.rng.state) == expected.rng_state, "current next and exact RNG state restored")
 	var saved_rng_state: int = game.rng.state
 	var matches_rng := true
@@ -160,6 +165,7 @@ func read_phase() -> void:
 	await process_frame
 	game = current_scene
 	check(game.has_method("save_session") and game.score == int(expected.score) and game.pieces.get_child_count() == expected.bodies.size(), "Continue actually restores corrupted primary from backup")
+	check(int(game.progression.total_drops) == int(expected.progression.total_drops) and int(game.progression.total_merges) == int(expected.progression.total_merges) and Progression.discovered(game.progression) == Progression.discovered(expected.progression), "backup Continue restores statistics without duplicate discoveries")
 	check(game.save_session() == OK, "continue after recovery writes valid primary")
 	paused = false
 	var before: int = game.spawn_count

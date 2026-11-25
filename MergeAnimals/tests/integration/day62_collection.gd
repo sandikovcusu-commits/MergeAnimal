@@ -148,6 +148,7 @@ func run() -> void:
 		await physics_frame
 		if int(game.progression.golden_merges) > 0: break
 	check(int(game.progression.golden_merges) == 1 and int(game.progression.total_merges) == 2, "real golden collision counted once")
+	check(int(game.progression.best_score) == 1000 and game.best_score == 1000 and int(game.progression.max_combo) == 1, "golden gameplay updates best and preserves maximum combo")
 	check(int(game.progression.animals.mouse.count) == 2 and int(game.progression.animals.hamster.count) == 1 and int(game.progression.animals.elephant.count) == 3 and game.progression.animals.elephant.date == "2026-01-01 12:00:00", "golden merge preserves existing Elephant discovery")
 	game._on_game_over()
 	check(int(game.progression.completed_games) == 1 and SessionSave.load_session().status == "missing", "completion counted once, no continue after game over")
