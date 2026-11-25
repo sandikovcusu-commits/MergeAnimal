@@ -58,9 +58,14 @@ var combo_left: float = 0.0
 var combo_events: int = 0
 var highest_level: int = 1
 var golden_tween: Tween
+var max_combo: int = 0
+var best_at_start: int = 0
+var settings_panel: Control
+const SETTINGS_SCENE := preload("res://scenes/ui/SettingsPanel.tscn")
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	SettingsStore.apply(SettingsStore.load_values())
 	pieces.process_mode = Node.PROCESS_MODE_PAUSABLE
 	merge_manager.process_mode = Node.PROCESS_MODE_PAUSABLE
 	danger_monitor.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -79,7 +84,17 @@ func _ready() -> void:
 	resume_button.pressed.connect(_toggle_pause)
 	$HUD/Overlay/RestartButton.pressed.connect(_restart)
 	$HUD/RestartButton.pressed.connect(_restart)
+	$HUD/Overlay/SettingsButton.pressed.connect(_open_settings)
+	$HUD/Overlay/MainMenuButton.pressed.connect(_main_menu)
+	pause_button.icon = load("res://assets/ui/icons/pause.svg")
+	$HUD/RestartButton.icon = load("res://assets/ui/icons/restart.svg")
+	resume_button.icon = load("res://assets/ui/icons/play.svg")
+	$HUD/Overlay/RestartButton.icon = load("res://assets/ui/icons/restart.svg")
+	$HUD/Overlay/SettingsButton.icon = load("res://assets/ui/icons/settings.svg")
+	$HUD/Overlay/MainMenuButton.icon = load("res://assets/ui/icons/home.svg")
+	_refresh_ui_text()
 	best_score = _load_best()
+	best_at_start = best_score
 	current_data = _pick_animal()
 	next_data = _pick_animal()
 	debug_panel.visible = debug_enabled and OS.is_debug_build()
@@ -278,6 +293,7 @@ func _award_merge(base_score: int) -> void:
 			combo_events += 1
 	else:
 		combo_count = 1
+	max_combo = maxi(max_combo, combo_count)
 	var multiplier := minf(2.0, 1.0 + maxf(0, combo_count - 1) * 0.25)
 	score += roundi(base_score * multiplier)
 	if score > best_score:
@@ -337,8 +353,10 @@ func _on_game_over() -> void:
 	active_touch = -1
 	mouse_down = false
 	current_preview.visible = false
-	overlay_title.text = "GAME OVER\nFINAL SCORE  %d\nBEST  %d" % [score, best_score]
+	var record := "\n" + tr("NEW_RECORD") if score > best_at_start and score > 0 else ""
+	overlay_title.text = "%s\n%s: %d   %s: %d\n%s: %s\n%s: %d   %s: %d%s" % [tr("GAME_OVER"), tr("FINAL_SCORE"), score, tr("BEST"), best_score, tr("LARGEST"), animals[clampi(highest_level - 1, 0, animals.size() - 1)].display_name, tr("MERGES"), merge_manager.merge_count, tr("MAX_COMBO"), max_combo, record]
 	resume_button.visible = false
+	$HUD/Overlay/SettingsButton.visible = false
 	overlay.visible = true
 	get_tree().paused = true
 	queue_redraw()
@@ -352,14 +370,40 @@ func _toggle_pause() -> void:
 		mouse_down = false
 		if spawn_state == SpawnState.AIMING:
 			spawn_state = SpawnState.READY
-		overlay_title.text = "PAUSED"
+		overlay_title.text = tr("PAUSE")
 		resume_button.visible = true
+		$HUD/Overlay/SettingsButton.visible = true
 		overlay.visible = true
 		get_tree().paused = true
 	else:
 		game_state = GameState.PLAYING
 		overlay.visible = false
 		get_tree().paused = false
+
+func _refresh_ui_text() -> void:
+	pause_button.text = tr("PAUSE")
+	$HUD/RestartButton.text = tr("RESTART")
+	resume_button.text = tr("RESUME")
+	$HUD/Overlay/RestartButton.text = tr("RESTART")
+	$HUD/Overlay/SettingsButton.text = tr("SETTINGS")
+	$HUD/Overlay/MainMenuButton.text = tr("MAIN_MENU")
+	$HUD/Hint.text = tr("GUIDE")
+
+func _open_settings() -> void:
+	if game_state != GameState.PAUSED or is_instance_valid(settings_panel):
+		return
+	settings_panel = SETTINGS_SCENE.instantiate()
+	$HUD.add_child(settings_panel)
+	settings_panel.settings_changed.connect(func(_values: Dictionary):
+		_refresh_ui_text()
+		overlay_title.text = tr("PAUSE")
+		_update_hud()
+	)
+	settings_panel.closed.connect(func(): settings_panel = null; $HUD/Overlay/SettingsButton.grab_focus())
+
+func _main_menu() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func _restart() -> void:
 	get_tree().paused = false
@@ -378,11 +422,11 @@ func _update_preview() -> void:
 func _update_hud() -> void:
 	current_preview.data = current_data
 	next_preview.data = next_data
-	next_label.text = "NEXT  ·  " + next_data.display_name.to_upper()
-	score_label.text = "SCORE  %d" % score
+	next_label.text = tr("NEXT") + "  ·  " + next_data.display_name.to_upper()
+	score_label.text = tr("SCORE") + "  %d" % score
 	if combo_count > 1:
 		score_label.text += "  COMBO %d" % combo_count
-	best_label.text = "BEST  %d" % best_score
+	best_label.text = tr("BEST").to_upper() + "  %d" % best_score
 	_update_preview()
 
 func _draw() -> void:
