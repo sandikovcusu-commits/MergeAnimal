@@ -8,6 +8,7 @@ var play_button: Button
 var settings_button: Button
 var best_label: Label
 var settings_panel: Control
+var navigating := false
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	SettingsStore.apply(SettingsStore.load_values())
@@ -27,7 +28,7 @@ func _build() -> void:
 	var challenges := _button("Challenges", "CHALLENGES", "challenge", 80); challenges.disabled = true; list.add_child(challenges)
 	settings_button = _button("Settings", "SETTINGS", "settings", 80); list.add_child(settings_button); settings_button.pressed.connect(_settings)
 	best_label = Label.new(); best_label.name = "Best"; best_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	best_label.add_theme_font_size_override("font_size", 27); best_label.add_theme_color_override("font_color", Color("334b36")); list.add_child(best_label)
+	best_label.add_theme_font_size_override("font_size", 27); best_label.add_theme_color_override("font_color", Color("f3ecd7")); list.add_child(best_label)
 	_refresh_best()
 	play_button.grab_focus()
 
@@ -45,7 +46,9 @@ func _refresh_best() -> void:
 		if typeof(saved) == TYPE_INT: best = maxi(saved, 0)
 	best_label.text = "%s  %d" % [tr("BEST_SCORE"), best]
 func _play() -> void:
-	if is_instance_valid(settings_panel): return
+	if navigating or is_instance_valid(settings_panel): return
+	navigating = true
+	play_button.disabled = true
 	var config := ConfigFile.new()
 	if config.load("user://wild_garden_tutorial.cfg") != OK or not bool(config.get_value("tutorial", "completed", false)):
 		get_tree().set_meta("tutorial_requested", true)

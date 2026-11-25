@@ -48,6 +48,8 @@ func run() -> void:
 	game.get_node("HUD/Overlay/SettingsButton").pressed.emit()
 	await frames()
 	check(is_instance_valid(game.settings_panel) and paused, "settings opens while paused")
+	var card: Control = game.settings_panel.find_child("SettingsCard", true, false)
+	check(game.settings_panel.size == Vector2(720, 1280) and card.position == Vector2(75, 170) and game.settings_panel.z_index > game.overlay.z_index, "settings card is centered above gameplay overlay")
 	game.settings_panel.find_child("Back", true, false).pressed.emit()
 	await frames()
 	check(not is_instance_valid(game.settings_panel) and paused and game.overlay.visible, "settings back preserves pause")
