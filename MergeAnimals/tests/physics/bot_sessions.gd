@@ -35,7 +35,7 @@ func choose_x(game, strategy: int) -> float:
 			best_x = x
 	return best_x
 func run() -> void:
-	print("BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape")
+	print("BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak")
 	for i in range(100):
 		var game = scene.instantiate()
 		var seed_value := 30000 + i
@@ -47,6 +47,10 @@ func run() -> void:
 		var elapsed := 0.0
 		var next_drop := 0.0
 		var escaped := 0
+		var max_overlap := 0.0
+		var overlap_frames := 0
+		var max_body_streak := 0
+		var streaks := {}
 		var strategy: int = i % 4
 		# Time cap is reported as such, not mislabelled game-over.
 		while game.is_playing() and elapsed < 90.0:
@@ -58,12 +62,27 @@ func run() -> void:
 					next_drop = elapsed + 1.2
 				else:
 					next_drop = elapsed + 0.2
+			var any_escape := false
+			var any_overlap := false
+			var updated_streaks := {}
 			for body in game.pieces.get_children():
 				if body.position.x + body.data.radius < game.left_bound or body.position.x - body.data.radius > game.right_bound or body.position.y - body.data.radius > game.floor_height:
-					escaped += 1
-					break
+					any_escape = true
+				var depth: float = maxf(0.0, maxf(game.left_bound - (body.position.x - body.data.radius), maxf(body.position.x + body.data.radius - game.right_bound, body.position.y + body.data.radius - game.floor_height)))
+				max_overlap = maxf(max_overlap, depth)
+				if depth > 0.01:
+					any_overlap = true
+					var uid: int = body.get_instance_id()
+					var streak: int = int(streaks.get(uid, 0)) + 1
+					updated_streaks[uid] = streak
+					max_body_streak = maxi(max_body_streak, streak)
+			streaks = updated_streaks
+			if any_escape:
+				escaped += 1
+			if any_overlap:
+				overlap_frames += 1
 		var reason := "overflow" if game.game_state == game.GameState.GAME_OVER else "time_cap"
-		print("BOT_CSV %d,%s,%d,%d,%d,%d,%d,%s,%.2f,%d" % [seed_value, strategies[strategy], game.spawn_count, game.merge_manager.merge_count, game.highest_level, game.score, game.combo_events, reason, elapsed, escaped])
+		print("BOT_CSV %d,%s,%d,%d,%d,%d,%d,%s,%.2f,%d,%.3f,%d,%d" % [seed_value, strategies[strategy], game.spawn_count, game.merge_manager.merge_count, game.highest_level, game.score, game.combo_events, reason, elapsed, escaped, max_overlap, overlap_frames, max_body_streak])
 		paused = false
 		game.queue_free()
 		await process_frame

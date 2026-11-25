@@ -29,8 +29,10 @@ jobs:
           status=0
           run_test() {
             echo "===== $1 =====" | tee -a /tmp/godot-test-log.txt
+            limit=120
+            if [ "$1" = 'bot sessions' ]; then limit=300; fi
             shift
-            timeout 120 "$GODOT" --headless --path MergeAnimals "$@" >> /tmp/godot-test-log.txt 2>&1
+            timeout "$limit" "$GODOT" --headless --path MergeAnimals "$@" >> /tmp/godot-test-log.txt 2>&1
             code=$?
             echo "exit=$code" | tee -a /tmp/godot-test-log.txt
             if [ "$code" -ne 0 ]; then status=1; fi
