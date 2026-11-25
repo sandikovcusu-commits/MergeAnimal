@@ -465,7 +465,7 @@ func _update_hud() -> void:
 	next_label.text = tr("NEXT") + "  ·  " + next_data.display_name.to_upper()
 	score_label.text = tr("SCORE") + "  %d" % score
 	if combo_count > 1:
-		score_label.text += "  COMBO %d" % combo_count
+		score_label.text += "  " + tr("COMBO") + " %d" % combo_count
 	best_label.text = tr("BEST").to_upper() + "  %d" % best_score
 	_update_preview()
 
@@ -487,22 +487,23 @@ func _draw() -> void:
 	draw_line(Vector2(left_bound, danger_height), Vector2(right_bound, danger_height), line_color, 3.0)
 	if current_data and is_playing() and _can_aim():
 		draw_dashed_line(Vector2(aim_x, spawn_height + current_data.radius + 12), Vector2(aim_x, floor_height - 8), Color(0.38, 0.48, 0.37, 0.35), 2.0, 8.0)
-	# Compact evolution guide occupies the bottom margin, below the floor.
+	# Two rows keep all twelve tiers in the bottom margin without shrinking the board.
 	var font := ThemeDB.fallback_font
 	for i in range(animals.size()):
 		var item := animals[i]
-		var x := 40.0 + i * 58.0
-		var color: Color = item.placeholder_color
-		if item.level > highest_level:
-			color = color.darkened(0.55)
+		var x := 75.0 + (i % 6) * 114.0
+		var y := 1159.0 + floori(float(i) / 6.0) * 55.0
 		if item.sprite:
 			var tint := Color.WHITE if item.level <= highest_level else Color(0.45, 0.45, 0.45, 0.55)
-			draw_texture_rect(item.sprite, Rect2(x - 18, 1172, 36, 36), false, tint)
+			draw_texture_rect(item.sprite, Rect2(x - 23, y, 46, 46), false, tint)
 		else:
-			draw_circle(Vector2(x, 1190), 16, color)
+			draw_circle(Vector2(x, y + 23), 21, item.placeholder_color)
 		if item.level == highest_level:
-			draw_arc(Vector2(x, 1190), 20, 0, TAU, 32, Color("d29b31"), 3.0)
-		draw_string(font, Vector2(x - 16, 1224), item.display_name.substr(0, 3).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color("394f39"))
+			draw_arc(Vector2(x, y + 23), 25, 0, TAU, 32, Color("d29b31"), 3.0)
+		draw_string(font, Vector2(x - 25, y + 56), "%d %s" % [item.level, item.display_name.substr(0, 3).to_upper()], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("394f39"))
+		if i % 6 < 5:
+			draw_line(Vector2(x + 31, y + 23), Vector2(x + 78, y + 23), Color(0.35, 0.45, 0.33, 0.5), 1.5)
+
 	if debug_outlines and is_instance_valid(pieces):
 		for body in pieces.get_children():
 			if body is Animal:

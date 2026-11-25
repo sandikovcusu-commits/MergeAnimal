@@ -44,6 +44,7 @@ jobs:
           }
           run_test 'editor import' --editor --quit
           run_test 'integration' --script res://tests/integration/day2_suite.gd
+          run_test 'day5 GUI input' --script res://tests/integration/day5_input.gd
           run_test 'day5 UI interaction' --script res://tests/integration/day5_ui.gd
           run_test 'day4.1 UI assets' --script res://tests/integration/day41_ui_assets.gd
           run_test 'day4 assets' --script res://tests/integration/day4_assets.gd
