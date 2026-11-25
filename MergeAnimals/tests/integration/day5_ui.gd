@@ -40,6 +40,9 @@ func run() -> void:
 	SettingsStore.save_values(old_settings); SettingsStore.apply(old_settings)
 	set_meta("tutorial_requested", true)
 	menu.play_button.pressed.emit()
+	await frames()
+	if is_instance_valid(menu.new_game_dialog):
+		menu.new_game_dialog.confirmed.emit()
 	await frames(5)
 	var game = current_scene
 	check(game != menu and game.has_method("_toggle_pause") and game.is_playing(), "Play transitions to live game")
