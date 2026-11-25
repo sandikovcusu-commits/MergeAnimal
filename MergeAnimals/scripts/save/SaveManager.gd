@@ -12,18 +12,24 @@ static func _read_envelope(path: String) -> Dictionary:
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return {"status": "io_error"}
-	var parsed: Variant = JSON.parse_string(file.get_as_text())
+	var parser := JSON.new()
+	if parser.parse(file.get_as_text()) != OK:
+		return {"status": "corrupt"}
+	var parsed: Variant = parser.data
 	if typeof(parsed) != TYPE_DICTIONARY:
 		return {"status": "corrupt"}
 	if not parsed.has("version") or typeof(parsed.version) not in [TYPE_INT, TYPE_FLOAT] or float(parsed.version) != floorf(float(parsed.version)):
 		return {"status": "corrupt"}
 	if int(parsed.version) > VERSION:
 		return {"status": "future"}
-	if int(parsed.version) != VERSION or typeof(parsed.get("data")) != TYPE_DICTIONARY or typeof(parsed.get("checksum")) != TYPE_STRING:
+	if int(parsed.version) != VERSION or typeof(parsed.get("payload")) != TYPE_STRING or typeof(parsed.get("checksum")) != TYPE_STRING:
 		return {"status": "corrupt"}
-	if JSON.stringify(parsed.data).sha256_text() != parsed.checksum:
+	if parsed.payload.sha256_text() != parsed.checksum:
 		return {"status": "corrupt"}
-	return {"status": "ok", "data": parsed.data}
+	var payload_parser := JSON.new()
+	if payload_parser.parse(parsed.payload) != OK or typeof(payload_parser.data) != TYPE_DICTIONARY:
+		return {"status": "corrupt"}
+	return {"status": "ok", "data": payload_parser.data}
 
 static func load_progress(path: String = DEFAULT_PATH) -> Dictionary:
 	var primary := _read_envelope(path)
@@ -45,7 +51,7 @@ static func save_progress(data: Dictionary, path: String = DEFAULT_PATH) -> Erro
 	if primary.status in ["future", "io_error"] or backup.status in ["future", "io_error"]:
 		return ERR_UNAVAILABLE
 	var encoded := JSON.stringify(data)
-	var envelope := {"version": VERSION, "data": data, "checksum": encoded.sha256_text()}
+	var envelope := {"version": VERSION, "payload": encoded, "checksum": encoded.sha256_text()}
 	var tmp := path + ".tmp"
 	var file := FileAccess.open(tmp, FileAccess.WRITE)
 	if file == null:
