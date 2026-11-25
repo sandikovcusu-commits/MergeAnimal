@@ -30,12 +30,12 @@ jobs:
           xvfb-run -a -s '-screen 0 1920x1920x24' bash -e -o pipefail -c '
             for theme in 0 1 2; do
               for size in 360x640 360x800 720x1280 1080x1920 1366x768 1920x1080; do
-                CAPTURE_THEME=$theme CAPTURE_SIZE=$size "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_capture.gd
+                CAPTURE_THEME=$theme CAPTURE_SIZE=$size timeout 35s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_capture.gd
               done
             done
             for screen in menu pause settings gameover tutorial; do
               for size in 360x640 720x1280 1366x768; do
-                CAPTURE_SCREEN=$screen CAPTURE_SIZE=$size "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_ui.gd
+                CAPTURE_SCREEN=$screen CAPTURE_SIZE=$size timeout 35s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_ui.gd
               done
             done
           ' 2>&1 | tee -a /tmp/render-log.txt

@@ -4,6 +4,7 @@ func _initialize() -> void:
 	call_deferred("run")
 func run() -> void:
 	var screen := OS.get_environment("CAPTURE_SCREEN")
+	print("UI_CAPTURE_BEGIN screen=%s size=%s" % [screen, OS.get_environment("CAPTURE_SIZE")])
 	var dims := OS.get_environment("CAPTURE_SIZE").split("x")
 	if dims.size() != 2 or screen not in ["menu", "pause", "settings", "gameover", "tutorial"]:
 		printerr("FAIL: invalid UI capture parameters"); quit(1); return
@@ -20,7 +21,9 @@ func run() -> void:
 	elif screen == "gameover":
 		node.score = 124; node.highest_level = 6; node.max_combo = 3
 		node._on_game_over()
+	print("UI_CAPTURE_READY screen=%s paused=%s" % [screen, paused])
 	await create_timer(1.5, true).timeout
+	print("UI_CAPTURE_TIMER screen=%s" % screen)
 	await RenderingServer.frame_post_draw
 	var ids := []
 	var search := OS.execute("xdotool", ["search", "--onlyvisible", "--pid", str(OS.get_process_id())], ids, true)
