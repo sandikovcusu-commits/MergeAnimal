@@ -113,6 +113,19 @@ func run() -> void:
 	var collection = current_scene
 	check(collection.cards.size() == 12 and collection.get_node_or_null("CollectionScroll/AnimalGrid") != null, "collection has 12 cards in three-column grid")
 	check(collection.cards[0].find_child("Lock", true, false) == null and collection.cards[11].find_child("Lock", true, false) != null, "unlocked and locked cards render appropriate state")
+	var previous_settings := SettingsStore.load_values()
+	for locale in ["en", "az", "tr", "ru"]:
+		var localized := previous_settings.duplicate(); localized.language = locale; SettingsStore.save_values(localized)
+		var localized_collection = (load("res://scenes/ui/Collection.tscn") as PackedScene).instantiate()
+		root.add_child(localized_collection); await frames(6)
+		var fits := true
+		for card in localized_collection.cards:
+			var column: Control = card.get_child(0)
+			for child in column.get_children():
+				if child is Control and child.position.y + child.size.y > card.size.y - 5.0: fits = false
+		check(fits and TranslationServer.translate("ANIMAL_DESC_MOUSE") != "ANIMAL_DESC_MOUSE", "card text fits and descriptions translate for " + locale)
+		localized_collection.queue_free(); await process_frame
+	SettingsStore.save_values(previous_settings); SettingsStore.apply(previous_settings)
 	collection.scroll.scroll_vertical = int(collection.scroll.get_v_scroll_bar().max_value)
 	await frames()
 	check(collection.scroll.scroll_vertical > 0, "collection grid scrolls to later animals")
