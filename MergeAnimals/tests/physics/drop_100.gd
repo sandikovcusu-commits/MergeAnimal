@@ -23,7 +23,11 @@ func run() -> void:
 		await physics_frame
 		for body in game.pieces.get_children():
 			body.queue_free()
-		for tick in range(12):
+		# Wait for the actual cooldown state, rather than assuming 12 ticks at 60 Hz.
+		var max_ticks: int = ceili(game.drop_cooldown * Engine.physics_ticks_per_second) + 10
+		for tick in range(max_ticks):
+			if game._can_aim() and game.cooldown_left <= 0.0:
+				break
 			await physics_frame
 	var ok: bool = accepted == 100 and game.spawn_count == 100
 	print("100-drop fixture: requests=%d spawned=%d result=%s" % [accepted, game.spawn_count, "PASS" if ok else "FAIL"])
