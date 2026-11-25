@@ -67,6 +67,9 @@ var tutorial_skip: Button
 const SETTINGS_SCENE := preload("res://scenes/ui/SettingsPanel.tscn")
 const EFFECT_SCRIPT := preload("res://scripts/effects/MergeEffects.gd")
 var reduced_effects := false
+var autosave_elapsed := 0.0
+var save_scheduled := false
+var save_status: Error = OK
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -104,7 +107,15 @@ func _ready() -> void:
 	best_at_start = best_score
 	current_data = _pick_animal()
 	next_data = _pick_animal()
-	if bool(get_tree().get_meta("tutorial_requested", false)):
+	var continuing := bool(get_tree().get_meta("continue_requested", false))
+	if continuing:
+		get_tree().remove_meta("continue_requested")
+		var loaded := SessionSave.load_session()
+		if loaded.status in ["ok", "recovered"]:
+			_restore_session(loaded.data)
+		else:
+			push_warning("Continue unavailable: %s" % loaded.status)
+	if not continuing and bool(get_tree().get_meta("tutorial_requested", false)):
 		get_tree().remove_meta("tutorial_requested")
 		current_data = animals[0]
 		next_data = animals[0]
@@ -141,10 +152,66 @@ func _physics_process(delta: float) -> void:
 			_update_preview()
 	elif _can_aim():
 		current_preview.visible = _spawn_clear(current_data, aim_x)
+	if persist_best:
+		autosave_elapsed += delta
+		if autosave_elapsed >= 1.0 and not save_scheduled:
+			save_scheduled = true
+			call_deferred("_autosave_safe")
 	if debug_panel.visible:
 		_update_debug()
 	if debug_outlines:
 		queue_redraw()
+
+func _session_snapshot() -> Dictionary:
+	var bodies: Array = []
+	var uid := 0
+	for animal in pieces.get_children():
+		if not animal is Animal or animal.is_queued_for_deletion() or animal.merge_locked:
+			return {}
+		uid += 1
+		bodies.append({"uid": uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
+	return {"session_version": 1, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies}
+
+func save_session() -> Error:
+	# Recheck at execution time, after physics/contact callbacks and deferred merges.
+	if not persist_best or game_state == GameState.GAME_OVER or drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled:
+		return ERR_BUSY
+	var snapshot := _session_snapshot()
+	if not SessionSave.valid(snapshot): return ERR_INVALID_DATA
+	var primary := SaveManager._read_envelope(SessionSave.PATH)
+	var keep_primary := primary.status == "ok" and (SessionSave.valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
+	save_status = SaveManager.save_progress(snapshot, SessionSave.PATH, keep_primary)
+	return save_status
+
+func _autosave_safe() -> void:
+	save_scheduled = false
+	if not is_inside_tree() or not is_playing(): return
+	if save_session() == OK:
+		autosave_elapsed = 0.0
+	else:
+		# Retry later rather than saving an incomplete merge or hammering the filesystem.
+		autosave_elapsed = 0.0
+
+func _restore_session(data: Dictionary) -> void:
+	# SessionSave.valid ran before creating any body; a fresh scene has an empty board.
+	score = int(data.score); best_score = maxi(best_score, int(data.best_score)); best_at_start = int(data.best_at_start)
+	spawn_count = int(data.spawn_count); merge_manager.merge_count = int(data.merge_count)
+	combo_count = int(data.combo_count); combo_left = float(data.combo_left); combo_events = int(data.combo_events); max_combo = int(data.max_combo)
+	highest_level = int(data.highest_level)
+	current_data = find_animal(StringName(data.current)); next_data = find_animal(StringName(data.next))
+	rng.state = int(data.rng_state)
+	aim_x = float(data.aim_x); cooldown_left = float(data.cooldown_left)
+	spawn_state = SpawnState.COOLDOWN if cooldown_left > 0.0 else SpawnState.READY
+	for item in data.bodies:
+		var body := create_animal(find_animal(StringName(item.id)), Vector2(float(item.x), float(item.y)))
+		body.rotation = float(item.rotation)
+		body.linear_velocity = Vector2(float(item.vx), float(item.vy))
+		body.angular_velocity = float(item.angular_velocity)
+		body.sleeping = item.sleeping
+		if float(item.danger) > 0.0: danger_monitor.timers[body.instance_uid] = float(item.danger)
+	if int(data.tutorial_stage) >= 0:
+		_begin_tutorial()
+		_tutorial_set_stage(int(data.tutorial_stage))
 
 func _pick_animal() -> AnimalData:
 	var total := 0.0
@@ -378,6 +445,8 @@ func _on_game_over() -> void:
 	if not is_playing():
 		return
 	game_state = GameState.GAME_OVER
+	if persist_best and SessionSave.clear_session() != OK:
+		push_warning("Could not invalidate finished session")
 	combo_count = 0
 	combo_left = 0.0
 	drop_requested = false
@@ -406,7 +475,8 @@ func _toggle_pause() -> void:
 		drop_requested = false
 		if spawn_state == SpawnState.AIMING or spawn_state == SpawnState.DROPPING:
 			spawn_state = SpawnState.READY
-		overlay_title.text = tr("PAUSE")
+		var pause_save := save_session() if persist_best else OK
+		overlay_title.text = tr("PAUSE") if pause_save == OK else tr("SAVE_WAIT")
 		resume_button.visible = true
 		$HUD/Overlay/SettingsButton.visible = true
 		overlay.visible = true
@@ -466,10 +536,17 @@ func _finish_tutorial() -> void:
 	if tutorial: tutorial.queue_free()
 
 func _main_menu() -> void:
+	if game_state == GameState.PAUSED and persist_best:
+		if save_session() != OK:
+			overlay_title.text = tr("SAVE_WAIT")
+			return
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func _restart() -> void:
+	if persist_best and SessionSave.clear_session() != OK:
+		overlay_title.text = tr("SAVE_WAIT")
+		return
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 

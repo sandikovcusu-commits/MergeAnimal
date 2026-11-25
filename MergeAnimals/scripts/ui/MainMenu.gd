@@ -6,6 +6,7 @@ const GAME := "res://scenes/game/Game.tscn"
 const DECOR := [preload("res://assets/animals/mouse/normal.png"), preload("res://assets/animals/cat/normal.png"), preload("res://assets/animals/elephant/normal.png")]
 var play_button: Button
 var settings_button: Button
+var continue_button: Button
 var best_label: Label
 var settings_panel: Control
 var navigating := false
@@ -25,11 +26,14 @@ func _build() -> void:
 	var margins := MarginContainer.new()
 	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]: margins.add_theme_constant_override(side, 28)
 	card.add_child(margins)
-	var list := VBoxContainer.new(); list.add_theme_constant_override("separation", 20); margins.add_child(list)
-	play_button = _button("Play", "PLAY", "play", 110); list.add_child(play_button); play_button.pressed.connect(_play)
-	var collection := _button("Collection", "COLLECTION", "collection", 80); collection.disabled = true; list.add_child(collection)
-	var challenges := _button("Challenges", "CHALLENGES", "challenge", 80); challenges.disabled = true; list.add_child(challenges)
-	settings_button = _button("Settings", "SETTINGS", "settings", 80); list.add_child(settings_button); settings_button.pressed.connect(_settings)
+	var list := VBoxContainer.new(); list.add_theme_constant_override("separation", 12); margins.add_child(list)
+	play_button = _button("Play", "PLAY", "play", 90); list.add_child(play_button); play_button.pressed.connect(_play)
+	continue_button = _button("Continue", "CONTINUE", "play", 70); list.add_child(continue_button)
+	continue_button.disabled = SessionSave.load_session().status not in ["ok", "recovered"]
+	continue_button.pressed.connect(_continue_game)
+	var collection := _button("Collection", "COLLECTION", "collection", 70); collection.disabled = true; list.add_child(collection)
+	var challenges := _button("Challenges", "CHALLENGES", "challenge", 70); challenges.disabled = true; list.add_child(challenges)
+	settings_button = _button("Settings", "SETTINGS", "settings", 70); list.add_child(settings_button); settings_button.pressed.connect(_settings)
 	best_label = Label.new(); best_label.name = "Best"; best_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	best_label.add_theme_font_size_override("font_size", 27); best_label.add_theme_color_override("font_color", Color("f3ecd7")); list.add_child(best_label)
 	_refresh_best()
@@ -50,11 +54,25 @@ func _refresh_best() -> void:
 	best_label.text = "%s  %d" % [tr("BEST_SCORE"), best]
 func _play() -> void:
 	if navigating or is_instance_valid(settings_panel): return
+	if SessionSave.clear_session() != OK:
+		best_label.text = tr("SAVE_WAIT")
+		return
 	navigating = true
 	play_button.disabled = true
 	var config := ConfigFile.new()
 	if config.load("user://wild_garden_tutorial.cfg") != OK or not bool(config.get_value("tutorial", "completed", false)):
 		get_tree().set_meta("tutorial_requested", true)
+	get_tree().change_scene_to_file(GAME)
+func _continue_game() -> void:
+	if navigating or is_instance_valid(settings_panel): return
+	var loaded := SessionSave.load_session()
+	if loaded.status not in ["ok", "recovered"]:
+		continue_button.disabled = true
+		best_label.text = tr("SAVE_UNAVAILABLE")
+		return
+	navigating = true
+	continue_button.disabled = true
+	get_tree().set_meta("continue_requested", true)
 	get_tree().change_scene_to_file(GAME)
 func _settings() -> void:
 	if is_instance_valid(settings_panel): return

@@ -1,5 +1,4 @@
-## Experimental persistence primitive, not connected to gameplay or Continue yet.
-## Callers must capture a coherent physics snapshot themselves; see SAVE_SYSTEM_REPORT.md.
+## Versioned local persistence primitive; gameplay snapshot rules are in SessionSave.
 class_name SaveManager
 extends RefCounted
 
@@ -42,7 +41,7 @@ static func load_progress(path: String = DEFAULT_PATH) -> Dictionary:
 		return backup
 	return {"status": "missing" if primary.status == "missing" and backup.status == "missing" else "corrupt"}
 
-static func save_progress(data: Dictionary, path: String = DEFAULT_PATH) -> Error:
+static func save_progress(data: Dictionary, path: String = DEFAULT_PATH, backup_current: bool = true) -> Error:
 	# Never overwrite newer saves, unreadable saves, or a newer backup.
 	if not path.begins_with("user://"):
 		return ERR_INVALID_PARAMETER
@@ -68,7 +67,7 @@ static func save_progress(data: Dictionary, path: String = DEFAULT_PATH) -> Erro
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(tmp))
 		return ERR_FILE_CORRUPT
 	var base := ProjectSettings.globalize_path(path)
-	if primary.status == "ok":
+	if primary.status == "ok" and backup_current:
 		var backup_tmp := base + ".bak.tmp"
 		error = DirAccess.copy_absolute(base, backup_tmp)
 		if error == OK:
