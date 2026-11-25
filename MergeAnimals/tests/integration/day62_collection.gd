@@ -24,6 +24,7 @@ func run() -> void:
 	var legacy_b: Animal = legacy_game.create_animal(legacy_game.animals[0], Vector2(390, 700))
 	legacy_a.linear_velocity = Vector2(200, 0); legacy_b.linear_velocity = Vector2(-200, 0)
 	var legacy: Dictionary = legacy_game._session_snapshot()
+	legacy.session_version = 1
 	legacy.erase("progression"); legacy.erase("tainted"); legacy.erase("score_untrusted")
 	for body in legacy.bodies: body.erase("eligible")
 	check(SaveManager.save_progress(legacy, SessionSave.PATH) == OK, "write legacy session fixture")
@@ -38,7 +39,7 @@ func run() -> void:
 	legacy_menu.continue_button.pressed.emit(); await frames(5)
 	var restored_legacy = current_scene
 	check(restored_legacy.has_method("save_session") and str(restored_legacy.rng.state) == legacy.rng_state and str(restored_legacy.current_data.id) == legacy.current and restored_legacy.best_score == 432, "legacy Continue restores session and best")
-	check(restored_legacy.save_session() == OK and SessionSave.load_session().data.has("progression") and Progression.discovered(restored_legacy.progression) == 0, "legacy session migrates without fake discovery")
+	check(restored_legacy.save_session() == OK and int(SessionSave.load_session().data.session_version) == 2 and SessionSave.load_session().data.has("progression") and Progression.discovered(restored_legacy.progression) == 0, "legacy session migrates without fake discovery")
 	paused = false
 	for i in range(180):
 		await physics_frame
