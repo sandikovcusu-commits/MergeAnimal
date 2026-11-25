@@ -19,6 +19,10 @@ enum GameState { PLAYING, PAUSED, GAME_OVER }
 @export_range(0.1, 5.0) var combo_window: float = 1.0
 @export var debug_enabled: bool = false
 @export var persist_best: bool = true
+@export_enum("Forest Garden", "Sunset Safari", "Snowy Valley") var visual_theme: int = 0
+const THEME_BACKGROUNDS = [preload("res://assets/backgrounds/forest_garden.svg"), preload("res://assets/backgrounds/sunset_safari.svg"), preload("res://assets/backgrounds/snowy_valley.svg")]
+const THEME_BOARDS = [Color("a67850"), Color("b3825e"), Color("78999d")]
+const THEME_INSIDE = [Color("f7ebcf"), Color("f9ead5"), Color("ebf1ea")]
 
 @onready var pieces: Node2D = $Pieces
 @onready var merge_manager: MergeManager = $MergeManager
@@ -382,9 +386,19 @@ func _update_hud() -> void:
 	_update_preview()
 
 func _draw() -> void:
-	draw_rect(Rect2(0, 0, 720, 1280), Color("e8efdc"))
-	draw_rect(Rect2(72, 280, 576, 830), Color("b8d0ab"))
-	draw_rect(Rect2(left_bound, 300, right_bound - left_bound, floor_height - 300), Color("f7ebcf"))
+	var theme_index := clampi(visual_theme, 0, 2)
+	draw_texture_rect(THEME_BACKGROUNDS[theme_index], Rect2(0, 0, 720, 1280), false)
+	# Visible walls and floor follow the inner faces of the collision shapes.
+	var board: Color = THEME_BOARDS[theme_index]
+	draw_rect(Rect2(left_bound, 280, right_bound - left_bound, floor_height - 280), THEME_INSIDE[theme_index])
+	draw_rect(Rect2(left_bound - 32, 280, 32, 830), board.darkened(0.20))
+	draw_rect(Rect2(right_bound, 280, 32, 830), board.darkened(0.20))
+	draw_rect(Rect2(left_bound - 16, floor_height, right_bound - left_bound + 32, 32), board.darkened(0.20))
+	draw_rect(Rect2(left_bound - 26, 280, 22, 814), board)
+	draw_rect(Rect2(right_bound + 4, 280, 22, 814), board)
+	draw_rect(Rect2(left_bound - 10, floor_height + 4, right_bound - left_bound + 20, 22), board)
+	draw_rect(Rect2(left_bound, 280, 7, floor_height - 280), Color(0.25, 0.16, 0.1, 0.10))
+	draw_rect(Rect2(right_bound - 7, 280, 7, floor_height - 280), Color(0.25, 0.16, 0.1, 0.10))
 	var line_color := Color("d86053") if danger_monitor and danger_monitor.peak_time > 0.0 else Color("d68a77")
 	draw_line(Vector2(left_bound, danger_height), Vector2(right_bound, danger_height), line_color, 3.0)
 	if current_data and is_playing() and _can_aim():

@@ -33,5 +33,10 @@ func run() -> void:
 		check(body.visual.data.sprite == d.sprite and is_equal_approx(body.circle.shape.radius, d.radius), "%s body texture and collision radius" % d.id)
 		body.queue_free()
 		await process_frame
+	check(game.THEME_BACKGROUNDS.size() == 3, "three theme backgrounds are configured")
+	for theme in range(3):
+		game.visual_theme = theme
+		game.queue_redraw()
+		check(game.visual_theme == theme and game.THEME_BACKGROUNDS[theme] != null, "theme %d can be selected" % theme)
 	print("Day4 DEV asset checks: %d; failures: %d; missing=bear,lion; happy/surprise=not supplied" % [checks, failures])
 	quit(1 if failures else 0)

@@ -35,8 +35,14 @@ func choose_x(game, strategy: int) -> float:
 			best_x = x
 	return best_x
 func run() -> void:
+	var requested_ticks := OS.get_environment("BOT_TICKS")
+	if not requested_ticks.is_empty():
+		Engine.physics_ticks_per_second = int(requested_ticks)
+	var requested_sessions := OS.get_environment("BOT_SESSIONS")
+	var session_count := 100 if requested_sessions.is_empty() else clampi(int(requested_sessions), 1, 100)
+	var start_ms := Time.get_ticks_msec()
 	print("BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak")
-	for i in range(100):
+	for i in range(session_count):
 		var game = scene.instantiate()
 		var seed_value := 30000 + i
 		game.test_seed = seed_value
@@ -91,5 +97,5 @@ func run() -> void:
 		paused = false
 		game.queue_free()
 		await process_frame
-	print("BOT_COMPLETE sessions=100")
+	print("BOT_COMPLETE sessions=%d ticks=%d wall_seconds=%.3f" % [session_count, Engine.physics_ticks_per_second, (Time.get_ticks_msec() - start_ms) / 1000.0])
 	quit()

@@ -1,0 +1,240 @@
+[
+  {
+    "id": "mouse",
+    "path": "assets/animals/mouse/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      6,
+      11,
+      506,
+      502
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 8.95,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "hamster",
+    "path": "assets/animals/hamster/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      32,
+      6,
+      481,
+      506
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 4.4,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "rabbit",
+    "path": "assets/animals/rabbit/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      6,
+      32,
+      506,
+      480
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 1.37,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "cat",
+    "path": "assets/animals/cat/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      8,
+      6,
+      505,
+      506
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 4.36,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "dog",
+    "path": "assets/animals/dog/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      6,
+      15,
+      506,
+      498
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 6.47,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "fox",
+    "path": "assets/animals/fox/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      8,
+      6,
+      504,
+      506
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 5.12,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "raccoon",
+    "path": "assets/animals/raccoon/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      7,
+      6,
+      505,
+      506
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 7.78,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "koala",
+    "path": "assets/animals/koala/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      6,
+      43,
+      506,
+      470
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 5.0,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "panda",
+    "path": "assets/animals/panda/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      20,
+      6,
+      492,
+      506
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 8.26,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  },
+  {
+    "id": "bear",
+    "status": "missing"
+  },
+  {
+    "id": "lion",
+    "status": "missing"
+  },
+  {
+    "id": "elephant",
+    "path": "assets/animals/elephant/normal.png",
+    "format": "PNG",
+    "mode": "RGBA",
+    "size": [
+      512,
+      512
+    ],
+    "bbox": [
+      6,
+      9,
+      506,
+      504
+    ],
+    "alpha_minmax": [
+      0,
+      255
+    ],
+    "edge_alpha_max": 0,
+    "opaque_outside_collision_percent": 1.47,
+    "status": "WIP_NOT_COMMERCIALLY_CLEARED"
+  }
+]
