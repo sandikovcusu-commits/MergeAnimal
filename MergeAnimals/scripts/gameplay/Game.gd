@@ -72,6 +72,8 @@ var save_scheduled := false
 var save_status: Error = OK
 var progression: Dictionary = {}
 var session_tainted := false
+# Legacy/debug fixture bodies have unknown provenance; their score cannot become a lifetime record.
+var score_untrusted := false
 var discovery_notifier: Control
 
 func _ready() -> void:
@@ -187,7 +189,7 @@ func _session_snapshot() -> Dictionary:
 			return {}
 		uid += 1
 		bodies.append({"uid": uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
-	return {"session_version": 1, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted}
+	return {"session_version": 1, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted}
 
 func save_session() -> Error:
 	# Recheck at execution time, after physics/contact callbacks and deferred merges.
@@ -217,6 +219,7 @@ func _restore_session(data: Dictionary) -> void:
 	# SessionSave.valid ran before creating any body; a fresh scene has an empty board.
 	if data.has("progression"): progression = data.progression.duplicate(true)
 	session_tainted = bool(data.get("tainted", false))
+	score_untrusted = bool(data.get("score_untrusted", false))
 	score = int(data.score); best_score = maxi(best_score, int(data.best_score)); best_at_start = int(data.best_at_start)
 	progression.best_score = maxi(int(progression.best_score), best_score)
 	spawn_count = int(data.spawn_count); merge_manager.merge_count = int(data.merge_count)
@@ -408,17 +411,19 @@ func _award_merge(base_score: int) -> void:
 	max_combo = maxi(max_combo, combo_count)
 	var multiplier := minf(2.0, 1.0 + maxf(0, combo_count - 1) * 0.25)
 	score += roundi(base_score * multiplier)
-	if score > best_score and (not persist_best or (not session_tainted and merge_manager.last_merge_eligible)):
+	if score > best_score and (not persist_best or (not session_tainted and not score_untrusted and merge_manager.last_merge_eligible)):
 		best_score = score
 		_save_best()
 	_update_hud()
 
 func _on_merged(data: AnimalData, point: Vector2) -> void:
+	if persist_best and not merge_manager.last_merge_eligible: score_untrusted = true
 	_award_merge(data.merge_score)
 	if persist_best and not session_tainted and merge_manager.last_merge_eligible:
 		progression.total_merges = int(progression.total_merges) + 1
-		progression.best_score = maxi(int(progression.best_score), score)
-		progression.max_combo = maxi(int(progression.max_combo), combo_count)
+		if not score_untrusted:
+			progression.best_score = maxi(int(progression.best_score), score)
+			progression.max_combo = maxi(int(progression.max_combo), combo_count)
 		_record_discovery(data)
 	_spawn_effect("soft_burst", point)
 	if not reduced_effects:
@@ -439,6 +444,7 @@ func _spawn_effect(kind: String, point: Vector2) -> void:
 	add_child(effect)
 
 func _on_golden_merged(point: Vector2) -> void:
+	if persist_best and not merge_manager.last_merge_eligible: score_untrusted = true
 	_spawn_effect("soft_burst", point)
 	if not reduced_effects: _spawn_effect("golden_glow", point)
 	# Golden award is exactly the configured bonus; it does not receive combo multiplication.
@@ -446,8 +452,8 @@ func _on_golden_merged(point: Vector2) -> void:
 	if persist_best and not session_tainted and merge_manager.last_merge_eligible:
 		progression.total_merges = int(progression.total_merges) + 1
 		progression.golden_merges = int(progression.golden_merges) + 1
-		progression.best_score = maxi(int(progression.best_score), score)
-	if score > best_score and (not persist_best or (not session_tainted and merge_manager.last_merge_eligible)):
+		if not score_untrusted: progression.best_score = maxi(int(progression.best_score), score)
+	if score > best_score and (not persist_best or (not session_tainted and not score_untrusted and merge_manager.last_merge_eligible)):
 		best_score = score
 		_save_best()
 	_update_hud()
@@ -497,7 +503,7 @@ func _on_game_over() -> void:
 	active_touch = -1
 	mouse_down = false
 	current_preview.visible = false
-	var record := "\n" + tr("NEW_RECORD") if score > best_at_start and score > 0 else ""
+	var record := "\n" + tr("NEW_RECORD") if score > best_at_start and score > 0 and not session_tainted and not score_untrusted else ""
 	overlay_title.text = "%s\n%s: %d   %s: %d\n%s: %s\n%s: %d   %s: %d%s" % [tr("GAME_OVER"), tr("FINAL_SCORE"), score, tr("BEST"), best_score, tr("LARGEST"), animals[clampi(highest_level - 1, 0, animals.size() - 1)].display_name, tr("MERGES"), merge_manager.merge_count, tr("MAX_COMBO"), max_combo, record]
 	resume_button.visible = false
 	$HUD/Overlay/SettingsButton.visible = false

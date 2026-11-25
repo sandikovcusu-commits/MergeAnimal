@@ -17,7 +17,7 @@ static func valid(data: Variant) -> bool:
 	for key in ["score", "best_score", "best_at_start", "spawn_count", "merge_count", "combo_count", "combo_events", "max_combo", "highest_level"]:
 		if not _integer(data.get(key), 0, 1000000000): return false
 	if int(data.highest_level) < 1 or int(data.highest_level) > 12: return false
-	if int(data.best_score) < int(data.score) and data.get("tainted") != true: return false
+	if int(data.best_score) < int(data.score) and data.get("tainted") != true and data.get("score_untrusted") != true: return false
 	for key in ["combo_left", "cooldown_left"]:
 		if not _number(data.get(key), 0, 60): return false
 	if not _number(data.get("aim_x"), 0, 720): return false
@@ -26,6 +26,7 @@ static func valid(data: Variant) -> bool:
 	if not _integer(data.get("tutorial_stage"), -1, 4): return false
 	if data.has("progression") and not Progression.valid(data.progression): return false
 	if data.has("tainted") and typeof(data.tainted) != TYPE_BOOL: return false
+	if data.has("score_untrusted") and typeof(data.score_untrusted) != TYPE_BOOL: return false
 	if typeof(data.get("bodies")) != TYPE_ARRAY or data.bodies.size() > 500: return false
 	var seen := {}
 	for body in data.bodies:

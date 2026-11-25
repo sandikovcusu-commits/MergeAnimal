@@ -19,8 +19,13 @@ func run() -> void:
 	# A V0.6.1 snapshot is read without inventing past discoveries.
 	var legacy_game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
 	legacy_game.test_seed = 99; root.add_child(legacy_game); await process_frame
+	legacy_game.score = 432
+	var legacy_a: Animal = legacy_game.create_animal(legacy_game.animals[0], Vector2(330, 700))
+	var legacy_b: Animal = legacy_game.create_animal(legacy_game.animals[0], Vector2(390, 700))
+	legacy_a.linear_velocity = Vector2(200, 0); legacy_b.linear_velocity = Vector2(-200, 0)
 	var legacy: Dictionary = legacy_game._session_snapshot()
-	legacy.erase("progression"); legacy.erase("tainted")
+	legacy.erase("progression"); legacy.erase("tainted"); legacy.erase("score_untrusted")
+	for body in legacy.bodies: body.erase("eligible")
 	check(SaveManager.save_progress(legacy, SessionSave.PATH) == OK, "write legacy session fixture")
 	check(SessionSave.load_session().status == "ok", "V0.6.1 session remains readable")
 	var migrated := SessionSave.load_progression()
@@ -35,6 +40,17 @@ func run() -> void:
 	check(restored_legacy.has_method("save_session") and str(restored_legacy.rng.state) == legacy.rng_state and str(restored_legacy.current_data.id) == legacy.current and restored_legacy.best_score == 432, "legacy Continue restores session and best")
 	check(restored_legacy.save_session() == OK and SessionSave.load_session().data.has("progression") and Progression.discovered(restored_legacy.progression) == 0, "legacy session migrates without fake discovery")
 	paused = false
+	for i in range(180):
+		await physics_frame
+		if restored_legacy.merge_manager.merge_count > 0: break
+	check(restored_legacy.merge_manager.merge_count == 1 and restored_legacy.score > restored_legacy.best_score and restored_legacy.score_untrusted and Progression.discovered(restored_legacy.progression) == 0, "legacy unknown-provenance collision cannot fake discovery or record")
+	check(restored_legacy.save_session() == OK, "legacy game remains saveable when uncertain merge score exceeds best")
+	for i in range(300):
+		await physics_frame
+		if i % 24 == 0:
+			restored_legacy._set_aim(500); restored_legacy.drop_animal()
+		if int(restored_legacy.progression.total_drops) > 0: break
+	check(int(restored_legacy.progression.total_drops) == 1 and Progression.discovered(restored_legacy.progression) == 1, "new genuine drops still progress after uncertain legacy merge")
 	restored_legacy.queue_free(); await process_frame
 	current_scene = null
 	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
