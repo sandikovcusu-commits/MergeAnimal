@@ -50,6 +50,8 @@ jobs:
           SESSION_PHASE=write run_test 'day61 session write process' --fixed-fps 60 --script res://tests/integration/day61_session_process.gd
           SESSION_PHASE=read run_test 'day61 session read process' --fixed-fps 60 --script res://tests/integration/day61_session_process.gd
           unset XDG_DATA_HOME
+          mkdir -p /tmp/day62-runtime-user
+          XDG_DATA_HOME=/tmp/day62-runtime-user run_test 'day62 collection integration' --fixed-fps 60 --script res://tests/integration/day62_collection.gd
           run_test 'day5 tutorial collision' --script res://tests/integration/day5_tutorial.gd
           run_test 'day5 effects' --script res://tests/integration/day5_effects.gd
           run_test 'day5 GUI input' --script res://tests/integration/day5_input.gd

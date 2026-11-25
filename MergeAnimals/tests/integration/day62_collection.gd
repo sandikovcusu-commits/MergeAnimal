@@ -1,0 +1,121 @@
+extends SceneTree
+var checks := 0
+var failures := 0
+var shown: Array[StringName] = []
+func _initialize() -> void: call_deferred("run")
+func check(ok: bool, message: String) -> void:
+	checks += 1
+	print("%s: %s" % ["PASS" if ok else "FAIL", message])
+	if not ok: failures += 1
+func frames(n: int = 3) -> void:
+	for i in range(n): await process_frame
+func touch(game: Node, down: bool, x: float) -> void:
+	var event := InputEventScreenTouch.new(); event.index = 0; event.pressed = down; event.position = Vector2(x, 350); game._unhandled_input(event)
+func run() -> void:
+	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	var score_cfg := ConfigFile.new(); score_cfg.set_value("scores", "best", 432); score_cfg.save("user://wild_garden.cfg")
+	var settings := SettingsStore.load_values(); settings.language = "az"; SettingsStore.save_values(settings)
+	# A V0.6.1 snapshot is read without inventing past discoveries.
+	var legacy_game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
+	legacy_game.test_seed = 99; root.add_child(legacy_game); await process_frame
+	var legacy: Dictionary = legacy_game._session_snapshot()
+	legacy.erase("progression"); legacy.erase("tainted")
+	check(SaveManager.save_progress(legacy, SessionSave.PATH) == OK, "write legacy session fixture")
+	check(SessionSave.load_session().status == "ok", "V0.6.1 session remains readable")
+	var migrated := SessionSave.load_progression()
+	check(migrated.best_score == 432 and migrated.total_games == 1 and Progression.discovered(migrated) == 0, "legacy migration preserves best without invented animals")
+	check(SettingsStore.load_values().language == "az", "legacy settings preserved")
+	legacy_game.queue_free(); await process_frame
+	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	set_meta("tutorial_requested", true)
+	var game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
+	game.test_seed = 99; root.add_child(game); current_scene = game; await process_frame
+	game.discovery_notifier.shown.connect(func(id: StringName): shown.append(id))
+	check(int(game.progression.total_games) == 1 and Progression.discovered(game.progression) == 0, "new game counted once, collection starts empty")
+	var seconds: float = float(game.progression.play_seconds)
+	for i in range(20): await physics_frame
+	check(float(game.progression.play_seconds) > seconds, "active gameplay time increases")
+	touch(game, true, 360); touch(game, false, 360)
+	for i in range(120): await physics_frame
+	check(game.spawn_count == 1 and int(game.progression.total_drops) == 1, "first real drop counted")
+	check(int(game.progression.animals.mouse.count) == 1 and Progression.discovered(game.progression) == 1, "first mouse unlocked once")
+	var first_date: String = game.progression.animals.mouse.date
+	check(not first_date.is_empty() and shown.size() == 1 and shown[0] == &"mouse", "discovery date and nonblocking notification")
+	touch(game, true, 360); touch(game, false, 360)
+	for i in range(600):
+		await physics_frame
+		if game.tutorial_stage == 4: break
+	check(game.spawn_count == 2 and int(game.progression.total_drops) == 2 and int(game.progression.animals.mouse.count) == 2, "repeat drop increments count, not discovery")
+	check(game.merge_manager.merge_count == 1 and int(game.progression.total_merges) == 1 and int(game.progression.animals.hamster.count) == 1, "real collision unlocks hamster and counts merge")
+	check(Progression.discovered(game.progression) == 2 and game.progression.animals.mouse.date == first_date, "duplicate discovery prevented, date stable")
+	check(int(game.progression.best_score) == 432 and int(game.progression.max_combo) == 1, "legacy best retained and actual max combo recorded")
+	for i in range(400):
+		await process_frame
+		if shown.size() >= 2: break
+	check(shown.size() == 2 and shown[1] == &"hamster" and game.discovery_notifier.mouse_filter == Control.MOUSE_FILTER_IGNORE, "notifications queued and input-transparent")
+	# Debug-created pieces, even when merged, must not count or unlock.
+	game.debug_panel.visible = true
+	var before_count: int = int(game.progression.animals.rabbit.count)
+	game._debug_pair()
+	check(game.session_tainted and int(game.progression.animals.rabbit.count) == before_count, "debug spawn cannot progress collection")
+	# New untainted session retains prior progress. Restart itself does not complete a game.
+	game._restart(); await frames(5); game = current_scene
+	check(int(game.progression.total_games) == 2 and int(game.progression.completed_games) == 0, "restart starts another game without completion")
+	check(int(game.progression.animals.mouse.count) == 2 and int(game.progression.animals.hamster.count) == 1, "restart preserves collection")
+	game.pause_button.pressed.emit(); await frames()
+	var frozen: float = float(game.progression.play_seconds)
+	await frames(80)
+	check(is_equal_approx(float(game.progression.play_seconds), frozen), "paused gameplay time stops")
+	check(game.save_session() == OK and game.save_session() == OK, "collection and statistics saved with session")
+	var saved := SessionSave.load_session()
+	check(saved.status == "ok" and int(saved.data.progression.animals.mouse.count) == 2, "save/load includes collection")
+	game._main_menu(); await frames(5)
+	var menu = current_scene
+	check(menu.has_method("_play"), "pause navigates to main menu")
+	var before_menu_time: float = float(SessionSave.load_progression().play_seconds)
+	await frames(80)
+	check(is_equal_approx(float(SessionSave.load_progression().play_seconds), before_menu_time), "main menu time not counted")
+	menu.find_child("Collection", true, false).pressed.emit(); await frames(5)
+	var collection = current_scene
+	check(collection.cards.size() == 12 and collection.get_node_or_null("CollectionScroll/AnimalGrid") != null, "collection has 12 cards in three-column grid")
+	check(collection.cards[0].find_child("Lock", true, false) == null and collection.cards[11].find_child("Lock", true, false) != null, "unlocked and locked cards render appropriate state")
+	collection.cards[0].pressed.emit(); await frames()
+	check(collection.detail.visible and collection.detail_label.text.contains("2"), "animal detail opens with persisted count")
+	collection.detail_close.pressed.emit(); await frames()
+	check(not collection.detail.visible, "detail closes")
+	collection.find_child("Back", true, false).pressed.emit(); await frames(5)
+	menu = current_scene
+	menu.find_child("Statistics", true, false).pressed.emit(); await frames(5)
+	var statistics = current_scene
+	check(statistics.progress.total_games == 2 and statistics.progress.total_drops == 2 and statistics.progress.total_merges == 1, "statistics screen reads actual saved values")
+	statistics.find_child("Back", true, false).pressed.emit(); await frames(5)
+	menu = current_scene
+	paused = true
+	menu.continue_button.pressed.emit(); await frames(5)
+	game = current_scene
+	check(game.has_method("save_session") and int(game.progression.total_games) == 2 and int(game.progression.total_drops) == 2 and int(game.progression.total_merges) == 1, "Continue does not double-count game or events")
+	check(game.save_session() == OK and game.save_session() == OK, "create matching backup for recovery")
+	var file := FileAccess.open(SessionSave.PATH, FileAccess.WRITE); file.store_string("damaged"); file.close()
+	var recovery := SessionSave.load_session()
+	check(recovery.status == "recovered" and int(recovery.data.progression.animals.mouse.count) == 2 and int(recovery.data.progression.total_drops) == 2, "corrupt session recovers collection and statistics")
+	paused = false
+	# Simulated bodies with legitimate eligibility exercise real physics golden contact in this isolated test.
+	game.danger_monitor.set_physics_process(false)
+	var a: Animal = game.create_animal(game.animals[11], Vector2(225, 700))
+	var b: Animal = game.create_animal(game.animals[11], Vector2(495, 700))
+	a.progression_eligible = true; b.progression_eligible = true
+	a.linear_velocity = Vector2(200, 0); b.linear_velocity = Vector2(-200, 0)
+	for i in range(180):
+		await physics_frame
+		if int(game.progression.golden_merges) > 0: break
+	check(int(game.progression.golden_merges) == 1 and int(game.progression.total_merges) == 2, "real golden collision counted once")
+	check(int(game.progression.animals.mouse.count) == 2 and int(game.progression.animals.hamster.count) == 1 and int(game.progression.animals.elephant.count) == 0, "golden merge does not erase collection or invent fixture discovery")
+	game._on_game_over()
+	check(int(game.progression.completed_games) == 1 and SessionSave.load_session().status == "missing", "completion counted once, no continue after game over")
+	game._on_game_over()
+	check(int(game.progression.completed_games) == 1, "game-over reentry does not duplicate completion")
+	paused = false
+	print("DAY62 collection and statistics checks=%d failures=%d" % [checks, failures])
+	quit(1 if failures else 0)
