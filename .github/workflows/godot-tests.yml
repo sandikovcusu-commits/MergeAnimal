@@ -90,6 +90,8 @@ jobs:
           import json, os, pathlib
           p = pathlib.Path('/tmp/godot-test-log.txt')
           text = p.read_text(errors='replace')[-50000:] if p.exists() else 'No test log; installation or checkout failed.'
+          acceptance = pathlib.Path('/tmp/godot-acceptance-log.txt')
+          text += '\n===== SEPARATE RELEASE ACCEPTANCE (not DEV regression) =====\n' + (acceptance.read_text(errors='replace') if acceptance.exists() else 'not executed')
           status = pathlib.Path('/tmp/godot-test-status')
           result = 'success' if status.exists() and status.read_text().strip() == '0' else 'failure'
           payload = {'name':'Godot runtime diagnostic', 'head_sha':os.environ['SHA'], 'status':'completed', 'conclusion':result,
