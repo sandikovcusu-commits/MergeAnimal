@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/gameplay/Game.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/animals/Animal.tscn" id="2"]
@@ -6,6 +6,11 @@
 [ext_resource type="Resource" path="res://resources/animals/hamster.tres" id="4"]
 [ext_resource type="Resource" path="res://resources/animals/rabbit.tres" id="5"]
 [ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="6"]
+[ext_resource type="Resource" path="res://resources/animals/cat.tres" id="7"]
+[ext_resource type="Resource" path="res://resources/animals/dog.tres" id="8"]
+[ext_resource type="Script" path="res://scripts/managers/MergeManager.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/managers/DangerMonitor.gd" id="10"]
+[ext_resource type="Script" path="res://scripts/gameplay/AnimalVisual.gd" id="11"]
 
 [sub_resource type="RectangleShape2D" id="wall"]
 size = Vector2(32, 830)
@@ -15,10 +20,12 @@ size = Vector2(570, 32)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1")
-animals = Array[ExtResource("6")]([ExtResource("3"), ExtResource("4"), ExtResource("5")])
+animals = Array[ExtResource("6")]([ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("7"), ExtResource("8")])
 animal_scene = ExtResource("2")
 
 [node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 1
 
 [node name="Left" type="CollisionShape2D" parent="Walls"]
 position = Vector2(75, 695)
@@ -34,6 +41,20 @@ shape = SubResource("floor")
 
 [node name="Pieces" type="Node2D" parent="."]
 
+[node name="MergeManager" type="Node" parent="."]
+script = ExtResource("9")
+
+[node name="DangerMonitor" type="Node" parent="."]
+script = ExtResource("10")
+
+[node name="CurrentPreview" type="Node2D" parent="."]
+position = Vector2(360, 350)
+script = ExtResource("11")
+
+[node name="NextPreview" type="Node2D" parent="."]
+position = Vector2(490, 218)
+script = ExtResource("11")
+
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -42,40 +63,180 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="Title" type="Label" parent="HUD"]
-offset_left = 85.0
-offset_top = 68.0
-offset_right = 635.0
-offset_bottom = 126.0
+offset_left = 180.0
+offset_top = 30.0
+offset_right = 540.0
+offset_bottom = 76.0
 theme_override_colors/font_color = Color(0.19, 0.30, 0.23, 1)
-theme_override_font_sizes/font_size = 37
+theme_override_font_sizes/font_size = 34
 text = "WILD GARDEN"
 horizontal_alignment = 1
+mouse_filter = 2
 
-[node name="Subtitle" type="Label" parent="HUD"]
-offset_left = 85.0
-offset_top = 130.0
-offset_right = 635.0
-offset_bottom = 172.0
-theme_override_colors/font_color = Color(0.33, 0.41, 0.32, 1)
-theme_override_font_sizes/font_size = 20
-text = "PHYSICS PLAYGROUND  ·  V0.1"
-horizontal_alignment = 1
-
-[node name="NextLabel" type="Label" parent="HUD"]
-offset_left = 85.0
-offset_top = 205.0
-offset_right = 635.0
-offset_bottom = 242.0
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 98.0
+offset_top = 102.0
+offset_right = 340.0
+offset_bottom = 142.0
 theme_override_colors/font_color = Color(0.19, 0.30, 0.23, 1)
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 25
+mouse_filter = 2
 
-[node name="Hint" type="Label" parent="HUD"]
-offset_left = 85.0
-offset_top = 1150.0
-offset_right = 635.0
-offset_bottom = 1220.0
+[node name="BestLabel" type="Label" parent="HUD"]
+offset_left = 98.0
+offset_top = 145.0
+offset_right = 340.0
+offset_bottom = 185.0
 theme_override_colors/font_color = Color(0.25, 0.34, 0.25, 1)
 theme_override_font_sizes/font_size = 20
-text = "DRAG OR MOVE TO AIM  ·  RELEASE TO DROP\nPrototype art and mechanics are temporary"
+mouse_filter = 2
+
+[node name="NextLabel" type="Label" parent="HUD"]
+offset_left = 310.0
+offset_top = 115.0
+offset_right = 625.0
+offset_bottom = 153.0
+theme_override_colors/font_color = Color(0.19, 0.30, 0.23, 1)
+theme_override_font_sizes/font_size = 23
 horizontal_alignment = 1
+mouse_filter = 2
+
+[node name="PauseButton" type="Button" parent="HUD"]
+offset_left = 545.0
+offset_top = 30.0
+offset_right = 655.0
+offset_bottom = 82.0
+text = "PAUSE"
+
+[node name="RestartButton" type="Button" parent="HUD"]
+offset_left = 75.0
+offset_top = 30.0
+offset_right = 175.0
+offset_bottom = 82.0
+text = "RESTART"
+
+[node name="Hint" type="Label" parent="HUD"]
+offset_left = 60.0
+offset_top = 1140.0
+offset_right = 660.0
+offset_bottom = 1240.0
+theme_override_colors/font_color = Color(0.25, 0.34, 0.25, 1)
+theme_override_font_sizes/font_size = 19
+text = "DRAG TO AIM  ·  RELEASE TO DROP\nMOUSE  →  HAMSTER  →  RABBIT  →  CAT  →  DOG\nTemporary prototype art"
+horizontal_alignment = 1
+mouse_filter = 2
+
+[node name="Overlay" type="Control" parent="HUD"]
+z_index = 10
+visible = false
+offset_left = 120.0
+offset_top = 510.0
+offset_right = 600.0
+offset_bottom = 825.0
+mouse_filter = 0
+
+[node name="Background" type="ColorRect" parent="HUD/Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.16, 0.25, 0.19, 0.96)
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="HUD/Overlay"]
+offset_left = 15.0
+offset_top = 40.0
+offset_right = 465.0
+offset_bottom = 165.0
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+mouse_filter = 2
+
+[node name="ResumeButton" type="Button" parent="HUD/Overlay"]
+offset_left = 70.0
+offset_top = 180.0
+offset_right = 410.0
+offset_bottom = 230.0
+text = "RESUME"
+
+[node name="RestartButton" type="Button" parent="HUD/Overlay"]
+offset_left = 70.0
+offset_top = 245.0
+offset_right = 410.0
+offset_bottom = 295.0
+text = "RESTART"
+
+[node name="DebugPanel" type="Control" parent="HUD"]
+visible = false
+offset_left = 100.0
+offset_top = 470.0
+offset_right = 620.0
+offset_bottom = 740.0
+mouse_filter = 0
+
+[node name="Background" type="ColorRect" parent="HUD/DebugPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.10, 0.08, 0.92)
+mouse_filter = 2
+
+[node name="Info" type="Label" parent="HUD/DebugPanel"]
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 510.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 16
+mouse_filter = 2
+
+[node name="Level" type="SpinBox" parent="HUD/DebugPanel"]
+offset_left = 5.0
+offset_top = 120.0
+offset_right = 100.0
+offset_bottom = 158.0
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+
+[node name="Spawn" type="Button" parent="HUD/DebugPanel"]
+offset_left = 105.0
+offset_top = 120.0
+offset_right = 215.0
+offset_bottom = 158.0
+text = "SPAWN"
+
+[node name="Pair" type="Button" parent="HUD/DebugPanel"]
+offset_left = 220.0
+offset_top = 120.0
+offset_right = 330.0
+offset_bottom = 158.0
+text = "PAIR"
+
+[node name="Chain" type="Button" parent="HUD/DebugPanel"]
+offset_left = 335.0
+offset_top = 120.0
+offset_right = 455.0
+offset_bottom = 158.0
+text = "CHAIN"
+
+[node name="Fill" type="Button" parent="HUD/DebugPanel"]
+offset_left = 5.0
+offset_top = 170.0
+offset_right = 120.0
+offset_bottom = 208.0
+text = "FILL"
+
+[node name="Overflow" type="Button" parent="HUD/DebugPanel"]
+offset_left = 125.0
+offset_top = 170.0
+offset_right = 255.0
+offset_bottom = 208.0
+text = "OVERFLOW"
+
+[node name="Outlines" type="Button" parent="HUD/DebugPanel"]
+offset_left = 260.0
+offset_top = 170.0
+offset_right = 430.0
+offset_bottom = 208.0
+text = "OUTLINES"

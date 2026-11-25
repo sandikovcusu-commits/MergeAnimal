@@ -1,3 +1,3 @@
-# Performans hesabatı — Gün 1
+# Performans hesabatı — Gün 2
 
-FPS, RAM, yükləmə müddəti və cihaz davranışı ölçülməyib. Profiler və real mobil/desktop/Web testləri tələb olunur. Heç bir performans hədəfi təsdiqlənməyib. İlkin dizayn az sayda yüngül 2D rigid body istifadə edir; bu fakt performans zəmanəti deyil.
+FPS, RAM, physics frame time, cihaz və Web davranışı ölçülməyib. 100/150/200-body skripti mövcuddur, amma icra olunmayıb; detallar `PHYSICS_REPORT.md`-dədir. Dolu sahədə pending merge üçün dairə axtarışı yüksək xərc yarada bilər və profiler ilə ölçülməlidir. Heç bir performans hədəfi təsdiqlənməyib.

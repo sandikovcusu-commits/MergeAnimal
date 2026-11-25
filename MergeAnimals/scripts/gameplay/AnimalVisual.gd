@@ -1,11 +1,14 @@
 extends Node2D
 
-# Deliberately temporary diagnostic art, not a final animal sprite.
+# Shared by bodies, current preview and next preview. Temporary diagnostic art.
+var data: AnimalData:
+	set(value):
+		data = value
+		queue_redraw()
+
 func _draw() -> void:
-	var animal := get_parent() as Animal
-	if animal == null or animal.data == null:
+	if data == null:
 		return
-	var data := animal.data
 	var r := data.radius
 	if data.sprite:
 		draw_texture_rect(data.sprite, Rect2(-r, -r, r * 2.0, r * 2.0), false)

@@ -1,0 +1,5 @@
+2026-11-25 — UNVERIFIED
+command -v godot: not found
+command -v godot4: not found
+Official Godot 4.7.2 Linux zip: github.com returned HTTP 302 to objects.githubusercontent.com; TLS connection to that restricted host failed with SSL_ERROR_SYSCALL.
+No Godot import, main scene, integration, physics, screenshot or benchmark command was executed.
