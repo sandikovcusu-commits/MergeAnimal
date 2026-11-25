@@ -1,0 +1,399 @@
+{
+  "status": "INCOMPLETE_WIP_NOT_RELEASE_CLEARED",
+  "date": "2026-11-25",
+  "assets": [
+    {
+      "file": "art_source/mouse.png",
+      "sha256": "1ddce18282800ab11ebb3704e1aaa2e4ee38006a55a3b5c1f3a98c33e27604b9",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record"
+    },
+    {
+      "file": "assets/animals/mouse/normal.png",
+      "sha256": "7945608f0ed5653892e083cfe5349d8fa4c48e683ff73858d6ef6f5ccc31d857",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record"
+    },
+    {
+      "file": "art_source/cat.png",
+      "sha256": "a6a1ec72048edfab69d8ce4f8c337b2c6acccb387458267390dff84f60e70c92",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record"
+    },
+    {
+      "file": "assets/animals/cat/normal.png",
+      "sha256": "5ff485f88b16389d814a18a42e570bb3fa508343acc75eab58213f2f1619ca49",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record"
+    },
+    {
+      "file": "art_source/elephant.png",
+      "sha256": "e23452876ee83861968fd96aa833579514d44d1c220235e77936c672d1c5da5d",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record"
+    },
+    {
+      "file": "assets/animals/elephant/normal.png",
+      "sha256": "91e1fbb2bb222a0d89ef93f1bfaa652ae719d42f434f1ff1e45d1b62658ed62e",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record"
+    },
+    {
+      "file": "art_source/hamster.png",
+      "sha256": "c05ffd53335f35c2d07c6c8cbd926cf5f23dfc4c5f3094fd6801222e87137a84",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/animals/hamster/normal.png",
+      "sha256": "599ddbd5f6d9c0d548f388425f8637242e3de3dc336db3dbccdedbed9f4c0add",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "art_source/rabbit.png",
+      "sha256": "d43ddf965eeb3eda9506b66235e8f8a312368225a82b8ec853cdf0634a6f50a8",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/animals/rabbit/normal.png",
+      "sha256": "2767a75c52ddf023631de47bfe5316cf65b1f8448f3f6cf2e054c0306515ae59",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "art_source/dog.png",
+      "sha256": "1bce84e122817605aaf09c3123669cc88778dcb3f0806d31d208f0bb0f1ae4ba",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/animals/dog/normal.png",
+      "sha256": "a18cf37fb23b057cec17a749cafcb1fcd861ed0fc122f41156d3f861856735f2",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "art_source/fox.png",
+      "sha256": "007c6972f19680fc01869485b9b033120141c664e31a4cfeaf9044cd7ce31317",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/animals/fox/normal.png",
+      "sha256": "afd684261124d20c347f25432521b29f822899fd92c71c2856ebf26c32798838",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "art_source/raccoon.png",
+      "sha256": "405314d0955e90b5190847e15b5918e6c04a75d96d352b07ac5b97702a158dee",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/animals/raccoon/normal.png",
+      "sha256": "ecb6fab5be4e42cc9a38eeec9e103b37bfb6de4506ca861d711808f1cc8ded90",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "art_source/koala.png",
+      "sha256": "58821b8c1fd70c25f58f90f039861ad06162192dfd5c3b1f6fe5352ad50a1062",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/animals/koala/normal.png",
+      "sha256": "77600bd934422e84baeaf32b662fa5daf8abda432293a4762ccd936712a53623",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "art_source/panda.png",
+      "sha256": "d092dadb18bb6a9dca7368767730c996306a7d28f22670d7e6f207a86870fcfd",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "none; RGB source, checkerboard is opaque",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/animals/panda/normal.png",
+      "sha256": "eaaea2f0ad01c63115dafd1061b4e549b34360a9ccf25bcf86e6a696f0267bf8",
+      "source": "Arena generate_image",
+      "model_name_and_version": "unknown: not returned by tool",
+      "date": "2026-11-25",
+      "prompt": "Exact original prompt not preserved in available session record; WIP brief: original cozy cartoon game animal sprite, centered, near-circular, isolated, matching Mouse/Cat/Elephant style.",
+      "reference_images": [
+        "art_source/mouse.png",
+        "art_source/cat.png",
+        "art_source/elephant.png"
+      ],
+      "post_processing": "ImageMagick flood-fill fuzz 26%, trim, resize 500px, transparent pad 512x512 PNG32",
+      "commercial_status": "BLOCKED — actual backend and applicable Arena terms not provided",
+      "terms_url": "https://openai.com/policies/terms-of-use/ (reference only; applicability unverified)",
+      "secondary_terms_url": "https://ai.google.dev/gemini-api/terms (reference only; applicability unverified)",
+      "prompt_status": "SUMMARY ONLY; exact text unverified and must not be treated as reproduction record",
+      "reference_images_status": "Reference use documented; exact references per call not independently verified."
+    },
+    {
+      "file": "assets/backgrounds/forest_garden.svg",
+      "sha256": "e2617841fd1bf90e33751b4c8e8f4d8ea9f935a531ff23c49deac168d36973e2",
+      "source": "original programmatic SVG generated in this workspace",
+      "model_name_and_version": "not applicable",
+      "date": "2026-11-25",
+      "prompt": "not applicable; vector gradients, hills, trees and flowers",
+      "post_processing": "none",
+      "commercial_status": "project license not selected; separate legal/rights review pending",
+      "terms_url": null
+    },
+    {
+      "file": "assets/backgrounds/snowy_valley.svg",
+      "sha256": "84e00968bce307264dd63a4361dcb2883c72b779b496fa5b87be3d7ba90f80f9",
+      "source": "original programmatic SVG generated in this workspace",
+      "model_name_and_version": "not applicable",
+      "date": "2026-11-25",
+      "prompt": "not applicable; vector gradients, hills, trees and flowers",
+      "post_processing": "none",
+      "commercial_status": "project license not selected; separate legal/rights review pending",
+      "terms_url": null
+    },
+    {
+      "file": "assets/backgrounds/sunset_safari.svg",
+      "sha256": "532fbd91332aa16e761e731d867ab0f3e21501358d419ce96ae931adf9427ca0",
+      "source": "original programmatic SVG generated in this workspace",
+      "model_name_and_version": "not applicable",
+      "date": "2026-11-25",
+      "prompt": "not applicable; vector gradients, hills, trees and flowers",
+      "post_processing": "none",
+      "commercial_status": "project license not selected; separate legal/rights review pending",
+      "terms_url": null
+    }
+  ],
+  "missing": [
+    "bear normal sprite",
+    "lion normal sprite",
+    "all 24 happy/surprise sprite images",
+    "20 UI icons",
+    "8 button variants",
+    "6 effect textures",
+    "game logo"
+  ],
+  "note": "Image tool generation limit reached for this turn. Background vectors and collision board are experimental. No model vendor or commercial license for image outputs has been verified."
+}

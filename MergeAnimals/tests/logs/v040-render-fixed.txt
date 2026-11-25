@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+RENDER_STATE pieces=5 current=mouse preview_visible=true score=SCORE  0 next=NEXT  ·  RABBIT
+RENDER requested=(360, 640) window=(360, 640) image=(360, 640) saved=true path=/tmp/godot-renders/game_360x640.png
+RENDER requested=(360, 800) window=(360, 800) image=(360, 640) saved=true path=/tmp/godot-renders/game_360x800.png
+RENDER requested=(720, 1280) window=(720, 1280) image=(720, 1280) saved=true path=/tmp/godot-renders/game_720x1280.png
+RENDER requested=(1080, 1920) window=(1080, 1920) image=(1080, 1920) saved=true path=/tmp/godot-renders/game_1080x1920.png
+RENDER requested=(1366, 768) window=(1366, 768) image=(432, 768) saved=true path=/tmp/godot-renders/game_1366x768.png
+RENDER requested=(1920, 1080) window=(1920, 1080) image=(607, 1080) saved=true path=/tmp/godot-renders/game_1920x1080.png
+
