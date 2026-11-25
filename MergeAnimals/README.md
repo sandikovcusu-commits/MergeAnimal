@@ -1,6 +1,6 @@
 # Merge Animals: Wild Garden
 
-**V0.2.0-dev — Gün 2 namizədi, UNVERIFIED.** Tam Godot 4 mənbə layihəsidir; mühitdə Godot mühərriki olmadığı üçün Editor importu, işləmə və fizika yoxlanmayıb. V0.2.0 qəbul meyarları hələ təsdiqlənməyib; kommersiya buraxılışı deyil.
+**V0.2.1-dev — headless sınaqdan keçən mənbə prototipi, kommersiya buraxılışı deyil.** Godot 4.7.2 rəsmi Linux GitHub Actions runner-də işlədilib; real cihaz, Windows və vizual render yoxlanmayıb. Placeholder qrafika hələ mövcuddur.
 
 ## Lokal başlatma
 1. Godot **4.7.2.stable** quraşdırın; Project Manager-də bu qovluqdakı `project.godot` faylını import edin.
@@ -21,6 +21,6 @@ godot --headless --path . --script res://tests/physics/natural_collision.gd
 godot --headless --path . --script res://tests/physics/drop_100.gd
 godot --headless --path . --script res://tests/physics/stress.gd
 ```
-Windows-da `godot` yerinə Godot 4.7.2 executable yolunu istifadə edin. Editor-un Output panelindəki bütün xətaları və test çıxışlarını saxlayın; xətasız parse real touch, rendering və fiziki keyfiyyət sübutu deyil. 100-drop fixture hər düşürmədən sonra öz obyektini silir, ayrıca 100/150/200-body stress fixture sabit say üçün merge və danger-ı söndürür; bunlar normal oyun testi deyil. Debugger → **Visible Collision Shapes** ilə real shape-ləri vizual yoxlayın; debug panelin OUTLINES düyməsi yalnız təxmini render konturudur.
+Windows-da `RUN_GAME.bat` və `RUN_TESTS.bat` fayllarından istifadə edin; Godot ayrıca quraşdırılmalıdır. Exe-ni layihə qovluğuna qoyun, PATH-ə əlavə edin və ya soruşulduqda tam yolunu daxil edin. Windows skriptləri həmin platformada hələ sınanmayıb; test çıxışları `test-results` qovluğundadır. Editor-un Output panelindəki bütün xətaları və test çıxışlarını saxlayın; xətasız parse real touch, rendering və fiziki keyfiyyət sübutu deyil. 100-drop fixture hər düşürmədən sonra öz obyektini silir, ayrıca 100/150/200-body stress fixture sabit say üçün merge və danger-ı söndürür; bunlar normal oyun testi deyil. Debugger → **Visible Collision Shapes** ilə real shape-ləri vizual yoxlayın; debug panelin OUTLINES düyməsi yalnız təxmini render konturudur.
 
-Manual yoxlayın: təbii fizika kontaktı ilə merge, 3/4 eyni cisim, sıx zəncir, divar/döşəmə yaxınlığı, game-over grace və yanlış sıçrayış, pause zamanı fizikanın dayanması, restart, mouse/touch/emulated mouse, iki barmaq, ləğv, UI basması, mobil portret və landşaft. 18 screenshot yox idi; xahiş olunur əlavə edilsin. Ətraflı status: `QA_REPORT.md`, `SCREENSHOT_AUDIT.md`, `KNOWN_ISSUES.md`, `PHYSICS_REPORT.md`.
+Manual yoxlayın: təbii fizika kontaktı ilə merge, 3/4 eyni cisim, sıx zəncir, divar/döşəmə yaxınlığı, game-over grace və yanlış sıçrayış, pause zamanı fizikanın dayanması, restart, mouse/touch/emulated mouse, iki barmaq, ləğv, UI basması, mobil portret və landşaft. 18 V0.1 screenshot ayrıca audit edilib, orijinalları məxfilik üçün repoya daxil edilməyib. Ətraflı status: `QA_REPORT.md`, `SCREENSHOT_AUDIT.md`, `KNOWN_ISSUES.md`, `PHYSICS_REPORT.md`.

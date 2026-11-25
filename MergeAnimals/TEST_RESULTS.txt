@@ -1,0 +1,23 @@
+Merge Animals V0.2.1-dev — real test nəticələri
+Godot 4.7.2.stable.official.ed1daf0bf, Ubuntu GitHub Actions, headless.
+Kod commit: ff652c01fcd6eaccec201be79b693191b53adca0
+Run: https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45662097242
+Log: tests/logs/v021-runtime-green.txt
+
+PASS editor headless import exit=0
+PASS integration: 49 checks, 0 failures (böyük hissəsi metod fixture)
+PASS təbii Mouse + Mouse: bodies=1, score=4, merges=1
+PASS blocked cooldown touch/mouse recovery: 4 synthetic input check
+PASS multitouch, first finger and out-of-bounds clamp: 4 synthetic input check
+PASS scene restart: bodies/score cleared, tree resumed
+PASS real contact chain: bodies=1, score=12, merges=2
+PASS wall fixture: 700 px/s, 10 px overlap tolerance; gaps -0.664/-6.636/-0.506 px; sıfır overlap deyil
+PASS pause/resume real body movement; 48 supported bodies game-over 2.017 s; əlavə spawn bloklandı
+PASS 100-drop fixture requests=100 spawned=100 (fixture hər body-ni sonradan silir)
+PASS stress fixture count=100,150,200 actual=100,150,200 escaped=0 (merge/danger deaktiv)
+PASS Python static check: 25 project text files; 12 unittest invariant
+
+RED əvvəl: run 45660478538, commit 5b3e995: touch/mouse blocked-spawn quick-tap üçün 4 FAIL.
+GREEN düzəlişdən sonra: run 45660780424, commit 8e3d079: həmin 4 check PASS.
+UNVERIFIED: real rendering/F5, Windows BAT, touch hardware, Android/iOS, GUI, mobil FPS/RAM, bütün sıx merge və bounce/focus loss ssenariləri. Placeholder art qalır.
+Loglarda 60 Hz/120 Hz/240 Hz ray və shape CCD müqayisəsi, ilkin 2 px həddin keçməməsi sənədləşib.

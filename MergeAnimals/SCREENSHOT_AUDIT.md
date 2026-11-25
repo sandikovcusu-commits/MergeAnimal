@@ -1,34 +1,35 @@
-# Screenshot və kod auditi — V0.1 → Gün 2
+# 18 screenshotun fərdi auditi — V0.1 → V0.2.1-dev
 
-25 noyabr 2026. Bu söhbətdə 18 görüntü faylı/əlavəsi mövcud deyil. İstifadəçinin təsvirləri görüntülərin özünün müstəqil müşahidəsi deyil. Hər şəkil ayrıca nəzərdən keçirilməsi üçün gözləyir; lütfən 18 faylı əlavə edin. Heç bir şəkildən fakt uydurulmayıb.
+**Mənbə:** istifadəçinin 18 ayrı JPG əlavəsi; ZIP faylı verilməyib. Sıra fayl adına görədir. Hər görüntünün başlığında `PHYSICS PLAYGROUND · V0.1` var: bunlar V0.2.0-dev və ya V0.2.1 test nəticəsi deyil. Aşağıdakı müşahidə tək kadrdır; təmasın uzunluğu, sürət, input hadisələrinin sayı, frame rate və ikiqat spawn statik şəkildən təsdiqlənmir. Foto faylları istifadəçi məzmununu avtomatik GitHub-a yükləməmək üçün repoya əlavə edilməyib; `tests/logs/screenshot-sha256.txt` fayl adlarını və hash-ləri qeyd edir.
 
-| Şəkil | Görünən problem | Ehtimal / mənbə |
+## Hər bir görüntü
+
+Açarlar: **P** = V0.1 preview və düşən body üst-üstə görünür / ayrı üz renderi; **M** = eyni rəngli cisimlər yığılır, merge kodu V0.1-də yoxdur; **G** = danger xətti V0.1-də yalnız vizualdır. Açarlar müstəqil xəta kodu nəticəsidir; ayrı bir kadr animasiyanın tamamlandığını göstərmir.
+
+| Fayl | Ayrı-ayrı görünənlər və məhdudiyyət | Kodla əlaqə |
 |---|---|---|
-| 01 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 02 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 03 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 04 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 05 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 06 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 07 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 08 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 09 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 10 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 11 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 12 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 13 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 14 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 15 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 16 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 17 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
-| 18 | Əlçatan deyil — UNVERIFIED | Təqdim olunduqdan sonra fərdi audit ediləcək |
+| 175292.jpg | Solda üzü olmayan sarı preview, eyni x-də aşağıda üzlü sarı cisim; döşəmədə iki kiçik çəhrayı cisim ayrı dayanır. | P; `a2692b8:Game.gd:87–97`, `AnimalVisual.gd:4–17`. |
+| 175293.jpg | Yuxarıda iki bənövşəyi dairə əhəmiyyətli dərəcədə üst-üstə, öndə üz görünür; sarı cisim havada, döşəmədə üç cisim. | P; V0.1 `drop_animal:70–81`, `_draw:93–97`. |
+| 175294.jpg | Sağ yuxarıda kiçik üzü olmayan çəhrayı dairənin altında üzlü bənövşəyi dairə; sahədə havada bir bənövşəyi və döşəmədə beş cisim var. | P; preview və body ayrıdır. |
+| 175295.jpg | Solda narıncı çevrənin içində üzlü çəhrayı dairə kimi görünən üst-üstə görüntü; başqa bənövşəyi cisimlər havada/döşəmədədir. | P; vizual üst-üstə, ikiqat spawn sübutu deyil. |
+| 175296.jpg | Sağda böyük bənövşəyi çevrənin içində sarı üzlü cisim; digər kiçik cisimlər yerdə və havadadır. | P; dərhal dəyişən preview ehtimalı kodla uyğun gəlir. |
+| 175297.jpg | Solda bənövşəyi iki kontur bir-birinə yaxın örtüşür; döşəmədə eyni rəngli bir neçə cisim görünür. | P, M; merge V0.1-də implementasiya edilməyib. |
+| 175298.jpg | Solda preview-də iki bənövşəyi kontur və aşağıda bir-birinə yaxın bənövşəyi cisimlər; digər cisimlər havadadır. | P, M; V0.1 kodu merge etmir. |
+| 175299.jpg | Bənövşəyi ikiqat konturlu yuxarı cisim; döşəmədə yaxın/təmasda görünən bənövşəyi dairələr var. | P, M; kadr kontakt müddətini müəyyən etmir. |
+| 175300.jpg | Sol kənara yaxın bənövşəyi üst-üstə kontur; döşəmədə eyni rəngli cisimlərdən ibarət kiçik yığın. | P, M; divar keçməsi görünmür və tək kadr bunu sübut etməz. |
+| 175301.jpg | Üzü olmayan bənövşəyi preview; daha aşağıda üzlü çəhrayı cisim və döşəmədə çoxlu, bir neçəsi eyni rəngli cisim var. | P, M; fərqli rendering kodları. |
+| 175302.jpg | Çox sıx qalaq; bir neçə bənövşəyi cisim qırmızı xəttin üstündədir, overlay Game Over yoxdur; yuxarıda üzü olmayan sarı preview var. | M, G, P; xətt üstündə qalma müddəti naməlumdur. |
+| 175317.jpg | Çoxlu cisim və eyni rəngli qonşular; üzü olmayan sarı preview. Sağ sistem səs paneli sahənin bir hissəsini örtür, bu oyun UI-si kimi qəbul edilmir. | M, P; bu kadrdan performans ölçülmür. |
+| 175318.jpg | Sıx qalaq, çoxlu eyni rəngli qonşu, üst hissədə üzlü bənövşəyi dairənin arxasında nazik ikinci kontur görünür. | M, P; ardıcıllıq və kontakt müddəti naməlumdur. |
+| 175319.jpg | Sıx qalaq, havada bənövşəyi cisim və yuxarıda üzlü sarı cisim. Oyun sahəsi yuxarı xəttədək dolmayıb. | M; görünən üz yuxarı dairənin preview yoxsa yenicə düşən body olduğunu təkbaşına sübut etmir. |
+| 175320.jpg | Solda sarı konturun içində üzlü çəhrayı dairə; yığının üstündə sarı cisim; eyni rəngli çoxlu yaxın dairə. | P, M. |
+| 175321.jpg | Sarı üzlü cisim yuxarıda, çəhrayı cisim xəttin altında havada; sıx qalaqda bir neçə eyni rəngli qonşu var. | M; yuxarı cismin statusu statik kadrdan dəqiq deyil. |
+| 175322.jpg | Yuxarıda çəhrayı üzlü dairə və qalın görünən kontur; solda sıx yığın və çoxlu eyni rəngli cisim. | P/M; ikinci konturun ayrı body olub-olmadığı təsdiqlənmir. |
+| 175323.jpg | Sıx qalaq üstündə bənövşəyi böyük dairənin içində kiçik çəhrayı üz; bir çox uyğun rəngli qonşu. | P, M; üst-üstə görüntü fiziki double spawn kimi təqdim edilmir. |
 
-## Kodla təsdiqlənən ilkin audit (commit a2692b8)
-- `Game.gd:70–82`: drop instantiate edir, data və koordinat təyin edir, sonra `Pieces`-ə əlavə edir; `_ready()` `Animal.gd:8–18` radius/mass/material qurur. Spawn overlap yoxlanmır. Cooldown yalnız sürətli təkrarı məhdudlaşdırır; preview-nin yeni fiziki obyektlə vizual üst-üstə düşməsi mümkündür, ancaq konkret görüntünün səbəbi məlum deyil.
-- `Game.gd:87–97` preview-ni `_draw` daxilində dairə kimi çəkir. `AnimalVisual.gd:4–17` fiziki heyvanın göz/ağzını ayrıca çəkir. Next `Game.gd:84–85` yalnız ad göstərir. Buna görə mənbədə üz uyğunsuzluğu təsdiqlənir; sprite və redraw problemləri haqqında görüntü olmadan əlavə nəticə yoxdur.
-- `Game.gd:44–65`: mouse və touch `_unhandled_input` vasitəsilə `drop_animal()`-a gedir. `project.godot` hər iki emulation seçimini söndürür; ləğv olunmuş touch ayrıca idarə edilmir. İkiqat doğulma konkret görüntüdən təsdiqlənmir.
-- `Animal.tscn:6–9` contact monitor və CCD açıqdır, lakin `body_entered` bağlantısı və merge manager yoxdur. StaticBody və RigidBody səhnələrində layer/mask təyin edilməyib: Godot default layer 1, mask 1. Eyni növlərin birləşməməsinin kod səbəbi sistemin ümumiyyətlə olmamasıdır.
-- `Game.gd:92`: təhlükə xətti yalnız `draw_line`-dır. Vaxtölçən, dəstək yoxlaması və Game Over yoxdur. Statik təsvir təhlükənin davametmə müddətini sübut etməz.
-- 3 resource var; merge/score/save/game over olmaması yığılmaya səbəb ola bilər, amma konkret seansın dolma səbəbi şəkillər və runtime testləri olmadan təsdiqlənmir.
+## V0.2.0-dev / V0.2.1 müqayisəsi
 
-İstinadlar: [Godot 4.7 RigidBody2D](https://docs.godotengine.org/en/stable/classes/class_rigidbody2d.html), [physics introduction](https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html), [input](https://docs.godotengine.org/en/stable/tutorials/inputs/input_examples.html), [ScreenTouch](https://docs.godotengine.org/en/stable/classes/class_inputeventscreentouch.html), [space queries](https://docs.godotengine.org/en/stable/classes/class_physicsdirectspacestate2d.html).
+- **P:** V0.1 spawn-dan sonra queue dərhal irəliləyirdi (`a2692b8:Game.gd:70–81`), `_draw:93–97` ayrıca üzü olmayan dairə çəkirdi. V0.2 `Game.gd:_attempt_drop`, `_spawn_clear`, `_update_preview`, `AnimalVisual.gd:_draw` ilə ayrıca node və ortaq vizual istifadə edir. Headless queue/cooldown/query testləri keçib; görünüşün cihazda təsdiqi hələ tələb olunur.
+- **M:** V0.1-də merge manager və `body_entered` handler yox idi. V0.2 `MergeManager.gd:observe/request_merge/_commit_pending`, `Game.gd:_on_merged` əlavə edib. Rəsmi Godot 4.7.2-də real iki Mouse kontaktı Mouse→Hamster testini keçib. Digər ssenarilərin real/fixture statusu `QA_REPORT.md`-dədir.
+- **G:** V0.1 xəttini `Game.gd:92` yalnız çəkirdi. V0.2 `DangerMonitor.gd:_physics_process`, `Animal.gd:_integrate_forces`, `Game.gd:_on_game_over` ilə mövcuddur. Real sabit 48-body qalaqda 2.017 saniyədə Game Over baş verdi; bu, bütün sıçrayış/mobile ssenariləri sübut etmir.
+- V0.2-də aşkar edilmiş əlavə quick-tap problemi bu şəkillərdən deyil, mənbə və runtime regression-dan aşkarlanıb; `ROOT_CAUSE_REPORT.md`-yə baxın.

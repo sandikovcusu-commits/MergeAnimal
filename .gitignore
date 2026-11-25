@@ -26,3 +26,6 @@ mono_crash.*.json
 
 # Local packaged deliverables (generated)
 /artifacts/
+
+# Local Godot test output
+/MergeAnimals/test-results/

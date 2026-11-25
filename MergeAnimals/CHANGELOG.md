@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1-dev — 2026-11-25
+- V0.2 blocked-spawn quick-tap input bərpası düzəldildi; red/green Godot runtime regression əlavə edildi.
+- 18 V0.1 screenshot ayrıca audit edildi; original JPG-lər paylaşılmadı.
+- Headless Godot 4.7.2 Actions, fizika, multitouch və restart fixture-ları, Windows üçün işə salma skriptləri əlavə edildi. Windows və cihazlar yoxlanmayıb.
+- Divar testi 700 px/s zərbədə müvəqqəti nüfuz ölçür, limitasiya açıq saxlanır; yekun sprite və mobil ölçülər yoxdur.
+
 ## 0.2.0-dev — 2026-11-25 (Gün 2, UNVERIFIED)
 - Mənbədə beş heyvan səviyyəsi, `MergeManager`, merge lock/deferred commit, xal və sadə best score əlavə edildi.
 - Cari/next preview vizual kodu birləşdirildi; spawn state, overlap sorğusu, cooldown və input ləğvi əlavə edildi.

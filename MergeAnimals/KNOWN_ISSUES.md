@@ -1,11 +1,8 @@
-# Məlum problemlər və risklər — 0.2.0-dev
+# Məlum problemlər — V0.2.1-dev
 
-- **P0 / UNVERIFIED:** Godot 4.7.2 Editor importu və heç bir runtime/fizika testi icra edilməyib. Mümkün semantic/API səhvləri, faktiki merge və game-over davranışı hələ təsdiqlənməyib.
-- **P0 / BLOCKED:** 18 istifadəçi screenshot-u bu sessiyada əlavə edilməyib; fərdi screenshot auditləri mümkün deyil.
-- **P1 / UNVERIFIED:** Sıx sahədə yeni böyük dairə üçün 96 px ətrafında boş mövqe tapılmasa, iki heyvan kilidli qalır və merge sonra yenidən sınaqdan keçirilir. Uzun müddətli sıxlıq, performans və game-over qarşılıqlı təsiri real sınaq tələb edir. Heyvanları səbəbsiz silmir.
-- **P1 / UNVERIFIED:** Dəstək üçün physics contact normal və speed istifadə edilir; sleep, yüksək sıçrayış, fırlanma, dolu qalaq və zəif cihazlarda yanlış Game Over sınaqdan keçirilməlidir.
-- **P1 / UNVERIFIED:** Spawn query və preview-nin fizika ilə sinxronluğu, multitouch, ləğv, emulyasiya və ekrandan kənarda buraxma real brauzer və cihazlarda yoxlanmayıb.
-- **P1:** Beşinci səviyyə müvəqqəti maksimumdur; Dog + Dog birləşmir. 12 səviyyə və Golden Merge Gün 3 üçün planlanır.
-- **P2:** UI yalnız İngiliscə, müvəqqəti fiqurlar var, mobil responsive screenshot yoxdur. Debug overlay yalnız debug build və Inspector seçimi ilə işləmək üçün nəzərdə tutulub.
-- **P2:** Best score üçün yalnız sadə ConfigFile var; backup, sessiya save, reklam, challenge, kolleksiya, audio, tutorial, lokallaşdırma, tam menyu və yekun aktivlər yoxdur.
-- **P2:** Başlanğıc spawn çəkiləri hələ 30/25/20/15/10 deyil; əvvəlki kimi üç növ bərabərdir. Fizika materialları ölçülməyib və balanslaşdırılmayıb.
+- P1: 700 px/s divar fixture-də 60 Hz-də 6.636 px-ə qədər anlıq radius nüfuzu ölçülüb; sıfır overlap təmin edilmir. Real gameplay/render təsiri və başqa cihazlar yoxlanmayıb. `PHYSICS_REPORT.md`.
+- P1: Sıx sahədə merge üçün 96 px radiusda boş yer tapılmasa cüt kilidli pending qalır və təkrar yoxlanır; uzun müddətli sıxlıq/Game Over təsiri yoxlanmayıb.
+- P1: Real touch hardware, Windows BAT, vizual render, Android/iOS və müxtəlif ekran ölçüləri, sıçrayış/sleep/focus-loss yoxlanmayıb. Synthetic event real cihaz əvəzi deyil.
+- P1: Placeholder proqramla çəkilmiş vizuallar hələ mövcuddur; istifadəçi yeni sprite istəməyib. Yekun kommersiya qrafikası hazır deyil, DEV statusu saxlanır.
+- P2: Beşinci səviyyə Dog müvəqqəti maksimumdur; eyni üç başlanğıc növü seçilir. UI ingiliscədir. Tam save, audio, tutorial, lokallaşdırma, menyu və son aktivlər yoxdur.
+- P2: Testdə Linux Actions headless ölçüləri mobil performans demək deyil. Rəqib oyunlarının real oynanması və mobil metriklər tədqiq edilməyib (`RESEARCH.md`).

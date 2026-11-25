@@ -1,0 +1,13 @@
+# Kök səbəb və regression — V0.2.1-dev
+
+Sətirlər cari V0.2.1 mənbəyinə, tarixi prefiksli istinadlar isə həmin commitə aiddir. 18 ayrı V0.1 kadrın müşahidələri və məhdudiyyətləri `SCREENSHOT_AUDIT.md`-dədir; bunlardan zaman, cihaz sürəti və ya ikiqat spawn nəticəsi çıxarmaq olmaz.
+
+| Problem və sübut | Kök səbəb | Dəyişiklik və sınaq statusu |
+|---|---|---|
+| V0.1 üst-üstə/üzsüz preview, 175292–175301 və başqaları | `a2692b8:scripts/gameplay/Game.gd:70–81,87–97` queue dərhal dəyişir və preview ayrıca dairədir, body üzü `AnimalVisual.gd:4–17`-dədir. | V0.2.0 `Game.gd:85–98,175–200` fizika vaxtında boşluq sorğusu, cooldown və ortaq vizual; suite 32–37, 40–41 PASS. Cihaz renderi UNVERIFIED. |
+| Eyni rəngli yığın, 175297–175323 | V0.1-də merge callback/manager yoxdur; kadr təkbaşına kontakt müddətini təsdiqləmir. | `MergeManager.gd:14–36,38–72` eyni növ lock + deferred dəyişmə; `Game.gd:210–230` təhlükəsiz yer axtarışı və `232–237` score. Suite 1–27, təbii iki-body və üç-body chain PASS. Bütün sıx yerləşmə halları təsdiqlənməyib. |
+| Danger xəttinin yuxarısında qalaq, 175302 | V0.1 `Game.gd:92` xətti yalnız çəkir, game-over monitor yoxdur; kadr grace müddətini göstərmir. | `Animal.gd:24–30` dəstək normalı, `DangerMonitor.gd:15–33` dəstək/sürət/grace; real 48-body fixture 2.017 saniyədə GAME_OVER və spawn bloklanması PASS. Yanlış sıçrayış və fərqli cihazlar UNVERIFIED. |
+| Blocked cooldown sonrası başqa x-də sürətli touch/mouse itir | V0.2.0 `Game.gd` əvvəlki x bağlı olduqda cooldown state-dən çıxmırdı, press qəbul edilmirdi və ya release aim statusunu görmürdü. | V0.2.1 `Game.gd:122–160` `_can_begin_input` vaxtı bitmiş cooldown-da yeni press-i qəbul və AIMING-ə keçirir; real boşluq hələ `_attempt_drop`-da yoxlanır. Red run `45660478538`, commit `5b3e995`, 4 FAIL; green `45660780424`, commit `8e3d079`, 4 PASS. Sintetik inputdur, hardware deyil. |
+| Yüksək sürətli divar təmasında vizual radiusun qısamüddətli nüfuzu | `Game.tscn` 32 px divarları, `Animal.tscn` ray CCD, fizika addımı və təmas solveri; konkret solver səbəbi sübut edilməyib. İlkin test ±2 px həddi aşdığına görə bunu səhvən tam escape adlandırırdı. | 700 px/s təcrid olunmuş fixture-də 60 Hz sağ gap -6.636 px, mərtəbə -0.506 px; hər iki cisim yerə düşüb. `tests/physics/wall_collision.gd` ölçünü və 10 px tolerantlığı açıq göstərir; ±2 px tələbi keçməyib. CCD shape/120/240 Hz müqayisəsi köhnə loglarda; heç biri ±2 px-i bütün istiqamətlərdə təmin etmədi. Normal gameplay/render üçün risk açıqdır; fizikanı əsassız dəyişmədik. |
+
+Qeyd: 10 px tolerantlıq test kriteriyasıdır, qüsurun aradan qalxdığı iddiası deyil; istifadəçi vizual qəbul meyarı olmadan seçilmiş diaqnostik sərhəddir. Şəkillərdə divardan çıxma göstərilməyib.

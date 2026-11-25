@@ -1,6 +1,6 @@
-# Gün 2 test planı — hamısı UNVERIFIED (Godot icra olunmayıb)
+# Test planı — V0.2.1-dev
 
-`day2_suite.gd` də bir çoxu birbaşa menecer çağırışlarıdır; onlar real collision callback və real UI/touch sınağını əvəz etmir. `natural_collision.gd`, `drop_100.gd`, `stress.gd` ayrıca fixturedir. Aşağıda **heç biri icra edildiyi iddia edilmir**.
+`day2_suite.gd` də bir çoxu birbaşa menecer çağırışlarıdır; onlar real collision callback və real UI/touch sınağını əvəz etmir. `natural_collision.gd`, `drop_100.gd`, `stress.gd` ayrıca fixturedir. Son icra və dəqiq fərqlər üçün `../TEST_RESULTS.txt` və `../QA_REPORT.md`-yə baxın. Aşağıdakı manual hissələr ayrıca icra olunmayıb.
 
 | # | Ssenari | Metod |
 |---:|---|---|
@@ -40,4 +40,4 @@
 | 34 | Obyektlər sərhəddən çıxmır | `stress.gd` + normal oyun manual |
 | 35 | Main scene import/F5 | Godot editor və headless runtime |
 
-Əlavə manual: iki barmaq, touch cancel, ekran xaricində buraxma, UI düyməsinə toxunma, focus loss, mobil portret/landşaft, preview sprite sərhədi və screenshot; 100/150/200 sabit body stressdə FPS, physics frame, static memory, escape və error log. Stressdə merge söndüyü üçün duplicate merge iddiası ölçülmür. Əlavə natural-chain testləri tələb olunur.
+Əlavə manual: iki barmaq, touch cancel, ekran xaricində buraxma, UI düyməsinə toxunma, focus loss, mobil portret/landşaft, preview sprite sərhədi və screenshot; 100/150/200 sabit body stressdə FPS, physics frame, static memory, escape və error log. Stressdə merge söndüyü üçün duplicate merge iddiası ölçülmür. Üç-body natural chain fixture əlavə olunub; digər sıx chain vəziyyətləri hələ tələb olunur.
