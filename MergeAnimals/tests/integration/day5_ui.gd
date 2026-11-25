@@ -32,7 +32,7 @@ func run() -> void:
 	check(AudioServer.get_bus_index("Music") >= 0 and AudioServer.get_bus_index("SFX") >= 0, "audio bus infrastructure exists")
 	for i in range(4):
 		settings.language_select.select(i); settings.language_select.item_selected.emit(i)
-		var expected := ["Play", "Oyna", "Oyna", "Играть"][i]
+		var expected: String = ["Play", "Oyna", "Oyna", "Играть"][i]
 		check(TranslationServer.translate("PLAY") == expected and SettingsStore.load_values().language == ["en", "az", "tr", "ru"][i], "language %d translates and persists" % i)
 	settings.find_child("Back", true, false).pressed.emit()
 	await frames()
