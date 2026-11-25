@@ -18,6 +18,9 @@ func run() -> void:
 		check(fx.effect_kind == kind and fx.process_mode == Node.PROCESS_MODE_PAUSABLE and fx.is_processing(), "%s animates without physics" % kind)
 		fx.queue_free()
 	await process_frame
+	for theme_name in ["forest", "earth", "sunset", "snow", "gold", "berry", "sky", "cream"]:
+		var ui_theme := load("res://assets/ui/themes/%s.tres" % theme_name) as Theme
+		check(ui_theme.has_stylebox("focus", "Button"), "%s has keyboard focus style" % theme_name)
 	game.reduced_effects = true
 	var before := game.get_child_count()
 	game._on_merged(game.animals[1], Vector2(300, 600))

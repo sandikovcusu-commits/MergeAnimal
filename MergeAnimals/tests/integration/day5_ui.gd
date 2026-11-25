@@ -30,6 +30,10 @@ func run() -> void:
 	check(is_equal_approx(SettingsStore.load_values().master, 0.4), "volume change persisted")
 	check(TranslationServer.get_locale() == "az" and TranslationServer.translate("SETTINGS") == "Tənzimləmələr", "Azerbaijani translation applied")
 	check(AudioServer.get_bus_index("Music") >= 0 and AudioServer.get_bus_index("SFX") >= 0, "audio bus infrastructure exists")
+	for i in range(4):
+		settings.language_select.select(i); settings.language_select.item_selected.emit(i)
+		var expected := ["Play", "Oyna", "Oyna", "Играть"][i]
+		check(TranslationServer.translate("PLAY") == expected and SettingsStore.load_values().language == ["en", "az", "tr", "ru"][i], "language %d translates and persists" % i)
 	settings.find_child("Back", true, false).pressed.emit()
 	await frames()
 	check(not is_instance_valid(menu.settings_panel), "settings back closes modal")

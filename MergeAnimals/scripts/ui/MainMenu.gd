@@ -19,6 +19,9 @@ func _build() -> void:
 	var card := PanelContainer.new()
 	card.offset_left = 105; card.offset_right = 615; card.offset_top = 570; card.offset_bottom = 1170
 	add_child(card)
+	if not bool(SettingsStore.load_values().reduced_effects):
+		card.modulate.a = 0.0
+		create_tween().tween_property(card, "modulate:a", 1.0, 0.3)
 	var margins := MarginContainer.new()
 	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]: margins.add_theme_constant_override(side, 28)
 	card.add_child(margins)
