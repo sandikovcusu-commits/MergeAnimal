@@ -15,6 +15,7 @@ func run() -> void:
 		piece.freeze = true
 	game.highest_level = 5
 	game.queue_redraw()
+	print("RENDER_STATE pieces=%d current=%s preview_visible=%s score=%s next=%s" % [game.pieces.get_child_count(), game.current_data.id if game.current_data else "NULL", game.current_preview.visible, game.score_label.text, game.next_label.text])
 	var out_dir := OS.get_environment("CAPTURE_DIR")
 	if out_dir.is_empty():
 		printerr("FAIL: CAPTURE_DIR is required")

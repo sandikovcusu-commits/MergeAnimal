@@ -26,7 +26,8 @@ jobs:
           mkdir -p "$CAPTURE_DIR"
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
           "$GODOT" --headless --path MergeAnimals --editor --quit
-          xvfb-run -a -s '-screen 0 1920x1920x24' "$GODOT" --path MergeAnimals --rendering-method gl_compatibility --script res://tests/integration/render_capture.gd
+          xvfb-run -a -s '-screen 0 1920x1920x24' "$GODOT" --path MergeAnimals --rendering-method gl_compatibility --script res://tests/integration/render_capture.gd 2>&1 | tee /tmp/render-log.txt
+          if grep -E 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/render-log.txt; then exit 1; fi
           ls -l "$CAPTURE_DIR"
       - name: Upload renders
         if: always()
@@ -58,4 +59,19 @@ jobs:
               p = pathlib.Path('/tmp/render-check.json')
               p.write_text(json.dumps(payload))
               subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)], check=True, stdout=subprocess.DEVNULL)
+          PYCODE
+      - name: Publish render log
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PYCODE'
+          import json, os, pathlib, subprocess
+          log = pathlib.Path('/tmp/render-log.txt')
+          data = log.read_text(errors='replace')[-45000:] if log.exists() else 'render log unavailable'
+          payload = {'name':'Godot software render diagnostic','head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral', 'output':{'title':'Render log','summary':'Render script output','text':data}}
+          pathlib.Path('/tmp/render-diag.json').write_text(json.dumps(payload))
+          subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input','/tmp/render-diag.json'], check=True, stdout=subprocess.DEVNULL)
           PYCODE
