@@ -1,6 +1,6 @@
 # Day 6 progression — unfinished
 
-No Collection, Challenges, Achievements, theme unlocking, statistics, Undo, Remove, Rescue or Daily Challenge is implemented in this increment. Main-menu Collection and Challenges remain disabled. Do not mistake the experimental isolated persistence primitive for completed progression. Challenge data, completion/failure exclusivity, reward idempotency, real gameplay balance and all related screens/tests remain outstanding. Daily Challenge is intentionally gated until the 20 challenges, save/load and collection are complete and stable. No ad rewards are simulated.
+No Collection, Challenges, Achievements, theme unlocking, statistics, Undo, Remove, Rescue or Daily Challenge is implemented in this increment. Main-menu Collection and Challenges remain disabled. V0.6.1 implements Classic session save/Continue only; this does not implement progression. Challenge data, completion/failure exclusivity, reward idempotency, real gameplay balance and all related screens/tests remain outstanding. Daily Challenge is intentionally gated until the 20 challenges, save/load and collection are complete and stable. No ad rewards are simulated.
 
 Previous 12 animal resources and gameplay remain in use. Rights for existing AI-derived art remain unverified, 24 facial states are missing, and Bear silhouette and wall penetration remain separately unresolved. Day 7 art/audio work remains pending. See SAVE_SYSTEM_REPORT.md and KNOWN_ISSUES.md.
 

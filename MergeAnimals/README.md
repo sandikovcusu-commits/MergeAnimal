@@ -14,3 +14,6 @@ Alt Evolution Guide rəngli dairə və adın ilk üç hərfi ilə 12 səviyyəni
 
 ## Test və məhdudiyyət
 Godot import və skriptləri `.github/workflows/godot-tests.yml` və `RUN_TESTS.bat` göstərir. `tests/logs/` əvvəlki və yeni faktiki loglar, 100 bot sessiyasının CSV-si; hesabatlar `BALANCE_RESEARCH.md`, `BALANCE_REPORT.md`, `PHYSICS_REPORT.md`, `QA_REPORT.md`, `ROOT_CAUSE_REPORT.md`, `KNOWN_ISSUES.md`-dədir. Botlar insan testi deyil; headless stress mobil performans deyil. Web export bu mərhələdə edilməyib.
+
+### Classic Continue (V0.6.1-dev)
+Play autosaves locally at safe points. Pause to save before returning to the menu; if a merge is still pending, resume and wait. Continue restores the most recent validated checkpoint. Starting a new game asks before replacing a saved session; game over clears it. Recovery can fall back to an older checkpoint. See `SAVE_SYSTEM_REPORT.md` for testing and limitations.

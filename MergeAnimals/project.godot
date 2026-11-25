@@ -1,9 +1,9 @@
-; Merge Animals: Wild Garden — V0.5.0 development build
+; Merge Animals: Wild Garden — V0.6.1 development build
 config_version=5
 
 [application]
 config/name="Merge Animals: Wild Garden"
-config/version="0.5.0-dev"
+config/version="0.6.1-dev"
 run/main_scene="res://scenes/ui/MainMenu.tscn"
 
 [display]
