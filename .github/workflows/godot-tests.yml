@@ -43,6 +43,8 @@ jobs:
           run_test 'multitouch' --script res://tests/integration/input_multitouch.gd
           run_test 'restart' --script res://tests/integration/restart.gd
           run_test 'contact chain' --script res://tests/physics/chain_contact.gd
+          run_test 'wall matrix' --fixed-fps 60 --script res://tests/physics/day3_wall_matrix.gd
+          run_test 'bot sessions' --fixed-fps 60 --script res://tests/physics/bot_sessions.gd
           run_test 'wall collision' --script res://tests/physics/wall_collision.gd
           run_test 'real gameplay' --script res://tests/physics/real_gameplay.gd
           run_test '100 drops' --script res://tests/physics/drop_100.gd

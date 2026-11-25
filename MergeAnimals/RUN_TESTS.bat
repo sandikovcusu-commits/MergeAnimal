@@ -19,6 +19,7 @@ call :test "input-recovery" --script res://tests/integration/input_recovery.gd
 call :test "multitouch" --script res://tests/integration/input_multitouch.gd
 call :test "restart" --script res://tests/integration/restart.gd
 call :test "contact-chain" --script res://tests/physics/chain_contact.gd
+call :test "wall-matrix" --script res://tests/physics/day3_wall_matrix.gd
 call :test "walls" --script res://tests/physics/wall_collision.gd
 call :test "natural-collision" --script res://tests/physics/natural_collision.gd
 call :test "real-gameplay" --script res://tests/physics/real_gameplay.gd
