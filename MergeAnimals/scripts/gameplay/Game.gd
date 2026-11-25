@@ -97,8 +97,9 @@ func _physics_process(delta: float) -> void:
 		return
 	cooldown_left = maxf(0.0, cooldown_left - delta)
 	combo_left = maxf(0.0, combo_left - delta)
-	if combo_left <= 0.0:
+	if combo_left <= 0.0 and combo_count > 0:
 		combo_count = 0
+		score_label.text = "SCORE  %d" % score
 	if drop_requested:
 		drop_requested = false
 		_attempt_drop()
@@ -116,16 +117,22 @@ func _physics_process(delta: float) -> void:
 
 func _pick_animal() -> AnimalData:
 	var total := 0.0
+	var fallback: AnimalData = null
 	for data in animals:
-		total += maxf(0.0, data.spawn_weight)
+		if data.level <= 5:
+			if fallback == null:
+				fallback = data
+			total += maxf(0.0, data.spawn_weight)
+	assert(fallback != null, "At least one spawn-eligible animal is required")
 	if total <= 0.0:
-		return animals[0]
+		return fallback
 	var choice := rng.randf() * total
 	for data in animals:
-		choice -= maxf(0.0, data.spawn_weight)
-		if choice < 0.0:
-			return data
-	return animals[0]
+		if data.level <= 5:
+			choice -= maxf(0.0, data.spawn_weight)
+			if choice < 0.0:
+				return data
+	return fallback
 
 func find_animal(id: StringName) -> AnimalData:
 	for data in animals:
@@ -370,7 +377,7 @@ func _update_hud() -> void:
 	next_label.text = "NEXT  ·  " + next_data.display_name.to_upper()
 	score_label.text = "SCORE  %d" % score
 	if combo_count > 1:
-		score_label.text += "  x%d" % combo_count
+		score_label.text += "  COMBO %d" % combo_count
 	best_label.text = "BEST  %d" % best_score
 	_update_preview()
 

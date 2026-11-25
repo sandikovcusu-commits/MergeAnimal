@@ -46,6 +46,14 @@ func run() -> void:
 	for i in range(5, 12):
 		high += counts[i]
 	check(high == 0, "no high tier randomly spawns")
+	var original_weight: float = game.animals[11].spawn_weight
+	game.animals[11].spawn_weight = 100000.0
+	var high_selected := false
+	for i in range(1000):
+		if game._pick_animal().level > 5:
+			high_selected = true
+	game.animals[11].spawn_weight = original_weight
+	check(not high_selected, "level 6+ cannot spawn even with nonzero weight")
 	game.rng.seed = 13579
 	var first = game._pick_animal().id
 	game.rng.seed = 13579
