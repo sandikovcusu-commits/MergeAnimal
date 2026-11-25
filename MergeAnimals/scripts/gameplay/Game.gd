@@ -125,10 +125,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.device == InputEvent.DEVICE_ID_EMULATION:
 		return
 	if event is InputEventScreenTouch:
-		if event.pressed and active_touch == -1 and not mouse_down and (_can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0)) and _inside_input_area(event.position):
+		if event.pressed and active_touch == -1 and not mouse_down and _can_begin_input() and _inside_input_area(event.position):
 			active_touch = event.index
-			if _can_aim():
-				spawn_state = SpawnState.AIMING
+			spawn_state = SpawnState.AIMING
 			_set_aim(event.position.x)
 		elif not event.pressed and event.index == active_touch:
 			active_touch = -1
@@ -144,7 +143,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion and active_touch == -1 and (_can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0)):
 		_set_aim(event.position.x)
 	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and active_touch == -1:
-		if event.pressed and _can_aim() and _inside_input_area(event.position):
+		if event.pressed and _can_begin_input() and _inside_input_area(event.position):
 			mouse_down = true
 			spawn_state = SpawnState.AIMING
 			_set_aim(event.position.x)
@@ -155,6 +154,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _can_aim() -> bool:
 	return spawn_state == SpawnState.READY or spawn_state == SpawnState.AIMING
+
+func _can_begin_input() -> bool:
+	# A blocked spawn must not swallow a new tap at a different x-coordinate.
+	return _can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0)
 
 func _inside_input_area(point: Vector2) -> bool:
 	return point.x >= left_bound and point.x <= right_bound and point.y >= 260.0 and point.y <= floor_height
