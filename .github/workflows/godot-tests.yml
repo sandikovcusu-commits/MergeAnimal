@@ -39,6 +39,10 @@ jobs:
           run_test 'integration' --script res://tests/integration/day2_suite.gd
           run_test 'natural collision' --script res://tests/physics/natural_collision.gd
           run_test 'input recovery' --script res://tests/integration/input_recovery.gd
+          run_test 'multitouch' --script res://tests/integration/input_multitouch.gd
+          run_test 'restart' --script res://tests/integration/restart.gd
+          run_test 'contact chain' --script res://tests/physics/chain_contact.gd
+          run_test 'wall collision' --script res://tests/physics/wall_collision.gd
           run_test 'real gameplay' --script res://tests/physics/real_gameplay.gd
           run_test '100 drops' --script res://tests/physics/drop_100.gd
           run_test 'stress' --script res://tests/physics/stress.gd
