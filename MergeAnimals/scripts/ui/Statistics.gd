@@ -14,6 +14,7 @@ func _ready() -> void:
 		_add_back()
 		return
 	var panel := PanelContainer.new(); panel.position = Vector2(75, 130); panel.size = Vector2(570, 970); add_child(panel)
+	var style := StyleBoxFlat.new(); style.bg_color = Color("304735"); style.set_corner_radius_all(14); panel.add_theme_stylebox_override("panel", style)
 	var margins := MarginContainer.new(); margins.add_theme_constant_override("margin_left", 22); margins.add_theme_constant_override("margin_right", 22); margins.add_theme_constant_override("margin_top", 15); panel.add_child(margins)
 	var scroll := ScrollContainer.new(); scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; margins.add_child(scroll)
 	text_label = Label.new(); text_label.name = "StatisticsText"; text_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL; text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; text_label.add_theme_font_size_override("font_size", 24); scroll.add_child(text_label)

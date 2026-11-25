@@ -32,7 +32,7 @@ func _build() -> void:
 		var data := load("res://resources/animals/%s.tres" % IDS[i]) as AnimalData
 		var entry: Dictionary = progress.animals[IDS[i]]
 		var unlocked := int(entry.count) > 0
-		var card := Button.new(); card.name = "AnimalCard%d" % (i + 1); card.custom_minimum_size = Vector2(190, 258); card.size_flags_horizontal = Control.SIZE_EXPAND_FILL; grid.add_child(card); cards.append(card)
+		var card := Button.new(); card.name = "AnimalCard%d" % (i + 1); card.custom_minimum_size = Vector2(190, 340); card.size_flags_horizontal = Control.SIZE_EXPAND_FILL; grid.add_child(card); cards.append(card)
 		var column := VBoxContainer.new(); column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); column.offset_left = 5; column.offset_right = -5; column.offset_top = 5; column.offset_bottom = -5; column.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(column)
 		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(100, 86); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if not unlocked: art.modulate = Color(0.12, 0.16, 0.13, 0.92)
@@ -50,6 +50,7 @@ func _add_back() -> void:
 
 func _build_detail() -> void:
 	detail = PanelContainer.new(); detail.name = "AnimalDetails"; detail.position = Vector2(95, 300); detail.size = Vector2(530, 600); detail.z_index = 10; detail.visible = false; add_child(detail)
+	var style := StyleBoxFlat.new(); style.bg_color = Color("304735"); style.set_corner_radius_all(14); style.set_content_margin_all(16); detail.add_theme_stylebox_override("panel", style)
 	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 12); detail.add_child(column)
 	detail_image = TextureRect.new(); detail_image.custom_minimum_size = Vector2(200, 200); detail_image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; detail_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; column.add_child(detail_image)
 	detail_label = Label.new(); detail_label.name = "DetailText"; detail_label.size_flags_vertical = Control.SIZE_EXPAND_FILL; detail_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; detail_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; detail_label.add_theme_font_size_override("font_size", 23); column.add_child(detail_label)
