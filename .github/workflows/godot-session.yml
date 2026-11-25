@@ -1,0 +1,67 @@
+name: Godot session restart and capture
+on:
+  push:
+    branches: ['arena/2b071717-mergeanimal']
+  workflow_dispatch:
+permissions:
+  contents: read
+  checks: write
+jobs:
+  session:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot and X11
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+      - name: Run two real Godot processes and capture windows
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/day61-captures
+          XDG_DATA_HOME: /tmp/day61-visual-user
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p "$CAPTURE_DIR" "$XDG_DATA_HOME"
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/day61-log.txt 2>&1
+          export GODOT
+          xvfb-run -a -s '-screen 0 1280x1400x24' bash -e -o pipefail -c '
+            SESSION_PHASE=write timeout 150s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --disable-vsync --resolution 720x1280 --fixed-fps 60 --script res://tests/integration/day61_session_process.gd
+            SESSION_PHASE=read timeout 150s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --disable-vsync --resolution 720x1280 --fixed-fps 60 --script res://tests/integration/day61_session_process.gd
+          ' 2>&1 | tee -a /tmp/day61-log.txt
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/day61-log.txt; then exit 1; fi
+      - name: Upload real window captures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: day61-session-windows
+          path: /tmp/day61-captures/*.png
+          if-no-files-found: warn
+      - name: Publish diagnostic and inspection images
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64, json, os, pathlib, subprocess
+          repo=os.environ['REPO']; sha=os.environ['SHA']
+          log=pathlib.Path('/tmp/day61-log.txt')
+          data=log.read_text(errors='replace')[-50000:] if log.exists() else 'No log available'
+          def post(name, text, summary):
+              p=pathlib.Path('/tmp/day61-check.json')
+              p.write_text(json.dumps({'name':name,'head_sha':sha,'status':'completed','conclusion':'neutral','output':{'title':name,'summary':summary,'text':text}}))
+              subprocess.run(['gh','api','--method','POST',f'repos/{repo}/check-runs','--input',str(p)],check=True,stdout=subprocess.DEVNULL)
+          post('Day61 session diagnostic',data,'Two separate processes, automated gameplay and X11 captures')
+          for f in pathlib.Path('/tmp/day61-captures').glob('*.png'):
+              thumb=pathlib.Path('/tmp')/(f.stem+'.jpg')
+              subprocess.run(['convert',str(f),'-resize','360x640>','-quality','45',str(thumb)],check=True)
+              post('Day61 capture '+f.stem,base64.b64encode(thumb.read_bytes()).decode(),'X11 window capture, reduced JPEG')
+          PY
