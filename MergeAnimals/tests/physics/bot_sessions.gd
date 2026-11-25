@@ -48,6 +48,7 @@ func run() -> void:
 		var next_drop := 0.0
 		var escaped := 0
 		var max_overlap := 0.0
+		var worst := "none"
 		var overlap_frames := 0
 		var max_body_streak := 0
 		var streaks := {}
@@ -69,7 +70,9 @@ func run() -> void:
 				if body.position.x + body.data.radius < game.left_bound or body.position.x - body.data.radius > game.right_bound or body.position.y - body.data.radius > game.floor_height:
 					any_escape = true
 				var depth: float = maxf(0.0, maxf(game.left_bound - (body.position.x - body.data.radius), maxf(body.position.x + body.data.radius - game.right_bound, body.position.y + body.data.radius - game.floor_height)))
-				max_overlap = maxf(max_overlap, depth)
+				if depth > max_overlap:
+					max_overlap = depth
+					worst = "level=%d x=%.3f y=%.3f r=%.3f vel=(%.2f,%.2f)" % [body.data.level, body.position.x, body.position.y, body.data.radius, body.linear_velocity.x, body.linear_velocity.y]
 				if depth > 0.01:
 					any_overlap = true
 					var uid: int = body.get_instance_id()
@@ -81,6 +84,8 @@ func run() -> void:
 				escaped += 1
 			if any_overlap:
 				overlap_frames += 1
+		if i < 4:
+			print("BOT_WORST seed=%d depth=%.3f %s" % [seed_value, max_overlap, worst])
 		var reason := "overflow" if game.game_state == game.GameState.GAME_OVER else "time_cap"
 		print("BOT_CSV %d,%s,%d,%d,%d,%d,%d,%s,%.2f,%d,%.3f,%d,%d" % [seed_value, strategies[strategy], game.spawn_count, game.merge_manager.merge_count, game.highest_level, game.score, game.combo_events, reason, elapsed, escaped, max_overlap, overlap_frames, max_body_streak])
 		paused = false
