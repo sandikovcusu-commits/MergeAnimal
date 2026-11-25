@@ -37,7 +37,7 @@ func _build() -> void:
 		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(100, 86); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if not unlocked: art.modulate = Color(0.12, 0.16, 0.13, 0.92)
 		column.add_child(art)
-		for line in ["%s · %s %d" % [tr(data.translation_key), tr("LEVEL"), i + 1], tr("UNLOCKED") if unlocked else tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), tr("ANIMAL_DESC_" + IDS[i].to_upper()) if unlocked else tr("UNLOCK_HINT")]:
+		for line in ["%s · %s %d" % [tr(data.translation_key), tr("LEVEL"), i + 1], tr("UNLOCKED") if unlocked else tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), tr("ANIMAL_DESC_" + IDS[i].to_upper()) if unlocked else _unlock_hint(i)]:
 			var label := Label.new(); label.text = line; label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.add_theme_font_size_override("font_size", 18); label.add_theme_color_override("font_color", Color("203a28")); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; label.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_child(label)
 		if not unlocked:
 			var lock := TextureRect.new(); lock.name = "Lock"; lock.texture = load("res://assets/ui/icons/lock.svg"); lock.position = Vector2(148, 10); lock.size = Vector2(24, 24); lock.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; lock.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(lock)
@@ -62,5 +62,9 @@ func _show_detail(index: int) -> void:
 	var unlocked := int(entry.count) > 0
 	detail_image.texture = data.sprite
 	detail_image.modulate = Color.WHITE if unlocked else Color(0.12, 0.16, 0.13, 0.92)
-	detail_label.text = "%s\n%s %d · %s\n%s: %d\n%s: %s\n\n%s" % [tr(data.translation_key), tr("LEVEL"), index + 1, tr("UNLOCKED") if unlocked else tr("LOCKED"), tr("CREATED"), int(entry.count), tr("FIRST_FOUND"), entry.date if unlocked else "—", tr("ANIMAL_DESC_" + IDS[index].to_upper()) if unlocked else tr("UNLOCK_HINT")]
+	detail_label.text = "%s\n%s %d · %s\n%s: %d\n%s: %s\n\n%s" % [tr(data.translation_key), tr("LEVEL"), index + 1, tr("UNLOCKED") if unlocked else tr("LOCKED"), tr("CREATED"), int(entry.count), tr("FIRST_FOUND"), entry.date if unlocked else "—", tr("ANIMAL_DESC_" + IDS[index].to_upper()) if unlocked else _unlock_hint(index)]
 	detail.visible = true
+
+func _unlock_hint(index: int) -> String:
+	if index == 0: return tr("UNLOCK_DROP_ONLY")
+	return tr("UNLOCK_HINT") if index < 5 else tr("UNLOCK_MERGE_ONLY")
