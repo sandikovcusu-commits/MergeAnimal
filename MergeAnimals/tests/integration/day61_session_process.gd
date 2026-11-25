@@ -82,8 +82,12 @@ func write_phase() -> void:
 	var loaded := SessionSave.load_session()
 	check(loaded.status == "ok", "saved session readable")
 	if loaded.status != "ok": return
+	var probe := RandomNumberGenerator.new()
+	probe.state = game.rng.state
+	var sequence := []
+	for i in range(8): sequence.append(probe.randi())
 	var file := FileAccess.open(EXPECTED, FileAccess.WRITE)
-	file.store_string(JSON.stringify(loaded.data)); file.close()
+	file.store_string(JSON.stringify({"session": loaded.data, "rng_sequence": sequence})); file.close()
 	print("DAY61_SAVED drops=%d merges=%d score=%d bodies=%d rng=%s" % [game.spawn_count, game.merge_manager.merge_count, game.score, game.pieces.get_child_count(), str(game.rng.state)])
 	await capture("day61_saved_game")
 
@@ -91,7 +95,10 @@ func read_phase() -> void:
 	var file := FileAccess.open(EXPECTED, FileAccess.READ)
 	check(file != null, "prior process fixture present")
 	if file == null: return
-	var expected: Variant = JSON.parse_string(file.get_as_text())
+	var fixture: Variant = JSON.parse_string(file.get_as_text())
+	if typeof(fixture) != TYPE_DICTIONARY:
+		check(false, "prior fixture parses"); return
+	var expected: Variant = fixture.get("session")
 	check(SessionSave.valid(expected), "prior saved snapshot valid")
 	if not SessionSave.valid(expected): return
 	paused = true # Compare before a physics tick changes positions or triggers contacts.
@@ -99,6 +106,7 @@ func read_phase() -> void:
 	root.add_child(menu); current_scene = menu
 	await process_frame
 	check(not menu.continue_button.disabled, "Continue enabled in new process")
+	await create_timer(0.5, true).timeout
 	await capture("day61_continue_menu")
 	menu.continue_button.pressed.emit()
 	await process_frame
@@ -110,6 +118,12 @@ func read_phase() -> void:
 	check(game.score == int(expected.score) and game.best_score >= int(expected.best_score), "score and best restored without duplicate award")
 	check(game.combo_count == int(expected.combo_count) and is_equal_approx(game.combo_left, float(expected.combo_left)), "combo restored")
 	check(str(game.current_data.id) == expected.current and str(game.next_data.id) == expected.next and str(game.rng.state) == expected.rng_state, "current next and exact RNG state restored")
+	var saved_rng_state: int = game.rng.state
+	var matches_rng := true
+	for value in fixture.rng_sequence:
+		if game.rng.randi() != int(value): matches_rng = false
+	game.rng.state = saved_rng_state
+	check(matches_rng, "future RNG sequence matches previous process")
 	check(game.pieces.get_child_count() == expected.bodies.size(), "exact body count restored")
 	var actual: Array = game.pieces.get_children()
 	if actual.size() == expected.bodies.size():
@@ -124,6 +138,21 @@ func read_phase() -> void:
 	file.store_string("bad save"); file.close()
 	var recovered := SessionSave.load_session()
 	check(recovered.status == "recovered" and int(recovered.data.score) == int(expected.score) and recovered.data.bodies.size() == expected.bodies.size(), "corrupt primary recovers backup")
+	var invalid: Dictionary = expected.duplicate(true)
+	invalid.bodies.append(invalid.bodies[0].duplicate(true))
+	check(not SessionSave.valid(invalid), "duplicate body identity rejected")
+	invalid = expected.duplicate(true); invalid.bodies[0].id = "not_an_animal"
+	check(not SessionSave.valid(invalid), "unknown animal rejected")
+	change_scene_to_file("res://scenes/ui/MainMenu.tscn")
+	await process_frame
+	await process_frame
+	menu = current_scene
+	check(not menu.continue_button.disabled, "Continue enabled for recovered backup")
+	menu.continue_button.pressed.emit()
+	await process_frame
+	await process_frame
+	game = current_scene
+	check(game.has_method("save_session") and game.score == int(expected.score) and game.pieces.get_child_count() == expected.bodies.size(), "Continue actually restores corrupted primary from backup")
 	check(game.save_session() == OK, "continue after recovery writes valid primary")
 	paused = false
 	var before: int = game.spawn_count
@@ -142,4 +171,6 @@ func read_phase() -> void:
 		check(game.merge_manager.request_merge(a, b), "pending merge fixture reserved")
 		check(game.save_session() == ERR_BUSY, "save refused during pending merge")
 		check(FileAccess.get_sha256(SessionSave.PATH) == hash_before, "pending save did not change durable data")
+		game._on_game_over()
+		check(SessionSave.load_session().status == "missing", "game over invalidates continue despite old backup")
 	print("DAY61_RESTORED score=%d bodies=%d drops=%d" % [game.score, game.pieces.get_child_count(), game.spawn_count])

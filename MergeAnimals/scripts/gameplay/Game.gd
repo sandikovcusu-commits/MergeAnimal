@@ -193,11 +193,14 @@ func save_session() -> Error:
 func _autosave_safe() -> void:
 	save_scheduled = false
 	if not is_inside_tree() or not is_playing(): return
-	if save_session() == OK:
-		autosave_elapsed = 0.0
-	else:
-		# Retry later rather than saving an incomplete merge or hammering the filesystem.
-		autosave_elapsed = 0.0
+	var result := save_session()
+	if result == OK:
+		$HUD/SaveStatus.visible = false
+	elif result != ERR_BUSY:
+		$HUD/SaveStatus.text = tr("SAVE_FAILED")
+		$HUD/SaveStatus.visible = true
+	# Retry later rather than writing an incomplete merge or hammering the filesystem.
+	autosave_elapsed = 0.0
 
 func _restore_session(data: Dictionary) -> void:
 	# SessionSave.valid ran before creating any body; a fresh scene has an empty board.
