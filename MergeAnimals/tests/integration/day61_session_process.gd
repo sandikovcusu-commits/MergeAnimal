@@ -106,6 +106,13 @@ func read_phase() -> void:
 	root.add_child(menu); current_scene = menu
 	await process_frame
 	check(not menu.continue_button.disabled, "Continue enabled in new process")
+	var before_prompt := FileAccess.get_sha256(SessionSave.PATH)
+	menu.play_button.pressed.emit()
+	await process_frame
+	check(is_instance_valid(menu.new_game_dialog) and menu.new_game_dialog.visible, "new game requests confirmation before replacing save")
+	check(FileAccess.get_sha256(SessionSave.PATH) == before_prompt, "prompt alone does not overwrite save")
+	if is_instance_valid(menu.new_game_dialog): menu.new_game_dialog.canceled.emit()
+	await process_frame
 	await create_timer(0.5, true).timeout
 	await capture("day61_continue_menu")
 	menu.continue_button.pressed.emit()
@@ -172,5 +179,8 @@ func read_phase() -> void:
 		check(game.save_session() == ERR_BUSY, "save refused during pending merge")
 		check(FileAccess.get_sha256(SessionSave.PATH) == hash_before, "pending save did not change durable data")
 		game._on_game_over()
-		check(SessionSave.load_session().status == "missing", "game over invalidates continue despite old backup")
+		check(SessionSave.load_session().status == "missing", "game over invalidates continue")
+		file = FileAccess.open(SessionSave.PATH, FileAccess.WRITE)
+		file.store_string("damaged tombstone"); file.close()
+		check(SessionSave.load_session().status == "missing", "corrupt tombstone cannot resurrect old game")
 	print("DAY61_RESTORED score=%d bodies=%d drops=%d" % [game.score, game.pieces.get_child_count(), game.spawn_count])

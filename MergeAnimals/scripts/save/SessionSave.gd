@@ -44,10 +44,17 @@ static func load_session() -> Dictionary:
 		if valid(first.data): return first
 	var backup := SaveManager._read_envelope(PATH + ".bak")
 	if backup.status in ["future", "io_error"]: return backup
-	if backup.status == "ok" and valid(backup.data): return {"status": "recovered", "data": backup.data}
+	if backup.status == "ok":
+		if backup.data.get("session_version") == 1 and backup.data.get("active") == false: return {"status": "missing"}
+		if valid(backup.data): return {"status": "recovered", "data": backup.data}
 	return {"status": "missing" if first.status == "missing" and backup.status == "missing" else "corrupt"}
 
 static func clear_session() -> Error:
 	var primary := SaveManager._read_envelope(PATH)
 	var keep_primary: bool = primary.status == "ok" and (valid(primary.data) or (primary.data.get("session_version") == 1 and primary.data.get("active") == false))
-	return SaveManager.save_progress({"session_version": 1, "active": false}, PATH, keep_primary)
+	var tombstone := {"session_version": 1, "active": false}
+	var result := SaveManager.save_progress(tombstone, PATH, keep_primary)
+	if result != OK: return result
+	# Replace the backup as well, otherwise corrupting the tombstone could revive
+	# a previously finished or deliberately replaced game.
+	return SaveManager.save_progress(tombstone, PATH)

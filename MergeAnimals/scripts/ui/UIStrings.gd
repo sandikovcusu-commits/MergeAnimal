@@ -13,10 +13,10 @@ static func install() -> void:
 		"ru": {"PLAY":"Играть", "SETTINGS":"Настройки", "COLLECTION":"Коллекция — позже", "CHALLENGES":"Задания — позже", "BEST_SCORE":"Лучший результат", "MASTER_VOLUME":"Общая громкость", "MUSIC_VOLUME":"Громкость музыки", "SFX_VOLUME":"Громкость эффектов", "MUTE":"Выключить звук", "REDUCED_EFFECTS":"Меньше эффектов", "LANGUAGE":"Язык", "BACK":"Назад", "PAUSE":"Пауза", "RESUME":"Продолжить", "RESTART":"Заново", "MAIN_MENU":"Главное меню", "GAME_OVER":"Игра окончена", "FINAL_SCORE":"Итоговый счёт", "BEST":"Рекорд", "SCORE":"СЧЁТ", "NEXT":"ДАЛЕЕ", "GUIDE":"Эволюция", "LARGEST":"Самое большое животное", "MERGES":"Объединений", "MAX_COMBO":"Максимальное комбо", "NEW_RECORD":"Новый рекорд!", "COMBO":"КОМБО"}
 	}
 	var save_messages := {
-		"en": {"SAVE_FAILED":"Save failed", "CONTINUE":"Continue game", "SAVE_WAIT":"Save unavailable. Resume and try again.", "SAVE_UNAVAILABLE":"Saved game unavailable"},
-		"az": {"SAVE_FAILED":"Saxlama alınmadı", "CONTINUE":"Oyuna davam et", "SAVE_WAIT":"Saxlama mümkün deyil. Davam edib yenidən yoxlayın.", "SAVE_UNAVAILABLE":"Saxlanmış oyun əlçatan deyil"},
-		"tr": {"SAVE_FAILED":"Kayıt başarısız", "CONTINUE":"Oyuna devam et", "SAVE_WAIT":"Kaydedilemedi. Devam edip tekrar deneyin.", "SAVE_UNAVAILABLE":"Kayıtlı oyun kullanılamıyor"},
-		"ru": {"SAVE_FAILED":"Ошибка сохранения", "CONTINUE":"Продолжить игру", "SAVE_WAIT":"Не удалось сохранить. Продолжите и повторите.", "SAVE_UNAVAILABLE":"Сохранённая игра недоступна"}
+		"en": {"NEW_GAME":"New game", "NEW_GAME_CONFIRM":"Start a new game? The saved session will be replaced.", "SAVE_FAILED":"Save failed", "CONTINUE":"Continue game", "SAVE_WAIT":"Save unavailable. Resume and try again.", "SAVE_UNAVAILABLE":"Saved game unavailable"},
+		"az": {"NEW_GAME":"Yeni oyun", "NEW_GAME_CONFIRM":"Yeni oyun başlasın? Saxlanmış oyun əvəz ediləcək.", "SAVE_FAILED":"Saxlama alınmadı", "CONTINUE":"Oyuna davam et", "SAVE_WAIT":"Saxlama mümkün deyil. Davam edib yenidən yoxlayın.", "SAVE_UNAVAILABLE":"Saxlanmış oyun əlçatan deyil"},
+		"tr": {"NEW_GAME":"Yeni oyun", "NEW_GAME_CONFIRM":"Yeni oyun başlatılsın mı? Kayıtlı oyun değiştirilecek.", "SAVE_FAILED":"Kayıt başarısız", "CONTINUE":"Oyuna devam et", "SAVE_WAIT":"Kaydedilemedi. Devam edip tekrar deneyin.", "SAVE_UNAVAILABLE":"Kayıtlı oyun kullanılamıyor"},
+		"ru": {"NEW_GAME":"Новая игра", "NEW_GAME_CONFIRM":"Начать новую игру? Сохранённая игра будет заменена.", "SAVE_FAILED":"Ошибка сохранения", "CONTINUE":"Продолжить игру", "SAVE_WAIT":"Не удалось сохранить. Продолжите и повторите.", "SAVE_UNAVAILABLE":"Сохранённая игра недоступна"}
 	}
 	for locale in save_messages:
 		messages[locale].merge(save_messages[locale])

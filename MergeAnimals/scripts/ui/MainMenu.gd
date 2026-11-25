@@ -7,6 +7,7 @@ const DECOR := [preload("res://assets/animals/mouse/normal.png"), preload("res:/
 var play_button: Button
 var settings_button: Button
 var continue_button: Button
+var new_game_dialog: ConfirmationDialog
 var best_label: Label
 var settings_panel: Control
 var navigating := false
@@ -57,6 +58,25 @@ func _refresh_best() -> void:
 	best_label.text = "%s  %d" % [tr("BEST_SCORE"), best]
 func _play() -> void:
 	if navigating or is_instance_valid(settings_panel): return
+	if SessionSave.load_session().status in ["ok", "recovered"]:
+		if is_instance_valid(new_game_dialog): return
+		new_game_dialog = ConfirmationDialog.new()
+		new_game_dialog.title = tr("NEW_GAME")
+		new_game_dialog.dialog_text = tr("NEW_GAME_CONFIRM")
+		new_game_dialog.ok_button_text = tr("NEW_GAME")
+		new_game_dialog.cancel_button_text = tr("BACK")
+		add_child(new_game_dialog)
+		new_game_dialog.confirmed.connect(_start_new_game)
+		new_game_dialog.close_requested.connect(func(): new_game_dialog.queue_free(); new_game_dialog = null)
+		new_game_dialog.canceled.connect(func(): new_game_dialog.queue_free(); new_game_dialog = null)
+		new_game_dialog.popup_centered(Vector2i(500, 250))
+		return
+	_start_new_game()
+func _start_new_game() -> void:
+	if navigating: return
+	if is_instance_valid(new_game_dialog):
+		new_game_dialog.queue_free()
+		new_game_dialog = null
 	if SessionSave.clear_session() != OK:
 		best_label.text = tr("SAVE_WAIT")
 		return
