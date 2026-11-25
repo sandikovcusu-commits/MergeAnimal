@@ -16,7 +16,8 @@ static func valid(data: Variant) -> bool:
 		return false
 	for key in ["score", "best_score", "best_at_start", "spawn_count", "merge_count", "combo_count", "combo_events", "max_combo", "highest_level"]:
 		if not _integer(data.get(key), 0, 1000000000): return false
-	if int(data.highest_level) < 1 or int(data.highest_level) > 12 or int(data.best_score) < int(data.score): return false
+	if int(data.highest_level) < 1 or int(data.highest_level) > 12: return false
+	if int(data.best_score) < int(data.score) and data.get("tainted") != true: return false
 	for key in ["combo_left", "cooldown_left"]:
 		if not _number(data.get(key), 0, 60): return false
 	if not _number(data.get("aim_x"), 0, 720): return false
@@ -70,9 +71,11 @@ static func load_session() -> Dictionary:
 
 static func load_progression(best: int = 0) -> Dictionary:
 	var doc := load_document()
-	if doc.status in ["ok", "recovered"] and doc.data.has("progression"):
-		return doc.data.progression.duplicate(true)
 	var legacy_best: int = int(SaveManager.legacy_seed().best_score)
+	if doc.status in ["ok", "recovered"] and doc.data.has("progression"):
+		var result: Dictionary = doc.data.progression.duplicate(true)
+		result.best_score = maxi(int(result.best_score), maxi(best, legacy_best))
+		return result
 	if doc.status in ["ok", "recovered"] and doc.data.get("active") == true:
 		legacy_best = maxi(legacy_best, int(doc.data.get("best_score", 0)))
 	var fresh := Progression.empty(maxi(best, legacy_best))

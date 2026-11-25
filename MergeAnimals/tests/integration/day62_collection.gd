@@ -69,9 +69,12 @@ func run() -> void:
 	game.debug_panel.visible = true
 	var before_count: int = int(game.progression.animals.rabbit.count)
 	game._debug_pair()
+	game.score = 500 # Isolated debug-tainted fixture: it must not become a record.
 	var merges_before_debug: int = int(game.progression.total_merges)
 	for i in range(250): await physics_frame
 	check(game.session_tainted and int(game.progression.animals.rabbit.count) == before_count and int(game.progression.total_merges) == merges_before_debug, "debug spawn and subsequent collisions cannot progress collection or merge stats")
+	check(game.best_score == 432 and int(game.progression.best_score) == 432, "debug score cannot become lifetime best")
+	check(game.save_session() == OK, "tainted session remains saveable without altering best")
 	# New untainted session retains prior progress. Restart itself does not complete a game.
 	game._restart(); await frames(5); game = current_scene
 	check(int(game.progression.total_games) == 2 and int(game.progression.completed_games) == 0, "restart starts another game without completion")
@@ -143,5 +146,12 @@ func run() -> void:
 	root.add_child(unavailable); await process_frame
 	check(unavailable.cards.is_empty(), "unrecoverable data is not presented as empty collection")
 	unavailable.queue_free()
+	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	var future_progress := Progression.empty()
+	future_progress.version = 2
+	check(SaveManager.save_progress({"session_version": 1, "active": false, "progression": future_progress}, SessionSave.PATH) == OK, "future progression fixture written")
+	var future_hash := FileAccess.get_sha256(SessionSave.PATH)
+	check(SessionSave.load_document().status == "future" and SessionSave.clear_session() == ERR_UNAVAILABLE and FileAccess.get_sha256(SessionSave.PATH) == future_hash, "future progression schema is protected")
 	print("DAY62 collection and statistics checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures else 0)

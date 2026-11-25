@@ -6,6 +6,7 @@ func run() -> void:
 	var dims := OS.get_environment("CAPTURE_SIZE").split("x")
 	if dims.size() != 2 or screen not in ["menu", "collection", "locked", "unlocked", "details", "statistics", "notification"]:
 		printerr("FAIL: bad visual parameters"); quit(1); return
+	var score_cfg := ConfigFile.new(); score_cfg.set_value("scores", "best", 432); score_cfg.save("user://wild_garden.cfg")
 	var progress := Progression.empty(432)
 	progress.total_games = 2; progress.completed_games = 1; progress.total_drops = 7; progress.total_merges = 3; progress.max_combo = 2; progress.play_seconds = 63.0
 	var mouse := load("res://resources/animals/mouse.tres") as AnimalData
