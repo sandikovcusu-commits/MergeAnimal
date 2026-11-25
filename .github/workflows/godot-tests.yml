@@ -1,0 +1,71 @@
+name: Godot runtime tests
+on:
+  push:
+    branches:
+      - 'arena/2b071717-mergeanimal'
+  workflow_dispatch:
+permissions:
+  contents: read
+  checks: write
+jobs:
+  godot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install official Godot 4.7.2
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          echo /tmp/godot >> "$GITHUB_PATH"
+          /tmp/godot/Godot_v4.7.2-stable_linux.x86_64 --version
+      - name: Run Godot tests
+        id: tests
+        shell: bash
+        run: |
+          set +e
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          : > /tmp/godot-test-log.txt
+          status=0
+          run_test() {
+            echo "===== $1 =====" | tee -a /tmp/godot-test-log.txt
+            shift
+            timeout 120 "$GODOT" --headless --path MergeAnimals "$@" >> /tmp/godot-test-log.txt 2>&1
+            code=$?
+            echo "exit=$code" | tee -a /tmp/godot-test-log.txt
+            if [ "$code" -ne 0 ]; then status=1; fi
+          }
+          run_test 'editor import' --editor --quit
+          run_test 'integration' --script res://tests/integration/day2_suite.gd
+          run_test 'natural collision' --script res://tests/physics/natural_collision.gd
+          run_test '100 drops' --script res://tests/physics/drop_100.gd
+          run_test 'stress' --script res://tests/physics/stress.gd
+          cat /tmp/godot-test-log.txt
+          if grep -E 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL ' /tmp/godot-test-log.txt; then status=1; fi
+          echo "$status" > /tmp/godot-test-status
+          exit "$status"
+      - name: Publish diagnostic check
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib
+          p = pathlib.Path('/tmp/godot-test-log.txt')
+          text = p.read_text(errors='replace')[-50000:] if p.exists() else 'No test log; installation or checkout failed.'
+          status = pathlib.Path('/tmp/godot-test-status')
+          result = 'success' if status.exists() and status.read_text().strip() == '0' else 'failure'
+          payload = {'name':'Godot runtime diagnostic', 'head_sha':os.environ['SHA'], 'status':'completed', 'conclusion':result,
+                     'output':{'title':'Godot 4.7.2 headless tests', 'summary':'Runtime test log; see Actions run for full details.', 'text':text}}
+          pathlib.Path('/tmp/check.json').write_text(json.dumps(payload))
+          PY
+          gh api --method POST "repos/$REPO/check-runs" --input /tmp/check.json > /dev/null
+      - name: Upload test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-test-log
+          path: /tmp/godot-test-log.txt
+          if-no-files-found: warn
