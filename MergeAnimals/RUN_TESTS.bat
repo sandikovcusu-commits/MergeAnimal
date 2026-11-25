@@ -14,6 +14,7 @@ findstr /b /c:"4.7.2" "%LOGDIR%\version.txt" >nul
 if errorlevel 1 echo WARNING: tests were designed for Godot 4.7.2. Proceeding with detected version.
 call :test "editor-import" --editor --quit
 call :test "integration" --script res://tests/integration/day2_suite.gd
+call :test "day4-assets" --script res://tests/integration/day4_assets.gd
 call :test "day3-evolution" --script res://tests/integration/day3_suite.gd
 call :test "input-recovery" --script res://tests/integration/input_recovery.gd
 call :test "multitouch" --script res://tests/integration/input_multitouch.gd

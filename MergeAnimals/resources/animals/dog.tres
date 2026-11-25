@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="AnimalData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="AnimalData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="1"]
+
+[ext_resource type="Texture2D" path="res://assets/animals/dog/normal.png" id="normal_texture"]
 
 [resource]
 script = ExtResource("1")
@@ -18,5 +20,6 @@ spawn_weight = 10.0
 next_evolution_id = &"fox"
 golden_terminal = false
 merge_score = 20
+sprite = ExtResource("normal_texture")
 placeholder_color = Color(0.709804, 0.627451, 0.545098, 1)
 unlock_id = &"dog"

@@ -397,7 +397,11 @@ func _draw() -> void:
 		var color: Color = item.placeholder_color
 		if item.level > highest_level:
 			color = color.darkened(0.55)
-		draw_circle(Vector2(x, 1190), 16, color)
+		if item.sprite:
+			var tint := Color.WHITE if item.level <= highest_level else Color(0.45, 0.45, 0.45, 0.55)
+			draw_texture_rect(item.sprite, Rect2(x - 18, 1172, 36, 36), false, tint)
+		else:
+			draw_circle(Vector2(x, 1190), 16, color)
 		if item.level == highest_level:
 			draw_arc(Vector2(x, 1190), 20, 0, TAU, 32, Color("d29b31"), 3.0)
 		draw_string(font, Vector2(x - 16, 1224), item.display_name.substr(0, 3).to_upper(), HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color("394f39"))

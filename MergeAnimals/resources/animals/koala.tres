@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="AnimalData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="AnimalData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="1"]
+
+[ext_resource type="Texture2D" path="res://assets/animals/koala/normal.png" id="normal_texture"]
 
 [resource]
 script = ExtResource("1")
@@ -18,5 +20,6 @@ spawn_weight = 0.0
 next_evolution_id = &"panda"
 golden_terminal = false
 merge_score = 70
+sprite = ExtResource("normal_texture")
 placeholder_color = Color(0.698039, 0.756863, 0.709804, 1)
 unlock_id = &"koala"

@@ -16,3 +16,6 @@ Gün 1-də kodla çəkilən rəngli dairələr yalnız fizika diaqnostikası ü�
 
 ## Gün 3 ilkin konsepsiya istiqaməti
 Mouse, Cat və Elephant üçün vahid orijinal, yumru-kompakt siluet; yuxarı soldan yumşaq işıq, isti krem fon atmosferi, tünd qəhvəyi kontur, sadə üz, doymamış təbii rənglər. Konsept hədəfi şəffaf fonlu 512×512 PNG və dairə collision sərhədinə uyğunluqdur; qulaq/xortum collision xaricinə uzanarsa oyun istifadəsindən öncə ayrıca uyğunlaşdırılmalıdır. Konseptlər yekun sprite deyil; 36 variasiya Gün 4-də hazırlanacaq. Model/şərt şəffaflığı `ASSET_LICENSES.md`-də qeyd olunacaq.
+
+## Gün 4 — Premium Cozy Cartoon / WIP
+İstiqamət: ön tərəfdən eyni kamera bucağı, yuxarı-sol işıq, isti qəhvəyi sabit kontur, pastel təbii rəng, yumşaq cel kölgə, yığcam dairə əsas bədəni və kiçik əlavə orqanlar. Mouse boz / yumru qulaq, Cat narıncı / yığcam qulaq-bığ, Elephant mavi-boz / kiçik xortum və qulaq əvvəl müqayisə olunacaq; qalan növlər həmin üsluba uyğunlaşdırılacaq. Fiziki radius dəyişmir. Şəffaf PNG, kənarlardan boşluq və əsl alpha vacibdir; şahmat fonu şəffaflıq sayılmır. Normal/happy/surprise üçün eyni bədən mərkəzi və sabit collision. Bu istiqamət təsdiqlənmiş kommersiya lisenziyası və real render testi deyil; mənşə təsdiqlənmədən final aktiv elan edilmir.
