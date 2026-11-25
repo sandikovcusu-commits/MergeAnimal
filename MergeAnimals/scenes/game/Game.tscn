@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/Game.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/animals/Animal.tscn" id="2"]
+[ext_resource type="Resource" path="res://resources/animals/mouse.tres" id="3"]
+[ext_resource type="Resource" path="res://resources/animals/hamster.tres" id="4"]
+[ext_resource type="Resource" path="res://resources/animals/rabbit.tres" id="5"]
+[ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="6"]
+
+[sub_resource type="RectangleShape2D" id="wall"]
+size = Vector2(32, 830)
+
+[sub_resource type="RectangleShape2D" id="floor"]
+size = Vector2(570, 32)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1")
+animals = Array[ExtResource("6")]([ExtResource("3"), ExtResource("4"), ExtResource("5")])
+animal_scene = ExtResource("2")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+position = Vector2(75, 695)
+shape = SubResource("wall")
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2(645, 695)
+shape = SubResource("wall")
+
+[node name="Floor" type="CollisionShape2D" parent="Walls"]
+position = Vector2(360, 1110)
+shape = SubResource("floor")
+
+[node name="Pieces" type="Node2D" parent="."]
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="HUD"]
+offset_left = 85.0
+offset_top = 68.0
+offset_right = 635.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0.19, 0.30, 0.23, 1)
+theme_override_font_sizes/font_size = 37
+text = "WILD GARDEN"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="HUD"]
+offset_left = 85.0
+offset_top = 130.0
+offset_right = 635.0
+offset_bottom = 172.0
+theme_override_colors/font_color = Color(0.33, 0.41, 0.32, 1)
+theme_override_font_sizes/font_size = 20
+text = "PHYSICS PLAYGROUND  ·  V0.1"
+horizontal_alignment = 1
+
+[node name="NextLabel" type="Label" parent="HUD"]
+offset_left = 85.0
+offset_top = 205.0
+offset_right = 635.0
+offset_bottom = 242.0
+theme_override_colors/font_color = Color(0.19, 0.30, 0.23, 1)
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="HUD"]
+offset_left = 85.0
+offset_top = 1150.0
+offset_right = 635.0
+offset_bottom = 1220.0
+theme_override_colors/font_color = Color(0.25, 0.34, 0.25, 1)
+theme_override_font_sizes/font_size = 20
+text = "DRAG OR MOVE TO AIM  ·  RELEASE TO DROP\nPrototype art and mechanics are temporary"
+horizontal_alignment = 1

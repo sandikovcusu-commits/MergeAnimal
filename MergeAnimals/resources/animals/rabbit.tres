@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AnimalData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"rabbit"
+display_name = "Rabbit"
+level = 3
+radius = 29.0
+body_mass = 1.5
+friction = 0.5
+bounce = 0.1
+merge_score = 8
+placeholder_color = Color(0.788235, 0.780392, 0.847059, 1)
+unlock_id = &"rabbit"

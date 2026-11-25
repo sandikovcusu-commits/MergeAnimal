@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AnimalData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"hamster"
+display_name = "Hamster"
+level = 2
+radius = 23.0
+body_mass = 1.1
+friction = 0.5
+bounce = 0.1
+merge_score = 4
+placeholder_color = Color(0.913725, 0.721569, 0.435294, 1)
+unlock_id = &"hamster"
