@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 20
+title_key = &"GOLDEN_GARDEN"
+objective_key = &"GOLDEN_MERGE"
+objective_type = "golden"
+animal_id = &""
+target = 1
+time_limit = 0.0
+starting_animals = PackedStringArray("bear")
+spawn_sequence = PackedStringArray("bear")

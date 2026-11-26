@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 16
+title_key = &"FAST_THINKER"
+objective_key = &"SCORE_500_FAST"
+objective_type = "score"
+animal_id = &""
+target = 500
+time_limit = 90.0
+starting_animals = PackedStringArray()
+spawn_sequence = PackedStringArray("dog")

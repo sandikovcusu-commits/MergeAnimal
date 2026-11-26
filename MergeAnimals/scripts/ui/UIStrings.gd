@@ -34,6 +34,13 @@ static func install() -> void:
 		"ru": {"KOALA_KINGDOM":"Королевство коал", "PANDA_RESCUE":"Спасение панды", "SCORE_MASTER":"Мастер очков", "DOUBLE_TROUBLE":"Двойная задача", "BEAR_MOUNTAIN":"Медвежья гора", "MAKE_KOALA":"Создайте 1 коалу", "MAKE_PANDA":"Создайте 1 панду", "SCORE_1000":"Наберите 1000 очков", "TWO_FOXES":"Создайте 2 лис", "MAKE_BEAR":"Создайте 1 медведя"}
 	}
 	for locale in challenge_advanced: messages[locale].merge(challenge_advanced[locale], true)
+	var challenge_expert := {
+		"en": {"FAST_THINKER":"Fast Thinker", "COMBO_CHAMPION":"Combo Champion", "LION_KING":"Lion King", "GENTLE_GIANT":"Gentle Giant", "GOLDEN_GARDEN":"Golden Garden", "SCORE_500_FAST":"500 points in 90 seconds", "COMBO_FIVE":"Reach combo x5", "MAKE_LION":"Create 1 lion", "MAKE_ELEPHANT":"Create 1 elephant", "GOLDEN_MERGE":"Make a Golden Merge"},
+		"az": {"FAST_THINKER":"Sürətli düşünən", "COMBO_CHAMPION":"Kombo çempionu", "LION_KING":"Şir kral", "GENTLE_GIANT":"Nəhəng dost", "GOLDEN_GARDEN":"Qızıl bağ", "SCORE_500_FAST":"90 saniyədə 500 xal", "COMBO_FIVE":"Kombo x5 əldə et", "MAKE_LION":"1 şir yarat", "MAKE_ELEPHANT":"1 fil yarat", "GOLDEN_MERGE":"Qızıl birləşmə et"},
+		"tr": {"FAST_THINKER":"Hızlı düşünen", "COMBO_CHAMPION":"Kombo şampiyonu", "LION_KING":"Aslan kral", "GENTLE_GIANT":"Nazik dev", "GOLDEN_GARDEN":"Altın bahçe", "SCORE_500_FAST":"90 saniyede 500 puan", "COMBO_FIVE":"Kombo x5 yap", "MAKE_LION":"1 aslan oluştur", "MAKE_ELEPHANT":"1 fil oluştur", "GOLDEN_MERGE":"Altın birleşme yap"},
+		"ru": {"FAST_THINKER":"Быстрая мысль", "COMBO_CHAMPION":"Чемпион комбо", "LION_KING":"Король лев", "GENTLE_GIANT":"Добрый гигант", "GOLDEN_GARDEN":"Золотой сад", "SCORE_500_FAST":"500 очков за 90 секунд", "COMBO_FIVE":"Получите комбо x5", "MAKE_LION":"Создайте 1 льва", "MAKE_ELEPHANT":"Создайте 1 слона", "GOLDEN_MERGE":"Совершите золотое объединение"}
+	}
+	for locale in challenge_expert: messages[locale].merge(challenge_expert[locale], true)
 	var save_messages := {
 		"en": {"NEW_GAME":"New game", "NEW_GAME_CONFIRM":"Start a new game? The saved session will be replaced.", "SAVE_FAILED":"Save failed", "CONTINUE":"Continue game", "SAVE_WAIT":"Save unavailable. Resume and try again.", "SAVE_UNAVAILABLE":"Saved game unavailable"},
 		"az": {"NEW_GAME":"Yeni oyun", "NEW_GAME_CONFIRM":"Yeni oyun başlasın? Saxlanmış oyun əvəz ediləcək.", "SAVE_FAILED":"Saxlama alınmadı", "CONTINUE":"Oyuna davam et", "SAVE_WAIT":"Saxlama mümkün deyil. Davam edib yenidən yoxlayın.", "SAVE_UNAVAILABLE":"Saxlanmış oyun əlçatan deyil"},

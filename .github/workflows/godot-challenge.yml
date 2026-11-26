@@ -31,6 +31,7 @@ jobs:
           XDG_DATA_HOME=/tmp/challenge-two-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day641_natural.gd 2>&1 | tee -a /tmp/challenge-log.txt
           XDG_DATA_HOME=/tmp/challenge-two-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day642_phase2.gd 2>&1 | tee -a /tmp/challenge-log.txt
           XDG_DATA_HOME=/tmp/challenge-two-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day642_phase3.gd 2>&1 | tee -a /tmp/challenge-log.txt
+          XDG_DATA_HOME=/tmp/challenge-two-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day642_phase4.gd 2>&1 | tee -a /tmp/challenge-log.txt
           mkdir -p /tmp/challenge-migrate-user
           XDG_DATA_HOME=/tmp/challenge-migrate-user PHASE2=migrate timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day642_phase2.gd 2>&1 | tee -a /tmp/challenge-log.txt
           XDG_DATA_HOME=/tmp/challenge-two-user CHALLENGE_PHASE=read timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day641_challenge.gd 2>&1 | tee -a /tmp/challenge-log.txt
