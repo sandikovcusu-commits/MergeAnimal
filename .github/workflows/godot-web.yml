@@ -15,7 +15,7 @@ on:
         default: 'false'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch"
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production"
         default: 'none'
         required: true
       ui_locale:
@@ -75,12 +75,16 @@ jobs:
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
           URL=http://127.0.0.1:8765/
-          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ]; then
+          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ] || [ "$UI_MODE" = audio-production ]; then
             # A virtual sink permits real browser audio graph processing in CI;
             # this is still not a physical speaker or listening test.
             pulseaudio --start --exit-idle-time=-1
             pactl load-module module-null-sink sink_name=qa_audio >/dev/null
             pactl set-default-sink qa_audio
+          fi
+          if [ "$UI_MODE" = audio-production ]; then
+            TEST=audio-production.mjs
+          elif [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ]; then
             # Separate instrumented build. The release ZIP remains untouched.
             cp -a MergeAnimals /tmp/audio-qa-project
             cp /tmp/audio-qa-project/tests/web/AudioProbe.gd /tmp/audio-qa-project/scripts/audio/AudioProbe.gd
