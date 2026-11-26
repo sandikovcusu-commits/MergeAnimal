@@ -161,7 +161,7 @@ func _finish(success: bool) -> void:
 	# A goal reached before the deferred failure resolves always wins.
 	success = success or challenge.reached
 	result_finished = true; result_success = success
-	AdManager.set_gameplay_active(false)
+	_sdk_gameplay(false)
 	FeelAudio.play_event("challenge_success" if success else "challenge_failed")
 	game_state = GameState.GAME_OVER
 	drop_requested = false; active_touch = -1; mouse_down = false
@@ -245,10 +245,10 @@ func _notification(what: int) -> void:
 		else: _confirm_abandon("quit")
 	else: super._notification(what)
 func _exit_tree() -> void:
-	get_tree().auto_accept_quit = true
+	super._exit_tree()
 
-func _toggle_pause() -> void:
-	super._toggle_pause()
+func _toggle_pause(report_gameplay: bool = true) -> void:
+	super._toggle_pause(report_gameplay)
 	if game_state == GameState.PAUSED:
 		$HUD/Overlay/SettingsButton.visible = false
 		$HUD/Overlay/MainMenuButton.text = tr("CH_SELECT_BUTTON")

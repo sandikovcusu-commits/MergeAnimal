@@ -194,7 +194,11 @@ func _ready() -> void:
 		$HUD/DebugPanel/Spawn.pressed.connect(_debug_spawn_selected)
 	_update_hud()
 	_set_aim(aim_x)
-	if game_state == GameState.PLAYING and not get_tree().paused: AdManager.set_gameplay_active(true)
+	if game_state == GameState.PLAYING and not get_tree().paused: _sdk_gameplay(true)
+
+func _sdk_gameplay(active: bool) -> void:
+	var manager := get_tree().root.get_node_or_null("AdManager")
+	if manager: manager.set_gameplay_active(active)
 
 func _return_to_menu_after_load_failure() -> void:
 	get_tree().paused = false
@@ -909,7 +913,7 @@ func _on_game_over() -> void:
 		call_deferred("_checkpoint_game_over")
 
 func _show_game_over() -> void:
-	AdManager.set_gameplay_active(false)
+	_sdk_gameplay(false)
 	game_state = GameState.GAME_OVER
 	rescue_finalized = false
 	current_preview.visible = false
@@ -1093,7 +1097,7 @@ func _commit_rescue() -> void:
 	spawn_state = SpawnState.COOLDOWN
 	rescue_processing = false
 	rescue_verifying = true
-	AdManager.set_gameplay_active(true)
+	_sdk_gameplay(true)
 	game_state = GameState.PLAYING
 	save_status = OK
 	get_tree().paused = false
@@ -1113,7 +1117,7 @@ func _toggle_pause(report_gameplay: bool = true) -> void:
 		return
 	if game_state == GameState.PLAYING:
 		_cancel_remove()
-		if report_gameplay: AdManager.set_gameplay_active(false)
+		if report_gameplay: _sdk_gameplay(false)
 		game_state = GameState.PAUSED
 		rescue_button.visible = false
 		rescue_message.visible = false
@@ -1136,7 +1140,7 @@ func _toggle_pause(report_gameplay: bool = true) -> void:
 		get_tree().paused = true
 	else:
 		game_state = GameState.PLAYING
-		AdManager.set_gameplay_active(true)
+		_sdk_gameplay(true)
 		_update_remove_ui()
 		_update_undo_ui()
 		overlay.visible = false
@@ -1243,7 +1247,7 @@ func _on_window_size_changed() -> void:
 		spawn_state = SpawnState.READY
 
 func _exit_tree() -> void:
-	AdManager.set_gameplay_active(false)
+	_sdk_gameplay(false)
 	if get_tree().root.size_changed.is_connected(_on_window_size_changed):
 		get_tree().root.size_changed.disconnect(_on_window_size_changed)
 	get_tree().auto_accept_quit = true

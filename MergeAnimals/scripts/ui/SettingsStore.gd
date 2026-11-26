@@ -39,7 +39,12 @@ static func apply(values: Dictionary) -> void:
 	for entry in [["Master", "master"], ["Music", "music"], ["SFX", "sfx"]]:
 		var index := AudioServer.get_bus_index(entry[0])
 		AudioServer.set_bus_volume_db(index, linear_to_db(maxf(0.0001, float(values[entry[1]]))))
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), values.mute or AdManager.platform_muted)
+	var sdk_muted := false
+	var main_loop := Engine.get_main_loop() as SceneTree
+	if main_loop:
+		var ad_manager := main_loop.root.get_node_or_null("AdManager")
+		if ad_manager: sdk_muted = bool(ad_manager.platform_muted)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), values.mute or sdk_muted)
 	var tree := Engine.get_main_loop() as SceneTree
 	if tree:
 		var manager := tree.root.get_node_or_null("AudioManager")
