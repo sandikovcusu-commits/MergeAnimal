@@ -117,3 +117,7 @@
 - Single-threaded Web export preset, export resource listing düzəlişi və əl ilə başladılan Playwright/CI sınağı əlavə edildi.
 - Godot 4.7.2 ilə faktiki Web build və məhdud Chromium/Firefox render, iki drop/merge və refresh/reopen müşahidələri: `WEB_QA_REPORT.md`.
 - A-nın bütün qəbul sınaqları bitməyib; B SDK və C optimizasiya başlamayıb. Kommersiya və public release təsdiqi yoxdur.
+
+## V0.8.1.1 — Web power-up və save sınaqları
+- Faktiki release WASM-da ayrı Chromium/Firefox profil ssenariləri: Undo, Remove, hazırlanmış təhlükə lövhəsi üzərində real Game Over/Rescue, refresh və tam reopen; nəticə və məhdudiyyətlər `WEB_POWERUP_REPORT.md`.
+- Test harness cache HTTP 304 və context cleanup işləməsini düzəldir; user:// yazısının Web IndexedDB-də dərhal davamlı olması barədə yanlış kod comment-ləri dəqiqləşdirilib. Qəfil bağlanma riskinə zəmanətli həll tətbiq edilməyib.

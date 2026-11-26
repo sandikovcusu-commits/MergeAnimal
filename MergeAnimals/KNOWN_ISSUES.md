@@ -95,3 +95,6 @@ The following sections are historical and superseded where noted.
 
 ## V0.8 Web aralıq statusu
 Web A sınaq matrisi natamamdır; real cihaz, audio dinləmə, power-up istifadə limiti persistensiyası və digər əsas ekranlar hələ yoxlanmayıb. SDK və monetizasiya mövcud deyil. Ətraflı `WEB_QA_REPORT.md`. Browser storage silinərsə progress itə bilər.
+
+## V0.8.1.1 Web saxlama riski
+`user://` checkpoint yazısının tamamlanması brauzerin IndexedDB-yə async sync-i təsdiq etdiyi anlamına gəlmir. Dərhal tab/proses bağlanarsa son əməliyyat və istifadə limiti itə bilər; cross-file atomiklik və storage silinməsi/eviction riskləri qalır. Müşahidə və əhatə: `WEB_POWERUP_REPORT.md`.
