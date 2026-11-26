@@ -16,8 +16,12 @@ jobs:
         with:
           node-version: '22'
       - name: Install Godot, Web templates and browsers
+        shell: bash
         run: |
-          set -e
+          set -e -o pipefail
+          mkdir -p /tmp/web-qa
+          exec > >(tee /tmp/web-qa/install.log) 2>&1
+          set -x
           sudo apt-get update -qq
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick
           wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
