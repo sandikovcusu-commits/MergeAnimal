@@ -79,7 +79,15 @@ async function themeTest(){
 async function touchTest(){
  if(browser!=='chromium')throw Error('CDP touch uses Chromium only');
  await page.evaluate(()=>{window.__touches=[];for(let k of ['touchstart','touchmove','touchend','touchcancel','pointercancel'])document.addEventListener(k,e=>window.__touches.push({type:k,count:e.touches?.length??null}),true)});
- await shot('menu');await tap(360,600,true);await sleep(4500);await shot('play-tapped');
+ await shot('menu');
+ await tap(360,766,true);await sleep(2000);await shot('collection-before-scroll');
+ const scrollCdp=await context.newCDPSession(page), from=point(340,950),to=point(340,370);
+ await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:from.x,y:from.y,id:30}]});
+ for(let i=1;i<=8;i++){await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:from.x,y:from.y+(to.y-from.y)*i/8,id:30}]});await sleep(60)}
+ await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(2000);await shot('collection-after-scroll');
+ const before=fs.readFileSync(path.join(out,`${browser}-${mode}-collection-before-scroll.png`)),after=fs.readFileSync(path.join(out,`${browser}-${mode}-collection-after-scroll.png`));
+ check(!before.equals(after),'Collection touch swipe changes the captured viewport');await tap(360,1190,true);await sleep(1500);
+ await tap(360,600,true);await sleep(4500);await shot('play-tapped');
  await tap(565,275,true);await sleep(1500);await tap(260,700,true);await sleep(6500);
  let s=await waitState(d=>d.active&&d.spawn_count>=1,'touch drop');check(s.spawn_count===1,`one touch creates exactly one drop`);console.log('TOUCH_FIRST',JSON.stringify({spawn_count:s.spawn_count,bodies:s.bodies}));await shot('first-drop');
  let old=s.spawn_count;await tap(600,58,true);await sleep(3000);await shot('pause');s=await state();check(s.spawn_count===old,'Pause UI touch does not create a drop');
@@ -90,6 +98,12 @@ async function touchTest(){
  await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await sleep(6000);s=await state();check(s.spawn_count===old,'multi-touch cancel does not drop');
  await tap(500,700,true);await sleep(6500);s=await waitState(d=>d.spawn_count===old+1,'post-cancel touch');check(s.spawn_count===old+1,'post-cancel touch creates one drop');await shot('post-cancel');
  old=s.spawn_count;
+ let first=point(180,700),second=point(550,700);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:first.x,y:first.y,id:41}]});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:first.x,y:first.y,id:41},{x:second.x,y:second.y,id:42}]});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[{x:second.x,y:second.y,id:42}]});
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(6500);s=await state();
+ check(s.spawn_count===old+1,'two overlapping touches produce exactly one drop');await shot('multitouch-release');old=s.spawn_count;
  const hold=point(300,700);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:hold.x,y:hold.y,id:4}]});
  await page.setViewportSize({width:540,height:1170});await sleep(1500);
  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(7000);s=await state();
