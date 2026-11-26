@@ -47,6 +47,11 @@ func run() -> void:
 	var after := AchievementManager.load_state()
 	check(game.undo_remaining == 0 and int(game.progression.total_merges) == 0 and after.data.entries.A01.unlocked and int(after.data.entries.A01.progress) == 1, "Undo rolls back statistics, keeps permanent achievement")
 	game.queue_free(); current_scene = null; await frames()
+	var undo_hash := FileAccess.get_sha256(AchievementManager.PATH)
+	set_meta("continue_requested", true)
+	change_scene_to_file("res://scenes/game/Game.tscn"); await frames(); game = current_scene
+	check(FileAccess.get_sha256(AchievementManager.PATH) == undo_hash and game.discovery_notifier.queue.is_empty() and not game.discovery_notifier.displaying, "Continue retains unlock and does not repeat notification")
+	game.queue_free(); current_scene = null; await frames()
 	# A tainted debug session and debug bodies cannot contribute evidence.
 	change_scene_to_file("res://scenes/game/Game.tscn"); await frames(); game = current_scene
 	game.debug_panel.visible = true; game._debug_pair()
@@ -92,6 +97,8 @@ func run() -> void:
 	var file := FileAccess.open(AchievementManager.PATH, FileAccess.WRITE); file.store_string("broken"); file.close()
 	var recovered := AchievementManager.load_state()
 	check(recovered.status == "recovered" and recovered.data.entries.A15.unlocked, "achievement backup recovers corrupted primary")
+	var recovery_migration := AchievementManager.migrate()
+	check(recovery_migration.new.is_empty() and recovery_migration.data.entries.A15.unlocked, "backup recovery never repeats unlock notification")
 	print("ACHIEVEMENT checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
 func read_phase() -> void:
 	var loaded := AchievementManager.load_state()
