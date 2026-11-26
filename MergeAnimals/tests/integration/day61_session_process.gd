@@ -51,8 +51,9 @@ func run() -> void:
 	print("DAY61 phase=%s checks=%d failures=%d" % [phase, checks, failures])
 	quit(1 if failures else 0)
 func write_phase() -> void:
-	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH]:
+		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 	var game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
 	game.test_seed = 30000
 	root.add_child(game)

@@ -149,7 +149,12 @@ static func clear_session(progress: Variant = null) -> Error:
 	var doc := load_document()
 	var generation: int = int(doc.data.get("generation", 0)) + 1 if doc.status in ["ok", "recovered"] else 1
 	var tombstone := {"session_version": 3, "generation": generation, "active": false, "progression": progress}
+	# The generation checkpoint is also the commit point for ending/restarting a
+	# session. This prevents an older active power-up checkpoint reviving a game
+	# if ordinary tombstone mirroring fails and the primary is later corrupted.
+	var committed := SaveManager.save_progress(tombstone, POWERUP_PATH, false)
+	if committed != OK: return committed
 	var result := SaveManager.save_progress(tombstone, PATH, keep_primary)
-	if result != OK: return result
-	# Replace both copies so a damaged tombstone cannot revive an older game.
-	return SaveManager.save_progress(tombstone, PATH)
+	if result == OK: result = SaveManager.save_progress(tombstone, PATH)
+	if result != OK: push_warning("Session tombstone committed; ordinary mirror failed: %s" % result)
+	return OK

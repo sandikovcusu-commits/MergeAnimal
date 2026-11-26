@@ -71,6 +71,7 @@ func run() -> void:
 	# A failed validation/write leaves board and allowance unchanged.
 	var invalid_file := FileAccess.open(SessionSave.PATH, FileAccess.WRITE); invalid_file.store_string("bad"); invalid_file.close()
 	invalid_file = FileAccess.open(SessionSave.PATH + ".bak", FileAccess.WRITE); invalid_file.store_string("bad"); invalid_file.close()
+	invalid_file = FileAccess.open(SessionSave.POWERUP_PATH, FileAccess.WRITE); invalid_file.store_string("bad"); invalid_file.close()
 	mouse(game, body.global_position); await frames()
 	check(is_instance_valid(body) and game.remove_remaining == 1 and game.remove_selecting, "save failure preserves body and allowance")
 	clear_save()

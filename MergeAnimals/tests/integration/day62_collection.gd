@@ -12,8 +12,9 @@ func frames(n: int = 3) -> void:
 func touch(game: Node, down: bool, x: float) -> void:
 	var event := InputEventScreenTouch.new(); event.index = 0; event.pressed = down; event.position = Vector2(x, 350); game._unhandled_input(event)
 func run() -> void:
-	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH]:
+		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 	var score_cfg := ConfigFile.new(); score_cfg.set_value("scores", "best", 432); score_cfg.save("user://wild_garden.cfg")
 	var settings := SettingsStore.load_values(); settings.language = "az"; SettingsStore.save_values(settings)
 	# A V0.6.1 snapshot is read without inventing past discoveries.
@@ -54,8 +55,9 @@ func run() -> void:
 	check(int(restored_legacy.progression.total_drops) == 1 and Progression.discovered(restored_legacy.progression) == 1, "new genuine drops still progress after uncertain legacy merge")
 	restored_legacy.queue_free(); await process_frame
 	current_scene = null
-	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH]:
+		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 	set_meta("tutorial_requested", true)
 	var game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
 	game.test_seed = 99; root.add_child(game); current_scene = game; await process_frame
@@ -171,14 +173,16 @@ func run() -> void:
 	check(int(SessionSave.load_progression().animals.elephant.count) == 3, "golden collection persists after game over")
 	file = FileAccess.open(SessionSave.PATH, FileAccess.WRITE); file.store_string("broken primary"); file.close()
 	file = FileAccess.open(SessionSave.PATH + ".bak", FileAccess.WRITE); file.store_string("broken backup"); file.close()
-	check(SessionSave.load_document().status == "corrupt" and SessionSave.clear_session() == ERR_UNAVAILABLE, "two corrupt copies are not overwritten")
+	file = FileAccess.open(SessionSave.POWERUP_PATH, FileAccess.WRITE); file.store_string("broken checkpoint"); file.close()
+	check(SessionSave.load_document().status == "corrupt" and SessionSave.clear_session() == ERR_UNAVAILABLE, "all corrupt copies are not overwritten")
 	paused = false
 	var unavailable = (load("res://scenes/ui/Collection.tscn") as PackedScene).instantiate()
 	root.add_child(unavailable); await process_frame
 	check(unavailable.cards.is_empty(), "unrecoverable data is not presented as empty collection")
 	unavailable.queue_free()
-	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH]:
+		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 	var future_progress := Progression.empty()
 	future_progress.version = 2
 	check(SaveManager.save_progress({"session_version": 1, "active": false, "progression": future_progress}, SessionSave.PATH) == OK, "future progression fixture written")

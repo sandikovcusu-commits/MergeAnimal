@@ -67,6 +67,7 @@ func run() -> void:
 	check(game.undo_remaining == 0 and game.pieces.get_child_count() == count, "second Undo blocked")
 	await dispose(game); clear_save()
 	await chain_test()
+	clear_save(); await state_test()
 	clear_save(); await golden_test()
 	clear_save(); await remove_test()
 	clear_save(); await backup_failure_test()
@@ -117,6 +118,31 @@ func chain_test() -> void:
 	check(game.best_score == int(previous.best_score) and int(game.progression.best_score) == int(previous.progression.best_score), "Undo rolls back session best and lifetime best")
 	check(int(game.progression.total_merges) == int(previous.progression.total_merges), "Undo rolls back merge statistics")
 	check(game.pieces.get_child_count() == 2, "Undo restores both original chain bodies without duplicates")
+	await dispose(game)
+func state_test() -> void:
+	var game = new_game(); await frames()
+	game.pieces.process_mode = Node.PROCESS_MODE_DISABLED
+	game.danger_monitor.set_physics_process(false)
+	game.current_data = game.animals[1]; game.next_data = game.animals[0]
+	var body: Animal = game.create_animal(game.animals[2], Vector2(180, 700))
+	body.rotation = 0.41
+	body.linear_velocity = Vector2(28, -17)
+	body.angular_velocity = 0.75
+	game.danger_monitor.timers[body.instance_uid] = 1.25
+	game.score = 12; game.best_score = 22; game.progression.best_score = 22
+	game.combo_count = 2; game.combo_events = 1; game.max_combo = 2; game.combo_left = 1.5
+	check(await real_drop(game, 500), "state fixture takes real drop")
+	var saved: Dictionary = game.undo_snapshot.duplicate(true)
+	check(saved.bodies.size() == 1 and float(saved.bodies[0].danger) == 1.25, "snapshot captures danger timer")
+	await undo(game)
+	var restored: Animal = game.pieces.get_child(0) if game.pieces.get_child_count() == 1 else null
+	check(restored != null and restored.save_uid == int(saved.bodies[0].uid), "stable body identity restored without duplicates")
+	if restored != null:
+		check(restored.position.distance_to(Vector2(saved.bodies[0].x, saved.bodies[0].y)) < 0.1 and absf(restored.rotation - float(saved.bodies[0].rotation)) < 0.01, "position and rotation restored")
+		check(restored.linear_velocity.distance_to(Vector2(saved.bodies[0].vx, saved.bodies[0].vy)) < 0.1 and absf(restored.angular_velocity - float(saved.bodies[0].angular_velocity)) < 0.01, "linear and angular velocities restored")
+		check(absf(float(game.danger_monitor.timers.get(restored.instance_uid, 0.0)) - 1.25) < 0.001, "danger timer restored to replacement instance")
+	check(game.score == 12 and game.combo_count == 2 and game.combo_events == 1 and absf(game.combo_left - float(saved.combo_left)) < 0.15, "score and combo restored")
+	check(str(game.current_data.id) == saved.current and str(game.next_data.id) == saved.next and str(game.rng.state) == saved.rng_state, "current next and RNG match snapshot")
 	await dispose(game)
 func golden_test() -> void:
 	var game = new_game(); await frames()
