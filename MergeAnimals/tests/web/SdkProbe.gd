@@ -5,5 +5,5 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if not OS.has_feature("web"): return
-	var state := {"sdk_state": AdManager.sdk_state, "environment": AdManager.sdk_environment, "provider": AdManager.provider, "rewards_available": AdManager.rewarded_available(), "playing": AdManager.gameplay_active, "platform_muted": AdManager.platform_muted, "raw": AdManager.platform_mute_observed, "raw_type": AdManager.platform_mute_observed_type, "master_muted": AudioServer.is_bus_mute(AudioServer.get_bus_index("Master"))}
+	var state := {"sdk_state": AdManager.sdk_state, "environment": AdManager.sdk_environment, "provider": AdManager.provider, "rewards_available": AdManager.rewarded_available(), "playing": AdManager.gameplay_active, "platform_muted": AdManager.platform_muted, "master_muted": AudioServer.is_bus_mute(AudioServer.get_bus_index("Master"))}
 	JavaScriptBridge.eval("window.__sdkProbe=" + JSON.stringify(state))
