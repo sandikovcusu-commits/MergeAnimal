@@ -74,6 +74,7 @@ func run() -> void:
 	check(game.undo_remaining == 0 and game.pieces.get_child_count() == count, "second Undo blocked")
 	await dispose(game); clear_save()
 	await chain_test()
+	clear_save(); await latest_snapshot_test()
 	clear_save(); await state_test()
 	clear_save(); await golden_test()
 	clear_save(); await remove_test()
@@ -130,6 +131,16 @@ func chain_test() -> void:
 	check(int(game.progression.total_merges) == int(previous.progression.total_merges), "Undo rolls back merge statistics")
 	check(game.pieces.get_child_count() == 2, "Undo restores both original chain bodies without duplicates")
 	await dispose(game)
+func latest_snapshot_test() -> void:
+	var game = new_game(false); await frames()
+	check(await real_drop(game, 170), "first drop for latest snapshot")
+	var first: Animal = game.pieces.get_child(0)
+	var first_uid: int = first.save_uid
+	check(await real_drop(game, 500), "second drop for latest snapshot")
+	check(game.undo_snapshot.bodies.size() == 1 and int(game.undo_snapshot.bodies[0].uid) == first_uid, "second successful drop replaces Undo boundary")
+	await undo(game)
+	check(game.spawn_count == 1 and game.pieces.get_child_count() == 1 and game.pieces.get_child(0).save_uid == first_uid, "Undo reverses only last successful drop")
+	await dispose(game)
 func state_test() -> void:
 	var game = new_game(); await frames()
 	game.pieces.process_mode = Node.PROCESS_MODE_DISABLED
@@ -142,6 +153,7 @@ func state_test() -> void:
 	game.danger_monitor.timers[body.instance_uid] = 1.25
 	game.score = 12; game.best_score = 22; game.progression.best_score = 22
 	game.combo_count = 2; game.combo_events = 1; game.max_combo = 2; game.combo_left = 1.5
+	game.cooldown_left = 0.3 # Explicit state fixture; real input normally waits for ready.
 	check(await real_drop(game, 500), "state fixture takes real drop")
 	var saved: Dictionary = game.undo_snapshot.duplicate(true)
 	check(saved.bodies.size() == 1 and float(saved.bodies[0].danger) == 1.25, "snapshot captures danger timer")
@@ -153,6 +165,7 @@ func state_test() -> void:
 		check(restored.linear_velocity.distance_to(Vector2(saved.bodies[0].vx, saved.bodies[0].vy)) < 0.1 and absf(restored.angular_velocity - float(saved.bodies[0].angular_velocity)) < 0.01, "linear and angular velocities restored")
 		check(absf(float(game.danger_monitor.timers.get(restored.instance_uid, 0.0)) - 1.25) < 0.001, "danger timer restored to replacement instance")
 	check(game.score == 12 and game.combo_count == 2 and game.combo_events == 1 and absf(game.combo_left - float(saved.combo_left)) < 0.15, "score and combo restored")
+	check(game.cooldown_left > 0.0 and absf(game.cooldown_left - float(saved.cooldown_left)) < 0.15, "spawn cooldown restored")
 	check(str(game.current_data.id) == saved.current and str(game.next_data.id) == saved.next and str(game.rng.state) == saved.rng_state, "current next and RNG match snapshot")
 	await dispose(game)
 func golden_test() -> void:
