@@ -25,10 +25,13 @@ function attach(page,events,stage) {
 }
 async function start(engine,name,profile,events,stage) {
  const ctx=await engine.launchPersistentContext(profile,options(name));
- const page=ctx.pages()[0]||await ctx.newPage(); attach(page,events,stage);
- const response=await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});
- assert(response?.ok(),`${name}/${stage} HTTP entry point`);
- await page.waitForSelector('canvas',{timeout:120000}); await delay(15000); return {ctx,page};
+ try {
+  const page=ctx.pages()[0]||await ctx.newPage(); attach(page,events,stage);
+  const response=await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});
+  // Firefox can validate a cached page with HTTP 304 after reopening a profile.
+  assert(response && (response.ok() || response.status()===304),`${name}/${stage} HTTP entry point`);
+  await page.waitForSelector('canvas',{timeout:120000}); await delay(15000); return {ctx,page};
+ } catch (err) { await ctx.close(); throw err; }
 }
 async function evidence(page,prefix,suffix) {await page.screenshot({path:path.join(out,`${prefix}-${suffix}.png`)});}
 // Inspect only: read IDBFS entries as bytes. Never edit browser storage.
