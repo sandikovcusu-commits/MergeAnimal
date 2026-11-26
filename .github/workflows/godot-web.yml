@@ -15,7 +15,7 @@ on:
         default: 'false'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio"
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch"
         default: 'none'
         required: true
       ui_locale:
@@ -75,7 +75,7 @@ jobs:
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
           URL=http://127.0.0.1:8765/
-          if [ "$UI_MODE" = audio ]; then
+          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ]; then
             # A virtual sink permits real browser audio graph processing in CI;
             # this is still not a physical speaker or listening test.
             pulseaudio --start --exit-idle-time=-1
