@@ -12,8 +12,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Install Godot
+      - name: Install Godot and X11
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool
           wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
           unzip -q /tmp/godot.zip -d /tmp/godot
       - name: Import, test and restore in another process
@@ -25,6 +27,25 @@ jobs:
           XDG_DATA_HOME=/tmp/achievement-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day643_achievement.gd 2>&1 | tee -a /tmp/achievement-log.txt
           XDG_DATA_HOME=/tmp/achievement-user ACH_PHASE=read timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day643_achievement.gd 2>&1 | tee -a /tmp/achievement-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/achievement-log.txt; then exit 1; fi
+      - name: X11 visual fixtures
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/achievement-captures
+        run: |
+          set -e -o pipefail
+          mkdir -p "$CAPTURE_DIR"
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          for spec in '360 640' '720 1280' '1366 768'; do
+            set -- $spec
+            XDG_DATA_HOME="/tmp/visual-$1" CAPTURE_PREFIX="$1x$2" CAPTURE_WIDTH="$1" CAPTURE_HEIGHT="$2" xvfb-run -a -s '-screen 0 1920x1400x24' timeout 120s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$1"x"$2" --script res://tests/integration/day643_visual.gd 2>&1 | tee -a /tmp/achievement-log.txt
+          done
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/achievement-log.txt; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: achievement-windows
+          path: /tmp/achievement-captures/*.png
+          if-no-files-found: warn
       - name: Publish diagnostic
         if: always()
         env:
@@ -39,4 +60,10 @@ jobs:
           p=pathlib.Path('/tmp/achievement-check.json')
           p.write_text(json.dumps({'name':'Achievement diagnostic','head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':'Achievement diagnostic','summary':'Real Godot integration; migration fixture is synthetic','text':text}}))
           subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
+          import base64
+          for f in sorted(pathlib.Path('/tmp/achievement-captures').glob('*.png')):
+              thumb=pathlib.Path('/tmp')/(f.stem+'.jpg')
+              subprocess.run(['convert',str(f),'-resize','360x640>','-quality','60',str(thumb)],check=True)
+              p.write_text(json.dumps({'name':'Achievement capture '+f.stem,'head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':f.stem,'summary':'Seeded X11 visual fixture, not human play','text':base64.b64encode(thumb.read_bytes()).decode()}}))
+              subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
           PY

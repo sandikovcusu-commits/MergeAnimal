@@ -22,6 +22,14 @@ static func _empty() -> Dictionary:
 
 static func _valid(value: Variant) -> bool:
 	if typeof(value) != TYPE_DICTIONARY or typeof(value.get("version")) not in [TYPE_INT, TYPE_FLOAT] or float(value.version) != VERSION or typeof(value.get("entries")) != TYPE_DICTIONARY: return false
+	if value.has("events"):
+		var events: Variant = value.events
+		if typeof(events) != TYPE_DICTIONARY or typeof(events.get("animals")) != TYPE_DICTIONARY: return false
+		for key in ["total_merges", "golden_merges", "max_combo"]:
+			var n: Variant = events.get(key)
+			if typeof(n) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(n)) or float(n) < 0 or float(n) > 1000000000 or floorf(float(n)) != float(n): return false
+		for key in events.animals:
+			if key not in Progression.IDS or events.animals[key] != true: return false
 	for key in value.entries:
 		var entry: Variant = value.entries[key]
 		if typeof(key) != TYPE_STRING or typeof(entry) != TYPE_DICTIONARY or typeof(entry.get("unlocked")) != TYPE_BOOL or typeof(entry.get("date")) != TYPE_STRING or entry.date.length() > 32: return false
@@ -40,13 +48,19 @@ static func load_state() -> Dictionary:
 	if primary.status == "missing" and backup.status == "missing": return {"status": "missing", "data": _empty()}
 	return {"status": "corrupt"}
 
-static func _value(def: AchievementData, progress: Dictionary, challenges: Dictionary) -> int:
+static func _value(def: AchievementData, progress: Dictionary, challenges: Dictionary, events: Dictionary) -> int:
+	var valid_classic := Progression.valid(progress)
 	match def.objective_type:
-		"total_merges", "golden_merges", "best_score", "max_combo":
-			return int(progress.get(def.objective_type, 0)) if Progression.valid(progress) else -1
+		"best_score": return int(progress.best_score) if valid_classic else -1
+		"total_merges", "golden_merges":
+			if not valid_classic: return -1
+			return int(progress.get(def.objective_type, 0)) + int(events.get(def.objective_type, 0))
+		"max_combo":
+			if not valid_classic: return -1
+			return maxi(int(progress.max_combo), int(events.get("max_combo", 0)))
 		"discovery":
-			if not Progression.valid(progress) or not progress.animals.has(def.unlock_condition): return -1
-			return 1 if not str(progress.animals[def.unlock_condition].date).is_empty() else 0
+			if not valid_classic or not progress.animals.has(def.unlock_condition): return -1
+			return 1 if not str(progress.animals[def.unlock_condition].date).is_empty() or bool(events.get("animals", {}).get(def.unlock_condition, false)) else 0
 		"collection": return Progression.discovered(progress) if Progression.valid(progress) else -1
 		"challenges":
 			if not ChallengeStore.valid(challenges): return -1
@@ -58,15 +72,23 @@ static func _value(def: AchievementData, progress: Dictionary, challenges: Dicti
 
 # `live` means the caller has just observed a real eligible event. Historical
 # migration has no known unlock date and never invents one or sends a toast.
-static func synchronize(progress: Dictionary, challenges: Dictionary, live: bool = false) -> Dictionary:
+static func synchronize(progress: Dictionary, challenges: Dictionary, live: bool = false, event: Dictionary = {}) -> Dictionary:
 	var loaded := load_state()
 	if loaded.status not in ["ok", "recovered", "missing"]: return {"status": loaded.status, "new": []}
 	var state: Dictionary = loaded.data.duplicate(true)
 	var old := JSON.stringify(state)
+	var events: Dictionary = state.get("events", {"total_merges": 0, "golden_merges": 0, "max_combo": 0, "animals": {}})
+	if not event.is_empty():
+		var animal_id := str(event.get("animal", ""))
+		if animal_id in Progression.IDS: events.animals[animal_id] = true
+		if event.get("merge", false): events.total_merges = int(events.total_merges) + 1
+		if event.get("golden", false): events.golden_merges = int(events.golden_merges) + 1
+		events.max_combo = maxi(int(events.max_combo), int(event.get("combo", 0)))
+		state.events = events
 	var unlocked: Array[AchievementData] = []
 	for def in definitions():
 		if def.id.is_empty() or def.target < 1: continue
-		var value := _value(def, progress, challenges)
+		var value := _value(def, progress, challenges, events)
 		if value < 0: continue
 		var entry: Dictionary = state.entries.get(def.id, {"unlocked": false, "date": "", "progress": 0})
 		entry.progress = mini(value, def.target)

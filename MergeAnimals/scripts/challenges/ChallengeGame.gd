@@ -96,6 +96,7 @@ func _attempt_drop() -> void:
 	cooldown_left = drop_cooldown
 	spawn_state = SpawnState.COOLDOWN
 	challenge.record_creation(data, true, score)
+	_challenge_achievement_event({"animal": str(data.id)})
 	_update_challenge_hud()
 	_update_hud()
 
@@ -104,13 +105,21 @@ func _on_merged(data: AnimalData, point: Vector2) -> void:
 	challenge.record_creation(data, merge_manager.last_merge_eligible, score)
 	challenge.record_score(score, merge_manager.last_merge_eligible)
 	challenge.record_merge(merge_manager.merge_count, combo_count, merge_manager.last_merge_eligible)
+	if merge_manager.last_merge_eligible: _challenge_achievement_event({"animal": str(data.id), "merge": true, "combo": combo_count})
 	_update_challenge_hud()
 
 func _on_golden_merged(point: Vector2) -> void:
 	super._on_golden_merged(point)
 	challenge.record_score(score, merge_manager.last_merge_eligible)
 	challenge.record_merge(merge_manager.merge_count, combo_count, merge_manager.last_merge_eligible, true)
+	if merge_manager.last_merge_eligible: _challenge_achievement_event({"merge": true, "golden": true})
 	_update_challenge_hud()
+
+func _challenge_achievement_event(event: Dictionary) -> void:
+	var inputs := AchievementManager.saved_inputs()
+	var result := AchievementManager.synchronize(inputs.progress, {}, true, event)
+	if result.status == "ok" and is_instance_valid(discovery_notifier):
+		for achievement in result.new: discovery_notifier.enqueue_achievement(achievement)
 
 func _update_hud() -> void:
 	super._update_hud()
@@ -157,7 +166,7 @@ func _persist_result() -> void:
 	result_saved = result == OK
 	if result_saved and result_success:
 		var inputs := AchievementManager.saved_inputs()
-		var achievement_result := AchievementManager.synchronize({}, inputs.challenges, true)
+		var achievement_result := AchievementManager.synchronize(inputs.progress, inputs.challenges, true)
 		if achievement_result.status == "ok":
 			for achievement in achievement_result.new: discovery_notifier.enqueue_achievement(achievement)
 	save_retry_button.visible = not result_saved
