@@ -1120,6 +1120,9 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_node_ready() and is_playing():
 		_toggle_pause()
 
+func _exit_tree() -> void:
+	get_tree().auto_accept_quit = true
+
 func _update_preview() -> void:
 	current_preview.data = current_data
 	current_preview.visible = is_playing() and _can_aim()
