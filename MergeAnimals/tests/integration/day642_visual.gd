@@ -35,12 +35,14 @@ func run() -> void:
 	var selection = current_scene
 	if selection.buttons.size() != 20 or not await capture("selection_20"): printerr("FAIL selection"); quit(1); return
 	for entry in [[0, "beginner"], [5, "intermediate"], [10, "advanced"], [15, "expert"]]:
-		selection.scroll.ensure_control_visible(selection.buttons[entry[0]])
+		selection.scroll.ensure_control_visible(selection.buttons[mini(entry[0] + 4, 19)])
 		await frames()
 		if not await capture(entry[1]): printerr("FAIL category capture"); quit(1); return
 	var game = await start(selection, 7)
 	if not await capture("timer_challenge"): printerr("FAIL timer capture"); quit(1); return
-	await go_back(game); selection = current_scene
+	game._toggle_pause(); game._main_menu(); await frames()
+	if not is_instance_valid(game.confirm_exit) or not await capture("leave_warning"): printerr("FAIL warning capture"); quit(1); return
+	game.confirm_exit.confirmed.emit(); await frames(); selection = current_scene
 	game = await start(selection, 10)
 	if not await capture("limited_drops"): printerr("FAIL limit capture"); quit(1); return
 	await go_back(game); selection = current_scene

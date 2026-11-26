@@ -86,7 +86,50 @@ func run() -> void:
 	else:
 		check(false, "20 real drops reached the limit (actual=%d score=%d)" % [count, limited.score])
 	await dispose(limited)
+	await blocked_attempt_test()
+	await final_drop_chain_test()
 	print("PHASE2 checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
+func blocked_attempt_test() -> void:
+	var game = game_for(10); await frames()
+	game.current_data = game.animals[11]; game._set_aim(360)
+	check(game.drop_animal(), "blocked-spawn fixture requests a real first drop")
+	for i in range(70): await physics_frame
+	var prior: int = game.spawn_count
+	game.current_data = game.animals[11]
+	var down := InputEventMouseButton.new(); down.button_index = MOUSE_BUTTON_LEFT; down.pressed = true; down.position = Vector2(360, 600)
+	var up := InputEventMouseButton.new(); up.button_index = MOUSE_BUTTON_LEFT; up.pressed = false; up.position = down.position
+	game._unhandled_input(down); game._unhandled_input(up)
+	for i in range(4): await physics_frame
+	check(prior == 1 and game.spawn_count == prior and not game.result_finished, "blocked spawn attempt does not spend a drop")
+	await dispose(game)
+func final_drop_chain_test() -> void:
+	var game = game_for(10); await frames()
+	for i in range(18):
+		for tick in range(150): await physics_frame
+		if not game.is_playing(): break
+		game.current_data = game.animals[0]; game._set_aim(130 + (i % 7) * 75)
+		var before: int = game.spawn_count
+		if game.drop_animal():
+			for tick in range(120):
+				await physics_frame
+				if game.spawn_count > before or game.result_finished: break
+		if game.result_finished: break
+	for tick in range(150): await physics_frame
+	if game.is_playing():
+		game.current_data = game.animals[9]; game._set_aim(360); game.drop_animal()
+	for tick in range(200): await physics_frame
+	var pre: int = game.spawn_count
+	var before_score: int = game.score
+	if game.is_playing():
+		game.current_data = game.animals[9]; game._set_aim(360); game.drop_animal()
+	for tick in range(8): await physics_frame
+	var awaiting_chain: bool = game.spawn_count == 20 and not game.result_finished
+	for tick in range(1200):
+		await physics_frame
+		if game.result_finished: break
+	print("FINAL_DROP_RESULT pre=%d prescore=%d drops=%d score=%d merges=%d awaiting=%s success=%s" % [pre, before_score, game.spawn_count, game.score, game.merge_manager.merge_count, awaiting_chain, game.result_success])
+	check(pre == 19 and before_score < 150 and awaiting_chain and game.result_finished and game.result_success, "last permitted drop completes real merge before failure")
+	await dispose(game)
 func migrate_phase() -> void:
 	var old := {"version": 1, "entries": []}
 	for i in range(5): old.entries.append({"completed": true, "best": i * 100, "attempts": i + 1})

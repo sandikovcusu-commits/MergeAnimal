@@ -111,6 +111,12 @@ func _on_golden_merged(point: Vector2) -> void:
 	challenge.record_merge(merge_manager.merge_count, combo_count, merge_manager.last_merge_eligible, true)
 	_update_challenge_hud()
 
+func _update_hud() -> void:
+	super._update_hud()
+	# High-tier challenge spawns need a compact HUD preview; physics radius is unchanged.
+	if is_instance_valid(next_preview) and next_data != null:
+		next_preview.scale = Vector2.ONE * minf(1.0, 34.0 / next_data.radius)
+
 func _update_challenge_hud() -> void:
 	if not is_instance_valid(goal_label) or challenge == null: return
 	var shown_time: float = maxf(0.0, challenge.definition.time_limit - challenge.elapsed) if challenge.definition.time_limit > 0 else challenge.elapsed
