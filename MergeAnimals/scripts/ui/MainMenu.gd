@@ -54,6 +54,11 @@ func _button(node_name: String, key: String, icon: String, height: float) -> But
 	return button
 
 func _refresh_best() -> void:
+	# Do not display a stale legacy record when the authoritative v3 journal
+	# is unavailable or corrupt. Gameplay cannot safely be resumed either.
+	if SessionSave.load_document().status in ["corrupt", "future", "io_error"]:
+		best_label.text = tr("SAVE_UNAVAILABLE")
+		return
 	var progress := SessionSave.load_progression()
 	best_label.text = "%s  %d" % [tr("BEST_SCORE"), int(progress.best_score)]
 

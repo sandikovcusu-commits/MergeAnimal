@@ -74,6 +74,7 @@ func run() -> void:
 	check(game.undo_remaining == 0 and game.pieces.get_child_count() == count, "second Undo blocked")
 	await dispose(game); clear_save()
 	await chain_test()
+	clear_save(); await pending_test()
 	clear_save(); await latest_snapshot_test()
 	clear_save(); await state_test()
 	clear_save(); await golden_test()
@@ -131,6 +132,20 @@ func chain_test() -> void:
 	stale.set_value("scores", "best", 0); stale.save("user://wild_garden.cfg")
 	check(int(game.progression.total_merges) == int(previous.progression.total_merges), "Undo rolls back merge statistics")
 	check(game.pieces.get_child_count() == 2, "Undo restores both original chain bodies without duplicates")
+	await dispose(game)
+func pending_test() -> void:
+	var game = new_game(false); await frames()
+	check(await real_drop(game, 360), "pending fixture takes a drop")
+	var body: Animal = game.pieces.get_child(0); body.freeze = true
+	var other: Animal = game.create_animal(body.data, Vector2(500, 700)); other.freeze = true
+	game.merge_manager.set_physics_process(false)
+	check(game.merge_manager.request_merge(body, other), "pending fixture reserves a real merge pair")
+	game._request_undo(); await frames()
+	check(game.undo_remaining == 1 and not game.undo_processing and game.pieces.get_child_count() == 2, "Undo refuses pending merge without consuming use")
+	game.merge_manager.pending.clear(); body.merge_locked = false; other.merge_locked = false
+	game.pieces.remove_child(other); other.queue_free(); game.merge_manager.set_physics_process(true)
+	await undo(game)
+	check(game.undo_remaining == 0 and game.pieces.get_child_count() == 0, "Undo succeeds once merge queue is safe")
 	await dispose(game)
 func latest_snapshot_test() -> void:
 	var game = new_game(false); await frames()
