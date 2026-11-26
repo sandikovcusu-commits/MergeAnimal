@@ -15,7 +15,7 @@ on:
         default: 'false'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute, sdk-production"
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute, sdk-production, reward-demo, reward-mock, reward-basic, reward-blocked"
         default: 'none'
         required: true
       ui_locale:
@@ -88,14 +88,24 @@ jobs:
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
           URL=http://127.0.0.1:8765/
-          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ] || [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ]; then
+          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ] || [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ] || [[ "$UI_MODE" == reward-* ]]; then
             # A virtual sink permits real browser audio graph processing in CI;
             # this is still not a physical speaker or listening test.
             pulseaudio --start --exit-idle-time=-1
             pactl load-module module-null-sink sink_name=qa_audio >/dev/null
             pactl set-default-sink qa_audio
           fi
-          if [ "$UI_MODE" = sdk-real ] || [ "$UI_MODE" = sdk-blocked ] || [ "$UI_MODE" = sdk-mute ]; then
+          if [[ "$UI_MODE" == reward-* ]]; then
+            cp -a MergeAnimals /tmp/reward-qa-project
+            cp /tmp/reward-qa-project/tests/web/RewardProbe.gd /tmp/reward-qa-project/scripts/ads/RewardProbe.gd
+            sed -i '/^\[autoload\]/a RewardProbe="*res://scripts/ads/RewardProbe.gd"' /tmp/reward-qa-project/project.godot
+            mkdir -p /tmp/web-test/reward-qa
+            "$GODOT" --headless --path /tmp/reward-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            if [ "$UI_MODE" = reward-basic ]; then PRESET='Web CrazyGames (experimental)'; else PRESET='Web CrazyGames Rewarded (full-launch opt-in)'; fi
+            "$GODOT" --headless --path /tmp/reward-qa-project --export-release "$PRESET" /tmp/web-test/reward-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/reward-qa/; TEST=reward-rescue.mjs
+            export REWARD_CASE="${UI_MODE#reward-}"
+          elif [ "$UI_MODE" = sdk-real ] || [ "$UI_MODE" = sdk-blocked ] || [ "$UI_MODE" = sdk-mute ]; then
             cp -a MergeAnimals /tmp/sdk-qa-project
             cp /tmp/sdk-qa-project/tests/web/SdkProbe.gd /tmp/sdk-qa-project/scripts/ads/SdkProbe.gd
             sed -i '/^\[autoload\]/a SdkProbe="*res://scripts/ads/SdkProbe.gd"' /tmp/sdk-qa-project/project.godot
