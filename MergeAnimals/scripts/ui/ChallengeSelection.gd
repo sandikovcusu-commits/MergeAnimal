@@ -7,7 +7,7 @@ var scroll: ScrollContainer
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	SettingsStore.apply(SettingsStore.load_values())
-	theme = THEME
+	theme = ThemeStore.ui_theme()
 	var loaded := ChallengeStore.load_results()
 	var available: bool = loaded.status in ["ok", "recovered", "missing"]
 	var completed := 0
@@ -55,4 +55,4 @@ func _start(id: int) -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/game/ChallengeGame.tscn")
 func _draw() -> void:
-	draw_texture_rect(FOREST, Rect2(0, 0, 720, 1280), false)
+	draw_texture_rect(ThemeStore.background(), Rect2(0, 0, 720, 1280), false)

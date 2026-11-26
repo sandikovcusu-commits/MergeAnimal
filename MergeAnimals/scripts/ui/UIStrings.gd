@@ -104,6 +104,13 @@ static func install() -> void:
 	}
 	for locale in tutorial_messages:
 		messages[locale].merge(tutorial_messages[locale])
+	var theme_messages := {
+		"en": {"THEMES":"Themes", "THEME_FOREST":"Forest Garden", "THEME_SUNSET":"Sunset Safari", "THEME_SNOW":"Snowy Valley", "THEME_DEFAULT":"Available from the start", "THEME_SCORE":"Classic best score: 500", "THEME_CHALLENGES":"Complete 10 different challenges", "THEME_SELECTED":"Selected", "THEME_APPLY":"Apply"},
+		"az": {"THEMES":"Mövzular", "THEME_FOREST":"Meşə bağı", "THEME_SUNSET":"Günbatımı safarisi", "THEME_SNOW":"Qarlı dərə", "THEME_DEFAULT":"Əvvəldən açıqdır", "THEME_SCORE":"Klassik rekord: 500 xal", "THEME_CHALLENGES":"10 fərqli tapşırığı tamamla", "THEME_SELECTED":"Seçilib", "THEME_APPLY":"Tətbiq et"},
+		"tr": {"THEMES":"Temalar", "THEME_FOREST":"Orman bahçesi", "THEME_SUNSET":"Gün batımı safarisi", "THEME_SNOW":"Karlı vadi", "THEME_DEFAULT":"Başlangıçta açık", "THEME_SCORE":"Klasik rekor: 500 puan", "THEME_CHALLENGES":"10 farklı görevi tamamla", "THEME_SELECTED":"Seçili", "THEME_APPLY":"Uygula"},
+		"ru": {"THEMES":"Темы", "THEME_FOREST":"Лесной сад", "THEME_SUNSET":"Сафари на закате", "THEME_SNOW":"Снежная долина", "THEME_DEFAULT":"Доступна сразу", "THEME_SCORE":"Рекорд классики: 500 очков", "THEME_CHALLENGES":"Выполните 10 разных заданий", "THEME_SELECTED":"Выбрана", "THEME_APPLY":"Применить"}
+	}
+	for locale in theme_messages: messages[locale].merge(theme_messages[locale], true)
 	for locale in messages:
 		var translation := Translation.new()
 		translation.locale = locale

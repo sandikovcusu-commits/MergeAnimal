@@ -4,7 +4,7 @@ const THEME := preload("res://assets/ui/themes/forest.tres")
 var scroll: ScrollContainer
 var cards: Array[Control] = []
 func _ready() -> void:
-	SettingsStore.apply(SettingsStore.load_values()); theme = THEME
+	SettingsStore.apply(SettingsStore.load_values()); theme = ThemeStore.ui_theme()
 	var sync := AchievementManager.migrate()
 	var state: Dictionary = sync.get("data", {})
 	var available: bool = sync.status == "ok"
@@ -42,4 +42,4 @@ func _ready() -> void:
 			var bar := ProgressBar.new(); bar.name = "ProgressBar"; bar.max_value = def.target; bar.value = entry.progress; bar.show_percentage = false; bar.custom_minimum_size.y = 14; stack.add_child(bar)
 	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.custom_minimum_size.y = 60; column.add_child(back)
 	back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
-func _draw() -> void: draw_texture_rect(FOREST, Rect2(0, 0, 720, 1280), false)
+func _draw() -> void: draw_texture_rect(ThemeStore.background(), Rect2(0, 0, 720, 1280), false)

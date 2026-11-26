@@ -5,9 +5,9 @@ var progress: Dictionary
 var text_label: Label
 func _ready() -> void:
 	SettingsStore.apply(SettingsStore.load_values())
-	theme = THEME
+	theme = ThemeStore.ui_theme()
 	progress = SessionSave.load_progression()
-	var background := TextureRect.new(); background.texture = FOREST; background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; background.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(background)
+	var background := TextureRect.new(); background.texture = ThemeStore.background(); background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; background.mouse_filter = Control.MOUSE_FILTER_IGNORE; add_child(background)
 	var heading := Label.new(); heading.position = Vector2(60, 45); heading.size = Vector2(600, 55); heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; heading.text = tr("STATISTICS"); heading.add_theme_font_size_override("font_size", 38); heading.add_theme_color_override("font_color", Color("263e2b")); add_child(heading)
 	if SessionSave.load_document().status in ["corrupt", "future", "io_error"]:
 		var warning := Label.new(); warning.position = Vector2(100, 300); warning.size = Vector2(520, 180); warning.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; warning.text = tr("DATA_UNAVAILABLE"); warning.add_theme_font_size_override("font_size", 26); warning.add_theme_color_override("font_color", Color("263e2b")); add_child(warning)

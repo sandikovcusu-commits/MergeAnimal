@@ -14,7 +14,8 @@ var navigating := false
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	SettingsStore.apply(SettingsStore.load_values())
-	theme = THEME
+	ThemeStore.refresh()
+	theme = ThemeStore.ui_theme()
 	_build()
 
 func _build() -> void:
@@ -27,7 +28,7 @@ func _build() -> void:
 	var margins := MarginContainer.new()
 	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]: margins.add_theme_constant_override(side, 28)
 	card.add_child(margins)
-	var list := VBoxContainer.new(); list.add_theme_constant_override("separation", 12); margins.add_child(list)
+	var list := VBoxContainer.new(); list.add_theme_constant_override("separation", 7); margins.add_child(list)
 	play_button = _button("Play", "PLAY", "play", 90); list.add_child(play_button); play_button.pressed.connect(_play)
 	continue_button = _button("Continue", "CONTINUE", "play", 70); list.add_child(continue_button)
 	continue_button.disabled = SessionSave.load_session().status not in ["ok", "recovered"]
@@ -38,6 +39,8 @@ func _build() -> void:
 	statistics.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Statistics.tscn"))
 	var achievements := _button("Achievements", "Achievements", "trophy", 65); list.add_child(achievements)
 	achievements.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Achievements.tscn"))
+	var themes := _button("Themes", "THEMES", "star", 56); list.add_child(themes)
+	themes.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/ThemeSelection.tscn"))
 	var challenges := _button("Challenges", "CHALLENGES", "challenge", 70); list.add_child(challenges)
 	challenges.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/ChallengeSelection.tscn"))
 	settings_button = _button("Settings", "SETTINGS", "settings", 70); list.add_child(settings_button); settings_button.pressed.connect(_settings)
@@ -120,7 +123,7 @@ func _settings() -> void:
 	settings_panel.settings_changed.connect(func(_values: Dictionary): _refresh_best())
 	settings_panel.closed.connect(func(): settings_panel = null; settings_button.grab_focus())
 func _draw() -> void:
-	draw_texture_rect(FOREST, Rect2(0, 0, 720, 1280), false)
+	draw_texture_rect(ThemeStore.background(), Rect2(0, 0, 720, 1280), false)
 	var font := ThemeDB.fallback_font
 	draw_string(font, Vector2(0, 190), "MERGE ANIMALS", HORIZONTAL_ALIGNMENT_CENTER, 720, 60, Color("334b36"))
 	draw_string(font, Vector2(0, 250), "WILD GARDEN", HORIZONTAL_ALIGNMENT_CENTER, 720, 37, Color("73513b"))

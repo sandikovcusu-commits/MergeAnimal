@@ -48,6 +48,12 @@ func run() -> void:
 		var saved := ChallengeStore.load_results()
 		check(saved.status in ["ok", "recovered"] and saved.data.entries[id - 1].completed and float(saved.data.entries[id - 1].best_time) >= 0, "challenge %d saves completion and best time" % id)
 		if id < 10: check(ChallengeStore.is_unlocked(saved.data, id + 1), "challenge %d unlocks next" % id)
+		if id == 9:
+			var themes := ThemeStore.refresh()
+			check("snow" not in themes.data.unlocked, "nine distinct completed Challenges do not unlock snow")
+		if id == 10:
+			var themes := ThemeStore.refresh()
+			check("snow" in themes.data.unlocked, "ten distinct completed Challenges unlock snow")
 		await dispose(game)
 	# Expiration is measured in game simulation time, not wall time.
 	var timer = game_for(7); await frames()

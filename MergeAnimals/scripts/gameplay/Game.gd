@@ -103,6 +103,8 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var saved_settings := SettingsStore.load_values()
 	SettingsStore.apply(saved_settings)
+	visual_theme = ThemeStore.current_index()
+	$HUD.theme = ThemeStore.ui_theme()
 	reduced_effects = saved_settings.reduced_effects
 	pieces.process_mode = Node.PROCESS_MODE_PAUSABLE
 	merge_manager.process_mode = Node.PROCESS_MODE_PAUSABLE

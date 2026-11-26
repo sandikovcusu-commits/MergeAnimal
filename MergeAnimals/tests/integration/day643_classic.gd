@@ -25,6 +25,9 @@ func run() -> void:
 	for id in ["A01", "A03", "A04", "A07", "A08", "A09", "A10", "A11", "A12"]:
 		check(state.data.entries.get(id, {}).get("unlocked", false), "%s unlocked by actual Classic drops" % id)
 	check(int(game.progression.best_score) >= 2500, "Classic score reaches 2500 through actual collisions")
+	check(game.save_session() == OK, "save real Classic score for theme unlock")
+	var theme := ThemeStore.refresh()
+	check(theme.status == "ok" and "sunset" in theme.data.unlocked, "real Classic score unlocks sunset theme")
 	# Two kinds of notices share one sequential queue.
 	var notifier = preload("res://scripts/ui/DiscoveryNotification.gd").new()
 	root.add_child(notifier); await process_frame
