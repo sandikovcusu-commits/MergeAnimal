@@ -1,4 +1,13 @@
-# V0.8.2 WIP — SDK və monetizasiya
+# V0.8.2.1 — açıq risklər
+
+- Real CrazyGames preview, real ad/revenue və Basic Launch/full-launch entitlement **BLOCKED**; rewarded preset yalnız full-launch təsdiqindən sonra seçilməlidir, avtomatik entitlement aşkarlanmır. Script blocking real AdBlock extension testi deyil.
+- SDK `muteAudio` polling edir, sənədlərdəki settings-change listener hələ yoxdur; real platforma dəyişiklikləri, mobil lifecycle və fiziki audio dinləməsi yoxlanmayıb. SDK gameplay event-ləri 1 saniyə aralığında throttled ola bilər. Happy Time yoxdur.
+- IndexedDB final sync asinxrondur; tab/proses dərhal bağlananda son checkpoint itə bilər. Save retry eyni canlı sessiyada işləyir, offline browser flush zəmanəti deyil.
+- Sprite kommersiya hüquqları təsdiqlənməyib. Təbiətdən yaranan overflow, fiziki touch/Android/iOS və tam vizual/tərcümə yoxlaması yoxdu. Əvvəlki açıq risklər aşağıda tarixidir.
+
+---
+
+# Tarixi V0.8.2 WIP — SDK və monetizasiya (V0.8.2.1 ilə qismən aradan qaldırılıb)
 
 - CrazyGames rewarded provider, hər üç reklam mükafatı, transaction/callback/timeout təhlükəsizliyi, UI və reward checkpoint yoxdur; düymələr fail-closed gizlidir. Reklam zamanı pause/audio və reward bütünlüyü yoxlanmayıb.
 - SDK `muteAudio` başlanğıc dəyəri local demo-da yoxlanıb; canlı platformada dəyişiklik və fiziki audio cihazları yoxlanmayıb. Happy Time yoxdur. Rəsmi platforma preview və real reklam sınağı yoxdur.

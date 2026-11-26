@@ -1,3 +1,11 @@
+# V0.8.2.1 — CrazyGames Rewarded Rescue
+
+- Full-launch üçün ayrıca opt-in rewarded preset; standart və Basic konfiqurasiyası reklamsızdır.
+- Game Over-da bir könüllü əlavə Rescue, sessiya/transaction callback qorunması, timeout, audio/input/physics pause və save checkpoint/retry; dörd dil.
+- Chromium/Firefox official localhost demo, mock callback və audio qrafiki, fallback və seçilmiş reqressiyalar; real platforma BLOCKED. Əlavə Undo/Remove, banner və midgame ads yoxdur.
+
+---
+
 # V0.8.2 WIP — CrazyGames SDK hazırlığı
 
 - Rəsmi MIT Godot SDK, ayrıca opt-in Web preset, sonlu initialization və reklamsız fallback; gameplay start/stop və platform mute inteqrasiyası.
