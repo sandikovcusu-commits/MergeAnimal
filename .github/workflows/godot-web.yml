@@ -42,8 +42,8 @@ jobs:
         if: ${{ inputs.ui_mode == 'sdk-inspect' }}
         run: |
           mkdir -p /tmp/web-qa
-          curl -L --max-time 45 -sS https://store.godotengine.org/asset/crazygames/crazysdk/ -o /tmp/web-qa/store.html
-          head -c 1000 /tmp/web-qa/store.html
+          curl -L --max-time 45 -sS https://store.godotengine.org/asset/crazygames/crazysdk/ -o /tmp/web-qa/store.txt
+          head -c 1000 /tmp/web-qa/store.txt
       - name: Install Godot, Web templates and browsers
         if: ${{ inputs.ui_mode != 'sdk-inspect' }}
         shell: bash
