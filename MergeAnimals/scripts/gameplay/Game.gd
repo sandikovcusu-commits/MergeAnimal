@@ -791,7 +791,10 @@ func _on_golden_merged(point: Vector2) -> void:
 		var shake := effect_camera.create_tween(); shake.tween_property(effect_camera, "offset", Vector2(-3, 2), 0.06); shake.tween_property(effect_camera, "offset", Vector2.ZERO, 0.12)
 	if persist_best and not merge_manager.last_merge_eligible: score_untrusted = true
 	_spawn_effect("soft_burst", point)
-	if not reduced_effects: _spawn_effect("golden_glow", point)
+	if not reduced_effects:
+		_spawn_effect("golden_glow", point)
+		_spawn_effect("sparkle", point)
+		_spawn_effect("score_star", point)
 	# Golden award is exactly the configured bonus; it does not receive combo multiplication.
 	score += golden_config.bonus_score if golden_config else 1000
 	if persist_best and not session_tainted and merge_manager.last_merge_eligible:
@@ -867,12 +870,21 @@ func _show_game_over() -> void:
 	rescue_message.text = ""
 	rescue_message.visible = true
 	overlay.visible = true
+	_animate_overlay()
 	get_tree().paused = true
 	_update_rescue_ui()
 	if not record.is_empty() and not reduced_effects:
 		overlay_title.modulate = Color("ffd96c")
 		create_tween().tween_property(overlay_title, "modulate", Color.WHITE, 0.8)
 	queue_redraw()
+
+func _animate_overlay() -> void:
+	if reduced_effects:
+		overlay.modulate.a = 1.0
+		return
+	overlay.modulate.a = 0.0
+	var tween := overlay.create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(overlay, "modulate:a", 1.0, 0.18)
 
 func _checkpoint_game_over() -> void:
 	gameover_checkpoint_pending = false
