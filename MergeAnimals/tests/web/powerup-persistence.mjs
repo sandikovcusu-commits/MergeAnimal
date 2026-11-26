@@ -68,7 +68,7 @@ async function waitState(page, predicate, label, timeout=35000) {
 }
 function simple(d) {return {score:d.score,spawn_count:d.spawn_count,merge_count:d.merge_count,undo_remaining:d.undo_remaining,remove_remaining:d.remove_remaining,rescue_remaining:d.rescue_remaining,game_over_pending:d.game_over_pending,bodies:d.bodies?.map(x=>({id:x.id,uid:x.uid,x:Math.round(x.x),y:Math.round(x.y)}))};}
 async function enterGame(page,prefix) {
- await click(page,360,600); await delay(3000); await click(page,565,275); await delay(1000);
+ await click(page,360,600); await delay(3000); await click(page,565,320); await delay(1000);
  await click(page,360,700); await delay(4500); await click(page,360,700); await delay(7500);
  const saved=await waitState(page,d=>d.active && d.spawn_count===2 && d.merge_count>=1,'real tutorial drops/merge');
  await evidence(page,prefix,'merge');

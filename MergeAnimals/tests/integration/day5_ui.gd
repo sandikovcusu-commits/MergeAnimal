@@ -47,6 +47,8 @@ func run() -> void:
 	var game = current_scene
 	check(game != menu and game.has_method("_toggle_pause") and game.is_playing(), "Play transitions to live game")
 	check(game.tutorial_stage == 0 and game.current_data.id == game.next_data.id, "tutorial starts with matching pair")
+	var tutorial_panel: Control = game.get_node("HUD/Tutorial/Panel")
+	check(not tutorial_panel.get_global_rect().intersects(game.remove_button.get_global_rect()) and not tutorial_panel.get_global_rect().intersects(game.undo_button.get_global_rect()), "tutorial banner does not overlap power-up buttons")
 	game.get_node("HUD/Tutorial/Skip").pressed.emit(); await frames()
 	check(game.tutorial_stage == -1 and FileAccess.file_exists(tutorial_path), "tutorial skip persists completion")
 	game.drop_requested = true
