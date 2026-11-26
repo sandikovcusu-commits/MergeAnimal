@@ -108,6 +108,7 @@ var reward_gateway := RewardRequestGateway.new()
 
 func _ready() -> void:
 	_install_web_touch_cancel_guard()
+	get_tree().root.size_changed.connect(_on_window_size_changed)
 	get_tree().auto_accept_quit = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var saved_settings := SettingsStore.load_values()
@@ -1202,7 +1203,17 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_node_ready() and is_playing():
 		_toggle_pause()
 
+# A held input belongs to the old screen-to-world transform. Never commit it
+# after resize/orientation changes; the player can begin a fresh gesture.
+func _on_window_size_changed() -> void:
+	active_touch = -1
+	mouse_down = false
+	if spawn_state == SpawnState.AIMING:
+		spawn_state = SpawnState.READY
+
 func _exit_tree() -> void:
+	if get_tree().root.size_changed.is_connected(_on_window_size_changed):
+		get_tree().root.size_changed.disconnect(_on_window_size_changed)
 	get_tree().auto_accept_quit = true
 
 func _update_preview() -> void:

@@ -56,8 +56,8 @@ async function touchTest(){
  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(7000);s=await state();
  check(s.spawn_count===old,'resize during active touch does not produce a drop');await shot('after-resize-hold');
  await tap(360,238,true);await sleep(4500);s=await state();check(s.undo_remaining===0,'touch Undo spends one use');await shot('undo');
- let target=s.bodies[0];await tap(175,238,true);await sleep(1000);await tap(target.x,target.y,true);await sleep(5000);s=await state();
- check(s.remove_remaining===0&&s.bodies.length===0,'touch Remove and animal selection spend use without drop');await shot('remove');
+ let count=s.bodies.length, spawns=s.spawn_count;let target=s.bodies[0];await tap(175,238,true);await sleep(1000);await tap(target.x,target.y,true);await sleep(5000);s=await state();
+ check(s.remove_remaining===0&&s.bodies.length===count-1&&s.spawn_count===spawns,'touch Remove and animal selection spend use without drop');await shot('remove');
  console.log('TOUCH_EVENTS',JSON.stringify(await page.evaluate(()=>window.__touches)));
 }
 try{await launch(mode==='touch');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
