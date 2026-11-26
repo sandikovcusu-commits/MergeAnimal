@@ -40,6 +40,12 @@ func _process(_delta: float) -> void:
 	elif op == "corrupt_primary":
 		var f := FileAccess.open(SessionSave.PATH, FileAccess.WRITE)
 		if f: f.store_string("broken"); f.close(); result = true
+	elif op == "locale":
+		var values := SettingsStore.load_values()
+		values.language = str(command.get("language", "en"))
+		SettingsStore.apply(values)
+		if game and game.has_method("_update_rescue_ui"): game._update_rescue_ui()
+		result = true
 	elif op == "mute":
 		var values := SettingsStore.load_values(); values.mute = bool(command.get("mute", true)); SettingsStore.apply(values); result = SettingsStore.save_values(values) == OK
 	elif op == "state": result = true
