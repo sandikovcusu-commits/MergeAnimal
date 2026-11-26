@@ -26,8 +26,14 @@ func _ready() -> void:
 	settings.apply(settings.load_values())
 	for id in EVENTS: streams[id] = load("res://assets/audio/sfx/%s.wav" % id)
 	for i in range(MAX_PLAYERS):
-		var player := AudioStreamPlayer.new(); player.name = "Sound%d" % i; add_child(player); players.append(player)
-	music = AudioStreamPlayer.new(); music.name = "Music"; music.bus = "Music"; add_child(music)
+		var player := AudioStreamPlayer.new(); player.name = "Sound%d" % i
+		# Godot 4.7 Web's default sample path produced no output in both
+		# browsers despite accepting play(); stream playback reaches WebAudio.
+		if OS.has_feature("web"): player.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
+		add_child(player); players.append(player)
+	music = AudioStreamPlayer.new(); music.name = "Music"; music.bus = "Music"
+	if OS.has_feature("web"): music.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
+	add_child(music)
 	get_tree().node_added.connect(_node_added)
 	# Web audio is gated until an actual input gesture; this also avoids
 	# surprising audio at startup on desktop.
