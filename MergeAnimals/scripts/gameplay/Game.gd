@@ -1022,7 +1022,7 @@ func _on_ad_provider_changed(_provider: String) -> void:
 func _update_rescue_ui() -> void:
 	if not is_instance_valid(rescue_button): return
 	var manager := _ad_manager()
-	var offer: bool = persist_best and rescue_remaining == 0 and not ad_rescue_earned and manager != null and manager.rewarded_available()
+	var offer: bool = persist_best and rescue_remaining == 0 and not ad_rescue_earned and save_status == OK and manager != null and manager.rewarded_available()
 	var pending_ad := reward_request_id != 0
 	rescue_button.visible = game_state == GameState.GAME_OVER and (rescue_remaining > 0 or offer or reward_commit_pending)
 	rescue_button.disabled = game_state != GameState.GAME_OVER or rescue_finalized or rescue_processing or gameover_checkpoint_pending or pending_ad or (rescue_remaining <= 0 and not offer and not reward_commit_pending)
@@ -1030,6 +1030,7 @@ func _update_rescue_ui() -> void:
 	elif reward_commit_pending: rescue_button.text = tr("AD_RETRY_SAVE")
 	elif offer: rescue_button.text = tr("AD_RESCUE")
 	else: rescue_button.text = tr("RESCUE_AVAILABLE") if rescue_remaining > 0 else tr("RESCUE_USED")
+	rescue_button.add_theme_font_size_override("font_size", 17 if offer or reward_commit_pending else 23)
 
 func _on_rescue_button() -> void:
 	if reward_commit_pending:
