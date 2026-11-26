@@ -12,8 +12,9 @@ static func empty() -> Dictionary:
 	return {"version": VERSION, "entries": entries}
 static func valid(data: Variant) -> bool:
 	if typeof(data) != TYPE_DICTIONARY or typeof(data.get("entries")) != TYPE_ARRAY: return false
-	if data.get("version") not in [1, VERSION]: return false
-	var legacy: bool = int(data.version) == 1
+	var version: Variant = data.get("version")
+	if typeof(version) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(version)) or floorf(float(version)) != float(version) or int(version) < 1 or int(version) > VERSION: return false
+	var legacy: bool = int(version) == 1
 	if data.entries.size() != (5 if legacy else COUNT): return false
 	var previous := true
 	for item in data.entries:
