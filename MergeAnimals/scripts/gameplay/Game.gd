@@ -104,11 +104,21 @@ var rescue_button: Button
 var rescue_message: Label
 var rescued_label: Label
 var rescue_selected: Array[Animal] = []
-# Adapter is present for a future verified platform integration only. It is
-# not connected to inventory or an ad SDK and never grants a reward here.
+# The gateway resolves once, only after an owned SDK transaction callback.
 var reward_gateway := RewardRequestGateway.new()
+var session_id := ""
+var ad_rescue_earned := false
+var reward_commit_pending := false
+var reward_request_id := 0
+var reward_transaction := ""
 
 func _ready() -> void:
+	session_id = Crypto.new().generate_random_bytes(16).hex_encode()
+	reward_gateway.resolved.connect(_on_reward_resolved)
+	var ad_manager := get_tree().root.get_node_or_null("AdManager")
+	if ad_manager:
+		ad_manager.rescue_result.connect(_on_ad_rescue_result)
+		ad_manager.provider_changed.connect(_on_ad_provider_changed)
 	_install_web_touch_cancel_guard()
 	get_tree().root.size_changed.connect(_on_window_size_changed)
 	get_tree().auto_accept_quit = false
@@ -254,7 +264,7 @@ func _session_snapshot(include_undo: bool = true) -> Dictionary:
 		if not animal is Animal or animal.is_queued_for_deletion() or animal.merge_locked:
 			return {}
 		bodies.append({"uid": animal.save_uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
-	return {"session_version": 3, "generation": 0, "undo_remaining": undo_remaining, "undo_snapshot": undo_snapshot.duplicate(true) if include_undo else {}, "next_body_uid": next_body_uid, "rescue_remaining": rescue_remaining, "game_over_pending": game_state == GameState.GAME_OVER and not rescue_finalized, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
+	return {"session_version": 3, "generation": 0, "undo_remaining": undo_remaining, "undo_snapshot": undo_snapshot.duplicate(true) if include_undo else {}, "next_body_uid": next_body_uid, "rescue_remaining": rescue_remaining, "session_id": session_id, "ad_rescue_earned": ad_rescue_earned, "game_over_pending": game_state == GameState.GAME_OVER and not rescue_finalized, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
 
 func save_session() -> Error:
 	# Recheck at execution time, after physics/contact callbacks and deferred merges.
@@ -284,6 +294,8 @@ func _restore_session(data: Dictionary) -> void:
 	remove_remaining = int(data.get("remove_remaining", 1))
 	undo_remaining = int(data.get("undo_remaining", 1))
 	rescue_remaining = int(data.get("rescue_remaining", 1))
+	ad_rescue_earned = bool(data.get("ad_rescue_earned", false))
+	if data.has("session_id"): session_id = str(data.session_id)
 	undo_snapshot = data.get("undo_snapshot", {}).duplicate(true)
 	next_body_uid = maxi(next_body_uid, int(data.get("next_body_uid", 1)))
 	session_tainted = bool(data.get("tainted", false))
@@ -396,6 +408,8 @@ func _commit_undo() -> void:
 		candidate.undo_remaining = undo_remaining - 1
 		candidate.remove_remaining = remove_remaining
 		candidate.rescue_remaining = rescue_remaining
+		candidate.ad_rescue_earned = ad_rescue_earned
+		candidate.session_id = session_id
 		candidate.next_body_uid = next_body_uid
 		candidate.tainted = session_tainted or bool(candidate.get("tainted", false))
 		# Discovery dates are durable; counts/merge totals/score are rolled back.
@@ -977,7 +991,7 @@ func _setup_rescue_ui() -> void:
 	rescue_button.add_theme_font_size_override("font_size", 23)
 	rescue_button.visible = false
 	overlay.add_child(rescue_button)
-	rescue_button.pressed.connect(_request_rescue)
+	rescue_button.pressed.connect(_on_rescue_button)
 	rescue_message = Label.new()
 	rescue_message.name = "RescueMessage"
 	rescue_message.position = Vector2(20, 395)
@@ -999,10 +1013,90 @@ func _setup_rescue_ui() -> void:
 	rescued_label.visible = false
 	$HUD.add_child(rescued_label)
 
+func _ad_manager() -> Node:
+	return get_tree().root.get_node_or_null("AdManager")
+
+func _on_ad_provider_changed(_provider: String) -> void:
+	_update_rescue_ui()
+
 func _update_rescue_ui() -> void:
 	if not is_instance_valid(rescue_button): return
-	rescue_button.disabled = game_state != GameState.GAME_OVER or rescue_remaining <= 0 or rescue_finalized or rescue_processing or gameover_checkpoint_pending
-	rescue_button.text = tr("RESCUE_PROCESSING") if rescue_processing or gameover_checkpoint_pending else (tr("RESCUE_USED") if rescue_remaining <= 0 else tr("RESCUE_AVAILABLE"))
+	var manager := _ad_manager()
+	var offer: bool = persist_best and rescue_remaining == 0 and not ad_rescue_earned and manager != null and manager.rewarded_available()
+	var pending_ad := reward_request_id != 0
+	rescue_button.visible = game_state == GameState.GAME_OVER and (rescue_remaining > 0 or offer or reward_commit_pending)
+	rescue_button.disabled = game_state != GameState.GAME_OVER or rescue_finalized or rescue_processing or gameover_checkpoint_pending or pending_ad or (rescue_remaining <= 0 and not offer and not reward_commit_pending)
+	if rescue_processing or gameover_checkpoint_pending or pending_ad: rescue_button.text = tr("RESCUE_PROCESSING")
+	elif reward_commit_pending: rescue_button.text = tr("AD_RETRY_SAVE")
+	elif offer: rescue_button.text = tr("AD_RESCUE")
+	else: rescue_button.text = tr("RESCUE_AVAILABLE") if rescue_remaining > 0 else tr("RESCUE_USED")
+
+func _on_rescue_button() -> void:
+	if reward_commit_pending:
+		_commit_ad_reward()
+		return
+	if rescue_remaining > 0:
+		_request_rescue()
+		return
+	if game_state != GameState.GAME_OVER or not persist_best or ad_rescue_earned or rescue_finalized or rescue_processing or gameover_checkpoint_pending or save_status != OK: return
+	var manager := _ad_manager()
+	if manager == null or not manager.rewarded_available() or not SessionSave.can_write(): return
+	reward_request_id = reward_gateway.request(RewardRequestGateway.RESCUE)
+	if reward_request_id == 0: return
+	reward_transaction = manager.request_rescue(session_id, self)
+	if reward_transaction.is_empty():
+		reward_gateway.resolve(reward_request_id, false)
+		reward_request_id = 0
+	_update_rescue_ui()
+
+func cancel_for_ad() -> void:
+	_cancel_remove()
+	active_touch = -1
+	remove_touch = -1
+	mouse_down = false
+	drop_requested = false
+	if spawn_state in [SpawnState.AIMING, SpawnState.DROPPING]: spawn_state = SpawnState.READY
+
+func _on_ad_rescue_result(session: String, transaction: String, earned: bool, outcome: String) -> void:
+	if session != session_id or transaction != reward_transaction or reward_request_id == 0: return
+	reward_transaction = ""
+	var id := reward_request_id
+	reward_request_id = 0
+	if not reward_gateway.resolve(id, earned): return
+	if not earned:
+		rescue_message.text = tr("AD_UNAVAILABLE")
+		print("RESCUE_AD result=%s" % outcome)
+	_update_rescue_ui()
+
+func _on_reward_resolved(_id: int, kind: StringName, earned: bool) -> void:
+	if kind != RewardRequestGateway.RESCUE or not earned: return
+	if game_state != GameState.GAME_OVER or rescue_finalized or ad_rescue_earned or not persist_best: return
+	reward_commit_pending = true
+	_commit_ad_reward()
+
+func _commit_ad_reward() -> void:
+	if not reward_commit_pending or game_state != GameState.GAME_OVER or rescue_finalized: return
+	var snapshot := _session_snapshot()
+	if snapshot.is_empty():
+		rescue_message.text = tr("SAVE_FAILED")
+		_update_rescue_ui()
+		return
+	snapshot.ad_rescue_earned = true
+	snapshot.rescue_remaining = 1
+	var result := SessionSave.write_snapshot(snapshot, true)
+	if result != OK:
+		save_status = result
+		rescue_message.text = tr("AD_SAVE_RETRY")
+		_update_rescue_ui()
+		return
+	# The earned flag and extra use become visible only after the same checkpoint.
+	ad_rescue_earned = true
+	rescue_remaining = 1
+	reward_commit_pending = false
+	save_status = OK
+	rescue_message.text = tr("AD_REWARDED")
+	_update_rescue_ui()
+	_request_rescue()
 
 func _request_rescue() -> void:
 	if game_state != GameState.GAME_OVER or rescue_finalized or rescue_processing or gameover_checkpoint_pending or rescue_remaining <= 0: return
@@ -1206,6 +1300,9 @@ func _finish_tutorial() -> void:
 	if tutorial: tutorial.queue_free()
 
 func _main_menu() -> void:
+	if reward_commit_pending or reward_request_id != 0:
+		rescue_message.text = tr("AD_SAVE_RETRY")
+		return
 	if achievement_blocked: return
 	if game_state == GameState.GAME_OVER:
 		if rescue_processing or _finalize_game() != OK:
@@ -1219,6 +1316,9 @@ func _main_menu() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func _restart() -> void:
+	if reward_commit_pending or reward_request_id != 0:
+		rescue_message.text = tr("AD_SAVE_RETRY")
+		return
 	if achievement_blocked: return
 	if game_state == GameState.GAME_OVER:
 		if rescue_processing or _finalize_game() != OK:

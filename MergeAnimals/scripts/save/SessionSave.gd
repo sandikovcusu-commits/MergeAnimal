@@ -35,6 +35,11 @@ static func valid(data: Variant, allow_undo: bool = true) -> bool:
 	# Optional additive v2 field: old snapshots migrate to one free use.
 	if data.has("remove_remaining") and not _integer(data.remove_remaining, 0, 1): return false
 	if data.has("rescue_remaining") and not _integer(data.rescue_remaining, 0, 1): return false
+	if data.has("ad_rescue_earned") and typeof(data.ad_rescue_earned) != TYPE_BOOL: return false
+	if data.has("session_id"):
+		if typeof(data.session_id) != TYPE_STRING or data.session_id.length() != 32: return false
+		for character in data.session_id:
+			if character not in "0123456789abcdef": return false
 	if data.has("game_over_pending") and typeof(data.game_over_pending) != TYPE_BOOL: return false
 	if int(data.session_version) == 3:
 		if not _integer(data.get("generation"), 0, 1000000000): return false

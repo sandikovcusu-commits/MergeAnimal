@@ -35,5 +35,10 @@
   "ACH_A14_DESC": "Complete 10 different Challenges.",
   "ACH_A15_TITLE": "Animal Collector",
   "ACH_A15_DESC": "Discover all 12 animals in Collection.",
-  "ACH_SAVE_WAIT": "Achievement save failed. Retrying…"
+  "ACH_SAVE_WAIT": "Achievement save failed. Retrying…",
+  "AD_RESCUE": "Watch Ad & Continue",
+  "AD_RETRY_SAVE": "Retry save",
+  "AD_SAVE_RETRY": "Reward earned. Retry saving before leaving.",
+  "AD_REWARDED": "Extra Rescue earned!",
+  "AD_UNAVAILABLE": "Ad unavailable. You can continue without it."
 }

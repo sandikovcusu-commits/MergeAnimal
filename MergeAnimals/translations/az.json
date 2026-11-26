@@ -35,5 +35,10 @@
   "ACH_A14_DESC": "10 fərqli tapşırığı tamamla.",
   "ACH_A15_TITLE": "Heyvan toplayıcısı",
   "ACH_A15_DESC": "Kolleksiyada 12 heyvanın hamısını kəşf et.",
-  "ACH_SAVE_WAIT": "Nailiyyət saxlanmadı. Yenidən yoxlanır…"
+  "ACH_SAVE_WAIT": "Nailiyyət saxlanmadı. Yenidən yoxlanır…",
+  "AD_RESCUE": "Reklama bax və davam et",
+  "AD_RETRY_SAVE": "Yenidən saxla",
+  "AD_SAVE_RETRY": "Mükafat qazandın. Çıxmazdan əvvəl yenidən saxla.",
+  "AD_REWARDED": "Əlavə Xilas qazandın!",
+  "AD_UNAVAILABLE": "Reklam əlçatan deyil. Onsuz davam edə bilərsən."
 }

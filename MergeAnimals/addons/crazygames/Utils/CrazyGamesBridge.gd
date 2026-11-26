@@ -46,7 +46,7 @@ func init_sdk(version: String):
 				window.onAdblockDetectionResult(result);
 			})
 			.catch(function (error) {
-				window.onAdblockDetectionResult(false);
+				window.onAdblockDetectionResult(true); // fail closed on detection error
 			});
 			window.CrazyGames.SDK.user.addAuthListener(function (user) {
 				window.onAuthListener(JSON.stringify(user));
