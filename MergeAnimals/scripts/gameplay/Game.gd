@@ -85,6 +85,8 @@ var achievement_blocked := false
 var achievement_retry_elapsed := 0.0
 var remove_remaining := 1
 var remove_selecting := false
+var remove_touch := -1
+var remove_touch_start := Vector2.ZERO
 var remove_committing := false
 var remove_button: Button
 var remove_hint: Label
@@ -476,6 +478,7 @@ func _toggle_remove() -> void:
 
 func _cancel_remove() -> void:
 	if remove_committing: return
+	remove_touch = -1
 	remove_selecting = false
 	_update_remove_ui()
 	_update_undo_ui()
@@ -576,8 +579,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if remove_selecting or remove_committing:
 		if remove_selecting and not remove_committing:
-			if event is InputEventScreenTouch and event.pressed:
-				_select_remove_at(event.position)
+			if event is InputEventScreenTouch:
+				if event.pressed and remove_touch == -1:
+					remove_touch = event.index
+					remove_touch_start = event.position
+				elif not event.pressed and event.index == remove_touch:
+					remove_touch = -1
+					if not event.canceled and not _web_touch_was_cancelled(event.index) and event.position.distance_to(remove_touch_start) <= 24.0:
+						_select_remove_at(event.position)
 			elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				_select_remove_at(event.position)
 		get_viewport().set_input_as_handled()
@@ -1206,6 +1215,7 @@ func _notification(what: int) -> void:
 # A held input belongs to the old screen-to-world transform. Never commit it
 # after resize/orientation changes; the player can begin a fresh gesture.
 func _on_window_size_changed() -> void:
+	remove_touch = -1
 	active_touch = -1
 	mouse_down = false
 	if spawn_state == SpawnState.AIMING:

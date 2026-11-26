@@ -15,6 +15,8 @@ func mouse(game, position: Vector2) -> void:
 func touch(game, position: Vector2) -> void:
 	var event := InputEventScreenTouch.new(); event.index = 0; event.pressed = true; event.position = position
 	game._unhandled_input(event)
+	event.pressed = false
+	game._unhandled_input(event)
 func clear_save() -> void:
 	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH]:
 		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
@@ -76,6 +78,10 @@ func run() -> void:
 	mouse(game, body.global_position); await frames()
 	check(is_instance_valid(body) and game.remove_remaining == 1 and game.remove_selecting, "save failure preserves body and allowance")
 	clear_save()
+	var cancelled := InputEventScreenTouch.new(); cancelled.index = 3; cancelled.position = body.global_position; cancelled.pressed = true
+	game._unhandled_input(cancelled); cancelled.pressed = false; cancelled.canceled = true; game._unhandled_input(cancelled)
+	await frames()
+	check(is_instance_valid(body) and game.remove_remaining == 1, "cancelled touch selection does not spend Remove")
 	touch(game, body.global_position); await frames(5)
 	check(not is_instance_valid(body) and game.pieces.get_child_count() == 0, "touch selects and safely removes body")
 	check(game.remove_remaining == 0 and game.remove_button.disabled and not game.remove_selecting, "successful remove spends one and disables button")
