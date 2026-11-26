@@ -23,3 +23,7 @@ Progression carries all per-animal counts/dates and lifetime counters. It is wri
 
 ## Limits
 Linux Godot 4.7.2, CI headless and Xvfb/Mesa software rendering were tested. Real mobile touch, Android/iOS persistence, browser/Web export, Windows filesystem semantics, disk-full/power-loss fault injection, concurrent writers, broad randomized save/load stress and human play have not been verified. The existing final-release art rights and visual acceptance blockers remain; this is a DEV build.
+
+## V0.6.3.1 — Remove transaction
+
+The session v2 payload now optionally validates `remove_remaining` as 0 or 1, defaulting missing V0.6.2 values to 1. The candidate snapshot excludes the chosen body and decrements that field. It is written as one checksummed atomic primary checkpoint before live deletion; rejected writes do not consume the use. On success the primary is also copied to the backup using a second save. That secondary operation can fail after the primary has committed; in that event a warning is logged, gameplay is committed, and a later corrupt primary could recover the older backup. Two-process Continue, successful backup recovery, corrupt-file refusal and legacy v2 migration were tested; forced power loss, actual disk-full, simultaneous processes and downgrade to an older build are not established. See `POWERUP_REPORT.md`.

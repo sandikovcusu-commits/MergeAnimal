@@ -1,3 +1,9 @@
+# V0.6.3.1-dev — Classic Remove
+
+- Added an existing-SVG Remove button, selection rings, Cancel, one free use per session, disabled state and mouse/touch handling.
+- Safely commit the removed body and remaining balance together in the existing validated session snapshot; legacy sessions receive one use. Refuse incomplete merge or save failures; refresh backup after commit.
+- Added Godot integration, 50-operation fixture stress, two-process Continue/restart, GUI input and five X11 seeded fixture captures. No Undo, Rescue, Challenge, Achievement or ad SDK added. Commercial art rights and prior physics/device risks remain unresolved.
+
 # V0.5.0-dev — Day 5 WIP, release blocked
 
 - Functional Main Menu → Play, pause/resume/settings/restart/main-menu and game-over navigation; collection/challenge visibly disabled.

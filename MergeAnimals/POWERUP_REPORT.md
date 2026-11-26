@@ -1,6 +1,17 @@
-# V0.6.3 power-up work — INCOMPLETE
+# V0.6.3.1 DEV — Remove power-up
 
-This is an audit and a small unintegrated adapter, not a V0.6.3 release. Undo, Remove and Rescue are **not implemented**. No in-game power-up UI, free allowances, persistence, screenshots, stress tests or deliverable ZIP have been produced. Do not use this report as release acceptance.
+Remove is implemented for Classic. Undo, Rescue, Challenge and Achievement remain unimplemented; this is not a full V0.6.3 or commercial release. The previous audit below is historical, except where superseded by this section.
+
+## Remove behavior and transaction
+
+- The HUD uses the existing Remove SVG. Select opens the mode, blocks drops and draws yellow rings around eligible live board animals. The same button becomes Cancel; invalid selection and Cancel do not consume a use. Pausing cancels selection. The used button is disabled. Input supports mouse and touch; the X11 fixture also routes simulated GUI mouse and touch through the actual viewport.
+- Selection can only target a live, non-queued, non-merge-locked `Animal` directly under `Pieces`. Previews and unrelated nodes are excluded. Position selection chooses the nearest eligible body within its radius. The deferred commit checks eligibility and rejects pending/scheduled merges again. It disconnects the removed body's merge signal, locks it against stale callbacks, clears its danger timer, detaches it and queues it for freeing. Remove does not award score, merges or collection events.
+- The free balance starts at one per Classic session; the optional validated `remove_remaining` field is part of the existing v2 session snapshot. V1/v2 snapshots lacking it get one. Selection is transient and Continue starts outside selection. A candidate snapshot excludes the selected body and decrements the allowance together. For persisted games it is validated and atomically written to the primary **before** changing the live board; if the write is rejected or fails, neither body nor allowance changes. The primary is the commit point. On success, a second write refreshes the backup with the same committed state; a failed backup refresh emits a warning but cannot roll back the already committed primary. If that warning occurs and the primary is later damaged before backup repair, the older backup can restore an earlier allowance. This failure combination, power-loss/fsync and concurrent writers are not tested; there is no claim of crash-proof multi-file durability. The game can be retried after normal save errors. Existing V0.6.2 saves remain readable; downgrading to older game builds may discard the additive field and is unsupported.
+- `persist_best = false` bypasses disk only in nonpersistent test fixtures. The 50-operation stress fixture resets its balance **only inside the fixture**, alternating 25 frozen and 25 moving rigid bodies. Production does not reset it except on a new game. The prior standalone rewarded-callback boundary remains unconnected; no ad SDK or extra reward exists.
+
+## Executed evidence
+
+Godot 4.7.2 at `a21e09a`: [Remove integration/X11 45757629043](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45757629043) passed 79/79 single-process checks including 50 fixture removals, 25/25 write-process checks and 7/7 read-process checks. The latter actually uses the Main Menu Continue button in a separate Godot process, then verifies a further drop and restart. The save-failure case uses deliberately corrupt primary and backup files; physical disk-full or interrupted writes were not injected. The five PNGs in that Actions artifact are real X11/Xvfb windows at 720×1280, from a seeded scripted fixture, not human play. Reduced JPEG copies are under `art_reports/v0631_remove/`. Regression details and limitations are in `QA_REPORT.md`.
 
 ## Audited baseline
 
@@ -16,11 +27,10 @@ On `_on_game_over`, the current code increments completed games and immediately 
 
 `RewardRequestGateway.gd` is an independent callback boundary for the three named request kinds. It emits a request, never grants inventory, permits only one outstanding request, and ignores mismatched or repeated callbacks. Its `resolve` method is **not a verifier**: a future platform adapter must authenticate/verify the actual platform completion and explicitly invoke it; there is no SDK or callback wired now. No request UI or reward-granting code is included. Pending requests are intentionally in-memory; any future integration must explicitly specify restart/cancellation behavior and protect against callbacks crossing sessions before granting anything.
 
-## Work still required
+## Historical V0.6.3 work still required (other than Remove)
 
 - Define and implement a versioned, strictly validated, non-recursive undo snapshot and persistent monotonic use counters, migrating v2 while preserving future-schema safeguards and atomic backup semantics.
 - Build safe pre-drop capture, board replacement, pending merge cancellation/invalidation, notification treatment, and explicit rollback policies for stats and separately persisted best score. Cover normal, chain and Golden merges, RNG, timers, pause and Continue.
-- Implement Remove selection/input isolation, eligibility, cancel, visible selection and durable one-use transaction.
 - Implement real Game Over rescue with deterministic minimum removals, preserve valuable animals, clear danger, verify spawn and guard against immediate failure; safely handle completion and restart.
 - Integrate the gateway only with a real verified platform callback; currently no extra power-ups can be obtained.
 - Implement HUD and game-over buttons, localized strings, mobile input handling, all requested automated and X11 fixtures, stress and two-process persistence tests. Run all prior regressions.
