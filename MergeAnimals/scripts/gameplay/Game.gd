@@ -141,6 +141,11 @@ func _ready() -> void:
 	$HUD/Overlay/MainMenuButton.pressed.connect(_main_menu)
 	pause_button.icon = load("res://assets/ui/icons/pause.svg")
 	$HUD/RestartButton.icon = load("res://assets/ui/icons/restart.svg")
+	# Keep long localized Restart labels clear of the centered title.
+	$HUD/RestartButton.expand_icon = true
+	$HUD/RestartButton.add_theme_constant_override("icon_max_width", 24)
+	$HUD/RestartButton.add_theme_font_size_override("font_size", 14)
+	$HUD/RestartButton.size = Vector2(155, 52)
 	resume_button.icon = load("res://assets/ui/icons/play.svg")
 	$HUD/Overlay/RestartButton.icon = load("res://assets/ui/icons/restart.svg")
 	$HUD/Overlay/SettingsButton.icon = load("res://assets/ui/icons/settings.svg")

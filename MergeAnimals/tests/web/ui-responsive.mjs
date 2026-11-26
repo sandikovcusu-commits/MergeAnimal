@@ -47,7 +47,7 @@ async function localeTest(){
  console.log('LOCALE_STATE',JSON.stringify(saved));check(saved?.language===locale,`settings persisted requested locale ${locale}`);if(saved?.language!==locale)throw Error('locale selection failed');
  await tap(360,965);await sleep(1200);
  const sizes=[[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]];
- const screens=[['menu',0,0],['collection',766,1190],['statistics',837,1190],['achievements',907,1152],['themes',978,1138],['challenges',1045,1118],['settings',1123,965]];
+ const screens=mode==='gameplay-locale'?[]:[['menu',0,0],['collection',766,1190],['statistics',837,1190],['achievements',907,1152],['themes',978,1138],['challenges',1045,1118],['settings',1123,965]];
  for(const [name,y,back] of screens){await page.setViewportSize({width:720,height:1280});await sleep(700);if(y){await tap(360,y);await sleep(1400)}
  for(const [w,h] of sizes){await page.setViewportSize({width:w,height:h});await sleep(500);const file=path.join(out,`${browser}-${locale}-${name}-${w}x${h}.png`);await page.screenshot({path:file});console.log(`CAPTURE ${browser} ${locale} ${name} ${w}x${h} ${file}`)}
  await page.setViewportSize({width:720,height:1280});await sleep(700);if(back){await tap(360,back);await sleep(1200)}
@@ -170,6 +170,6 @@ async function lifecycleTest(){
  await page.evaluate(()=>document.exitFullscreen());await sleep(1500);check(await page.evaluate(()=>!document.fullscreenElement),'fullscreen exited');await page.locator('#qa-fullscreen').evaluate(e=>e.remove());await shot('fullscreen-exit');
  s=await state();check(s.spawn_count===old,'fullscreen enter and exit do not drop');
 }
-try{await launch(mode==='touch'||mode==='lifecycle');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale')await localeTest();else if(mode==='theme'||mode==='theme-matrix')await themeTest();else if(mode==='lifecycle')await lifecycleTest();else if(mode==='outcomes')await outcomesTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
+try{await launch(mode==='touch'||mode==='lifecycle');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale'||mode==='gameplay-locale')await localeTest();else if(mode==='theme'||mode==='theme-matrix')await themeTest();else if(mode==='lifecycle')await lifecycleTest();else if(mode==='outcomes')await outcomesTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
 finally{fs.writeFileSync(path.join(out,`${browser}-${mode}-events.json`),JSON.stringify(events,null,2));if(context)await context.close()}
 console.log(`WEB_UI mode=${mode} browser=${browser} checks=${checks} failures=${errors}`);process.exitCode=errors?1:0;
