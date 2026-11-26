@@ -190,7 +190,7 @@ func read_phase() -> void:
 		file.store_string("damaged tombstone"); file.close()
 		check(SessionSave.load_session().status == "missing", "corrupt tombstone cannot resurrect old game")
 	print("DAY61_RESTORED score=%d bodies=%d drops=%d" % [game.score, game.pieces.get_child_count(), game.spawn_count])
-	check(SaveManager.save_progress(expected, SessionSave.PATH) == OK, "new game confirmation fixture")
+	check(SessionSave.write_snapshot(expected) == OK, "new game confirmation fixture")
 	paused = false
 	change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 	await process_frame
