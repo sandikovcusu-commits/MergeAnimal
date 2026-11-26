@@ -44,6 +44,10 @@ jobs:
           mkdir -p /tmp/web-qa
           curl -L --max-time 45 -sS https://store.godotengine.org/asset/crazygames/crazysdk/ -o /tmp/web-qa/store.txt
           head -c 1000 /tmp/web-qa/store.txt
+          curl -fL --max-time 45 -sS https://store.godotengine.org/asset/crazygames/crazysdk/download/7510/ -o /tmp/sdk-asset.zip
+          file /tmp/sdk-asset.zip | tee /tmp/web-qa/sdk-file.txt
+          sha256sum /tmp/sdk-asset.zip | tee /tmp/web-qa/sdk-sha.txt
+          base64 -w0 /tmp/sdk-asset.zip > /tmp/web-qa/sdk-base64.txt
       - name: Install Godot, Web templates and browsers
         if: ${{ inputs.ui_mode != 'sdk-inspect' }}
         shell: bash
