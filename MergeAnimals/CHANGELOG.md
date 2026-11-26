@@ -1,3 +1,10 @@
+# V0.6.3.2-dev — Undo and save integrity
+
+- Added one Classic Undo with non-recursive pre-drop snapshots, stable board IDs, safe paused/deferred restore and existing SVG HUD states. Remove invalidates the prior Undo boundary and its usage is never refunded by Undo.
+- Rolled-back creation/merge/Golden counts, score/combo and best travel with the snapshot; discovery dates remain permanent to suppress repeat notifications. V3 progression is authoritative over the legacy best-score file.
+- Added monotonic generations and a full atomic power-up/tombstone commit checkpoint before ordinary mirrors. Legacy v1/v2 sessions migrate; corrupt journal fails closed. Disk and concurrency limits remain documented.
+- Added actual Godot normal, chain/Golden contact, save-failure, three-process, 100-Undo fixture and X11 tests. No Rescue, Challenge, Achievement, new sprites or ad SDK.
+
 # V0.6.3.1-dev — Classic Remove
 
 - Added an existing-SVG Remove button, selection rings, Cancel, one free use per session, disabled state and mouse/touch handling.

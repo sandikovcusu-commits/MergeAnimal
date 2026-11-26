@@ -1,6 +1,32 @@
-# V0.6.3.1 DEV — Remove power-up
+# V0.6.3.2 DEV — Undo and power-up integrity
 
-Remove is implemented for Classic. Undo, Rescue, Challenge and Achievement remain unimplemented; this is not a full V0.6.3 or commercial release. The previous audit below is historical, except where superseded by this section.
+## Undo rules
+
+One free Undo per Classic session. The existing session snapshot is captured immediately before each successful drop, only when there is no pending or scheduled merge and the board is snapshot-safe. A blocked drop does not replace the previous snapshot. It includes stable board-body UIDs and animal IDs/levels, transform and velocities, sleep and eligibility, per-body danger timers, current/next, RNG state, score, combo, cooldown, tutorial and progression. The snapshot is non-recursive and is included in session saves. A safe deferred autosave is requested after a successful drop; unfinished merges can defer saving until the next safe checkpoint.
+
+The Undo button is disabled without a snapshot, after use, during Remove selection, an outstanding drop/merge, pause/game-over or processing. On request, gameplay input and physics pause, pending merges and snapshot validation are rechecked, the candidate state is committed before the live board is touched, and old bodies are locked, disconnected, detached and queued for deletion. A failed checkpoint leaves the board and allowance unchanged. The restored body gets its saved UID but a new engine instance; danger timers are remapped. The current Remove balance is retained and Undo decreases from the *current* balance, never from the old snapshot. A successful Remove invalidates the previous Undo snapshot; the selection prompt states this. A later drop creates a new one.
+
+## Statistics, discovery and score
+
+The rollback restores drop/merge/Golden totals, per-animal creation counts, current score, combo and the best earned after the undone boundary. Play time continues and is not rewound. Unlocks and first discovery dates are permanent: a discovered animal may have creation count zero after rollback. Unlock state uses its discovery date rather than count, so replaying it increments the count once without another discovery notification. Lifetime highest discovered tier is retained. Existing legacy dates/counts migrate without invented discoveries.
+
+Session v3 progression is now authoritative for best score; the separate old `wild_garden.cfg` score is imported only for legacy/missing data and is no longer updated on each merge. Thus an obsolete separate file cannot reintroduce a record undone in v3. Best is persisted with session checkpoints rather than independently at the instant of each merge; a crash before a safe checkpoint can lose recent progress/records. Other pre-existing settings/tutorial config files are unchanged.
+
+## Power-up commit
+
+Remove and Undo use a full, checksummed atomic power-up checkpoint with increasing save generation. It stores the resulting board and both remaining allowances together. The checkpoint is the commit point; the usual primary and backup are mirrored afterwards. When the mirror fails after that commit, gameplay still applies the committed operation, and the newer checkpoint wins over an older valid backup. Restart/game-over tombstones also commit to this checkpoint, preventing resurrection of the previous game. A corrupt existing checkpoint fails closed. Details and limits in `SAVE_SYSTEM_REPORT.md`.
+
+## Evidence and scope
+
+At `a40def8`, [Undo CI 45760082968](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45760082968) passed 161/161 integration checks including 100 fixture-only allowance resets/Undos, plus 5/5, 7/7 and 3/3 checks in three separate processes. Chain's first merge comes from the actual drop/contact; the fixture then repositions and gives velocities to the resulting and preexisting hamsters, and the second merge is another real physics contact. Golden uses fixture elephants given opposing velocities and a real contact. These are automated fixtures, not human play. Mouse and simulated touch traverse the X11 Godot GUI. Eight full 720×1280 PNGs are in the Actions artifact; reduced copies are in `art_reports/v0632_undo/`. The visual chain fixture directly requests two merge pairs to make the views reproducible; it is not evidence of a natural chain.
+
+[Remove CI 45760082996](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45760082996) retained 79/79 checks and the separate-process suite. [Gameplay/save regression 45760082958](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45760082958) passed. No Rescue, Challenge, Achievement, ad SDK, new sprites or physics parameter changes were added. This remains DEV, not commercial release approval.
+
+---
+
+# Historical V0.6.3.1 DEV — Remove power-up
+
+Historical V0.6.3.1 snapshot: subsequent V0.6.3.2 changes above supersede its Undo, commit and backup statements.
 
 ## Remove behavior and transaction
 

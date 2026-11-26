@@ -1,3 +1,5 @@
+> **V0.6.3.2 DEV:** Classic Undo restores the last successful drop once per session; Remove clears the previous Undo boundary. Undo and Remove survive Continue through a generation checkpoint. See `POWERUP_REPORT.md` and `SAVE_SYSTEM_REPORT.md`. Rescue remains unavailable.
+
 > **V0.6.3.1 DEV:** Classic Remove is available once per session; select an outlined animal or Cancel. Continue preserves a spent use. Undo and Rescue are not implemented. See `POWERUP_REPORT.md` for save and device limitations.
 
 > **V0.6.2 DEV / release blocked:** Collection, Statistics and local Classic Continue are available; Challenges remain disabled. AI sprite commercial rights are unresolved and 24 expression states remain missing. See `COLLECTION_REPORT.md`, `STATISTICS_REPORT.md` and `ASSET_LICENSES.md`.

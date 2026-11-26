@@ -36,7 +36,12 @@
 - 21 Godot X11 captures are scripted visual fixtures, not human play; 1366×768 uses portrait letterboxing. Mobile touch, safe areas and human visual acceptance are unverified.
 - Challenge, Achievement, Undo, Remove and Rescue remain out of scope/unimplemented.
 
-## V0.6.3.1 DEV limitations
+## V0.6.3.1 DEV limitations (historical; checkpoint issue strengthened in V0.6.3.2)
 - A successful Remove commits the primary first, then refreshes the backup. If that second write fails, the primary remains committed but a later corruption may recover an older backup and allowance; this rare combined failure is not tested. Power-loss/fsync, simultaneous writers and downgrade to a build that ignores the new v2 field remain unsupported/untested.
 - Selection waits for a fully snapshot-safe board; pending merges can prevent a Remove commit until they settle. Dense locked-pair behavior remains an existing risk.
 - X11 captures and touch events are scripted fixtures, not human or physical-device tests. Real Android/iOS touch, mobile FPS, CPU and battery remain unknown. Existing 9.190 px 120 Hz penetration, 12 AI sprite commercial-rights uncertainty, missing expression states and Bear silhouette concerns remain open. Undo, Rescue, Challenge and Achievement are not implemented.
+
+## V0.6.3.2 DEV limitations
+- The full power-up journal guards a stale backup when it survives; if it is deleted or an entire older save set is restored, no local-only mechanism guarantees spent balances. A corrupt journal intentionally blocks Continue/writes. Concurrent writers, forced power loss/fsync, actual disk-full, downgrade and mobile/Web/Windows durability are untested.
+- Undo is disabled until pending merges finish; an existing dense pair that cannot find room can remain locked, preventing Undo. Recent best score is checkpointed with progression, not separately at each merge; a crash before a safe save can lose recent progress.
+- Real mobile touch, FPS/battery, human play and commercial sprite rights remain unverified. The earlier 120 Hz 9.190 px maximum penetration, Bear silhouette mismatch and 24 missing facial states remain unresolved. Rescue, Challenge and Achievement remain unimplemented.
