@@ -15,7 +15,7 @@ on:
         default: 'false'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked"
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute"
         default: 'none'
         required: true
       ui_locale:
@@ -94,7 +94,7 @@ jobs:
             pactl load-module module-null-sink sink_name=qa_audio >/dev/null
             pactl set-default-sink qa_audio
           fi
-          if [ "$UI_MODE" = sdk-real ] || [ "$UI_MODE" = sdk-blocked ]; then
+          if [ "$UI_MODE" = sdk-real ] || [ "$UI_MODE" = sdk-blocked ] || [ "$UI_MODE" = sdk-mute ]; then
             cp -a MergeAnimals /tmp/sdk-qa-project
             cp /tmp/sdk-qa-project/tests/web/SdkProbe.gd /tmp/sdk-qa-project/scripts/ads/SdkProbe.gd
             sed -i '/^\[autoload\]/a SdkProbe="*res://scripts/ads/SdkProbe.gd"' /tmp/sdk-qa-project/project.godot
