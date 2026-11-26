@@ -28,13 +28,13 @@ func _ready() -> void:
 	else:
 		for def in defs:
 			var entry: Dictionary = state.entries.get(def.id, {"unlocked": false, "date": "", "progress": 0})
-			var card := PanelContainer.new(); card.name = def.id; card.custom_minimum_size.y = 150; list.add_child(card); cards.append(card)
+			var card := PanelContainer.new(); card.name = def.id; card.custom_minimum_size.y = 170; list.add_child(card); cards.append(card)
 			var row := HBoxContainer.new(); row.add_theme_constant_override("separation", 12); card.add_child(row)
 			var icon := TextureRect.new(); icon.texture = def.icon; icon.custom_minimum_size = Vector2(64, 64); icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			if not entry.unlocked: icon.modulate = Color(0.35, 0.4, 0.35)
 			row.add_child(icon)
 			var stack := VBoxContainer.new(); stack.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_child(stack)
-			var label := Label.new(); label.name = "Details"; label.add_theme_font_size_override("font_size", 19); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			var label := Label.new(); label.name = "Details"; label.add_theme_font_size_override("font_size", 23); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			var name := "???" if def.hidden and not entry.unlocked else def.title
 			var description := "Hidden" if def.hidden and not entry.unlocked else def.description
 			var date := " · " + str(entry.date).substr(0, 10) if entry.unlocked and not str(entry.date).is_empty() else ""

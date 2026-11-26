@@ -7,7 +7,7 @@
 script = ExtResource("1")
 id = "A11"
 title = "Combo Starter"
-description = "Reach combo x3 in Classic."
+description = "Reach combo x3."
 icon = ExtResource("2")
 objective_type = "max_combo"
 target = 3

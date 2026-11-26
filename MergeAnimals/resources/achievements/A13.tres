@@ -7,7 +7,7 @@
 script = ExtResource("1")
 id = "A13"
 title = "Merge Master"
-description = "Complete 100 Classic merges."
+description = "Complete 100 merges."
 icon = ExtResource("2")
 objective_type = "total_merges"
 target = 100
