@@ -1,13 +1,22 @@
 name: Godot Web phase A
 on:
   workflow_dispatch:
+    inputs:
+      scenarios:
+        description: "Comma-separated undo, remove, rescue, immediate"
+        default: 'undo,remove,rescue,immediate'
+        required: true
+      browsers:
+        description: "Comma-separated chromium, firefox"
+        default: 'chromium,firefox'
+        required: true
 permissions:
   contents: write
   checks: write
 jobs:
   web:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -42,7 +51,7 @@ jobs:
           python3 -m http.server 8765 --directory /tmp/web-test >/tmp/web-qa/server.log 2>&1 &
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
-          WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' npm test --prefix MergeAnimals/tests/web 2>&1 | tee /tmp/web-qa/browser.log
+          WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa WEB_SCENARIOS="${{ inputs.scenarios }}" WEB_BROWSERS="${{ inputs.browsers }}" LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/powerup-persistence.mjs 2>&1 | tee /tmp/web-qa/browser.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
