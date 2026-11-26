@@ -22,6 +22,11 @@ func run() -> void:
 	for id in range(6, 11):
 		var game = game_for(id); await frames()
 		check(game.challenge != null and game.challenge_id == id, "challenge %d unlocked and starts" % id)
+		if id == 6:
+			# Inject the failure signal at the exact real objective event, without
+			# calling success or mutating score/merge state.
+			game.challenge.objective_reached.connect(func(): game.danger_monitor.overflow.emit())
+		check(not game.remove_button.visible and not game.undo_button.visible and not game.rescue_button.visible, "challenge %d disables powerups" % id)
 		var attempts := 0
 		while not game.result_finished and attempts < 30:
 			for tick in range(220):
@@ -36,6 +41,9 @@ func run() -> void:
 			await process_frame
 			if game.result_finished: break
 		check(game.result_success and game.result_saved and game.merge_manager.merge_count > 0, "challenge %d achieved via real drop and collision" % id)
+		if id == 6:
+			game.danger_monitor.overflow.emit(); await frames()
+			check(game.result_success and game.result_finished and game.result_saved, "simultaneous overflow cannot override actual success")
 		print("PHASE2_RESULT id=%d drops=%d merges=%d score=%d combo=%d elapsed=%.2f success=%s" % [id, game.spawn_count, game.merge_manager.merge_count, game.score, game.max_combo, game.challenge.elapsed, game.result_success])
 		var saved := ChallengeStore.load_results()
 		check(saved.status in ["ok", "recovered"] and saved.data.entries[id - 1].completed and float(saved.data.entries[id - 1].best_time) >= 0, "challenge %d saves completion and best time" % id)
@@ -67,6 +75,7 @@ func run() -> void:
 				if limited.spawn_count > prior or limited.result_finished: break
 		if limited.result_finished: break
 	var count: int = limited.spawn_count
+	print("PHASE2_LIMIT_RESULT drops=%d score=%d" % [count, limited.score])
 	if count >= 20:
 		var refused: bool = not limited.drop_animal()
 		check(refused and limited.spawn_count == 20, "drop limit refuses a 21st successful drop")

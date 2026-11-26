@@ -74,6 +74,8 @@ func run() -> void:
 	check(SessionSave.write_snapshot(classic._session_snapshot(), true) == OK, "classic session fixture saved")
 	var classic_hash := FileAccess.get_sha256(SessionSave.PATH)
 	var checkpoint_hash := FileAccess.get_sha256(SessionSave.POWERUP_PATH)
+	var hash_file := FileAccess.open("user://classic-fixture-hashes.json", FileAccess.WRITE)
+	hash_file.store_string(JSON.stringify({"primary": classic_hash, "checkpoint": checkpoint_hash})); hash_file.close()
 	await dispose(classic)
 	for id in range(1, 6):
 		var game = new_game(id); await frames()

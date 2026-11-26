@@ -174,6 +174,8 @@ func _restart() -> void:
 	get_tree().reload_current_scene()
 func _confirm_abandon(action: String) -> void:
 	if is_instance_valid(confirm_exit): return
+	var resume_on_cancel := is_playing() and not get_tree().paused
+	if resume_on_cancel: _toggle_pause()
 	confirm_exit = ConfirmationDialog.new()
 	confirm_exit.title = tr("CH_LEAVE_TITLE")
 	confirm_exit.dialog_text = tr("CH_LEAVE_WARNING")
@@ -186,9 +188,13 @@ func _confirm_abandon(action: String) -> void:
 		elif action == "restart": get_tree().paused = false; get_tree().reload_current_scene()
 		else: get_tree().quit()
 	)
-	confirm_exit.canceled.connect(func(): confirm_exit.queue_free(); confirm_exit = null)
+	confirm_exit.canceled.connect(func():
+		confirm_exit.queue_free(); confirm_exit = null
+		if resume_on_cancel and game_state == GameState.PAUSED: _toggle_pause()
+	)
 	confirm_exit.close_requested.connect(func():
 		if is_instance_valid(confirm_exit): confirm_exit.queue_free(); confirm_exit = null
+		if resume_on_cancel and game_state == GameState.PAUSED: _toggle_pause()
 	)
 	confirm_exit.popup_centered(Vector2i(510, 240))
 func _notification(what: int) -> void:

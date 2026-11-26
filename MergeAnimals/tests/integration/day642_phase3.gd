@@ -15,6 +15,7 @@ func run() -> void:
 		await process_frame; await process_frame
 		if game.challenge == null:
 			check(false, "challenge %d unlocked" % id); quit(1); return
+		check(not game.remove_button.visible and not game.undo_button.visible and not game.rescue_button.visible, "challenge %d disables powerups" % id)
 		var attempts := 0
 		while not game.result_finished and attempts < 30:
 			for tick in range(220):

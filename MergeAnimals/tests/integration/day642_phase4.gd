@@ -8,6 +8,7 @@ func check(ok: bool, label: String) -> void:
 	checks += 1; print("%s: %s" % ["PASS" if ok else "FAIL", label])
 	if not ok: failures += 1
 func run() -> void:
+	if OS.get_environment("PHASE4") == "read": read_phase(); return
 	for id in range(16, 21):
 		set_meta("challenge_id", id)
 		var game = (load("res://scenes/game/ChallengeGame.tscn") as PackedScene).instantiate()
@@ -15,6 +16,7 @@ func run() -> void:
 		await process_frame; await process_frame
 		if game.challenge == null:
 			check(false, "challenge %d unlocked" % id); quit(1); return
+		check(not game.remove_button.visible and not game.undo_button.visible and not game.rescue_button.visible, "challenge %d disables powerups" % id)
 		var attempts := 0
 		while not game.result_finished and attempts < 48:
 			for tick in range(220):
@@ -36,3 +38,17 @@ func run() -> void:
 		paused = false; game.queue_free(); await process_frame; await process_frame
 		if failures > 0: break
 	print("PHASE4 checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
+
+func read_phase() -> void:
+	var saved := ChallengeStore.load_results()
+	check(saved.status in ["ok", "recovered"], "separate process loads all challenge results")
+	if saved.status not in ["ok", "recovered"]: quit(1); return
+	for id in range(1, 21):
+		check(saved.data.entries[id - 1].completed and ChallengeStore.is_unlocked(saved.data, id), "challenge %d completion and unlock restored" % id)
+	for id in range(6, 21):
+		check(float(saved.data.entries[id - 1].best_time) >= 0.0, "challenge %d best time restored" % id)
+	var file := FileAccess.open("user://classic-fixture-hashes.json", FileAccess.READ)
+	var hashes: Variant = JSON.parse_string(file.get_as_text()) if file else null
+	check(typeof(hashes) == TYPE_DICTIONARY and FileAccess.get_sha256(SessionSave.PATH) == hashes.primary and FileAccess.get_sha256(SessionSave.POWERUP_PATH) == hashes.checkpoint, "classic session and progression files remain byte identical")
+	check(SessionSave.load_progression().best_score == 123, "classic record and collection/statistics progression preserved")
+	print("PHASE4_READ checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
