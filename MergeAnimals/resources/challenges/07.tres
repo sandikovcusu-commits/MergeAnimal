@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 7
+title_key = &"QUICK_MERGE"
+objective_key = &"MERGE_FIVE"
+objective_type = "merges"
+animal_id = &""
+target = 5
+time_limit = 60.0
+drop_limit = 0

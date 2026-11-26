@@ -9,6 +9,9 @@ var save_retry_button: Button
 var result_success := false
 var result_saved := false
 var result_finished := false
+var spawn_sequence_index := 0
+var drop_settled_for := 0.0
+var confirm_exit: ConfirmationDialog
 
 func _ready() -> void:
 	persist_best = false
@@ -21,6 +24,12 @@ func _ready() -> void:
 	challenge = ChallengeManager.new(ChallengeManager.DEFINITIONS[challenge_id - 1])
 	challenge.objective_reached.connect(_goal_reached)
 	super._ready()
+	get_tree().auto_accept_quit = false
+	for i in range(challenge.definition.starting_animals.size()):
+		var data := find_animal(StringName(challenge.definition.starting_animals[i]))
+		if data == null: continue
+		var body := create_animal(data, Vector2(360, floor_height - data.radius - 1.0))
+		body.progression_eligible = true
 	# This mode never exposes or activates the Classic power-ups.
 	remove_button.visible = false; remove_button.disabled = true
 	undo_button.visible = false; undo_button.disabled = true
@@ -42,8 +51,31 @@ func _physics_process(delta: float) -> void:
 	if challenge == null: return
 	if is_playing() and not get_tree().paused:
 		challenge.tick(delta)
+		if challenge.definition.time_limit > 0.0 and challenge.elapsed >= challenge.definition.time_limit and not challenge.reached:
+			call_deferred("_finish", false)
 		_update_challenge_hud()
 	super._physics_process(delta)
+	if is_playing() and not get_tree().paused and challenge.definition.drop_limit > 0 and spawn_count >= challenge.definition.drop_limit and not challenge.reached:
+		# A last drop (and every resulting chain) must have settled before failure.
+		var stable: bool = merge_manager.pending.is_empty() and not merge_manager.commit_scheduled and not drop_requested
+		for body in pieces.get_children():
+			if not body is Animal or body.is_queued_for_deletion() or body.merge_locked: stable = false; break
+			if not body.sleeping and (not body.supported or body.linear_velocity.length() > 20.0 or absf(body.angular_velocity) > 0.25): stable = false; break
+		drop_settled_for = drop_settled_for + delta if stable else 0.0
+		if drop_settled_for >= 0.75: call_deferred("_finish", false)
+
+func _can_aim() -> bool:
+	return (challenge == null or challenge.definition.drop_limit == 0 or spawn_count < challenge.definition.drop_limit) and super._can_aim()
+func _can_begin_input() -> bool:
+	return (challenge == null or challenge.definition.drop_limit == 0 or spawn_count < challenge.definition.drop_limit) and super._can_begin_input()
+
+func _pick_animal() -> AnimalData:
+	if challenge != null and not challenge.definition.spawn_sequence.is_empty():
+		var sequence := challenge.definition.spawn_sequence
+		var data := find_animal(StringName(sequence[spawn_sequence_index % sequence.size()]))
+		spawn_sequence_index += 1
+		if data != null: return data
+	return super._pick_animal()
 
 func _attempt_drop() -> void:
 	var before_count := spawn_count
@@ -57,16 +89,20 @@ func _on_merged(data: AnimalData, point: Vector2) -> void:
 	super._on_merged(data, point)
 	challenge.record_creation(data, merge_manager.last_merge_eligible, score)
 	challenge.record_score(score, merge_manager.last_merge_eligible)
+	challenge.record_merge(merge_manager.merge_count, combo_count, merge_manager.last_merge_eligible)
 	_update_challenge_hud()
 
 func _on_golden_merged(point: Vector2) -> void:
 	super._on_golden_merged(point)
 	challenge.record_score(score, merge_manager.last_merge_eligible)
+	challenge.record_merge(merge_manager.merge_count, combo_count, merge_manager.last_merge_eligible, true)
 	_update_challenge_hud()
 
 func _update_challenge_hud() -> void:
 	if not is_instance_valid(goal_label) or challenge == null: return
-	goal_label.text = "%s  %d/%d\n%s  %d:%02d" % [tr(challenge.definition.objective_key), mini(challenge.count, challenge.definition.target), challenge.definition.target, tr("CH_TIME"), int(challenge.elapsed) / 60, int(challenge.elapsed) % 60]
+	var shown_time: float = maxf(0.0, challenge.definition.time_limit - challenge.elapsed) if challenge.definition.time_limit > 0 else challenge.elapsed
+	goal_label.text = "%s  %d/%d\n%s  %d:%02d" % [tr(challenge.definition.objective_key), mini(challenge.count, challenge.definition.target), challenge.definition.target, tr("CH_TIME"), int(shown_time) / 60, int(shown_time) % 60]
+	if challenge.definition.drop_limit > 0: goal_label.text += "    %s %d/%d" % [tr("CH_DROPS"), spawn_count, challenge.definition.drop_limit]
 
 func _goal_reached() -> void:
 	call_deferred("_finish", true)
@@ -77,6 +113,8 @@ func _on_game_over() -> void:
 
 func _finish(success: bool) -> void:
 	if result_finished: return
+	# A goal reached before the deferred failure resolves always wins.
+	success = success or challenge.reached
 	result_finished = true; result_success = success
 	game_state = GameState.GAME_OVER
 	drop_requested = false; active_touch = -1; mouse_down = false
@@ -95,16 +133,16 @@ func _finish(success: bool) -> void:
 
 func _persist_result() -> void:
 	if not result_finished or result_saved: return
-	var result := ChallengeStore.record_result(challenge_id, result_success, score)
+	var result := ChallengeStore.record_result(challenge_id, result_success, score, challenge.elapsed)
 	result_saved = result == OK
 	save_retry_button.visible = not result_saved
-	next_button.visible = result_saved and result_success and challenge_id < 5
+	next_button.visible = result_saved and result_success and challenge_id < ChallengeManager.DEFINITIONS.size()
 	$HUD/Overlay/RestartButton.disabled = not result_saved
 	$HUD/Overlay/MainMenuButton.disabled = not result_saved
 	rescue_message.text = tr("CH_RESULT_SAVED") if result_saved else tr("CH_SAVE_FAILED")
 
 func _next_challenge() -> void:
-	if not result_saved or not result_success or challenge_id >= 5: return
+	if not result_saved or not result_success or challenge_id >= ChallengeManager.DEFINITIONS.size(): return
 	get_tree().set_meta("challenge_id", challenge_id + 1)
 	get_tree().paused = false
 	get_tree().reload_current_scene()
@@ -114,11 +152,40 @@ func _selection() -> void:
 	get_tree().change_scene_to_file(SELECTION)
 func _main_menu() -> void:
 	if result_finished and not result_saved: return
+	if not result_finished: _confirm_abandon("selection"); return
 	_selection()
 func _restart() -> void:
 	if result_finished and not result_saved: return
+	if not result_finished: _confirm_abandon("restart"); return
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+func _confirm_abandon(action: String) -> void:
+	if is_instance_valid(confirm_exit): return
+	confirm_exit = ConfirmationDialog.new()
+	confirm_exit.title = tr("CH_LEAVE_TITLE")
+	confirm_exit.dialog_text = tr("CH_LEAVE_WARNING")
+	confirm_exit.ok_button_text = tr("CH_LEAVE")
+	confirm_exit.cancel_button_text = tr("BACK")
+	$HUD.add_child(confirm_exit)
+	confirm_exit.confirmed.connect(func():
+		confirm_exit.queue_free(); confirm_exit = null
+		if action == "selection": _selection()
+		elif action == "restart": get_tree().paused = false; get_tree().reload_current_scene()
+		else: get_tree().quit()
+	)
+	confirm_exit.canceled.connect(func(): confirm_exit.queue_free(); confirm_exit = null)
+	confirm_exit.close_requested.connect(func():
+		if is_instance_valid(confirm_exit): confirm_exit.queue_free(); confirm_exit = null
+	)
+	confirm_exit.popup_centered(Vector2i(510, 240))
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST and challenge != null:
+		if result_finished and result_saved: get_tree().quit()
+		else: _confirm_abandon("quit")
+	else: super._notification(what)
+func _exit_tree() -> void:
+	get_tree().auto_accept_quit = true
+
 func _toggle_pause() -> void:
 	super._toggle_pause()
 	if game_state == GameState.PAUSED:

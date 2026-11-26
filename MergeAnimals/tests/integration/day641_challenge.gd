@@ -105,7 +105,10 @@ func run() -> void:
 	# Replaying a completed task and losing must not revoke its unlock.
 	var replay = new_game(1); await frames()
 	check(replay.challenge.count == 0 and replay.score == 0, "replay starts a fresh attempt")
-	replay._restart(); await frames(5)
+	replay._restart(); await frames()
+	check(is_instance_valid(replay.confirm_exit), "active challenge warns that restart discards progress")
+	if is_instance_valid(replay.confirm_exit): replay.confirm_exit.confirmed.emit()
+	await frames(5)
 	replay = current_scene
 	check(replay.challenge_id == 1 and replay.score == 0 and replay.challenge.count == 0, "restart reloads same challenge")
 	replay.danger_monitor.overflow.emit(); await frames()

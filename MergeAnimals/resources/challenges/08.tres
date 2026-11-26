@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 8
+title_key = &"TRIPLE_COMBO"
+objective_key = &"COMBO_THREE"
+objective_type = "combo"
+animal_id = &""
+target = 3
+time_limit = 0.0
+drop_limit = 0

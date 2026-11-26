@@ -29,7 +29,11 @@ jobs:
           "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/challenge-log.txt 2>&1
           XDG_DATA_HOME=/tmp/challenge-two-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day641_challenge.gd 2>&1 | tee -a /tmp/challenge-log.txt
           XDG_DATA_HOME=/tmp/challenge-two-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day641_natural.gd 2>&1 | tee -a /tmp/challenge-log.txt
+          XDG_DATA_HOME=/tmp/challenge-two-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day642_phase2.gd 2>&1 | tee -a /tmp/challenge-log.txt
+          mkdir -p /tmp/challenge-migrate-user
+          XDG_DATA_HOME=/tmp/challenge-migrate-user PHASE2=migrate timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day642_phase2.gd 2>&1 | tee -a /tmp/challenge-log.txt
           XDG_DATA_HOME=/tmp/challenge-two-user CHALLENGE_PHASE=read timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day641_challenge.gd 2>&1 | tee -a /tmp/challenge-log.txt
+          XDG_DATA_HOME=/tmp/challenge-two-user PHASE2=read timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day642_phase2.gd 2>&1 | tee -a /tmp/challenge-log.txt
           XDG_DATA_HOME=/tmp/challenge-visual-user xvfb-run -a -s '-screen 0 1280x1400x24' timeout 120s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution 720x1280 --script res://tests/integration/day641_visual.gd 2>&1 | tee -a /tmp/challenge-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/challenge-log.txt; then exit 1; fi
       - uses: actions/upload-artifact@v4
