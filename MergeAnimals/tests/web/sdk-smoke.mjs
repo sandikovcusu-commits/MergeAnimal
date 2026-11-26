@@ -10,7 +10,7 @@ try{
  const context=await b.newContext({viewport:{width:360,height:640}}),page=await context.newPage();page.on('console',m=>messages.push({type:'console:'+m.type(),text:m.text()}));page.on('pageerror',e=>messages.push({type:'pageerror',text:String(e)}));
  if(mode==='blocked') await page.route('**/crazygames-sdk-v3.js',r=>r.abort('blockedbyclient'));
  await page.goto(base+(mode==='mute'?'?muteAudio=true':''),{waitUntil:'domcontentloaded',timeout:120000});await page.waitForSelector('canvas',{timeout:120000});await page.waitForFunction(()=>window.__sdkProbe && window.__sdkProbe.sdk_state!=='initializing',{timeout:45000});await sleep(1500);
- let initial=await page.evaluate(()=>window.__sdkProbe);console.log('SDK_INITIAL',JSON.stringify(initial));
+ let initial=await page.evaluate(()=>window.__sdkProbe);console.log('SDK_INITIAL',JSON.stringify(initial));console.log('SDK_RAW_SETTINGS',JSON.stringify(await page.evaluate(()=>({url:location.href,settings:window.CrazyGames?.SDK?.game?.settings}))));
  check(mode!=='blocked'?(initial.sdk_state==='ready'&&initial.environment==='local'):initial.sdk_state==='unavailable',`${mode} SDK initialization`,JSON.stringify(initial));
  if(mode==='mute') check(initial.platform_muted&&initial.master_muted,'SDK platform mute applies to Master',JSON.stringify(initial));
  check(initial.provider==='local'&&initial.rewards_available===false,'ads unavailable without verified reward integration');
