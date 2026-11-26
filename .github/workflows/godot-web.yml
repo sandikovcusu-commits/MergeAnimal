@@ -78,7 +78,8 @@ jobs:
           if [ "$UI_MODE" = audio ]; then
             # Separate instrumented build. The release ZIP remains untouched.
             cp -a MergeAnimals /tmp/audio-qa-project
-            sed -i '/^\[autoload\]/a AudioProbe="*res://tests/web/AudioProbe.gd"' /tmp/audio-qa-project/project.godot
+            cp /tmp/audio-qa-project/tests/web/AudioProbe.gd /tmp/audio-qa-project/scripts/audio/AudioProbe.gd
+            sed -i '/^\[autoload\]/a AudioProbe="*res://scripts/audio/AudioProbe.gd"' /tmp/audio-qa-project/project.godot
             mkdir -p /tmp/web-test/audio-qa
             "$GODOT" --headless --path /tmp/audio-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
             "$GODOT" --headless --path /tmp/audio-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/audio-qa/index.html >> /tmp/web-qa/export.log 2>&1
