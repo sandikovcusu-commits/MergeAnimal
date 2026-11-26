@@ -1,6 +1,7 @@
 extends SceneTree
 var checks := 0
 var failures := 0
+var discoveries: Array[StringName] = []
 func _initialize() -> void: call_deferred("run")
 func check(value: bool, message: String) -> void:
 	checks += 1
@@ -33,6 +34,7 @@ func run() -> void:
 	var body: Animal = game.create_animal(game.animals[0], Vector2(200, 700))
 	body.freeze = true
 	await frames()
+	game.discovery_notifier.shown.connect(func(id: StringName): discoveries.append(id))
 	var score: int = game.score; var merges: int = game.merge_manager.merge_count
 	var progression: Dictionary = game.progression.duplicate(true)
 	game.remove_button.pressed.emit()
@@ -77,7 +79,7 @@ func run() -> void:
 	check(game.score == score and game.merge_manager.merge_count == merges, "remove changes neither score nor merge count")
 	# Ignore clock, which advances normally while selecting.
 	progression.play_seconds = game.progression.play_seconds
-	check(game.progression == progression, "remove does not modify collection or statistics")
+	check(game.progression == progression and discoveries.is_empty(), "remove does not modify collection, statistics or emit discovery")
 	game._toggle_remove(); check(not game.remove_selecting, "second Remove blocked")
 	var saved := SessionSave.load_session()
 	check(saved.status == "ok" and saved.data.remove_remaining == 0 and saved.data.bodies.is_empty(), "body and used allowance saved together")
@@ -110,7 +112,9 @@ func run() -> void:
 	for i in range(50):
 		game.remove_remaining = 1
 		var animal: Animal = game.create_animal(game.animals[i % 5], Vector2(360, 700))
-		animal.freeze = true
+		animal.freeze = i % 2 == 0
+		if not animal.freeze: animal.linear_velocity = Vector2(50, -10)
+		await physics_frame
 		game._toggle_remove(); mouse(game, animal.global_position); await frames(2)
 		check(not is_instance_valid(animal) and game.remove_remaining == 0 and game.pieces.get_child_count() == 0 and game.merge_manager.pending.is_empty(), "stress removal %d" % (i + 1))
 	print("REMOVE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
