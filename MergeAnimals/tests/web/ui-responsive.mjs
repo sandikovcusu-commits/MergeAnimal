@@ -27,7 +27,7 @@ async function screens(){
   await tap(360,y);await sleep(3500);const text=await shot(name);check(pattern.test(text),`${browser} ${name} opened via menu (OCR)`);await tap(360,back);await sleep(2500);let returned=await shot(`${name}-back`);check(returned.includes('best score'),`${browser} ${name} Back returns to menu`);
  }
  await tap(360,600);await sleep(3500);await shot('tutorial');const tutorial=await waitState(d=>d.active&&d.tutorial_stage===0,'tutorial stage zero');check(tutorial.tutorial_stage===0,`${browser} Play opens tutorial`);await tap(565,520);await sleep(700);await tap(360,700);await sleep(5000);await shot('gameplay');
- await tap(600,58);await sleep(2500);t=await shot('pause');check(/resume|pause/.test(t),`${browser} Pause opens`);
+ await tap(600,58);await sleep(2500);const t=await shot('pause');check(/resume|pause/.test(t),`${browser} Pause opens`);
 }
 async function matrix(){
  let viewports=[[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]];
