@@ -55,51 +55,24 @@ jobs:
             /tmp/web-qa/*-events.json
             /tmp/web-qa/*.png
           if-no-files-found: warn
-      - name: Publish diagnostic and screenshot previews
+      - name: Transport test build and evidence as temporary Git blob
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
-          SHA: ${{ github.sha }}
-        run: |
-          set -o pipefail
-          python3 - <<'PY' 2>&1 | tee /tmp/diagnostic-error.log
-          import base64,json,os,pathlib,subprocess
-          root=pathlib.Path('/tmp/web-qa');p=pathlib.Path('/tmp/web-check.json')
-          def post(name,text):
-              p.write_text(json.dumps({'name':name,'head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':name,'summary':'Phase A web test; scripted browser smoke, not human play','text':text}}))
-              subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
-          text='\n'.join('=== '+f.name+' ===\n'+f.read_text(errors='replace')[-6000:] for f in sorted(root.glob('*.log')) if f.name != 'install.log')
-          post('Web phase A diagnostic',text[-20000:] or 'No logs')
-          for f in sorted(root.glob('*.png')):
-              jpg=pathlib.Path('/tmp')/(f.stem+'.jpg')
-              subprocess.run(['convert',str(f),'-resize','360x640>','-quality','70',str(jpg)],check=True)
-              encoded=base64.b64encode(jpg.read_bytes()).decode()
-              for i in range(0,len(encoded),48000):
-                  post('Web screenshot %s %03d of %03d' %(f.stem,i//48000+1,(len(encoded)+47999)//48000),encoded[i:i+48000])
-          PY
-          result=${PIPESTATUS[0]}
-          if [ "$result" != 0 ]; then echo "::error::$(tail -3 /tmp/diagnostic-error.log | tr '\n' ' ')"; exit "$result"; fi
-      - name: Transport exported web build as unreferenced Git blob
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-          SHA: ${{ github.sha }}
         run: |
           set -e -o pipefail
-          trap 'echo "::error::Transport failed: $(tail -3 /tmp/transport-error.log | tr "\n" " ")"' ERR
-          if [ ! -f /tmp/web-test/index.html ]; then echo 'No build to transport'; exit 0; fi
-          python3 - <<'PY' 2>&1 | tee /tmp/transport-error.log
+          python3 - <<'PY' 2>&1 | tee /tmp/transport.log
           import base64,hashlib,json,os,pathlib,subprocess,zipfile
-          root=pathlib.Path('/tmp/web-test'); archive=pathlib.Path('/tmp/web-build.zip')
+          archive=pathlib.Path('/tmp/web-evidence.zip')
           with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
-              for f in sorted(root.rglob('*')):
-                  if f.is_file(): z.write(f, f.relative_to(root))
+              for root, prefix in [(pathlib.Path('/tmp/web-test'),'web'),(pathlib.Path('/tmp/web-qa'),'qa')]:
+                  if root.exists():
+                      for f in sorted(root.rglob('*')):
+                          if f.is_file() and (prefix == 'web' or (f.parent == root and f.name != 'install.log')):
+                              z.write(f, str(pathlib.Path(prefix)/f.relative_to(root)))
           payload=pathlib.Path('/tmp/web-blob.json')
           payload.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
           result=subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(payload),'--jq','.sha'],check=True,text=True,stdout=subprocess.PIPE).stdout.strip()
-          summary=json.dumps({'blob_sha':result,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'zip_bytes':archive.stat().st_size,'files':{str(f.relative_to(root)):f.stat().st_size for f in root.rglob('*') if f.is_file()}})
-          p=pathlib.Path('/tmp/web-blob-check.json');p.write_text(json.dumps({'name':'Web build transport','head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':'Web build transport','summary':'Unreferenced Git blob, generated test archive only','text':summary}}))
-          subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
+          print('::notice::WEB_EVIDENCE blob_sha=%s sha256=%s bytes=%d' % (result,hashlib.sha256(archive.read_bytes()).hexdigest(),archive.stat().st_size), flush=True)
           PY
