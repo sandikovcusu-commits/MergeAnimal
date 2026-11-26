@@ -3,6 +3,7 @@
 import {chromium,firefox} from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 const out=process.env.WEB_QA_DIR||'/tmp/web-ui';const base=process.env.WEB_URL||'http://127.0.0.1:8765/';
 const mode=process.env.UI_MODE||'screens',browser=process.env.UI_BROWSER||'chromium';
@@ -52,6 +53,29 @@ async function localeTest(){
  await page.setViewportSize({width:720,height:1280});await sleep(700);if(back){await tap(360,back);await sleep(1200)}
  }
 }
+// Explicit isolated IDB fixture: cosmetic unlocks only, never claim natural unlock.
+async function themeTest(){
+ await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,885);await sleep(4000);
+ await context.close();
+ const profile=path.join(out,`${browser}-${mode}-profile`);
+ context=await engine.launchPersistentContext(profile,{headless:false,viewport:{width:720,height:1280},args:flags,firefoxUserPrefs:{'webgl.force-enabled':true,'webgl.disabled':false}});
+ page=context.pages()[0]||await context.newPage();await page.route('**/__test_storage__',r=>r.fulfill({status:200,contentType:'text/html',body:'<!doctype html><title>isolated theme fixture</title>'}));await page.goto(new URL('__test_storage__',base).href);
+ const data={version:1,selected:'forest',unlocked:['forest','sunset','snow']},payload=JSON.stringify(data),encoded=JSON.stringify({version:1,payload,checksum:crypto.createHash('sha256').update(payload).digest('hex')});
+ let fixture=await page.evaluate(async encoded=>{for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let found=await new Promise((res,rej)=>{let r=db.transaction(n).objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res(null);if(String(c.key).endsWith('/wild_garden_settings.json'))return res({key:String(c.key),value:c.value});c.continue()};r.onerror=()=>rej(r.error)});if(!found)continue;let key=found.key.replace('wild_garden_settings.json','wild_garden_themes.json');found.value.contents=new TextEncoder().encode(encoded);found.value.timestamp=new Date();await new Promise((res,rej)=>{let tx=db.transaction(n,'readwrite');tx.objectStore(n).put(found.value,key);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close();return key}db.close()}return null},encoded);
+ check(!!fixture,'isolated cosmetic unlock fixture installed');if(!fixture)throw Error('fixture target missing');console.log('THEME_FIXTURE',fixture,JSON.stringify(data));await context.close();await launch(false);
+ // Restore English using actual UI (fixture setup changed language).
+ await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,858);await sleep(2000);await tap(360,965);await sleep(1000);
+ for(const [theme,y] of [['sunset',580],['snow',860],['forest',300]]){
+  await tap(360,978);await sleep(1600);await tap(420,y);await sleep(3500);await shot(`${theme}-selected`);
+  const selected=await page.evaluate(async()=>{for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let result=await new Promise((res,rej)=>{let r=db.transaction(n).objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res(null);if(String(c.key).endsWith('/wild_garden_themes.json'))return res(JSON.parse(JSON.parse(new TextDecoder().decode(c.value.contents)).payload));c.continue()};r.onerror=()=>rej(r.error)});if(result)return result}db.close()}return null});
+  check(selected?.selected===theme,`apply ${theme} persists selected theme`);if(selected?.selected!==theme)throw Error('theme selection failed');await tap(360,1138);await sleep(1200);
+  for(const [name,my,back] of [['menu',0,0],['collection',766,1190],['statistics',837,1190],['achievements',907,1152],['challenges',1045,1118],['settings',1123,965]]){
+   if(my){await tap(360,my);await sleep(1100)}await page.screenshot({path:path.join(out,`${browser}-theme-${theme}-${name}.png`)});console.log(`CAPTURE theme=${theme} screen=${name} size=720x1280`);if(back){await tap(360,back);await sleep(1000)}
+  }
+  for(const [w,h] of [[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]]){await page.setViewportSize({width:w,height:h});await sleep(400);await page.screenshot({path:path.join(out,`${browser}-theme-${theme}-menu-${w}x${h}.png`)})}
+  await page.setViewportSize({width:720,height:1280});await sleep(600);
+ }
+}
 async function touchTest(){
  if(browser!=='chromium')throw Error('CDP touch uses Chromium only');
  await page.evaluate(()=>{window.__touches=[];for(let k of ['touchstart','touchmove','touchend','touchcancel','pointercancel'])document.addEventListener(k,e=>window.__touches.push({type:k,count:e.touches?.length??null}),true)});
@@ -75,6 +99,6 @@ async function touchTest(){
  check(s.remove_remaining===0&&s.bodies.length===count-1&&s.spawn_count===spawns,'touch Remove and animal selection spend use without drop');await shot('remove');
  console.log('TOUCH_EVENTS',JSON.stringify(await page.evaluate(()=>window.__touches)));
 }
-try{await launch(mode==='touch');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale')await localeTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
+try{await launch(mode==='touch');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale')await localeTest();else if(mode==='theme')await themeTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
 finally{fs.writeFileSync(path.join(out,`${browser}-${mode}-events.json`),JSON.stringify(events,null,2));if(context)await context.close()}
 console.log(`WEB_UI mode=${mode} browser=${browser} checks=${checks} failures=${errors}`);process.exitCode=errors?1:0;
