@@ -17,6 +17,7 @@ func _build() -> void:
 	panel.add_child(margin)
 	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 9); margin.add_child(column)
 	var scroll := ScrollContainer.new(); scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; column.add_child(scroll)
+	TouchScroll.install(scroll)
 	var list := VBoxContainer.new(); list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; list.add_theme_constant_override("separation", 12); scroll.add_child(list)
 	for i in range(3):
 		var id: String = ThemeStore.IDS[i]; var unlocked: bool = available and id in state.unlocked

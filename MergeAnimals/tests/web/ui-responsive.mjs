@@ -85,8 +85,9 @@ async function touchTest(){
  await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:from.x,y:from.y,id:30}]});
  for(let i=1;i<=8;i++){await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:from.x,y:from.y+(to.y-from.y)*i/8,id:30}]});await sleep(60)}
  await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(2000);await shot('collection-after-scroll');
- const before=fs.readFileSync(path.join(out,`${browser}-${mode}-collection-before-scroll.png`)),after=fs.readFileSync(path.join(out,`${browser}-${mode}-collection-after-scroll.png`));
- check(!before.equals(after),'Collection touch swipe changes the captured viewport');await tap(360,1190,true);await sleep(1500);
+ const after=path.join(out,`${browser}-${mode}-collection-after-scroll.png`), enlarged=path.join(out,`${browser}-${mode}-collection-after-scroll-large.png`);
+ execFileSync('convert',[after,'-resize','200%',enlarged]);let scrolled=execFileSync('tesseract',[enlarged,'stdout','--psm','11'],{encoding:'utf8',stdio:['ignore','pipe','ignore']});console.log('SCROLL_OCR',JSON.stringify(scrolled));
+ check(/elephant/i.test(scrolled),'Collection touch swipe reveals last animal row without opening a card');await tap(360,1190,true);await sleep(1500);
  await tap(360,600,true);await sleep(4500);await shot('play-tapped');
  await tap(565,275,true);await sleep(1500);await tap(260,700,true);await sleep(6500);
  let s=await waitState(d=>d.active&&d.spawn_count>=1,'touch drop');check(s.spawn_count===1,`one touch creates exactly one drop`);console.log('TOUCH_FIRST',JSON.stringify({spawn_count:s.spawn_count,bodies:s.bodies}));await shot('first-drop');

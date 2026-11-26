@@ -23,6 +23,7 @@ func _ready() -> void:
 	card.add_child(margins)
 	var column := VBoxContainer.new(); column.add_theme_constant_override("separation", 8); margins.add_child(column)
 	scroll = ScrollContainer.new(); scroll.name = "ChallengeScroll"; scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED; column.add_child(scroll)
+	TouchScroll.install(scroll)
 	var list := VBoxContainer.new(); list.size_flags_horizontal = Control.SIZE_EXPAND_FILL; list.add_theme_constant_override("separation", 8); scroll.add_child(list)
 	for def in ChallengeManager.DEFINITIONS:
 		if (def.id - 1) % 5 == 0:

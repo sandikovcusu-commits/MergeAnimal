@@ -44,6 +44,7 @@ func _build() -> void:
 		card.pressed.connect(func(): _show_detail(index))
 	_add_back()
 	_build_detail()
+	TouchScroll.install(scroll, detail)
 
 func _add_back() -> void:
 	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.position = Vector2(210, 1160); back.size = Vector2(300, 65); add_child(back); back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
