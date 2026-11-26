@@ -1,3 +1,9 @@
+# V0.8.1.3 update — Web audio
+
+Godot 4.7.2 Web now uses stream playback for the existing pool and singleton music; native selection and all 23 WAV assets remain unchanged. Real Chromium/Firefox WASM graph output, mute/unmute, three loops, fixture-triggered cues and settings persistence were measured; the ad pause/restore hook was tested without an SDK. Production exports received independent WebAudio smoke checks. These supersede the older statement below that Web autoplay compatibility had not been tested, but do not establish physical audibility or audio quality. Fixture coverage is not full natural gameplay coverage. See `WEB_AUDIO_REPORT.md` for exact runs, limitations and open risks.
+
+---
+
 # V0.7.0 audio
 
 `AudioManager` is a persistent autoload: one looping music player and at most eight simultaneous one-shot players; there are Master, Music, SFX and UI buses, with UI routed through SFX. A single user input gesture enables sound, avoiding forced browser autoplay before interaction. Theme selection switches the one music player; an unchanged theme does not restart it on scene change. Settings retain legacy `.cfg` migration and save current master/music/SFX/mute/reduced/language through checksummed SaveManager envelopes.

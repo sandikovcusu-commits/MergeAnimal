@@ -1,3 +1,12 @@
+# V0.8.1.3 — audio acceptance gaps
+
+- Real blur/hidden/tab return, OS interruptions, physical devices and speakers, Firefox touch, and sustained memory/performance behavior remain untested. Chromium touch is simulated. Slider touch drag itself needs independent testing.
+- Twenty SFX graph checks use fixtures, not full natural end-to-end coverage; Restart/Continue/Game Over audio has not been independently verified. Loop wrap/output was observed, not human-reviewed for seamlessness. Audio recordings have not been listened to or professionally mix-reviewed.
+- IndexedDB synchronization is asynchronous; immediate page/process close can lose the final write. The test's 10-second wait is not a production durability fix.
+- Future ad hook has no SDK integration or real ad lifecycle testing.
+
+---
+
 # V0.8.1.2 — son yoxlamada açıq qalanlar
 
 - Tutorial paneli artıq power-up düymələrini və spawn preview-ni örtmür, amma təlimat vaxtı oyun sahəsində zolaq tutur; bütün tutorial mərhələləri, dillər, mövzular və sıx oyun vəziyyətlərində vizual təsdiq aparılmayıb. 360 px-də bəzi yazılar çox kiçikdir.

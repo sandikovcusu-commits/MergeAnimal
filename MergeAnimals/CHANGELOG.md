@@ -1,3 +1,11 @@
+# V0.8.1.3 development — Web audio compatibility
+
+- Use stream playback on Web for the existing bounded SFX pool and singleton music; preserve the existing 20 SFX and three music WAVs.
+- Add non-SDK ad suspend/restore hook and cancellation-safe touch handling for audio sliders.
+- Add real Chromium/Firefox WASM graph-measured audio CI, including separate uninstrumented production-export smoke; document fixture and real-device limits in `WEB_AUDIO_REPORT.md`. No new gameplay, sprites, physics tuning or SDK.
+
+---
+
 # V0.8.1.2 development — Web touch and partial UI QA
 
 - Prevent Web DOM touchcancel from being treated as a successful gameplay drop in Godot 4.7.2; clear held aim on window resize.

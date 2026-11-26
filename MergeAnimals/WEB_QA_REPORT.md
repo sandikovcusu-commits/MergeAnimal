@@ -1,3 +1,9 @@
+# V0.8.1.3 — Web audio QA update
+
+Instrumented Godot 4.7.2 WASM audio tests: Chromium 47/47, Firefox 47/47, Chromium simulated touch 48/48; separate uninstrumented Chromium and Firefox production smoke each 6/6. Actual browser graph output is measured rather than inferred from playing state. See `WEB_AUDIO_REPORT.md` for CI links, settings values, fixture-assisted coverage and failed earlier attempts. Real tab lifecycle, physical devices, human listening and multiple natural gameplay audio paths remain unverified; this is partial acceptance. IndexedDB immediate-close last-write loss remains open. Prior UI reports below are historical, not rerun wholesale.
+
+---
+
 # V0.8.1.2 — bu sessiyanın Web QA yekunu
 
 Əvvəlki UI və touch işlərini qoruyaraq `074108a`-dan davam edildi (`f482f0f` əcdaddır). Tutorial HUD düymələrini və əvvəlki düzəliş variantında spawn preview-ni örtürdü; son dəyişiklik bunları ayırdı. Yeni Chromium/Firefox WASM Continue, Pause, Tutorial, Restart və x-mövqe sınaqları, habelə Chromium simulyasiya touch testləri `WEB_UI_REPORT.md` və `MOBILE_TOUCH_REPORT.md`-dədir. Godot native testlərini Web kimi təqdim etmirik.
