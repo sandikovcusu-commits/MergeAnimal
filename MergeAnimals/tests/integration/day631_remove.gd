@@ -38,6 +38,7 @@ func run() -> void:
 	game.discovery_notifier.shown.connect(func(id: StringName): discoveries.append(id))
 	var score: int = game.score; var merges: int = game.merge_manager.merge_count
 	var progression: Dictionary = game.progression.duplicate(true)
+	var achievement_hash := FileAccess.get_sha256(AchievementManager.PATH)
 	game.remove_button.pressed.emit()
 	check(game.remove_selecting and game.remove_button.text == tr("REMOVE_CANCEL"), "button enters selection and displays Cancel")
 	check(not game.drop_animal() and not game.drop_requested, "drop blocked in selection")
@@ -78,6 +79,7 @@ func run() -> void:
 	touch(game, body.global_position); await frames(5)
 	check(not is_instance_valid(body) and game.pieces.get_child_count() == 0, "touch selects and safely removes body")
 	check(game.remove_remaining == 0 and game.remove_button.disabled and not game.remove_selecting, "successful remove spends one and disables button")
+	check(FileAccess.get_sha256(AchievementManager.PATH) == achievement_hash, "Remove does not award or modify achievements")
 	check(game.score == score and game.merge_manager.merge_count == merges, "remove changes neither score nor merge count")
 	# Ignore clock, which advances normally while selecting.
 	progression.play_seconds = game.progression.play_seconds
