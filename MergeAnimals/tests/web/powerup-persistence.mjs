@@ -8,8 +8,9 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 const base=process.env.WEB_URL || 'http://127.0.0.1:8765/';
 const out=process.env.WEB_QA_DIR || '/tmp/web-qa';
-const scenarios=(process.env.WEB_SCENARIOS || 'undo,remove,rescue,immediate').split(',');
+const scenarios=(process.env.WEB_SCENARIOS || 'undo,remove,fixture-rescue,immediate').split(',');
 const engines=(process.env.WEB_BROWSERS || 'chromium,firefox').split(',');
+if (scenarios.some(s=>!['undo','remove','rescue','fixture-rescue','immediate'].includes(s)) || engines.some(e=>!['chromium','firefox'].includes(e))) throw Error('Unsupported scenario or browser');
 fs.mkdirSync(out,{recursive:true});
 let failures=0, checks=0;
 function check(v, label) { checks++; console.log(`${v?'PASS':'FAIL'} ${label}`); if(!v) failures++; }

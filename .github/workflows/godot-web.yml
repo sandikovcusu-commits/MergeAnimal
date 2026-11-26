@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
     inputs:
       scenarios:
-        description: "Comma-separated undo, remove, rescue, immediate"
-        default: 'undo,remove,rescue,immediate'
+        description: "Comma-separated undo, remove, fixture-rescue, rescue (natural), immediate"
+        default: 'undo,remove,fixture-rescue,immediate'
         required: true
       browsers:
         description: "Comma-separated chromium, firefox"
@@ -39,7 +39,10 @@ jobs:
           cp -a /tmp/templates/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
           npm ci --prefix MergeAnimals/tests/web
           cd MergeAnimals/tests/web && npx playwright install --with-deps chromium firefox
-      - name: Export and browser smoke over local HTTP
+      - name: Export and browser power-up tests over local HTTP
+        env:
+          WEB_SCENARIOS: ${{ inputs.scenarios }}
+          WEB_BROWSERS: ${{ inputs.browsers }}
         run: |
           set -e -o pipefail
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
@@ -51,7 +54,7 @@ jobs:
           python3 -m http.server 8765 --directory /tmp/web-test >/tmp/web-qa/server.log 2>&1 &
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
-          WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa WEB_SCENARIOS="${{ inputs.scenarios }}" WEB_BROWSERS="${{ inputs.browsers }}" LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/powerup-persistence.mjs 2>&1 | tee /tmp/web-qa/browser.log
+          WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/powerup-persistence.mjs 2>&1 | tee /tmp/web-qa/browser.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
