@@ -21,6 +21,9 @@ func new_game(persist := true):
 func dispose(game) -> void:
 	game.queue_free(); await frames()
 func real_drop(game, x: float = 360.0) -> bool:
+	for i in range(120):
+		if game._can_aim(): break
+		await physics_frame
 	var before: int = game.spawn_count
 	game._set_aim(x)
 	if not game.drop_animal(): return false
@@ -87,8 +90,12 @@ func chain_test() -> void:
 		for b in game.pieces.get_children():
 			if b is Animal and b.data.level == 2: hs.append(b)
 		if hs.size() == 2:
-			hs[0].linear_velocity = Vector2(150, -60)
-			hs[1].linear_velocity = Vector2(-150, -60)
+			# Position and velocities are test controls; the merge must still be
+			# triggered by a real Godot physics contact.
+			hs[0].global_position = Vector2(270, 900)
+			hs[1].global_position = Vector2(450, 900)
+			hs[0].linear_velocity = Vector2(200, 0)
+			hs[1].linear_velocity = Vector2(-200, 0)
 	for i in range(360):
 		await physics_frame
 		if game.merge_manager.merge_count >= 2: break

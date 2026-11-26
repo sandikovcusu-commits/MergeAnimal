@@ -69,7 +69,9 @@ static func save_progress(data: Dictionary, path: String = DEFAULT_PATH, backup_
 	var base := ProjectSettings.globalize_path(path)
 	if primary.status == "ok" and backup_current:
 		var backup_tmp := base + ".bak.tmp"
-		error = DirAccess.copy_absolute(base, backup_tmp)
+		# A pre-existing directory cannot be used as an atomic temporary file.
+		# Detect it without asking the OS to open it as a file.
+		error = ERR_CANT_CREATE if DirAccess.dir_exists_absolute(backup_tmp) else DirAccess.copy_absolute(base, backup_tmp)
 		if error == OK:
 			error = DirAccess.rename_absolute(backup_tmp, base + ".bak")
 		if error != OK:
