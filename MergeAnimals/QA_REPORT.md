@@ -1,3 +1,17 @@
+# V0.7.0 QA — executed tests and limits
+
+The new production code at `721cb69` was tested on Godot 4.7.2 in Linux Actions. The subsequent corrected music-instance comparison and all 91 game-feel checks passed at [CI 45838054585](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45838054585), commit `eed588d`. Reports and screenshot packaging do not alter production code.
+
+- [Game Feel CI 45837733394](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733394): 91 assertions and one separate-process settings restore, zero failures. All 12 tiers' drop, landing, merge scaling and blink timing checked while collision radius stays unchanged. 20 sound resources were played through dummy audio; limiter, threshold, cooldown, bus/mute values, audio settings and configured loops passed. Two real Classic mouse drops merged once with one score; real floor impact triggered landing audio. Golden Garden used seeded challenge access but real configured board/queue/physical collisions: Golden sound dispatched, no double score/merge, Reduced Effects camera stayed still. Not all 20 audio integration paths were individually observed, and dummy audio is not human listening.
+- [Theme/localization 45837733376](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733376): theme 20 + restore 1; four-language 74; save-integrity 14 + restore 2; forced five-drop A15 17, zero failures.
+- [Achievement 45837733524](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733524): 35 base, 13 Classic and 16 restore checks, zero failures; real Classic test uses deterministic dog queue. 100-merge and Golden tests pass using disclosed prepared Challenge access/boards.
+- [20 Challenges 45837733873](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733873): base 66, phase 2 34, phase 3 15, phase 4 17, and 16 achievement event checks, zero failures; starting boards and deterministic queues are not human play.
+- [Undo 45837733358](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733358) 165 + 5/7/3; [Remove 45837733294](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733294) 80 + 26/7; [Rescue 45837733393](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733393) 61 + 3/3/2; all zero failures. [Runtime 45837733613](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733613), [session 45837733281](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733281), and [Collection 45837733736](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45837733736) passed. Runtime's separate release acceptance deliberately remains unmet because the expression assets and sprite rights are unverified.
+
+Three genuine 720×1280 X11 window captures are in `art_reports/v070_game_feel/`; `scripted_merge.mp4` is a five-second silent 360×640 H.264 capture of deterministic gameplay, not a playtest. Screenshot and video capture are from engine-rendered scripted fixtures, not a person. The audio samples were not heard or rated. No real mobile FPS/touch, Web build, power-loss test, actual eye blink, commercial art clearance or full 12-natural-discovery A15 proof was performed. See `KNOWN_ISSUES.md`, `AUDIO_REPORT.md` and `ASSET_LICENSES.md`.
+
+---
+
 # V0.6.5 QA — actual executions
 
 Tested code commit `a534ffb` using Godot 4.7.2 on Linux Actions. The report/screenshot-only packaging commit is newer. No human mobile playtest or platform durability test was performed.

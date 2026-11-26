@@ -1,3 +1,13 @@
+# V0.7.0 development — animation, audio and game feel
+
+- Add reusable visual-only idle, staggered blink cues, drop/landing and merge squash; no physics-size or impulse changes. Blink is not an actual eye animation.
+- Add bounded merge/golden/combo effects, floating score, reduced-effects camera suppression and lightweight UI fades/button feedback.
+- Add central bounded audio pool, 20 procedural WAV cues, three synthesized looping WAV themes, audio buses and gesture-gated playback; persist audio settings via SaveManager with legacy settings migration.
+- Add generated DejaVu-based original SVG wordmark. Existing AI sprite rights remain unverified; see licensing and reports.
+- Add Godot game-feel, Golden collision, settings restart and scripted X11 coverage. Human listening, mobile performance and commercial release acceptance remain outstanding.
+
+---
+
 # V0.6.5 (development)
 
 - Add Forest, Classic-score-unlocked Sunset and ten-distinct-Challenge-unlocked Snow theme selection, persistent selection and live visual application.

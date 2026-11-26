@@ -1,3 +1,13 @@
+# V0.7.0 performance notes
+
+Compatibility renderer and 120 Hz physics configuration remain unchanged. Visual movement uses one child Node2D per existing animal with one short tween at a time; previews do not run the idle loop. The audio singleton has one music and eight SFX/UI players and refuses extra sounds; collision sound has a speed threshold and global cooldown. Effects are capped at 40 and self-free; floating score labels are capped at 8 and free after 0.7 seconds. Reduced Effects suppresses camera movement and decorative merge effects. No new large animal texture sets were added; three mono WAV loops and the small vector logo are bundled.
+
+These are design bounds, not measured frame-rate or memory claims. No Android/iOS 30 FPS, CPU, memory, battery, thermal, dense-board performance, actual device audio latency or Web export measurement was performed. Per-animal idle `_process` and additional transient effects need profiling on low-end target hardware. Headless CI is not a mobile benchmark. Existing physics overlap/crowding and safe-area/touch concerns remain. CI uses X11 software rendering; a scripted capture is not a human playtest.
+
+---
+
+## Historical performance report (prior versions)
+
 # Performans hesabatı — V0.2.1-dev tarixi ölçülər
 
 Headless Linux Actions runner-də 100/150/200-body təcrid edilmiş stress fixture işlədi (`tests/logs/v021-runtime-green.txt`). Run 45662097242 çıxışı FPS=145, physics_seconds=0.000166/0.000397/0.001272, static_bytes=34025047/35457767/37069767 bildirir; bunlar həmin anda Godot monitor snapshotlarıdır, benchmark, cihaz RAM-ı və ya normal gameplay deyil. Merge və danger deaktiv idi; escaped=0. Mobil cihaz, real gameplay frame-time/FPS/RAM, Web və enerji sərfi ölçülməyib. Dolu sahədə pending merge axtarışı profiler ilə ölçülməlidir; heç bir mobil performans hədəfi təsdiqlənməyib.

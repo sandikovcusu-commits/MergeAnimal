@@ -1,0 +1,488 @@
+als/hamster.tres
+Loading resource: res://assets/animals/hamster/normal.png remapped: res://assets/animals/hamster/normal.png
+Loading resource: res://.godot/imported/normal.png-27972c0014c8f280b7cf8df18be91787.ctex remapped: res://.godot/imported/normal.png-27972c0014c8f280b7cf8df18be91787.ctex
+Completed load for: 'res://assets/animals/hamster/normal.png' remapped 'res://assets/animals/hamster/normal.png' at thread -1
+Completed load for: 'res://resources/animals/hamster.tres' remapped 'res://resources/animals/hamster.tres' at thread -1
+Loading resource: res://resources/animals/rabbit.tres remapped: res://resources/animals/rabbit.tres
+Loading resource: res://assets/animals/rabbit/normal.png remapped: res://assets/animals/rabbit/normal.png
+Loading resource: res://.godot/imported/normal.png-b9453be448ba8a92eb4a8a7130ac1960.ctex remapped: res://.godot/imported/normal.png-b9453be448ba8a92eb4a8a7130ac1960.ctex
+Completed load for: 'res://assets/animals/rabbit/normal.png' remapped 'res://assets/animals/rabbit/normal.png' at thread -1
+Completed load for: 'res://resources/animals/rabbit.tres' remapped 'res://resources/animals/rabbit.tres' at thread -1
+Loading resource: res://resources/animals/cat.tres remapped: res://resources/animals/cat.tres
+Loading resource: res://assets/animals/cat/normal.png remapped: res://assets/animals/cat/normal.png
+Loading resource: res://.godot/imported/normal.png-ea3b6dd7c84754b5dcc42fe5e207de42.ctex remapped: res://.godot/imported/normal.png-ea3b6dd7c84754b5dcc42fe5e207de42.ctex
+Completed load for: 'res://assets/animals/cat/normal.png' remapped 'res://assets/animals/cat/normal.png' at thread -1
+Completed load for: 'res://resources/animals/cat.tres' remapped 'res://resources/animals/cat.tres' at thread -1
+Loading resource: res://resources/animals/dog.tres remapped: res://resources/animals/dog.tres
+Loading resource: res://assets/animals/dog/normal.png remapped: res://assets/animals/dog/normal.png
+Loading resource: res://.godot/imported/normal.png-1ad1d016f12013014fcd5b2eb1357d8c.ctex remapped: res://.godot/imported/normal.png-1ad1d016f12013014fcd5b2eb1357d8c.ctex
+Completed load for: 'res://assets/animals/dog/normal.png' remapped 'res://assets/animals/dog/normal.png' at thread -1
+Completed load for: 'res://resources/animals/dog.tres' remapped 'res://resources/animals/dog.tres' at thread -1
+Loading resource: res://resources/animals/fox.tres remapped: res://resources/animals/fox.tres
+Loading resource: res://assets/animals/fox/normal.png remapped: res://assets/animals/fox/normal.png
+Loading resource: res://.godot/imported/normal.png-6a94e1858b24735051476aedd43ee89b.ctex remapped: res://.godot/imported/normal.png-6a94e1858b24735051476aedd43ee89b.ctex
+Completed load for: 'res://assets/animals/fox/normal.png' remapped 'res://assets/animals/fox/normal.png' at thread -1
+Completed load for: 'res://resources/animals/fox.tres' remapped 'res://resources/animals/fox.tres' at thread -1
+Loading resource: res://resources/animals/raccoon.tres remapped: res://resources/animals/raccoon.tres
+Loading resource: res://assets/animals/raccoon/normal.png remapped: res://assets/animals/raccoon/normal.png
+Loading resource: res://.godot/imported/normal.png-793207ead8f978743e10e0525e2421a5.ctex remapped: res://.godot/imported/normal.png-793207ead8f978743e10e0525e2421a5.ctex
+Completed load for: 'res://assets/animals/raccoon/normal.png' remapped 'res://assets/animals/raccoon/normal.png' at thread -1
+Completed load for: 'res://resources/animals/raccoon.tres' remapped 'res://resources/animals/raccoon.tres' at thread -1
+Loading resource: res://resources/animals/koala.tres remapped: res://resources/animals/koala.tres
+Loading resource: res://assets/animals/koala/normal.png remapped: res://assets/animals/koala/normal.png
+Loading resource: res://.godot/imported/normal.png-b84feea7b15f6e751f6da0dd2f5b5d96.ctex remapped: res://.godot/imported/normal.png-b84feea7b15f6e751f6da0dd2f5b5d96.ctex
+Completed load for: 'res://assets/animals/koala/normal.png' remapped 'res://assets/animals/koala/normal.png' at thread -1
+Completed load for: 'res://resources/animals/koala.tres' remapped 'res://resources/animals/koala.tres' at thread -1
+Loading resource: res://resources/animals/panda.tres remapped: res://resources/animals/panda.tres
+Loading resource: res://assets/animals/panda/normal.png remapped: res://assets/animals/panda/normal.png
+Loading resource: res://.godot/imported/normal.png-5f1875b6aab8e2cc3f1ee15a59db211d.ctex remapped: res://.godot/imported/normal.png-5f1875b6aab8e2cc3f1ee15a59db211d.ctex
+Completed load for: 'res://assets/animals/panda/normal.png' remapped 'res://assets/animals/panda/normal.png' at thread -1
+Completed load for: 'res://resources/animals/panda.tres' remapped 'res://resources/animals/panda.tres' at thread -1
+Loading resource: res://resources/animals/bear.tres remapped: res://resources/animals/bear.tres
+Loading resource: res://assets/animals/bear/normal.png remapped: res://assets/animals/bear/normal.png
+Loading resource: res://.godot/imported/normal.png-f1e291cbbe0128bde18bb07b03100a16.ctex remapped: res://.godot/imported/normal.png-f1e291cbbe0128bde18bb07b03100a16.ctex
+Completed load for: 'res://assets/animals/bear/normal.png' remapped 'res://assets/animals/bear/normal.png' at thread -1
+Completed load for: 'res://resources/animals/bear.tres' remapped 'res://resources/animals/bear.tres' at thread -1
+Loading resource: res://resources/animals/lion.tres remapped: res://resources/animals/lion.tres
+Loading resource: res://assets/animals/lion/normal.png remapped: res://assets/animals/lion/normal.png
+Loading resource: res://.godot/imported/normal.png-c6494deedb561c1922cda0c62a47b6a7.ctex remapped: res://.godot/imported/normal.png-c6494deedb561c1922cda0c62a47b6a7.ctex
+Completed load for: 'res://assets/animals/lion/normal.png' remapped 'res://assets/animals/lion/normal.png' at thread -1
+Completed load for: 'res://resources/animals/lion.tres' remapped 'res://resources/animals/lion.tres' at thread -1
+Loading resource: res://resources/animals/elephant.tres remapped: res://resources/animals/elephant.tres
+Loading resource: res://assets/animals/elephant/normal.png remapped: res://assets/animals/elephant/normal.png
+Loading resource: res://.godot/imported/normal.png-1dfdddf708809ef8fb79e2b0daaca4e6.ctex remapped: res://.godot/imported/normal.png-1dfdddf708809ef8fb79e2b0daaca4e6.ctex
+Completed load for: 'res://assets/animals/elephant/normal.png' remapped 'res://assets/animals/elephant/normal.png' at thread -1
+Completed load for: 'res://resources/animals/elephant.tres' remapped 'res://resources/animals/elephant.tres' at thread -1
+Completed load for: 'res://scenes/game/Game.tscn' remapped 'res://scenes/game/Game.tscn' at thread -1
+Loading resource: res://scripts/challenges/ChallengeGame.gd remapped: res://scripts/challenges/ChallengeGame.gd
+Loading resource: res://resources/challenges/01.tres remapped: res://resources/challenges/01.tres
+Loading resource: res://scripts/challenges/ChallengeData.gd remapped: res://scripts/challenges/ChallengeData.gd
+Completed load for: 'res://scripts/challenges/ChallengeData.gd' remapped 'res://scripts/challenges/ChallengeData.gd' at thread -1
+Completed load for: 'res://resources/challenges/01.tres' remapped 'res://resources/challenges/01.tres' at thread -1
+Loading resource: res://resources/challenges/02.tres remapped: res://resources/challenges/02.tres
+Completed load for: 'res://resources/challenges/02.tres' remapped 'res://resources/challenges/02.tres' at thread -1
+Loading resource: res://resources/challenges/03.tres remapped: res://resources/challenges/03.tres
+Completed load for: 'res://resources/challenges/03.tres' remapped 'res://resources/challenges/03.tres' at thread -1
+Loading resource: res://resources/challenges/04.tres remapped: res://resources/challenges/04.tres
+Completed load for: 'res://resources/challenges/04.tres' remapped 'res://resources/challenges/04.tres' at thread -1
+Loading resource: res://resources/challenges/05.tres remapped: res://resources/challenges/05.tres
+Completed load for: 'res://resources/challenges/05.tres' remapped 'res://resources/challenges/05.tres' at thread -1
+Loading resource: res://resources/challenges/06.tres remapped: res://resources/challenges/06.tres
+Completed load for: 'res://resources/challenges/06.tres' remapped 'res://resources/challenges/06.tres' at thread -1
+Loading resource: res://resources/challenges/07.tres remapped: res://resources/challenges/07.tres
+Completed load for: 'res://resources/challenges/07.tres' remapped 'res://resources/challenges/07.tres' at thread -1
+Loading resource: res://resources/challenges/08.tres remapped: res://resources/challenges/08.tres
+Completed load for: 'res://resources/challenges/08.tres' remapped 'res://resources/challenges/08.tres' at thread -1
+Loading resource: res://resources/challenges/09.tres remapped: res://resources/challenges/09.tres
+Completed load for: 'res://resources/challenges/09.tres' remapped 'res://resources/challenges/09.tres' at thread -1
+Loading resource: res://resources/challenges/10.tres remapped: res://resources/challenges/10.tres
+Completed load for: 'res://resources/challenges/10.tres' remapped 'res://resources/challenges/10.tres' at thread -1
+Loading resource: res://resources/challenges/11.tres remapped: res://resources/challenges/11.tres
+Completed load for: 'res://resources/challenges/11.tres' remapped 'res://resources/challenges/11.tres' at thread -1
+Loading resource: res://resources/challenges/12.tres remapped: res://resources/challenges/12.tres
+Completed load for: 'res://resources/challenges/12.tres' remapped 'res://resources/challenges/12.tres' at thread -1
+Loading resource: res://resources/challenges/13.tres remapped: res://resources/challenges/13.tres
+Completed load for: 'res://resources/challenges/13.tres' remapped 'res://resources/challenges/13.tres' at thread -1
+Loading resource: res://resources/challenges/14.tres remapped: res://resources/challenges/14.tres
+Completed load for: 'res://resources/challenges/14.tres' remapped 'res://resources/challenges/14.tres' at thread -1
+Loading resource: res://resources/challenges/15.tres remapped: res://resources/challenges/15.tres
+Completed load for: 'res://resources/challenges/15.tres' remapped 'res://resources/challenges/15.tres' at thread -1
+Loading resource: res://resources/challenges/16.tres remapped: res://resources/challenges/16.tres
+Completed load for: 'res://resources/challenges/16.tres' remapped 'res://resources/challenges/16.tres' at thread -1
+Loading resource: res://resources/challenges/17.tres remapped: res://resources/challenges/17.tres
+Completed load for: 'res://resources/challenges/17.tres' remapped 'res://resources/challenges/17.tres' at thread -1
+Loading resource: res://resources/challenges/18.tres remapped: res://resources/challenges/18.tres
+Completed load for: 'res://resources/challenges/18.tres' remapped 'res://resources/challenges/18.tres' at thread -1
+Loading resource: res://resources/challenges/19.tres remapped: res://resources/challenges/19.tres
+Completed load for: 'res://resources/challenges/19.tres' remapped 'res://resources/challenges/19.tres' at thread -1
+Loading resource: res://resources/challenges/20.tres remapped: res://resources/challenges/20.tres
+Completed load for: 'res://resources/challenges/20.tres' remapped 'res://resources/challenges/20.tres' at thread -1
+Completed load for: 'res://scripts/challenges/ChallengeGame.gd' remapped 'res://scripts/challenges/ChallengeGame.gd' at thread -1
+Completed load for: 'res://scenes/game/ChallengeGame.tscn' remapped 'res://scenes/game/ChallengeGame.tscn' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Loading resource: res://assets/ui/icons/star.svg remapped: res://assets/ui/icons/star.svg
+Loading resource: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex remapped: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex
+Completed load for: 'res://assets/ui/icons/star.svg' remapped 'res://assets/ui/icons/star.svg' at thread -1
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://assets/ui/icons/pause.svg remapped: res://assets/ui/icons/pause.svg
+Loading resource: res://.godot/imported/pause.svg-bde28a8e0f0edef914227ceec8160bbe.ctex remapped: res://.godot/imported/pause.svg-bde28a8e0f0edef914227ceec8160bbe.ctex
+Completed load for: 'res://assets/ui/icons/pause.svg' remapped 'res://assets/ui/icons/pause.svg' at thread -1
+Loading resource: res://assets/ui/icons/restart.svg remapped: res://assets/ui/icons/restart.svg
+Loading resource: res://.godot/imported/restart.svg-b109021a41d6dfa380534d4865b92a8b.ctex remapped: res://.godot/imported/restart.svg-b109021a41d6dfa380534d4865b92a8b.ctex
+Completed load for: 'res://assets/ui/icons/restart.svg' remapped 'res://assets/ui/icons/restart.svg' at thread -1
+Loading resource: res://assets/ui/icons/play.svg remapped: res://assets/ui/icons/play.svg
+Loading resource: res://.godot/imported/play.svg-cb59c77e823299606105871a134c3052.ctex remapped: res://.godot/imported/play.svg-cb59c77e823299606105871a134c3052.ctex
+Completed load for: 'res://assets/ui/icons/play.svg' remapped 'res://assets/ui/icons/play.svg' at thread -1
+Loading resource: res://assets/ui/icons/settings.svg remapped: res://assets/ui/icons/settings.svg
+Loading resource: res://.godot/imported/settings.svg-bc78efd1f35046cf62e4c1fa2ae57eed.ctex remapped: res://.godot/imported/settings.svg-bc78efd1f35046cf62e4c1fa2ae57eed.ctex
+Completed load for: 'res://assets/ui/icons/settings.svg' remapped 'res://assets/ui/icons/settings.svg' at thread -1
+Loading resource: res://assets/ui/icons/home.svg remapped: res://assets/ui/icons/home.svg
+Loading resource: res://.godot/imported/home.svg-cfba9dff56f307b0c6dd54dba6c1e5ce.ctex remapped: res://.godot/imported/home.svg-cfba9dff56f307b0c6dd54dba6c1e5ce.ctex
+Completed load for: 'res://assets/ui/icons/home.svg' remapped 'res://assets/ui/icons/home.svg' at thread -1
+Loading resource: res://assets/ui/icons/remove.svg remapped: res://assets/ui/icons/remove.svg
+Loading resource: res://.godot/imported/remove.svg-e89009516452eea92a5f74b110dbb4d2.ctex remapped: res://.godot/imported/remove.svg-e89009516452eea92a5f74b110dbb4d2.ctex
+Completed load for: 'res://assets/ui/icons/remove.svg' remapped 'res://assets/ui/icons/remove.svg' at thread -1
+Loading resource: res://assets/ui/icons/undo.svg remapped: res://assets/ui/icons/undo.svg
+Loading resource: res://.godot/imported/undo.svg-93c6afb145f2b767dc419c94c929d938.ctex remapped: res://.godot/imported/undo.svg-93c6afb145f2b767dc419c94c929d938.ctex
+Completed load for: 'res://assets/ui/icons/undo.svg' remapped 'res://assets/ui/icons/undo.svg' at thread -1
+Loading resource: res://assets/ui/icons/rescue.svg remapped: res://assets/ui/icons/rescue.svg
+Loading resource: res://.godot/imported/rescue.svg-553ac616d6126833e6fe5d6902c9c4fd.ctex remapped: res://.godot/imported/rescue.svg-553ac616d6126833e6fe5d6902c9c4fd.ctex
+Completed load for: 'res://assets/ui/icons/rescue.svg' remapped 'res://assets/ui/icons/rescue.svg' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Loading resource: res://assets/ui/icons/star.svg remapped: res://assets/ui/icons/star.svg
+Loading resource: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex remapped: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex
+Completed load for: 'res://assets/ui/icons/star.svg' remapped 'res://assets/ui/icons/star.svg' at thread -1
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Loading resource: res://assets/ui/icons/star.svg remapped: res://assets/ui/icons/star.svg
+Loading resource: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex remapped: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex
+Completed load for: 'res://assets/ui/icons/star.svg' remapped 'res://assets/ui/icons/star.svg' at thread -1
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Loading resource: res://assets/ui/icons/star.svg remapped: res://assets/ui/icons/star.svg
+Loading resource: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex remapped: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex
+Completed load for: 'res://assets/ui/icons/star.svg' remapped 'res://assets/ui/icons/star.svg' at thread -1
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Loading resource: res://assets/ui/icons/star.svg remapped: res://assets/ui/icons/star.svg
+Loading resource: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex remapped: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex
+Completed load for: 'res://assets/ui/icons/star.svg' remapped 'res://assets/ui/icons/star.svg' at thread -1
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Loading resource: res://assets/ui/icons/trophy.svg remapped: res://assets/ui/icons/trophy.svg
+Loading resource: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex remapped: res://.godot/imported/trophy.svg-5a6866d2ab6b1842d51a90c8490a4038.ctex
+Completed load for: 'res://assets/ui/icons/trophy.svg' remapped 'res://assets/ui/icons/trophy.svg' at thread -1
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+Loading resource: res://resources/achievements/A01.tres remapped: res://resources/achievements/A01.tres
+Loading resource: res://assets/ui/icons/star.svg remapped: res://assets/ui/icons/star.svg
+Loading resource: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex remapped: res://.godot/imported/star.svg-df44f1e339328f24d2ca0d00ec77270c.ctex
+Completed load for: 'res://assets/ui/icons/star.svg' remapped 'res://assets/ui/icons/star.svg' at thread -1
+Completed load for: 'res://resources/achievements/A01.tres' remapped 'res://resources/achievements/A01.tres' at thread -1
+Loading resource: res://resources/achievements/A02.tres remapped: res://resources/achievements/A02.tres
+Completed load for: 'res://resources/achievements/A02.tres' remapped 'res://resources/achievements/A02.tres' at thread -1
+Loading resource: res://resources/achievements/A03.tres remapped: res://resources/achievements/A03.tres
+Completed load for: 'res://resources/achievements/A03.tres' remapped 'res://resources/achievements/A03.tres' at thread -1
+Loading resource: res://resources/achievements/A04.tres remapped: res://resources/achievements/A04.tres
+Completed load for: 'res://resources/achievements/A04.tres' remapped 'res://resources/achievements/A04.tres' at thread -1
+Loading resource: res://resources/achievements/A05.tres remapped: res://resources/achievements/A05.tres
+Completed load for: 'res://resources/achievements/A05.tres' remapped 'res://resources/achievements/A05.tres' at thread -1
+Loading resource: res://resources/achievements/A06.tres remapped: res://resources/achievements/A06.tres
+Completed load for: 'res://resources/achievements/A06.tres' remapped 'res://resources/achievements/A06.tres' at thread -1
+Loading resource: res://resources/achievements/A07.tres remapped: res://resources/achievements/A07.tres
+Completed load for: 'res://resources/achievements/A07.tres' remapped 'res://resources/achievements/A07.tres' at thread -1
+Loading resource: res://resources/achievements/A08.tres remapped: res://resources/achievements/A08.tres
+Completed load for: 'res://resources/achievements/A08.tres' remapped 'res://resources/achievements/A08.tres' at thread -1
+Loading resource: res://resources/achievements/A09.tres remapped: res://resources/achievements/A09.tres
+Completed load for: 'res://resources/achievements/A09.tres' remapped 'res://resources/achievements/A09.tres' at thread -1
+Loading resource: res://resources/achievements/A10.tres remapped: res://resources/achievements/A10.tres
+Completed load for: 'res://resources/achievements/A10.tres' remapped 'res://resources/achievements/A10.tres' at thread -1
+Loading resource: res://resources/achievements/A11.tres remapped: res://resources/achievements/A11.tres
+Completed load for: 'res://resources/achievements/A11.tres' remapped 'res://resources/achievements/A11.tres' at thread -1
+Loading resource: res://resources/achievements/A12.tres remapped: res://resources/achievements/A12.tres
+Completed load for: 'res://resources/achievements/A12.tres' remapped 'res://resources/achievements/A12.tres' at thread -1
+Loading resource: res://resources/achievements/A13.tres remapped: res://resources/achievements/A13.tres
+Completed load for: 'res://resources/achievements/A13.tres' remapped 'res://resources/achievements/A13.tres' at thread -1
+Loading resource: res://resources/achievements/A14.tres remapped: res://resources/achievements/A14.tres
+Completed load for: 'res://resources/achievements/A14.tres' remapped 'res://resources/achievements/A14.tres' at thread -1
+Loading resource: res://resources/achievements/A15.tres remapped: res://resources/achievements/A15.tres
+Completed load for: 'res://resources/achievements/A15.tres' remapped 'res://resources/achievements/A15.tres' at thread -1
+PASS: real Golden collision dispatches special sound
+PASS: reduced effects suppress Golden camera shake
+PASS: Golden feedback does not duplicate score or merge
+FEEL checks=91 failures=0
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: audio settings restore in a separate Godot process
+FEEL_READ checks=1 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE scripted gameplay video (no audio), not human play
+PASS V070 X11 screenshots: deterministic drops, not human play

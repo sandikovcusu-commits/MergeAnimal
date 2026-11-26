@@ -1,3 +1,13 @@
+# V0.7.0 — open issues / release blockers
+
+- Blink is a whole-sprite visual cue, not eye closure; happy/surprise use simple motion because the separate 24 expression sprites are absent. Release acceptance still flags missing states.
+- Original procedural sounds and short loops have not been listened to or mix-reviewed by a person; WAV, not OGG. Mobile audio, Web autoplay, loop perception and professional quality are unverified. Not every sound's full user-action path has an independent assertion.
+- The 12 existing AI animal sprites remain commercially blocked: backend/provider and applicable terms are unknown. Project-wide asset rights and logo trademark review remain open; see `ASSET_LICENSES.md`.
+- A15 twelve natural discoveries remain unproved; saves are not fully cross-file atomic. Existing physical penetration/dense board risks remain.
+- Real mobile touch, ≥30 FPS, mobile performance and Web exports are unmeasured; X11 fixtures/video are scripted, not human playtests. 360-pixel controls remain small. No actual iOS/Android/Windows device QA.
+
+---
+
 # V0.6.5 — open issues / acceptance gaps
 
 - Achievement checkpoint strengthens mirror recovery and failed-write retry but it is not atomic with Classic/Challenge saves. A forced kill while the event is in memory, a crash between separate commits, simultaneous writers, rollback of all files, and power-loss durability remain unresolved; see `SAVE_SYSTEM_REPORT.md`. Do not call this exactly-once or fully crash-safe.
