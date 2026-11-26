@@ -3,7 +3,9 @@ class_name SessionSave
 extends RefCounted
 
 const PATH := "user://wild_garden_session.json"
-# This extra atomic checkpoint is the commit record for irreversible power-ups.
+# This checkpoint is the commit record for irreversible power-ups in user://.
+# On Web, successful file operations do not acknowledge the asynchronous
+# IndexedDB sync; sudden page termination can still lose recent writes.
 const POWERUP_PATH := "user://wild_garden_powerup.json"
 const IDS := ["mouse", "hamster", "rabbit", "cat", "dog", "fox", "raccoon", "koala", "panda", "bear", "lion", "elephant"]
 
@@ -69,7 +71,7 @@ static func _inactive(data: Dictionary) -> bool:
 	return _integer(data.get("session_version"), 1, 3) and (int(data.session_version) < 3 or _integer(data.get("generation"), 0, 1000000000)) and data.get("active") == false and (int(data.session_version) == 1 or data.has("progression")) and (not data.has("progression") or Progression.valid(data.progression))
 
 static func load_document() -> Dictionary:
-	# A power-up checkpoint is an atomic commit record, not an ordinary stale
+	# A power-up checkpoint is a commit record, not an ordinary stale
 	# backup. If it exists but cannot be validated, fail closed instead of
 	# accidentally restoring an older free use.
 	var powerup := SaveManager._read_envelope(POWERUP_PATH)

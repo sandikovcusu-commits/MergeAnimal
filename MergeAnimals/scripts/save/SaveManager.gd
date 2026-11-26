@@ -64,7 +64,8 @@ static func save_progress(data: Dictionary, path: String = DEFAULT_PATH, backup_
 	if error != OK:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(tmp))
 		return error
-	# Verify serialization and write before touching either durable copy.
+	# Verify serialization and write before touching either stored copy.
+	# Web user:// synchronization to IndexedDB is asynchronous.
 	if _read_envelope(tmp).status != "ok":
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(tmp))
 		return ERR_FILE_CORRUPT

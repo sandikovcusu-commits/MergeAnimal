@@ -15,6 +15,7 @@ let failures=0, checks=0;
 function check(v, label) { checks++; console.log(`${v?'PASS':'FAIL'} ${label}`); if(!v) failures++; }
 function assert(v,label) { check(v,label); if(!v) throw new Error(label); }
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function bounded(promise,ms,label) { let timer; try { return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(`${label} timed out after ${ms}ms`)),ms)})]); } finally {clearTimeout(timer);} }
 function options(name) {return {headless:false,viewport:{width:720,height:1280},args:name==='chromium'?['--no-sandbox','--use-gl=angle','--use-angle=swiftshader-webgl','--enable-unsafe-swiftshader']:[],firefoxUserPrefs:{'webgl.force-enabled':true,'webgl.disabled':false}};}
 function attach(page,events,stage) {
  page.on('console',m=>events.push({stage,type:`console:${m.type()}`,text:m.text()}));
@@ -32,7 +33,7 @@ async function start(engine,name,profile,events,stage) {
 async function evidence(page,prefix,suffix) {await page.screenshot({path:path.join(out,`${prefix}-${suffix}.png`)});}
 // Inspect only: read IDBFS entries as bytes. Never edit browser storage.
 async function files(page) {
- return await page.evaluate(async()=>{
+ return await bounded(page.evaluate(async()=>{
   if(!indexedDB.databases) throw Error('indexedDB.databases unavailable');
   const found={};
   for(const info of await indexedDB.databases()) {
@@ -42,7 +43,7 @@ async function files(page) {
     await new Promise((resolve,reject)=>{const q=store.openCursor();q.onsuccess=()=>{const c=q.result;if(!c)return resolve(); const key=String(c.key); if(/wild_garden_(session|powerup)\.json(\.bak)?$/.test(key) && c.value?.contents)found[key.split('/').pop()]=new TextDecoder().decode(c.value.contents);c.continue()};q.onerror=()=>reject(q.error)});
    } db.close();
   } return found;
- });
+ }),15000,'IndexedDB inspection');
 }
 async function documentState(page) {
  const f=await files(page), entries=[];

@@ -339,7 +339,8 @@ func _set_aim(x: float) -> void:
 	queue_redraw()
 
 # Undo uses the same validated board snapshot as Continue. Physics is paused
-# until the durable checkpoint is written and all old bodies are detached.
+# until the user:// checkpoint is written and all old bodies are detached.
+# On Web this write is not an IndexedDB durability acknowledgement.
 func _setup_undo_ui() -> void:
 	undo_button = Button.new()
 	undo_button.name = "UndoButton"
