@@ -12,6 +12,7 @@ var instance_uid: int = 0
 # Stable identity within a saved board, independent of Godot instance IDs.
 var save_uid: int = 0
 var impact_speed := 0.0
+var previous_impact_speed := 0.0
 
 func _ready() -> void:
 	assert(data != null, "Animal requires AnimalData")
@@ -33,6 +34,7 @@ func _ready() -> void:
 # the physics server and avoids treating a side-wall contact as support.
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	supported = false
+	previous_impact_speed = impact_speed
 	impact_speed = state.linear_velocity.length()
 	for i in range(state.get_contact_count()):
 		if state.get_contact_local_normal(i).y < -0.5:
@@ -40,7 +42,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			break
 
 func _on_visual_contact(other: Node) -> void:
-	if impact_speed < 100.0: return
+	var speed := maxf(impact_speed, previous_impact_speed)
+	if speed < 100.0: return
 	var landing := not other is Animal
 	if landing: visual.animate_action("landing")
-	FeelAudio.impact(impact_speed, landing)
+	FeelAudio.impact(speed, landing)

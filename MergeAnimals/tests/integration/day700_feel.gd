@@ -9,6 +9,10 @@ func check(ok: bool, text: String) -> void:
 func frames(n: int) -> void:
 	for i in range(n): await process_frame
 func run() -> void:
+	if OS.get_environment("FEEL_PHASE") == "read":
+		var values := SettingsStore.load_values()
+		check(is_equal_approx(values.master, 0.4) and is_equal_approx(values.music, 0.3) and is_equal_approx(values.sfx, 0.2) and not values.mute and not values.reduced_effects, "audio settings restore in a separate Godot process")
+		print("FEEL_READ checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0); return
 	var audio = root.get_node_or_null("AudioManager")
 	if not audio:
 		audio = load("res://scripts/audio/AudioManager.gd").new(); audio.name = "AudioManager"; root.add_child(audio)
@@ -72,10 +76,12 @@ func run() -> void:
 	var music_id: int = audio.music.get_instance_id()
 	check(audio.music.playing and audio.music.get_instance_id() == music_id, "music continues when game scene changes")
 	for player in audio.players: player.stop()
+	var old_landings: int = int(audio.accepted_events.get("soft_landing", 0))
 	var old_drops: int = int(audio.accepted_events.get("animal_drop", 0))
 	var old_merges: int = int(audio.accepted_events.get("small_merge", 0))
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
 	for i in range(260): await physics_frame
+	check(int(audio.accepted_events.get("soft_landing", 0)) > old_landings, "real floor impact triggers soft landing sound")
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
 	for i in range(600):
 		await physics_frame

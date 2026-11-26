@@ -81,8 +81,9 @@ func _button_down(button: BaseButton) -> void:
 	if not is_instance_valid(button) or button.disabled: return
 	play_event("menu_back" if button.name in ["Back", "MainMenuButton"] else "button_click")
 	if reduced_effects or not button is Button or button is OptionButton: return
-	var previous: Variant = button.get_meta("feel_tween", null)
-	if previous is Tween and previous.is_running(): previous.kill()
+	if button.has_meta("feel_tween"):
+		var previous: Variant = button.get_meta("feel_tween")
+		if previous is Tween and previous.is_running(): previous.kill()
 	button.pivot_offset = button.size * 0.5
 	button.scale = Vector2(0.97, 0.97)
 	var tween := button.create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
