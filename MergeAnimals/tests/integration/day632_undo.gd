@@ -37,6 +37,7 @@ func undo(game) -> void:
 func run() -> void:
 	var phase := OS.get_environment("UNDO_PHASE")
 	if phase == "read": await read_phase(); return
+	if phase == "verify": await verify_phase(); return
 	clear_save()
 	var game = new_game(); await frames()
 	check(game.undo_remaining == 1 and game.undo_button.disabled, "fresh game has no snapshot")
@@ -119,9 +120,13 @@ func chain_test() -> void:
 	await physics_frame; await frames()
 	check(game.undo_snapshot == held, "blocked drop preserves previous snapshot")
 	game.pieces.remove_child(block); block.queue_free(); await frames()
+	# A stale separate legacy record must not resurrect an undone v3 best.
+	var stale := ConfigFile.new(); stale.set_value("scores", "best", 9999); stale.save("user://wild_garden.cfg")
 	await undo(game)
 	check(game.merge_manager.merge_count == int(previous.merge_count) and game.score == int(previous.score) and game.combo_count == int(previous.combo_count), "Undo rolls back chain, score and combo")
 	check(game.best_score == int(previous.best_score) and int(game.progression.best_score) == int(previous.progression.best_score), "Undo rolls back session best and lifetime best")
+	check(int(SessionSave.load_progression().best_score) == int(previous.progression.best_score) and game._load_best() == int(previous.best_score), "v3 canonical best ignores stale separate legacy record")
+	stale.set_value("scores", "best", 0); stale.save("user://wild_garden.cfg")
 	check(int(game.progression.total_merges) == int(previous.progression.total_merges), "Undo rolls back merge statistics")
 	check(game.pieces.get_child_count() == 2, "Undo restores both original chain bodies without duplicates")
 	await dispose(game)
@@ -222,6 +227,8 @@ func read_phase() -> void:
 	if game == menu or not game.has_method("_request_undo"):
 		print("UNDO_READ checks=%d failures=%d" % [checks, failures]); quit(1); return
 	check(game.undo_remaining == 1 and not game.undo_snapshot.is_empty() and not game.undo_button.disabled, "Continue restores undo snapshot and use")
+	game._toggle_pause(); game._toggle_pause()
+	check(game.undo_remaining == 1 and not game.undo_snapshot.is_empty(), "Pause and Resume preserve Undo snapshot and allowance")
 	await undo(game)
 	check(game.undo_remaining == 0 and game.pieces.get_child_count() == 0, "Continued snapshot can be undone")
 	var doc := SessionSave.load_session()
@@ -231,3 +238,14 @@ func read_phase() -> void:
 	game = new_game(); await frames(4)
 	check(game.undo_remaining == 0 and game.undo_button.disabled, "Continue never replenishes Undo")
 	print("UNDO_READ checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
+
+func verify_phase() -> void:
+	var menu = (load("res://scenes/ui/MainMenu.tscn") as PackedScene).instantiate()
+	root.add_child(menu); current_scene = menu; await frames(3)
+	check(not menu.continue_button.disabled, "third process offers Continue")
+	menu.continue_button.pressed.emit(); await frames(5)
+	var game = current_scene
+	check(game != menu and game.has_method("_request_undo"), "third process opens gameplay")
+	if game != menu and game.has_method("_request_undo"):
+		check(game.undo_remaining == 0 and game.undo_button.disabled and game.pieces.get_child_count() == 0, "spent Undo and restored board survive another process")
+	print("UNDO_VERIFY checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
