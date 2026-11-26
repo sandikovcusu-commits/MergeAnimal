@@ -77,6 +77,7 @@ func run() -> void:
 	clear_save(); await latest_snapshot_test()
 	clear_save(); await state_test()
 	clear_save(); await golden_test()
+	clear_save(); await tutorial_test()
 	clear_save(); await remove_test()
 	clear_save(); await backup_failure_test()
 	clear_save(); await stress_test()
@@ -181,6 +182,15 @@ func golden_test() -> void:
 	check(game.merge_manager.merge_count == 1 and game.score == 1000 and int(game.progression.golden_merges) == 1, "real elephant contact awards Golden once")
 	await undo(game)
 	check(game.score == 0 and game.merge_manager.merge_count == 0 and int(game.progression.golden_merges) == 0 and game.pieces.get_child_count() == 2, "Undo restores both elephants and reverses Golden award")
+	check(not game.golden_label.visible, "Undo clears Golden presentation")
+	await dispose(game)
+func tutorial_test() -> void:
+	var game = new_game(false); await frames()
+	game._begin_tutorial()
+	check(game.tutorial_stage == 0 and await real_drop(game, 360), "tutorial fixture drops from stage zero")
+	check(game.tutorial_stage == 2, "tutorial advanced after drop")
+	await undo(game)
+	check(game.tutorial_stage == 0 and game.get_node_or_null("HUD/Tutorial") != null, "Undo restores tutorial stage without duplicate overlay")
 	await dispose(game)
 func remove_test() -> void:
 	var game = new_game(); await frames()

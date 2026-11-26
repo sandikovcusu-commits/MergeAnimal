@@ -369,6 +369,11 @@ func _commit_undo() -> void:
 	danger_monitor.peak_time = 0.0
 	var tutorial := $HUD.get_node_or_null("Tutorial")
 	if tutorial: $HUD.remove_child(tutorial); tutorial.queue_free()
+	tutorial_stage = -1
+	tutorial_label = null
+	tutorial_skip = null
+	if golden_tween and golden_tween.is_running(): golden_tween.kill()
+	golden_label.visible = false
 	_restore_session(candidate)
 	for timer in danger_monitor.timers.values(): danger_monitor.peak_time = maxf(danger_monitor.peak_time, float(timer))
 	undo_processing = false
