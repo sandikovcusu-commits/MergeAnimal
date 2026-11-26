@@ -10,6 +10,10 @@ on:
         description: "Comma-separated chromium, firefox"
         default: 'chromium,firefox'
         required: true
+      web_touch:
+        description: 'Use simulated Chromium touch in power-up fixture scenario'
+        default: 'false'
+        required: true
       ui_mode:
         description: "UI: none, screens, matrix, touch, locale"
         default: 'none'
@@ -55,6 +59,7 @@ jobs:
         env:
           WEB_SCENARIOS: ${{ inputs.scenarios }}
           WEB_BROWSERS: ${{ inputs.browsers }}
+          WEB_TOUCH: ${{ inputs.web_touch }}
           UI_MODE: ${{ inputs.ui_mode }}
           UI_BROWSER: ${{ inputs.ui_browser }}
           UI_LOCALE: ${{ inputs.ui_locale }}
