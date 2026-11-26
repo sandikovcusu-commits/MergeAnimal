@@ -30,7 +30,7 @@ func run() -> void:
 		if OS.execute("xdotool", ["search", "--onlyvisible", "--pid", str(OS.get_process_id())], out, true) == 0 and not out.is_empty():
 			var id := str(out[0]).strip_edges().split("\n", false)[0]
 			OS.execute("xdotool", ["windowmove", id, "0", "0"])
-			recording = OS.create_process("ffmpeg", ["-y", "-loglevel", "error", "-f", "x11grab", "-framerate", "15", "-video_size", "720x1280", "-i", OS.get_environment("DISPLAY") + "+0,0", "-t", "5", "-an", "-vf", "scale=360:640", "-c:v", "libx264", "-preset", "ultrafast", "-crf", "30", OS.get_environment("CAPTURE_DIR") + "/scripted_merge.mp4"])
+			recording = OS.create_process("ffmpeg", ["-y", "-loglevel", "error", "-f", "x11grab", "-framerate", "15", "-video_size", "720x1280", "-i", OS.get_environment("DISPLAY") + "+0,0", "-t", "5", "-an", "-vf", "scale=360:640", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-preset", "ultrafast", "-crf", "30", OS.get_environment("CAPTURE_DIR") + "/scripted_merge.mp4"])
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
 	for i in range(220): await physics_frame
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
