@@ -24,11 +24,28 @@ func run() -> void:
 	await process_frame
 	if not await capture("remove_button") or not await capture("before_remove"):
 		printerr("FAIL capture before"); quit(1); return
-	game.remove_button.pressed.emit()
+	# Route a real synthetic mouse click through Godot's viewport/GUI, not a
+	# direct signal, to verify the HUD consumes input before gameplay.
+	var press := InputEventMouseButton.new()
+	press.button_index = MOUSE_BUTTON_LEFT; press.pressed = true
+	press.position = Vector2(150, 238); press.global_position = press.position
+	Input.parse_input_event(press)
+	await process_frame
+	var release := InputEventMouseButton.new()
+	release.button_index = MOUSE_BUTTON_LEFT; release.pressed = false
+	release.position = press.position; release.global_position = press.position
+	Input.parse_input_event(release)
+	await process_frame; await process_frame
+	if game.spawn_count != 0 or game.drop_requested:
+		printerr("FAIL UI click triggered drop"); quit(1); return
+	print("PASS viewport GUI mouse click did not drop")
 	if not game.remove_selecting or not await capture("remove_selecting"):
 		printerr("FAIL selection capture"); quit(1); return
-	var event := InputEventMouseButton.new(); event.button_index = MOUSE_BUTTON_LEFT; event.pressed = true; event.position = body.global_position
-	game._unhandled_input(event)
+	var touch := InputEventScreenTouch.new(); touch.index = 0; touch.pressed = true; touch.position = body.global_position
+	Input.parse_input_event(touch)
+	await process_frame; await process_frame
+	var touch_end := InputEventScreenTouch.new(); touch_end.index = 0; touch_end.pressed = false; touch_end.position = touch.position
+	Input.parse_input_event(touch_end)
 	await process_frame; await process_frame
 	if is_instance_valid(body) or game.remove_remaining != 0 or not await capture("after_remove") or not await capture("remove_used"):
 		printerr("FAIL removal capture"); quit(1); return

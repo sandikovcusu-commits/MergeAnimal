@@ -67,9 +67,9 @@ func run() -> void:
 	check(saved.status == "ok" and saved.data.remove_remaining == 0 and saved.data.bodies.is_empty(), "body and used allowance saved together")
 	var backup := SaveManager._read_envelope(SessionSave.PATH + ".bak")
 	check(backup.status == "ok" and backup.data.remove_remaining == 0 and backup.data.bodies.is_empty(), "backup contains committed removal")
-	var bad := saved.data.duplicate(true); bad.remove_remaining = 2
+	var bad: Dictionary = saved.data.duplicate(true); bad.remove_remaining = 2
 	check(not SessionSave.valid(bad), "invalid allowance rejected")
-	var legacy := saved.data.duplicate(true); legacy.erase("remove_remaining")
+	var legacy: Dictionary = saved.data.duplicate(true); legacy.erase("remove_remaining")
 	check(SessionSave.valid(legacy), "legacy v2 session accepted")
 	if phase == "write":
 		print("REMOVE_WRITE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0); return
