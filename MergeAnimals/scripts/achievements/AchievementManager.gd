@@ -76,7 +76,7 @@ static func synchronize(progress: Dictionary, challenges: Dictionary, live: bool
 	var loaded := load_state()
 	if loaded.status not in ["ok", "recovered", "missing"]: return {"status": loaded.status, "new": []}
 	var state: Dictionary = loaded.data.duplicate(true)
-	var old := JSON.stringify(state)
+	var old: Dictionary = state.duplicate(true)
 	var events: Dictionary = state.get("events", {"total_merges": 0, "golden_merges": 0, "max_combo": 0, "animals": {}})
 	if not event.is_empty():
 		var animal_id := str(event.get("animal", ""))
@@ -97,7 +97,7 @@ static func synchronize(progress: Dictionary, challenges: Dictionary, live: bool
 			entry.date = Time.get_datetime_string_from_system(false, true) if live else ""
 			if live: unlocked.append(def)
 		state.entries[def.id] = entry
-	if old == JSON.stringify(state): return {"status": "ok", "new": [], "data": state}
+	if old == state: return {"status": "ok", "new": [], "data": state}
 	var primary := SaveManager._read_envelope(PATH)
 	var err := SaveManager.save_progress(state, PATH, primary.status == "ok" and _valid(primary.data))
 	if err != OK: return {"status": "write_failed", "new": []}

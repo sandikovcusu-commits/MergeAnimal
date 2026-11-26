@@ -50,7 +50,9 @@ func run() -> void:
 	var undo_hash := FileAccess.get_sha256(AchievementManager.PATH)
 	set_meta("continue_requested", true)
 	change_scene_to_file("res://scenes/game/Game.tscn"); await frames(); game = current_scene
-	check(FileAccess.get_sha256(AchievementManager.PATH) == undo_hash and game.discovery_notifier.queue.is_empty() and not game.discovery_notifier.displaying, "Continue retains unlock and does not repeat notification")
+	var restored := AchievementManager.load_state()
+	print("CONTINUE_DEBUG samehash=%s unlocked=%s queue=%d showing=%s" % [FileAccess.get_sha256(AchievementManager.PATH) == undo_hash, restored.data.entries.A01.unlocked, game.discovery_notifier.queue.size(), game.discovery_notifier.displaying])
+	check(FileAccess.get_sha256(AchievementManager.PATH) == undo_hash and restored.data.entries.A01.unlocked and game.discovery_notifier.queue.is_empty() and not game.discovery_notifier.displaying, "Continue retains unlock and does not repeat notification")
 	game.queue_free(); current_scene = null; await frames()
 	# A tainted debug session and debug bodies cannot contribute evidence.
 	change_scene_to_file("res://scenes/game/Game.tscn"); await frames(); game = current_scene
