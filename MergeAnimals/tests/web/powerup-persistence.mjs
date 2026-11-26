@@ -165,6 +165,13 @@ async function run(name,engine,scenario) {
    const pendingReload=await waitState(page,d=>d.active&&d.game_over_pending&&d.rescue_remaining===1&&d.score===pending.score,'pending Game Over reload');
    assert(equalRestored(pendingReload.selected.data,pending),`${prefix} pending Game Over survives refresh before Rescue`);
    await evidence(page,prefix,'pending-continue');
+   if(useTouch){
+    const cdp=await ctx.newCDPSession(page);
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:360,y:792,id:91}]});
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await delay(6500);
+    const afterCancel=await documentState(page);await evidence(page,prefix,'rescue-cancel');
+    assert(afterCancel.selected?.data?.game_over_pending&&afterCancel.selected.data.rescue_remaining===1,`${prefix} cancelled Rescue touch does not spend use`);
+   }
    await click(page,360,792);
    before=(await waitState(page,d=>d.active&&!d.game_over_pending&&d.rescue_remaining===0,'rescue commit',45000)).selected.data;
    assert(before.score===pending.score && before.bodies.length<pending.bodies.length,`${prefix} Rescue spends one use, removes bodies and preserves score`);
