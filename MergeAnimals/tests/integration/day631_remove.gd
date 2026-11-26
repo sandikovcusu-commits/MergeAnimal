@@ -46,6 +46,18 @@ func run() -> void:
 	mouse(game, body.global_position); await frames()
 	check(game.remove_selecting and game.remove_remaining == 1 and is_instance_valid(body), "merge-locked animal cannot be selected")
 	body.merge_locked = false
+	game.merge_manager.set_physics_process(false)
+	var other: Animal = game.create_animal(game.animals[0], Vector2(450, 700)); other.freeze = true
+	check(game.merge_manager.request_merge(body, other), "real merge reservation locks pair")
+	mouse(game, body.global_position); await frames()
+	check(is_instance_valid(body) and game.remove_remaining == 1 and game.merge_manager.pending.size() == 1, "pending merge animal is not removed")
+	game.merge_manager.pending.clear(); body.merge_locked = false; other.merge_locked = false
+	game.pieces.remove_child(other); other.queue_free(); game.merge_manager.set_physics_process(true)
+	await frames()
+	check(not game._remove_eligible(game.current_preview) and not game._remove_eligible(game.next_preview), "both previews are ineligible")
+	var external: Animal = game.animal_scene.instantiate(); external.data = game.animals[0]; root.add_child(external)
+	check(not game._remove_eligible(external), "animal outside gameplay pieces is ineligible")
+	external.queue_free()
 	var preview_pos: Vector2 = game.current_preview.global_position
 	mouse(game, preview_pos); await frames()
 	check(game.remove_remaining == 1 and is_instance_valid(body), "preview cannot be selected")
@@ -73,6 +85,13 @@ func run() -> void:
 	check(SessionSave.valid(legacy), "legacy v2 session accepted")
 	if phase == "write":
 		print("REMOVE_WRITE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0); return
+	# A real Continue of an old v2 session initializes the newly added field.
+	check(SaveManager.save_progress(legacy, SessionSave.PATH) == OK, "write legacy v2 fixture")
+	game.queue_free(); await frames()
+	set_meta("continue_requested", true)
+	game = make_game(); await frames()
+	check(game.remove_remaining == 1 and not game.remove_button.disabled, "legacy v2 Continue receives one free use")
+	check(game.save_session() == OK and SessionSave.load_session().data.remove_remaining == 1, "legacy v2 migrated on save")
 	# Non-persistent fixture resets allowances only for stress; production cannot.
 	game.queue_free(); await frames()
 	game = make_game(false); await frames()
@@ -86,8 +105,14 @@ func run() -> void:
 func read_phase() -> void:
 	var loaded := SessionSave.load_session()
 	check(loaded.status == "ok" and loaded.data.remove_remaining == 0, "second process sees used allowance")
-	set_meta("continue_requested", true)
-	var game = make_game(); await frames(4)
+	var menu = (load("res://scenes/ui/MainMenu.tscn") as PackedScene).instantiate()
+	root.add_child(menu); current_scene = menu; await frames(3)
+	check(not menu.continue_button.disabled, "Continue enabled in second process")
+	menu.continue_button.pressed.emit(); await frames(5)
+	var game = current_scene
+	check(game != menu and game.has_method("save_session"), "Continue button opens gameplay")
+	if game == menu or not game.has_method("save_session"):
+		print("REMOVE_READ checks=%d failures=%d" % [checks, failures]); quit(1); return
 	check(game.remove_remaining == 0 and game.remove_button.disabled and game.pieces.get_child_count() == 0, "Continue restores removed board and disabled button")
 	game._toggle_remove(); check(not game.remove_selecting, "Continue cannot reuse Remove")
 	game._restart(); await frames(6)

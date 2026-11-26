@@ -657,6 +657,7 @@ func _toggle_pause() -> void:
 	if game_state == GameState.PLAYING:
 		_cancel_remove()
 		game_state = GameState.PAUSED
+		_update_remove_ui()
 		active_touch = -1
 		mouse_down = false
 		# Cancel uncommitted input when pausing; it must not drop on resume.
@@ -671,6 +672,7 @@ func _toggle_pause() -> void:
 		get_tree().paused = true
 	else:
 		game_state = GameState.PLAYING
+		_update_remove_ui()
 		overlay.visible = false
 		get_tree().paused = false
 
