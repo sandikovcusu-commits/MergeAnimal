@@ -95,10 +95,27 @@ async function touchTest(){
  await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(7000);s=await state();
  check(s.spawn_count===old,'resize during active touch does not produce a drop');await shot('after-resize-hold');
  await tap(360,238,true);await sleep(4500);s=await state();check(s.undo_remaining===0,'touch Undo spends one use');await shot('undo');
- let count=s.bodies.length, spawns=s.spawn_count;let target=s.bodies[0];await tap(175,238,true);await sleep(1000);await tap(target.x,target.y,true);await sleep(5000);s=await state();
+ let count=s.bodies.length, spawns=s.spawn_count;let target=s.bodies[0];await tap(175,238,true);await sleep(1000);
+ let victim=point(target.x,target.y);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:victim.x,y:victim.y,id:12}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await sleep(4000);s=await state();
+ check(s.remove_remaining===1&&s.bodies.length===count&&s.spawn_count===spawns,'cancelled Remove selection does not spend use or delete animal');await shot('remove-cancel');
+ if(s.remove_remaining===1){await tap(target.x,target.y,true);await sleep(5000);s=await state();}
  check(s.remove_remaining===0&&s.bodies.length===count-1&&s.spawn_count===spawns,'touch Remove and animal selection spend use without drop');await shot('remove');
  console.log('TOUCH_EVENTS',JSON.stringify(await page.evaluate(()=>window.__touches)));
 }
-try{await launch(mode==='touch');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale')await localeTest();else if(mode==='theme')await themeTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
+async function lifecycleTest(){
+ if(browser!=='chromium')throw Error('CDP lifecycle uses Chromium only');
+ await tap(360,600,true);await sleep(3500);await tap(565,275,true);await sleep(1000);await tap(260,700,true);await sleep(6500);
+ let s=await waitState(d=>d.active&&d.spawn_count===1,'lifecycle baseline');let old=s.spawn_count;
+ const cdp=await context.newCDPSession(page), p=point(350,700);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:p.x,y:p.y,id:21}]});
+ const second=await context.newPage();await second.goto('about:blank');await second.bringToFront();await sleep(1800);await page.bringToFront();await sleep(1200);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(5000);s=await state();await shot('tab-return');check(s.spawn_count===old,'held touch across tab switch does not drop');await second.close();
+ // Request/exit fullscreen via a real user click on a temporary test-page button.
+ await page.evaluate(()=>{let b=document.createElement('button');b.id='qa-fullscreen';b.textContent='QA fullscreen';Object.assign(b.style,{position:'fixed',zIndex:'99999',top:'0',left:'0'});b.onclick=()=>document.documentElement.requestFullscreen();document.body.appendChild(b)});
+ await page.locator('#qa-fullscreen').click();await sleep(1500);check(await page.evaluate(()=>!!document.fullscreenElement),'fullscreen entered');await shot('fullscreen');
+ await page.evaluate(()=>document.exitFullscreen());await sleep(1500);check(await page.evaluate(()=>!document.fullscreenElement),'fullscreen exited');await page.locator('#qa-fullscreen').evaluate(e=>e.remove());await shot('fullscreen-exit');
+ s=await state();check(s.spawn_count===old,'fullscreen enter and exit do not drop');
+}
+try{await launch(mode==='touch'||mode==='lifecycle');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale')await localeTest();else if(mode==='theme')await themeTest();else if(mode==='lifecycle')await lifecycleTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
 finally{fs.writeFileSync(path.join(out,`${browser}-${mode}-events.json`),JSON.stringify(events,null,2));if(context)await context.close()}
 console.log(`WEB_UI mode=${mode} browser=${browser} checks=${checks} failures=${errors}`);process.exitCode=errors?1:0;
