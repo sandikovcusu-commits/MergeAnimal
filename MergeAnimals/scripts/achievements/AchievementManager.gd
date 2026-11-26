@@ -91,7 +91,7 @@ static func synchronize(progress: Dictionary, challenges: Dictionary, live: bool
 		var value := _value(def, progress, challenges, events)
 		if value < 0: continue
 		var entry: Dictionary = state.entries.get(def.id, {"unlocked": false, "date": "", "progress": 0})
-		entry.progress = mini(value, def.target)
+		entry.progress = def.target if entry.unlocked else mini(value, def.target)
 		if not entry.unlocked and value >= def.target:
 			entry.unlocked = true
 			entry.date = Time.get_datetime_string_from_system(false, true) if live else ""

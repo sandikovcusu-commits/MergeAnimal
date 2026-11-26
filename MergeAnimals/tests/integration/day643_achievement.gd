@@ -45,7 +45,7 @@ func run() -> void:
 	for i in range(300): await physics_frame
 	game._request_undo(); await frames(20)
 	var after := AchievementManager.load_state()
-	check(game.undo_remaining == 0 and int(game.progression.total_merges) == 0 and after.data.entries.A01.unlocked, "Undo rolls back statistics, keeps permanent achievement")
+	check(game.undo_remaining == 0 and int(game.progression.total_merges) == 0 and after.data.entries.A01.unlocked and int(after.data.entries.A01.progress) == 1, "Undo rolls back statistics, keeps permanent achievement")
 	game.queue_free(); current_scene = null; await frames()
 	# A tainted debug session and debug bodies cannot contribute evidence.
 	change_scene_to_file("res://scenes/game/Game.tscn"); await frames(); game = current_scene
@@ -54,6 +54,24 @@ func run() -> void:
 	var before := FileAccess.get_sha256(AchievementManager.PATH)
 	for i in range(300): await physics_frame
 	check(FileAccess.get_sha256(AchievementManager.PATH) == before, "debug bodies do not unlock achievements")
+	game.queue_free(); current_scene = null; await frames()
+	# Historical fixture has 11 proven discoveries. The twelfth is an actual drop;
+	# this checks the transition, not natural discovery of the first eleven.
+	clear_files()
+	var eleven := Progression.empty(); eleven.highest_animal = 12
+	for id in Progression.IDS:
+		if id != "mouse": eleven.animals[id] = {"count": 1, "date": "2024-01-01"}
+	check(SessionSave.clear_session(eleven) == OK, "save 11-animal historical fixture")
+	change_scene_to_file("res://scenes/game/Game.tscn"); await frames(); game = current_scene
+	var pre_collection := AchievementManager.load_state()
+	check(not pre_collection.data.entries.A15.unlocked and int(pre_collection.data.entries.A15.progress) == 11, "A15 remains locked at 11 discoveries")
+	game.current_data = game.animals[0]; game._set_aim(360)
+	var last_drop: bool = game.drop_animal()
+	for i in range(120):
+		await physics_frame
+		if Progression.discovered(game.progression) == 12: break
+	var collection_state := AchievementManager.load_state()
+	check(last_drop and Progression.discovered(game.progression) == 12 and collection_state.data.entries.A15.unlocked and not str(collection_state.data.entries.A15.date).is_empty(), "A15 unlocks on actual twelfth discovery after historical fixture")
 	game.queue_free(); current_scene = null; await frames()
 	# Migration fixtures are intentionally synthetic old-save data, not gameplay evidence.
 	clear_files()
