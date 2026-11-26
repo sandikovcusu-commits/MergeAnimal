@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _build() -> void:
 	var card := PanelContainer.new()
-	card.offset_left = 105; card.offset_right = 615; card.offset_top = 570; card.offset_bottom = 1170
+	card.offset_left = 105; card.offset_right = 615; card.offset_top = 530; card.offset_bottom = 1200
 	add_child(card)
 	if not bool(SettingsStore.load_values().reduced_effects):
 		card.modulate.a = 0.0
@@ -36,6 +36,8 @@ func _build() -> void:
 	collection.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Collection.tscn"))
 	var statistics := _button("Statistics", "STATISTICS", "star", 65); list.add_child(statistics)
 	statistics.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Statistics.tscn"))
+	var achievements := _button("Achievements", "Achievements", "trophy", 65); list.add_child(achievements)
+	achievements.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Achievements.tscn"))
 	var challenges := _button("Challenges", "CHALLENGES", "challenge", 70); list.add_child(challenges)
 	challenges.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/ChallengeSelection.tscn"))
 	settings_button = _button("Settings", "SETTINGS", "settings", 70); list.add_child(settings_button); settings_button.pressed.connect(_settings)

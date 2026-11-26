@@ -1,6 +1,7 @@
 extends Control
 signal shown(id: StringName)
-var queue: Array[AnimalData] = []
+signal achievement_shown(id: String)
+var queue: Array = []
 var displaying := false
 var reduced_effects := false
 var card: PanelContainer
@@ -8,6 +9,7 @@ var image: TextureRect
 var text: Label
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	position = Vector2(140, 285)
 	size = Vector2(440, 104)
@@ -19,19 +21,30 @@ func _ready() -> void:
 	visible = false
 
 func enqueue(data: AnimalData) -> void:
-	queue.append(data)
+	queue.append({"kind": "animal", "data": data})
+	if not displaying: _show_next()
+
+func enqueue_achievement(data: AchievementData) -> void:
+	queue.append({"kind": "achievement", "data": data})
 	if not displaying: _show_next()
 
 func _show_next() -> void:
 	if queue.is_empty():
 		displaying = false; visible = false; return
 	displaying = true
-	var data: AnimalData = queue.pop_front()
-	image.texture = data.sprite
-	text.text = "%s\n%s · %s %d" % [tr("ANIMAL_DISCOVERED"), tr(data.translation_key), tr("LEVEL"), data.level]
+	var item: Dictionary = queue.pop_front()
+	if item.kind == "animal":
+		var data: AnimalData = item.data
+		image.texture = data.sprite
+		text.text = "%s\n%s · %s %d" % [tr("ANIMAL_DISCOVERED"), tr(data.translation_key), tr("LEVEL"), data.level]
+		shown.emit(data.id)
+	else:
+		var achievement: AchievementData = item.data
+		image.texture = achievement.icon
+		text.text = "Achievement unlocked!\n%s" % achievement.title
+		achievement_shown.emit(achievement.id)
 	visible = true
 	card.modulate.a = 1.0 if reduced_effects else 0.0
-	shown.emit(data.id)
 	var tween := create_tween()
 	if not reduced_effects: tween.tween_property(card, "modulate:a", 1.0, 0.2)
 	tween.tween_interval(2.0)

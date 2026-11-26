@@ -21,6 +21,7 @@ func _ready() -> void:
 	if loaded.status not in ["ok", "recovered", "missing"] or not ChallengeStore.is_unlocked(loaded.data, challenge_id):
 		call_deferred("_selection")
 		return
+	AchievementManager.migrate()
 	challenge = ChallengeManager.new(ChallengeManager.DEFINITIONS[challenge_id - 1])
 	challenge.objective_reached.connect(_goal_reached)
 	super._ready()
@@ -154,6 +155,11 @@ func _persist_result() -> void:
 	if not result_finished or result_saved: return
 	var result := ChallengeStore.record_result(challenge_id, result_success, score, challenge.elapsed)
 	result_saved = result == OK
+	if result_saved and result_success:
+		var inputs := AchievementManager.saved_inputs()
+		var achievement_result := AchievementManager.synchronize({}, inputs.challenges, true)
+		if achievement_result.status == "ok":
+			for achievement in achievement_result.new: discovery_notifier.enqueue_achievement(achievement)
 	save_retry_button.visible = not result_saved
 	next_button.visible = result_saved and result_success and challenge_id < ChallengeManager.DEFINITIONS.size()
 	$HUD/Overlay/RestartButton.disabled = not result_saved

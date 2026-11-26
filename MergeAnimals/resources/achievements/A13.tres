@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/achievements/AchievementData.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/ui/icons/trophy.svg" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "A13"
+title = "Merge Master"
+description = "Complete 100 Classic merges."
+icon = ExtResource("2")
+objective_type = "total_merges"
+target = 100
+unlock_condition = ""

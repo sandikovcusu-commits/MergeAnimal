@@ -140,6 +140,8 @@ func _ready() -> void:
 	best_score = _load_best()
 	best_at_start = best_score
 	progression = SessionSave.load_progression(best_score) if persist_best else Progression.empty()
+	# Migrate only from persisted evidence, never from Challenge starter boards.
+	if persist_best: AchievementManager.migrate()
 	current_data = _pick_animal()
 	next_data = _pick_animal()
 	var continuing := bool(get_tree().get_meta("continue_requested", false))
@@ -398,6 +400,7 @@ func _commit_undo() -> void:
 	if golden_tween and golden_tween.is_running(): golden_tween.kill()
 	golden_label.visible = false
 	_restore_session(candidate)
+	if persist_best: AchievementManager.synchronize(progression, {}, false)
 	for timer in danger_monitor.timers.values(): danger_monitor.peak_time = maxf(danger_monitor.peak_time, float(timer))
 	undo_processing = false
 	get_tree().paused = false
@@ -615,6 +618,7 @@ func _attempt_drop() -> void:
 	if persist_best and not session_tainted:
 		progression.total_drops = int(progression.total_drops) + 1
 		_record_discovery(dropped)
+		_sync_achievements()
 	if tutorial_stage >= 0 and tutorial_stage < 3:
 		_tutorial_set_stage(2 if spawn_count == 1 else 3)
 	current_data = next_data
@@ -687,6 +691,7 @@ func _on_merged(data: AnimalData, point: Vector2) -> void:
 			progression.best_score = maxi(int(progression.best_score), score)
 			progression.max_combo = maxi(int(progression.max_combo), combo_count)
 		_record_discovery(data)
+		_sync_achievements()
 	_spawn_effect("soft_burst", point)
 	if not reduced_effects:
 		_spawn_effect("sparkle", point)
@@ -698,6 +703,12 @@ func _on_merged(data: AnimalData, point: Vector2) -> void:
 func _record_discovery(data: AnimalData) -> void:
 	if Progression.record_animal(progression, data) and is_instance_valid(discovery_notifier):
 		discovery_notifier.enqueue(data)
+
+func _sync_achievements() -> void:
+	if not persist_best or session_tainted: return
+	var result := AchievementManager.synchronize(progression, {}, true)
+	if result.status == "ok" and is_instance_valid(discovery_notifier):
+		for achievement in result.new: discovery_notifier.enqueue_achievement(achievement)
 
 func _spawn_effect(kind: String, point: Vector2) -> void:
 	var effect := EFFECT_SCRIPT.new()
@@ -715,6 +726,7 @@ func _on_golden_merged(point: Vector2) -> void:
 		progression.total_merges = int(progression.total_merges) + 1
 		progression.golden_merges = int(progression.golden_merges) + 1
 		if not score_untrusted: progression.best_score = maxi(int(progression.best_score), score)
+		_sync_achievements()
 	if score > best_score and (not persist_best or (not session_tainted and not score_untrusted and merge_manager.last_merge_eligible)):
 		best_score = score
 		_save_best()

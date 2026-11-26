@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/achievements/AchievementData.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/ui/icons/trophy.svg" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "A15"
+title = "Animal Collector"
+description = "Discover all 12 animals in Collection."
+icon = ExtResource("2")
+objective_type = "collection"
+target = 12
+unlock_condition = ""
