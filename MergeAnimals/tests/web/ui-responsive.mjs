@@ -40,7 +40,8 @@ async function matrix(){
 async function localeTest(){
  const locale=process.env.UI_LOCALE||'en', locales=['en','az','tr','ru'];if(!locales.includes(locale))throw Error('unsupported locale');
  await tap(360,1123);await sleep(1500);await tap(360,805);await sleep(700);await shot('language-options');
- await page.keyboard.press('Home');for(let i=0;i<locales.indexOf(locale);i++)await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');await sleep(3000);await shot('selected-language');
+ if(locale==='en'){await tap(160,885);await sleep(1800);await tap(360,805);await sleep(500)}
+ await tap(160,858+27*locales.indexOf(locale));await sleep(4500);await shot('selected-language');
  const saved=await page.evaluate(async()=>{for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let result=await new Promise((res,rej)=>{let r=db.transaction(n).objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res(null);if(String(c.key).endsWith('/wild_garden_settings.json'))return res(JSON.parse(JSON.parse(new TextDecoder().decode(c.value.contents)).payload));c.continue()};r.onerror=()=>rej(r.error)});if(result)return result}db.close()}return null});
  console.log('LOCALE_STATE',JSON.stringify(saved));check(saved?.language===locale,`settings persisted requested locale ${locale}`);if(saved?.language!==locale)throw Error('locale selection failed');
  await tap(360,965);await sleep(1200);
