@@ -42,6 +42,10 @@ func run() -> void:
 	check(game.remove_selecting and game.remove_remaining == 1 and is_instance_valid(body), "invalid mouse selection consumes nothing")
 	game.remove_button.pressed.emit()
 	check(not game.remove_selecting and game.remove_remaining == 1, "Cancel consumes nothing")
+	game.remove_button.pressed.emit(); game._toggle_pause()
+	check(not game.remove_selecting and game.remove_remaining == 1 and game.remove_button.disabled, "pause cancels selection without consumption")
+	game._toggle_pause()
+	check(not game.remove_button.disabled, "Remove re-enabled on resume")
 	game.remove_button.pressed.emit(); body.merge_locked = true
 	mouse(game, body.global_position); await frames()
 	check(game.remove_selecting and game.remove_remaining == 1 and is_instance_valid(body), "merge-locked animal cannot be selected")
@@ -79,6 +83,10 @@ func run() -> void:
 	check(saved.status == "ok" and saved.data.remove_remaining == 0 and saved.data.bodies.is_empty(), "body and used allowance saved together")
 	var backup := SaveManager._read_envelope(SessionSave.PATH + ".bak")
 	check(backup.status == "ok" and backup.data.remove_remaining == 0 and backup.data.bodies.is_empty(), "backup contains committed removal")
+	var corrupt := FileAccess.open(SessionSave.PATH, FileAccess.WRITE); corrupt.store_string("broken primary"); corrupt.close()
+	var recovered := SessionSave.load_session()
+	check(recovered.status == "recovered" and recovered.data.remove_remaining == 0 and recovered.data.bodies.is_empty(), "backup recovery does not restore spent allowance")
+	check(game.save_session() == OK, "recovered state can write a new primary")
 	var bad: Dictionary = saved.data.duplicate(true); bad.remove_remaining = 2
 	check(not SessionSave.valid(bad), "invalid allowance rejected")
 	var legacy: Dictionary = saved.data.duplicate(true); legacy.erase("remove_remaining")
@@ -95,6 +103,10 @@ func run() -> void:
 	# Non-persistent fixture resets allowances only for stress; production cannot.
 	game.queue_free(); await frames()
 	game = make_game(false); await frames()
+	var deleted: Animal = game.create_animal(game.animals[0], Vector2(200, 700))
+	deleted.queue_free()
+	check(not game._remove_eligible(deleted), "queued-for-deletion animal is ineligible")
+	await frames(2)
 	for i in range(50):
 		game.remove_remaining = 1
 		var animal: Animal = game.create_animal(game.animals[i % 5], Vector2(360, 700))
@@ -115,6 +127,12 @@ func read_phase() -> void:
 		print("REMOVE_READ checks=%d failures=%d" % [checks, failures]); quit(1); return
 	check(game.remove_remaining == 0 and game.remove_button.disabled and game.pieces.get_child_count() == 0, "Continue restores removed board and disabled button")
 	game._toggle_remove(); check(not game.remove_selecting, "Continue cannot reuse Remove")
+	var before: int = game.spawn_count
+	game._set_aim(300); game.drop_animal()
+	for i in range(120):
+		await physics_frame
+		if game.spawn_count > before: break
+	check(game.spawn_count == before + 1, "normal dropping continues after Remove and Continue")
 	game._restart(); await frames(6)
 	game = current_scene
 	check(game.remove_remaining == 1 and not game.remove_button.disabled, "restart creates new allowance")
