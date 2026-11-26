@@ -1,4 +1,6 @@
-> **V0.6.4.1 DEV:** Challenges 01–05 are available from the main menu. Results and bests are saved separately; active challenge boards are not resumed after exit. See `CHALLENGE_REPORT.md` and `QA_REPORT.md`.
+> **V0.6.4.2 DEV / WIP:** 20 Challenges, separate progress, time/drop/combo/golden goals, and unsaved-attempt warnings are available. Human balance, particularly Golden Garden difficulty, remains unverified. See `CHALLENGE_REPORT.md`, `CHALLENGE_BALANCE_REPORT.md`, `QA_REPORT.md` and `KNOWN_ISSUES.md`.
+
+> **Historical V0.6.4.1 DEV:** Challenges 01–05 are available from the main menu. Results and bests are saved separately; active challenge boards are not resumed after exit. See `CHALLENGE_REPORT.md` and `QA_REPORT.md`.
 
 > **V0.6.3.3 DEV:** Game Over offers one free Classic Rescue per session, with recoverable pending Game Over and a committed checkpoint. Play Again/Main Menu finalize the loss. See `POWERUP_REPORT.md`, `SAVE_SYSTEM_REPORT.md` and `QA_REPORT.md`; release remains blocked.
 
@@ -8,7 +10,7 @@
 
 > **Historical V0.6.2 DEV / release blocked:** Collection, Statistics and local Classic Continue are available; Challenges remain disabled. AI sprite commercial rights are unresolved and 24 expression states remain missing. See `COLLECTION_REPORT.md`, `STATISTICS_REPORT.md` and `ASSET_LICENSES.md`.
 
-# Merge Animals: Wild Garden — V0.6.4.1-dev
+# Merge Animals: Wild Garden — V0.6.4.2-dev
 
 Godot 4.7.2, Compatibility renderer, 120 Hz fizika, redaktə edilə bilən 2D mənbə layihəsi. V0.2.1 üzərindən inkişaf etdirilib. Başsız Linux Actions testləri `QA_REPORT.md`-dədir. **DEV:** X11 proqram renderi yoxlanıb; real mobil touch və Windows yoxlanmayıb; qrafikalar son kommersiya qəbulundan keçməyib.
 

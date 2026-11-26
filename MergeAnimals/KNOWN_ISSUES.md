@@ -1,3 +1,12 @@
+# V0.6.4.2 DEV — current limitations
+
+- Golden Garden is physically solvable in four aligned drops, so requested challenge difficulty is not demonstrated and may not be satisfied. 11, 12, 15, 18, 19 are one-drop starter-board paths. Tune and human-playtest before accepting the difficulty progression.
+- 06–10 automated solvability uses a test-selected dog, not ordinary random gameplay; fixed queues and simulated timings do not establish real-player success rate or game balance. See `CHALLENGE_BALANCE_REPORT.md`.
+- Limited-drop settlement depends on bodies becoming stable; a persistently moving or pending/blocked merge can delay failure indefinitely. Physics crowding and overlap risks remain.
+- X11 captures are simulated windows, desktop portrait-letterboxed. Human touch, safe-area, locale and performance checks remain open; collection/statistics preservation is primarily byte-level.
+- 24 expression sprites and verified commercial asset rights still missing; release blocked. No mobile/Web durability, sudden power loss or multiwriter guarantees.
+
+---
 # V0.6.3.3 DEV — current limitations
 
 - Rescue's mandatory danger set is conservative: all bodies crossing the danger line are selected even if some would fall below it unaided. The additional spawn-blocker set is minimized for that policy, but globally minimal physical removal is not proved; a dense board can fail the configured cap when another hypothetical strategy might work.

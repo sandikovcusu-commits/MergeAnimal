@@ -1,3 +1,25 @@
+# V0.6.4.2-dev QA — WIP
+
+Godot 4.7.2 Linux CI on code commit `9dde09e45073de38fa3f52095235dcb4bb73c61a`; exact log `tests/logs/v0642-challenge-9dde09e.txt` and [Challenge CI](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45806711856). The separate phase runs were actually performed: [Phase 2](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45805038011), [Phase 3](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45805411014), [Phase 4 final](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45805847192). Earlier failed runs and fixes are visible in CI history.
+
+| Check | Actual result / boundary |
+|---|---|
+| Phase 1 regression | 66/66; natural 01 plus untouched-board 02–05; fixed test-selected spawns; 01 danger disabled |
+| Phase 2 / 3 / 4 | 32/32, 15/15, 17/17; 06–10 test-selected spawns, 11–20 level-configured spawns |
+| Timer, pause, limit | 60 s expiry; pause timer; 21st drop refused; blocked attempt consumes no drop; failure waits for settle; controlled final drop wins through real contact |
+| Combo, golden | real x3 and x5, real Golden event |
+| Success/failure conflict | overflow signal injected when 06's real objective reached; success retained. Synthetic signal, not every possible timing/interleaving |
+| Result exactly once / retry | obstructed result write, retry commit, attempts checked; no proof against all crash/concurrency conditions |
+| Replay / restart / unlock | fresh replay, restart warning/restart, next unlock, failed replay retains previous completion; UI warning captured |
+| Restore/migration | v1 5-entry migration 3/3; separate process 01–05 9/9, 01–10 11/11 and 01–20 38/38 including 06–20 best times; backup recovery |
+| Classic | known Classic session and power-up checkpoint hashes byte-identical after challenges, score and best reloaded. Collection/statistics bytes preserved, not exhaustive interactive verification of each entry |
+| Power-ups | 01–05 actions directly blocked; 06–20 controls hidden (not exhaustive direct action attempts for all 15) |
+| X11 | original 5 seeded screenshots plus 11 each 720×1280 and 1280×720. Selection, all four categories, timer, limited, golden, exit warning, success/failure. Success uses real Koala collision; failure screen injects overflow signal. Screenshots in `art_reports/v0642_challenge`; repository images are reduced-size JPEG check-run thumbnails, CI has original PNG artifacts. Desktop is portrait letterboxed |
+
+The collection, runtime, Remove, Undo and Rescue workflows for the tested code succeeded; see CI history. X11, simulated signals and fixed FPS do not establish real touch, screen safe areas, battery, long sessions, all locales or cross-platform compatibility. Release remains blocked by unverified commercial art rights and missing expression assets. Golden challenge difficulty and human balance remain unvalidated. Prior detailed QA remains below as history.
+
+---
+## Historical QA
 # V0.6.4.1 DEV — Challenge Mode faktiki yoxlama
 
 [Challenge Godot 4.7.2 CI 45764793009](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45764793009), `c92e292`: **65/65** integration və başqa Godot prosesində **9/9**, həmçinin real physics gravity/contact ilə toxunulmamış lövhədə 02–05-in 4/4 ssenarisi PASS. Birinci Challenge üçün iki drop-la təbii collision ayrıca PASS. Düşəcək heyvan növbəsi testlərdə deterministik seçilib; tətbiqin normal RNG-si bu testlərdə emal edilən bütün növbəni seçmir. Integration-ın digər ssenarilərində təkrarlanabilir təmas üçün body-lər fixture tərəfindən yerləşdirilir və arada lövhə təmizlənir. Heç bir məqsəd testdən SUCCESS və ya merge funksiyası çağırılaraq tamamlanmayıb. Failed testi overflow siqnalını simulyasiya edir. Tam metod və nəticələr `CHALLENGE_REPORT.md`; faktiki log `tests/logs/v0641-challenge-c92e292.txt`.

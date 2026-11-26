@@ -1,3 +1,9 @@
+# V0.6.4.2-dev — Challenge expansion (WIP)
+
+- Extended five existing challenges to 20 with difficulty categories, time/drop/combo/golden objectives, configured advanced boards/queues, independent score and time records, v1 save migration, and explicit unsaved-attempt exit/restart warning.
+- Added staged real Godot tests, last-drop/conflict/save coverage, separate-process restore, 22 mobile/desktop X11 fixtures and reports. Deterministic/test-selected spawns are disclosed; Golden Garden's requested difficulty and human/device balance remain unverified.
+- No new assets, achievement, advertising SDK, physics retuning or active Challenge continue. Commercial release remains blocked.
+
 # V0.6.4.1-dev — Challenge Mode, Phase 1
 
 - Added five resource-defined challenges, selection with sequential unlock, objective/time HUD, success/failure, replay/restart and separate per-challenge result storage. Classic session and best are isolated; Classic power-ups are disabled in Challenge.
