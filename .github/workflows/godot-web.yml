@@ -62,13 +62,14 @@ jobs:
           REPO: ${{ github.repository }}
           SHA: ${{ github.sha }}
         run: |
-          python3 - <<'PY'
+          set -o pipefail
+          python3 - <<'PY' 2>&1 | tee /tmp/diagnostic-error.log
           import base64,json,os,pathlib,subprocess
           root=pathlib.Path('/tmp/web-qa');p=pathlib.Path('/tmp/web-check.json')
           def post(name,text):
               p.write_text(json.dumps({'name':name,'head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':name,'summary':'Phase A web test; scripted browser smoke, not human play','text':text}}))
               subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
-          text='\n'.join('=== '+f.name+' ===\n'+f.read_text(errors='replace')[-6000:] for f in sorted(root.glob('*.log')))
+          text='\n'.join('=== '+f.name+' ===\n'+f.read_text(errors='replace')[-6000:] for f in sorted(root.glob('*.log')) if f.name != 'install.log')
           post('Web phase A diagnostic',text[-20000:] or 'No logs')
           for f in sorted(root.glob('*.png')):
               jpg=pathlib.Path('/tmp')/(f.stem+'.jpg')
@@ -77,6 +78,8 @@ jobs:
               for i in range(0,len(encoded),48000):
                   post('Web screenshot %s %03d of %03d' %(f.stem,i//48000+1,(len(encoded)+47999)//48000),encoded[i:i+48000])
           PY
+          result=${PIPESTATUS[0]}
+          if [ "$result" != 0 ]; then echo "::error::$(tail -3 /tmp/diagnostic-error.log | tr '\n' ' ')"; exit "$result"; fi
       - name: Transport exported web build as unreferenced Git blob
         if: always()
         env:
@@ -84,9 +87,10 @@ jobs:
           REPO: ${{ github.repository }}
           SHA: ${{ github.sha }}
         run: |
-          set -e
+          set -e -o pipefail
+          trap 'echo "::error::Transport failed: $(tail -3 /tmp/transport-error.log | tr "\n" " ")"' ERR
           if [ ! -f /tmp/web-test/index.html ]; then echo 'No build to transport'; exit 0; fi
-          python3 - <<'PY'
+          python3 - <<'PY' 2>&1 | tee /tmp/transport-error.log
           import base64,hashlib,json,os,pathlib,subprocess,zipfile
           root=pathlib.Path('/tmp/web-test'); archive=pathlib.Path('/tmp/web-build.zip')
           with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
