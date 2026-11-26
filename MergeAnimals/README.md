@@ -1,10 +1,12 @@
-> **V0.6.3.2 DEV:** Classic Undo restores the last successful drop once per session; Remove clears the previous Undo boundary. Undo and Remove survive Continue through a generation checkpoint. See `POWERUP_REPORT.md` and `SAVE_SYSTEM_REPORT.md`. Rescue remains unavailable.
+> **V0.6.3.3 DEV:** Game Over offers one free Classic Rescue per session, with recoverable pending Game Over and a committed checkpoint. Play Again/Main Menu finalize the loss. See `POWERUP_REPORT.md`, `SAVE_SYSTEM_REPORT.md` and `QA_REPORT.md`; release remains blocked.
 
-> **V0.6.3.1 DEV:** Classic Remove is available once per session; select an outlined animal or Cancel. Continue preserves a spent use. Undo and Rescue are not implemented. See `POWERUP_REPORT.md` for save and device limitations.
+> **Historical V0.6.3.2 DEV:** Classic Undo restores the last successful drop once per session; Remove clears the previous Undo boundary. Undo and Remove survive Continue through a generation checkpoint. See `POWERUP_REPORT.md` and `SAVE_SYSTEM_REPORT.md`. Rescue remains unavailable.
+
+> **Historical V0.6.3.1 DEV:** Classic Remove is available once per session; select an outlined animal or Cancel. Continue preserves a spent use. Undo and Rescue are not implemented. See `POWERUP_REPORT.md` for save and device limitations.
 
 > **V0.6.2 DEV / release blocked:** Collection, Statistics and local Classic Continue are available; Challenges remain disabled. AI sprite commercial rights are unresolved and 24 expression states remain missing. See `COLLECTION_REPORT.md`, `STATISTICS_REPORT.md` and `ASSET_LICENSES.md`.
 
-# Merge Animals: Wild Garden — V0.6.2-dev
+# Merge Animals: Wild Garden — V0.6.3.3-dev
 
 Godot 4.7.2, Compatibility renderer, 120 Hz fizika, redaktə edilə bilən 2D mənbə layihəsi. V0.2.1 üzərindən inkişaf etdirilib. Başsız Linux Actions testləri `QA_REPORT.md`-dədir. **DEV:** X11 proqram renderi yoxlanıb; real mobil touch və Windows yoxlanmayıb; qrafikalar son kommersiya qəbulundan keçməyib.
 

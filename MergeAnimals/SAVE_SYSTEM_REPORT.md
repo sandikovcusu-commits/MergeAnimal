@@ -1,4 +1,13 @@
-# V0.6.2 — collection and statistics integration
+# V0.6.3.3 DEV — pending Game Over and Rescue checkpoint
+
+Additive validated v3 fields `rescue_remaining` (0/1) and `game_over_pending` (boolean) default to one and false for older v1–v3 snapshots. Downgrading to an older build is not supported: it can ignore or discard these fields. A Game Over cancels merge reservations, pauses and writes a full pending snapshot into the generation power-up checkpoint. `completed_games` is not incremented yet. Continue restores the same pending overlay. On Play Again/Main Menu, a single increment and inactive tombstone are committed together; on New Game from a pending saved session the same increment is applied before the tombstone. Repeat finalization is idempotent in the live instance.
+
+Rescue constructs and validates the complete resulting board with the spent use, cleared Undo snapshot and zero danger timers; its full atomic checkpoint is the commit point. Only after this succeeds does the live board change. An ordinary primary/backup mirror may fail after commit: the higher-generation checkpoint then wins. A deliberately obstructed mirror followed by corrupted primary was tested. A failed checkpoint leaves board and use unchanged. For nonpersistent test fixtures only, disk is bypassed.
+
+This is local, single-writer protection, not anti-tamper or cloud backup. If all local files are deleted, corrupted, or rolled back together, no local scheme can prevent losing or restoring a use. Power-loss/fsync guarantees, simultaneous writers, manual tampering and filesystem/device failures beyond the injected obstructions are not established. A crash before a safe pending checkpoint can revert to the last valid earlier save; a shown save error is not a durable guarantee. Physics contact caches are not serialized. See `QA_REPORT.md` for executed processes and limitations.
+
+---
+# Historical V0.6.2 — collection and statistics integration
 
 The SaveManager versioned envelope remains version 1. Its Classic-session payload is now **session version 2**, containing validated progression version 1 in the same atomic checkpoint as the board, score and RNG. V0.6.1 session-version-1 files remain readable; on the next safe save they migrate to version 2 without clearing the board, best or settings. The V0.6.1 version guard treats session version 2 as future rather than silently discarding new progression; running the older build against this new save was not separately tested. A version newer than 2 or a newer progression version is protected against overwrite. Recovery uses the previous validated primary/backup transaction. If both copies are unreadable/invalid, the UI reports unavailability and the application refuses to replace them automatically.
 

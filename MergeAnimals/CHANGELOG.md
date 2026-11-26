@@ -1,3 +1,8 @@
+# V0.6.3.3-dev — Classic Rescue
+
+- Added recoverable pending Game Over, one Classic Rescue, deterministic conservative selection, spawn preflight, pause/processing/used/failure states, existing procedural effect and transactional checkpoint. Finalization counts a completed game once and commits a tombstone.
+- Added Godot Rescue integration, 30 scripted stress cases, three distinct processes, actual X11 window captures and synthetic mouse/touch tests. See QA and save reports for evidence and limits; no SDK or new art.
+
 # V0.6.3.2-dev — Undo and save integrity
 
 - Added one Classic Undo with non-recursive pre-drop snapshots, stable board IDs, safe paused/deferred restore and existing SVG HUD states. Remove invalidates the prior Undo boundary and its usage is never refunded by Undo.

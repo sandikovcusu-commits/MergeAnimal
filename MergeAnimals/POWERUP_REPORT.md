@@ -1,4 +1,15 @@
-# V0.6.3.2 DEV — Undo and power-up integrity
+# V0.6.3.3 DEV — Rescue
+
+Classic has one free Rescue per new session. It is available only on the paused Game Over screen; it is not an ad or a reward. Game Over is pending until Play Again/Main Menu explicitly commits a tombstone. Continue restores a pending Game Over and its board instead of counting a completed game. A successful Rescue resumes the same game; a later final loss counts once. `RewardRequestGateway.RESCUE` remains an unconnected verified-callback boundary; there is no SDK or simulated reward.
+
+The planner requires every animal whose top crosses the danger line to be removed, then minimizes extra spawn blockers across the permitted horizontal spawn interval. It resolves ties by protecting higher levels and preferring the current aim; mandatory danger animals are ordered by highest top, then lower level and stable UID. This is a conservative *geometric safety policy*: it does not predict future physical settling and is not a proof that the globally smallest number of physical removals would suffice. If that set exceeds the `rescue_max_remove` export (default 10), or if the actual physics query finds a remaining collider, Rescue fails without consuming a use. The candidate is validated and the power-up checkpoint committed before the live board or allowance changes. A 0.4-second paused highlight precedes safe detach and the existing soft burst; RESCUED is transient. Reduced effects suppress the burst, not the safety indication.
+
+The checkpoint retains score/best, progression, counts, discovery dates, Golden, current/next and RNG, as well as current Undo/Remove allowances. Rescue resets danger timers, clears any old Undo snapshot, and adds a short spawn cooldown. Pending merge reservations are cancelled without deleting or scoring either animal before the Game Over checkpoint; a deferred merge is unable to commit while paused. The spawn is checked against the live physics space before commit and input remains locked until that query is clear on a subsequent physics tick. There is no automatic recovery if the spawn is later occupied indefinitely by moving bodies; such a board may need a restart.
+
+Actual Godot 4.7.2 tests and fixture screenshots are identified in `QA_REPORT.md`; save and rollback limits in `SAVE_SYSTEM_REPORT.md`. No new sprites, Challenge, Achievement, SDK or physics parameter change was made.
+
+---
+# Historical V0.6.3.2 DEV — Undo and power-up integrity
 
 ## Undo rules
 

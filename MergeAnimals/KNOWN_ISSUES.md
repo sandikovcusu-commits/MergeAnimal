@@ -1,3 +1,11 @@
+# V0.6.3.3 DEV — current limitations
+
+- Rescue's mandatory danger set is conservative: all bodies crossing the danger line are selected even if some would fall below it unaided. The additional spawn-blocker set is minimized for that policy, but globally minimal physical removal is not proved; a dense board can fail the configured cap when another hypothetical strategy might work.
+- The pre-commit spawn query can reject static or animal obstacles without spending a use. If moving bodies subsequently occupy the spawn, input waits for it to clear; an indefinitely blocked spawn has no timeout or automatic alternate lane recovery.
+- Local backups cannot prevent a use from returning if all save/checkpoint copies are removed, damaged or rolled back together. Abrupt power loss, concurrency and device persistence are not proven. Failed pending writes can leave an older checkpoint as the last recoverable state.
+- Release remains blocked: sprite model/vendor and commercial rights are unverified, transparency/halo and Bear silhouette need review, and 24 expression sprites are missing. Previous 120 Hz 9.190 px maximum penetration remains. Real mobile touch, FPS/RAM/battery, human playtests and Web export/compatibility remain unverified. X11 seeded fixtures and simulated touch are not those tests.
+
+---
 # Məlum problemlər — V0.3.0-dev
 
 - P1: 60 Hz normal bot gameplay-də 16.678 px, 120 Hz-də eyni seed-lərlə 9.190 px-ə qədər floor/sərhəd overlap ölçüldü; >0.01 px resting kontakt nüfuzu çox uzun qala bilər; sürətli divar təmasında nüfuz da qalır; sıfır overlap və real cihazda görünməzlik təsdiqlənməyib. Dərinlik, müddət, tam escape və ilişmə ayrıca `PHYSICS_REPORT.md`-dədir.

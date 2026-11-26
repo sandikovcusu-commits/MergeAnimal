@@ -1,3 +1,12 @@
+# V0.6.3.3 DEV — Rescue executed evidence
+
+Code/tests at `d0b3f07d10d2c3f31650722512bda71ca339995b`: [Godot 4.7.2 Rescue integration and X11, 45762175148](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45762175148) PASS: **60/60** assertions, including **30 independent fixture Rescue operations** (not human games); separate write/read/verify Godot processes **3/3, 3/3, 2/2**. The read process restores pending Game Over and performs Rescue; the third process restores the committed rescued board. The tests exercise no-use outside Game Over, pending merge cancellation, actual DangerMonitor overflow signal with fixture-supported body, cap and blocked-spawn failure, checkpoint obstruction, failed ordinary mirror plus corrupt primary, score/progression/queue/RNG and limits, danger reset, tombstone and repeat finalization. The spawn query was checked using the real physics space. `tests/logs/v0633-rescue-d0b3f07.txt` is the actual diagnostic log.
+
+Six real 720×1280 Xvfb/X11 Godot window captures (game over, button, before, highlight, after, used) are Actions artifacts at the same run; reduced JPEG inspection copies are in `art_reports/v0633_rescue/`. Actual viewport GUI input uses synthetic mouse and synthetic touch; it is neither physical-device touch nor a human playtest. The fixture directly positions/freezes animals, and the stress loop creates new nonpersistent fixture games; do not infer production balancing or mobile performance from these tests.
+
+At `d0b3f07`, [runtime regression 45762175172](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45762175172), [Undo 45762175112](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45762175112), [Remove 45762175131](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45762175131), [session 45762175183](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45762175183), and [collection 45762175118](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45762175118) passed. The separate [software render run 45762175146](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45762175146) was still in progress when this report was written. Release acceptance remains **NOT MET** (24 missing expression sprites and unresolved commercial rights). Existing 9.190 px 120-Hz physical overlap, sprite halo/Bear silhouette, physical mobile touch/FPS/RAM and Web compatibility risks remain unverified. See `KNOWN_ISSUES.md`.
+
+---
 # QA hesabatı — V0.3.0-dev
 
 ## Faktiki icra
