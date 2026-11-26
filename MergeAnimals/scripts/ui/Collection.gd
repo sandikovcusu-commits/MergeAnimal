@@ -31,7 +31,7 @@ func _build() -> void:
 		var index := i
 		var data := load("res://resources/animals/%s.tres" % IDS[i]) as AnimalData
 		var entry: Dictionary = progress.animals[IDS[i]]
-		var unlocked := int(entry.count) > 0
+		var unlocked := not str(entry.date).is_empty()
 		var card := Button.new(); card.name = "AnimalCard%d" % (i + 1); card.custom_minimum_size = Vector2(190, 340); card.size_flags_horizontal = Control.SIZE_EXPAND_FILL; grid.add_child(card); cards.append(card)
 		var column := VBoxContainer.new(); column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); column.offset_left = 5; column.offset_right = -5; column.offset_top = 5; column.offset_bottom = -5; column.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(column)
 		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(100, 86); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -59,7 +59,7 @@ func _build_detail() -> void:
 func _show_detail(index: int) -> void:
 	var data := load("res://resources/animals/%s.tres" % IDS[index]) as AnimalData
 	var entry: Dictionary = progress.animals[IDS[index]]
-	var unlocked := int(entry.count) > 0
+	var unlocked := not str(entry.date).is_empty()
 	detail_image.texture = data.sprite
 	detail_image.modulate = Color.WHITE if unlocked else Color(0.12, 0.16, 0.13, 0.92)
 	detail_label.text = "%s\n%s %d · %s\n%s: %d\n%s: %s\n\n%s" % [tr(data.translation_key), tr("LEVEL"), index + 1, tr("UNLOCKED") if unlocked else tr("LOCKED"), tr("CREATED"), int(entry.count), tr("FIRST_FOUND"), entry.date if unlocked else "—", tr("ANIMAL_DESC_" + IDS[index].to_upper()) if unlocked else _unlock_hint(index)]

@@ -26,12 +26,12 @@ static func valid(value: Variant) -> bool:
 		var count: Variant = entry.get("count")
 		var date: Variant = entry.get("date")
 		if typeof(count) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(count)) or float(count) < 0 or float(count) > 1000000000 or floorf(float(count)) != float(count): return false
-		if typeof(date) != TYPE_STRING or date.length() > 32 or (int(count) == 0 and not date.is_empty()) or (int(count) > 0 and date.is_empty()): return false
+		if typeof(date) != TYPE_STRING or date.length() > 32 or (int(count) > 0 and date.is_empty()): return false
 	return true
 
 static func record_animal(progress: Dictionary, data: AnimalData) -> bool:
 	var entry: Dictionary = progress.animals[str(data.id)]
-	var first := int(entry.count) == 0
+	var first := str(entry.date).is_empty()
 	entry.count = int(entry.count) + 1
 	if first: entry.date = Time.get_datetime_string_from_system(false, true)
 	progress.highest_animal = maxi(int(progress.highest_animal), data.level)
@@ -40,5 +40,5 @@ static func record_animal(progress: Dictionary, data: AnimalData) -> bool:
 static func discovered(progress: Dictionary) -> int:
 	var count := 0
 	for id in IDS:
-		if int(progress.animals[id].count) > 0: count += 1
+		if not str(progress.animals[id].date).is_empty(): count += 1
 	return count

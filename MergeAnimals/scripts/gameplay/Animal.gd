@@ -9,6 +9,8 @@ var merge_locked: bool = false
 var progression_eligible: bool = false
 var supported: bool = false
 var instance_uid: int = 0
+# Stable identity within a saved board, independent of Godot instance IDs.
+var save_uid: int = 0
 
 func _ready() -> void:
 	assert(data != null, "Animal requires AnimalData")

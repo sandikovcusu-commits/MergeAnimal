@@ -16,8 +16,9 @@ func touch(game, position: Vector2) -> void:
 	var event := InputEventScreenTouch.new(); event.index = 0; event.pressed = true; event.position = position
 	game._unhandled_input(event)
 func clear_save() -> void:
-	for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(SessionSave.PATH + suffix))
+	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH]:
+		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 func make_game(persist := true):
 	var game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
 	game.test_seed = 7; game.persist_best = persist
@@ -96,6 +97,8 @@ func run() -> void:
 	if phase == "write":
 		print("REMOVE_WRITE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0); return
 	# A real Continue of an old v2 session initializes the newly added field.
+	clear_save()
+	legacy.session_version = 2
 	check(SaveManager.save_progress(legacy, SessionSave.PATH) == OK, "write legacy v2 fixture")
 	game.queue_free(); await frames()
 	set_meta("continue_requested", true)

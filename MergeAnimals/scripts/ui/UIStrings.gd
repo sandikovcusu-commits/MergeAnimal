@@ -18,11 +18,19 @@ static func install() -> void:
 		"tr": {"NEW_GAME":"Yeni oyun", "NEW_GAME_CONFIRM":"Yeni oyun başlatılsın mı? Kayıtlı oyun değiştirilecek.", "SAVE_FAILED":"Kayıt başarısız", "CONTINUE":"Oyuna devam et", "SAVE_WAIT":"Kaydedilemedi. Devam edip tekrar deneyin.", "SAVE_UNAVAILABLE":"Kayıtlı oyun kullanılamıyor"},
 		"ru": {"NEW_GAME":"Новая игра", "NEW_GAME_CONFIRM":"Начать новую игру? Сохранённая игра будет заменена.", "SAVE_FAILED":"Ошибка сохранения", "CONTINUE":"Продолжить игру", "SAVE_WAIT":"Не удалось сохранить. Продолжите и повторите.", "SAVE_UNAVAILABLE":"Сохранённая игра недоступна"}
 	}
+	var undo_messages := {
+		"en": {"UNDO_AVAILABLE":"Undo: 1", "UNDO_EMPTY":"No undo", "UNDO_USED":"Undo: used", "UNDO_PROCESSING":"Restoring"},
+		"az": {"UNDO_AVAILABLE":"Geri al: 1", "UNDO_EMPTY":"Geri alma yox", "UNDO_USED":"Geri al: bitdi", "UNDO_PROCESSING":"Bərpa edilir"},
+		"tr": {"UNDO_AVAILABLE":"Geri al: 1", "UNDO_EMPTY":"Geri alma yok", "UNDO_USED":"Geri al: bitti", "UNDO_PROCESSING":"Geri yükleniyor"},
+		"ru": {"UNDO_AVAILABLE":"Отмена: 1", "UNDO_EMPTY":"Нет отмены", "UNDO_USED":"Отмена: нет", "UNDO_PROCESSING":"Восстановление"}
+	}
+	for locale in undo_messages:
+		messages[locale].merge(undo_messages[locale])
 	var remove_messages := {
-		"en": {"REMOVE_AVAILABLE":"Remove: 1", "REMOVE_USED":"Remove: used", "REMOVE_CANCEL":"Cancel", "REMOVE_SELECT":"Select an animal"},
-		"az": {"REMOVE_AVAILABLE":"Sil: 1", "REMOVE_USED":"Sil: istifadə edilib", "REMOVE_CANCEL":"Ləğv et", "REMOVE_SELECT":"Heyvan seçin"},
-		"tr": {"REMOVE_AVAILABLE":"Kaldır: 1", "REMOVE_USED":"Kaldır: kullanıldı", "REMOVE_CANCEL":"İptal", "REMOVE_SELECT":"Bir hayvan seçin"},
-		"ru": {"REMOVE_AVAILABLE":"Убрать: 1", "REMOVE_USED":"Убрать: нет", "REMOVE_CANCEL":"Отмена", "REMOVE_SELECT":"Выберите животное"}
+		"en": {"REMOVE_AVAILABLE":"Remove: 1", "REMOVE_USED":"Remove: used", "REMOVE_CANCEL":"Cancel", "REMOVE_SELECT":"Select an animal · Undo will be cleared"},
+		"az": {"REMOVE_AVAILABLE":"Sil: 1", "REMOVE_USED":"Sil: istifadə edilib", "REMOVE_CANCEL":"Ləğv et", "REMOVE_SELECT":"Heyvan seçin · Geri alma silinəcək"},
+		"tr": {"REMOVE_AVAILABLE":"Kaldır: 1", "REMOVE_USED":"Kaldır: kullanıldı", "REMOVE_CANCEL":"İptal", "REMOVE_SELECT":"Bir hayvan seçin · Geri alma silinecek"},
+		"ru": {"REMOVE_AVAILABLE":"Убрать: 1", "REMOVE_USED":"Убрать: нет", "REMOVE_CANCEL":"Отмена", "REMOVE_SELECT":"Выберите животное · Отмена сбросится"}
 	}
 	for locale in remove_messages:
 		messages[locale].merge(remove_messages[locale])

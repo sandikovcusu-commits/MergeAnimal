@@ -17,7 +17,9 @@ func observe(animal: Animal) -> void:
 	animal.body_entered.connect(_on_body_entered.bind(animal))
 
 func _on_body_entered(other: Node, animal: Animal) -> void:
-	if not other is Animal:
+	if not other is Animal or not game.is_playing():
+		return
+	if not is_instance_valid(animal) or animal.get_parent() != game.pieces or other.get_parent() != game.pieces:
 		return
 	request_merge(animal, other as Animal)
 

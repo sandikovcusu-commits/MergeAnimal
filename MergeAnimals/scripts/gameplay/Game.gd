@@ -80,6 +80,11 @@ var remove_selecting := false
 var remove_committing := false
 var remove_button: Button
 var remove_hint: Label
+var undo_remaining := 1
+var undo_snapshot: Dictionary = {}
+var undo_processing := false
+var undo_button: Button
+var next_body_uid := 1
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -113,6 +118,7 @@ func _ready() -> void:
 	$HUD/Overlay/SettingsButton.icon = load("res://assets/ui/icons/settings.svg")
 	$HUD/Overlay/MainMenuButton.icon = load("res://assets/ui/icons/home.svg")
 	_setup_remove_ui()
+	_setup_undo_ui()
 	_refresh_ui_text()
 	discovery_notifier = preload("res://scripts/ui/DiscoveryNotification.gd").new()
 	$HUD.add_child(discovery_notifier)
@@ -156,7 +162,7 @@ func _return_to_menu_after_load_failure() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func is_playing() -> bool:
-	return game_state == GameState.PLAYING
+	return game_state == GameState.PLAYING and not undo_processing
 
 func _physics_process(delta: float) -> void:
 	if not is_playing() or get_tree().paused:
@@ -187,15 +193,13 @@ func _physics_process(delta: float) -> void:
 	if debug_outlines or remove_selecting:
 		queue_redraw()
 
-func _session_snapshot() -> Dictionary:
+func _session_snapshot(include_undo: bool = true) -> Dictionary:
 	var bodies: Array = []
-	var uid := 0
 	for animal in pieces.get_children():
 		if not animal is Animal or animal.is_queued_for_deletion() or animal.merge_locked:
 			return {}
-		uid += 1
-		bodies.append({"uid": uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
-	return {"session_version": 2, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
+		bodies.append({"uid": animal.save_uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
+	return {"session_version": 3, "generation": 0, "undo_remaining": undo_remaining, "undo_snapshot": undo_snapshot.duplicate(true) if include_undo else {}, "next_body_uid": next_body_uid, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
 
 func save_session() -> Error:
 	# Recheck at execution time, after physics/contact callbacks and deferred merges.
@@ -204,9 +208,7 @@ func save_session() -> Error:
 	if not SessionSave.can_write(): return ERR_UNAVAILABLE
 	var snapshot := _session_snapshot()
 	if not SessionSave.valid(snapshot): return ERR_INVALID_DATA
-	var primary := SaveManager._read_envelope(SessionSave.PATH)
-	var keep_primary: bool = primary.status == "ok" and (SessionSave.valid(primary.data) or SessionSave._inactive(primary.data))
-	save_status = SaveManager.save_progress(snapshot, SessionSave.PATH, keep_primary)
+	save_status = SessionSave.write_snapshot(snapshot)
 	return save_status
 
 func _autosave_safe() -> void:
@@ -225,9 +227,14 @@ func _restore_session(data: Dictionary) -> void:
 	# SessionSave.valid ran before creating any body; a fresh scene has an empty board.
 	if data.has("progression"): progression = data.progression.duplicate(true)
 	remove_remaining = int(data.get("remove_remaining", 1))
+	undo_remaining = int(data.get("undo_remaining", 1))
+	undo_snapshot = data.get("undo_snapshot", {}).duplicate(true)
+	next_body_uid = maxi(next_body_uid, int(data.get("next_body_uid", 1)))
 	session_tainted = bool(data.get("tainted", false))
 	score_untrusted = bool(data.get("score_untrusted", false))
-	score = int(data.score); best_score = maxi(best_score, int(data.best_score)); best_at_start = int(data.best_at_start)
+	score = int(data.score)
+	best_score = int(data.best_score) if int(data.session_version) >= 3 else maxi(best_score, int(data.best_score))
+	best_at_start = int(data.best_at_start)
 	progression.best_score = maxi(int(progression.best_score), best_score)
 	spawn_count = int(data.spawn_count); merge_manager.merge_count = int(data.merge_count)
 	combo_count = int(data.combo_count); combo_left = float(data.combo_left); combo_events = int(data.combo_events); max_combo = int(data.max_combo)
@@ -238,6 +245,8 @@ func _restore_session(data: Dictionary) -> void:
 	spawn_state = SpawnState.COOLDOWN if cooldown_left > 0.0 else SpawnState.READY
 	for item in data.bodies:
 		var body := create_animal(find_animal(StringName(item.id)), Vector2(float(item.x), float(item.y)))
+		body.save_uid = int(item.uid)
+		next_body_uid = maxi(next_body_uid, body.save_uid + 1)
 		body.rotation = float(item.rotation)
 		body.linear_velocity = Vector2(float(item.vx), float(item.vy))
 		body.angular_velocity = float(item.angular_velocity)
@@ -287,6 +296,86 @@ func _set_aim(x: float) -> void:
 	current_preview.visible = false # Rechecked safely on the next physics tick.
 	queue_redraw()
 
+# Undo uses the same validated board snapshot as Continue. Physics is paused
+# until the durable checkpoint is written and all old bodies are detached.
+func _setup_undo_ui() -> void:
+	undo_button = Button.new()
+	undo_button.name = "UndoButton"
+	undo_button.position = Vector2(285, 212)
+	undo_button.size = Vector2(155, 54)
+	undo_button.icon = load("res://assets/ui/icons/undo.svg")
+	undo_button.expand_icon = true
+	undo_button.add_theme_constant_override("icon_max_width", 29)
+	undo_button.add_theme_font_size_override("font_size", 16)
+	$HUD.add_child(undo_button)
+	undo_button.pressed.connect(_request_undo)
+	_update_undo_ui()
+
+func _update_undo_ui() -> void:
+	if not is_instance_valid(undo_button): return
+	undo_button.disabled = undo_processing or undo_remaining <= 0 or undo_snapshot.is_empty() or not is_playing() or remove_selecting or remove_committing
+	if undo_processing: undo_button.text = tr("UNDO_PROCESSING")
+	elif undo_remaining <= 0: undo_button.text = tr("UNDO_USED")
+	elif undo_snapshot.is_empty(): undo_button.text = tr("UNDO_EMPTY")
+	else: undo_button.text = tr("UNDO_AVAILABLE")
+
+func _request_undo() -> void:
+	if not is_playing() or get_tree().paused or undo_remaining <= 0 or undo_snapshot.is_empty() or remove_selecting or remove_committing or drop_requested: return
+	if not merge_manager.pending.is_empty() or merge_manager.commit_scheduled: return
+	undo_processing = true
+	active_touch = -1
+	mouse_down = false
+	get_tree().paused = true
+	_update_undo_ui()
+	_update_remove_ui()
+	call_deferred("_commit_undo")
+
+func _commit_undo() -> void:
+	if not undo_processing: return
+	var candidate := undo_snapshot.duplicate(true)
+	var result: Error = ERR_INVALID_DATA
+	if game_state == GameState.PLAYING and merge_manager.pending.is_empty() and not merge_manager.commit_scheduled and SessionSave.valid(candidate, false):
+		candidate.undo_snapshot = {}
+		candidate.undo_remaining = undo_remaining - 1
+		candidate.remove_remaining = remove_remaining
+		candidate.next_body_uid = next_body_uid
+		candidate.tainted = session_tainted or bool(candidate.get("tainted", false))
+		# Discovery dates are durable; counts/merge totals/score are rolled back.
+		var old_progress: Dictionary = candidate.progression
+		for id in Progression.IDS:
+			if str(old_progress.animals[id].date).is_empty() and not str(progression.animals[id].date).is_empty():
+				old_progress.animals[id].date = progression.animals[id].date
+		old_progress.highest_animal = maxi(int(old_progress.highest_animal), int(progression.highest_animal))
+		old_progress.play_seconds = progression.play_seconds
+		result = OK if not persist_best else SessionSave.write_snapshot(candidate, true)
+	if result != OK:
+		save_status = result
+		$HUD/SaveStatus.text = tr("SAVE_FAILED")
+		$HUD/SaveStatus.visible = true
+		undo_processing = false
+		get_tree().paused = false
+		_update_undo_ui(); _update_remove_ui()
+		return
+	# No pending merges exist; detach old signal sources while physics is paused.
+	for node in pieces.get_children():
+		if node is Animal:
+			node.merge_locked = true
+			if node.body_entered.is_connected(merge_manager._on_body_entered.bind(node)):
+				node.body_entered.disconnect(merge_manager._on_body_entered.bind(node))
+		pieces.remove_child(node)
+		node.queue_free()
+	danger_monitor.timers.clear()
+	danger_monitor.peak_time = 0.0
+	var tutorial := $HUD.get_node_or_null("Tutorial")
+	if tutorial: $HUD.remove_child(tutorial); tutorial.queue_free()
+	_restore_session(candidate)
+	for timer in danger_monitor.timers.values(): danger_monitor.peak_time = maxf(danger_monitor.peak_time, float(timer))
+	undo_processing = false
+	get_tree().paused = false
+	$HUD/SaveStatus.visible = false
+	_update_hud()
+	queue_redraw()
+
 # Remove is committed outside physics callbacks. The candidate snapshot is
 # written before mutating the live board, so a rejected write costs nothing.
 func _setup_remove_ui() -> void:
@@ -302,8 +391,8 @@ func _setup_remove_ui() -> void:
 	remove_button.pressed.connect(_toggle_remove)
 	remove_hint = Label.new()
 	remove_hint.name = "RemoveHint"
-	remove_hint.position = Vector2(288, 215)
-	remove_hint.size = Vector2(360, 48)
+	remove_hint.position = Vector2(80, 265)
+	remove_hint.size = Vector2(560, 30)
 	remove_hint.add_theme_font_size_override("font_size", 18)
 	remove_hint.add_theme_color_override("font_color", Color("263e2b"))
 	remove_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -328,12 +417,14 @@ func _toggle_remove() -> void:
 	if spawn_state == SpawnState.AIMING: spawn_state = SpawnState.READY
 	current_preview.visible = false
 	_update_remove_ui()
+	_update_undo_ui()
 	queue_redraw()
 
 func _cancel_remove() -> void:
 	if remove_committing: return
 	remove_selecting = false
 	_update_remove_ui()
+	_update_undo_ui()
 	queue_redraw()
 
 func _remove_eligible(node: Node) -> bool:
@@ -371,14 +462,10 @@ func _commit_remove(body: Animal) -> void:
 		return
 	snapshot.bodies.remove_at(index)
 	snapshot.remove_remaining = remove_remaining - 1
+	snapshot.undo_snapshot = {} # Removing an animal invalidates the old drop boundary.
 	var result: Error = OK
 	if persist_best:
-		if not SessionSave.can_write() or not SessionSave.valid(snapshot):
-			result = ERR_UNAVAILABLE
-		else:
-			var primary := SaveManager._read_envelope(SessionSave.PATH)
-			var keep_primary: bool = primary.status == "ok" and (SessionSave.valid(primary.data) or SessionSave._inactive(primary.data))
-			result = SaveManager.save_progress(snapshot, SessionSave.PATH, keep_primary)
+		result = SessionSave.write_snapshot(snapshot, true)
 	if result != OK:
 		save_status = result
 		$HUD/SaveStatus.text = tr("SAVE_FAILED")
@@ -386,13 +473,6 @@ func _commit_remove(body: Animal) -> void:
 		remove_committing = false
 		_update_remove_ui()
 		return
-	# The primary write is the commit point. Mirror it to the backup so normal
-	# corrupt-primary recovery cannot revive an already spent allowance. If the
-	# mirror fails the committed primary remains authoritative; report the risk.
-	if persist_best:
-		var mirror := SaveManager.save_progress(snapshot, SessionSave.PATH)
-		if mirror != OK:
-			push_warning("Remove committed but backup refresh failed: %s" % mirror)
 	# Block stale contact callbacks before detaching. No merge or reward is emitted.
 	body.merge_locked = true
 	if body.body_entered.is_connected(merge_manager._on_body_entered.bind(body)):
@@ -401,6 +481,7 @@ func _commit_remove(body: Animal) -> void:
 	pieces.remove_child(body)
 	body.queue_free()
 	remove_remaining -= 1
+	undo_snapshot = {}
 	remove_selecting = false
 	remove_committing = false
 	$HUD/SaveStatus.visible = false
@@ -481,12 +562,21 @@ func _spawn_clear(data: AnimalData, x: float) -> bool:
 	return get_world_2d().direct_space_state.intersect_shape(query, 1).is_empty()
 
 func _attempt_drop() -> void:
-	if not _spawn_clear(current_data, aim_x):
+	if not merge_manager.pending.is_empty() or merge_manager.commit_scheduled or not _spawn_clear(current_data, aim_x):
 		# No queue advancement and no body created on a blocked attempt.
 		spawn_state = SpawnState.COOLDOWN
 		cooldown_left = 0.0
 		_update_preview()
 		return
+	# A successful drop is only allowed when a complete, stable pre-drop board
+	# can be captured. A blocked attempt leaves the previous undo untouched.
+	var before := _session_snapshot(false)
+	if not SessionSave.valid(before):
+		spawn_state = SpawnState.COOLDOWN
+		cooldown_left = 0.0
+		_update_preview()
+		return
+	undo_snapshot = before
 	var dropped := current_data
 	var dropped_body := create_animal(dropped, Vector2(aim_x, spawn_height))
 	dropped_body.progression_eligible = true
@@ -506,6 +596,8 @@ func _attempt_drop() -> void:
 func create_animal(data: AnimalData, point: Vector2) -> Animal:
 	var animal := animal_scene.instantiate() as Animal
 	animal.data = data
+	animal.save_uid = next_body_uid
+	next_body_uid += 1
 	highest_level = maxi(highest_level, data.level)
 	queue_redraw()
 	animal.position = point
@@ -602,24 +694,12 @@ func _on_golden_merged(point: Vector2) -> void:
 	golden_tween.tween_callback(func(): golden_label.visible = false)
 
 func _load_best() -> int:
-	if not persist_best:
-		return 0
-	var config := ConfigFile.new()
-	if config.load("user://wild_garden.cfg") != OK:
-		return 0
-	var saved: Variant = config.get_value("scores", "best", 0)
-	if typeof(saved) != TYPE_INT:
-		return 0
-	return maxi(0, saved)
+	return int(SessionSave.load_progression().best_score) if persist_best else 0
 
 func _save_best() -> void:
-	if not persist_best:
-		return
-	var config := ConfigFile.new()
-	config.set_value("scores", "best", best_score)
-	var result := config.save("user://wild_garden.cfg")
-	if result != OK:
-		push_warning("Best score could not be saved: %s" % result)
+	# Lifetime best travels with progression at the next session checkpoint.
+	# Writing a separate legacy file would resurrect a record after Undo.
+	pass
 
 func _on_danger_changed(_seconds: float) -> void:
 	queue_redraw()
@@ -630,6 +710,7 @@ func _on_game_over() -> void:
 	_cancel_remove()
 	game_state = GameState.GAME_OVER
 	_update_remove_ui()
+	_update_undo_ui()
 	if persist_best:
 		progression.completed_games = int(progression.completed_games) + 1
 		save_status = SessionSave.clear_session(progression)
@@ -658,6 +739,7 @@ func _toggle_pause() -> void:
 		_cancel_remove()
 		game_state = GameState.PAUSED
 		_update_remove_ui()
+		_update_undo_ui()
 		active_touch = -1
 		mouse_down = false
 		# Cancel uncommitted input when pausing; it must not drop on resume.
@@ -673,6 +755,7 @@ func _toggle_pause() -> void:
 	else:
 		game_state = GameState.PLAYING
 		_update_remove_ui()
+		_update_undo_ui()
 		overlay.visible = false
 		get_tree().paused = false
 
@@ -685,6 +768,7 @@ func _refresh_ui_text() -> void:
 	$HUD/Overlay/MainMenuButton.text = tr("MAIN_MENU")
 	$HUD/Hint.text = tr("GUIDE")
 	_update_remove_ui()
+	_update_undo_ui()
 
 func _open_settings() -> void:
 	if game_state != GameState.PAUSED or is_instance_valid(settings_panel):
@@ -770,6 +854,7 @@ func _update_hud() -> void:
 	best_label.text = tr("BEST").to_upper() + "  %d" % best_score
 	_update_preview()
 	_update_remove_ui()
+	_update_undo_ui()
 
 func _draw() -> void:
 	var theme_index := clampi(visual_theme, 0, 2)

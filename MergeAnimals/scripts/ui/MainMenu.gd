@@ -54,11 +54,9 @@ func _button(node_name: String, key: String, icon: String, height: float) -> But
 	return button
 
 func _refresh_best() -> void:
-	var cfg := ConfigFile.new(); var best := 0
-	if cfg.load("user://wild_garden.cfg") == OK:
-		var saved: Variant = cfg.get_value("scores", "best", 0)
-		if typeof(saved) == TYPE_INT: best = maxi(saved, 0)
-	best_label.text = "%s  %d" % [tr("BEST_SCORE"), best]
+	var progress := SessionSave.load_progression()
+	best_label.text = "%s  %d" % [tr("BEST_SCORE"), int(progress.best_score)]
+
 func _play() -> void:
 	if navigating or is_instance_valid(settings_panel): return
 	if SessionSave.load_session().status in ["ok", "recovered"]:
