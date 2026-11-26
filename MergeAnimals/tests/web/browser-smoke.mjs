@@ -39,7 +39,7 @@ for (const [name, engine] of [['chromium', chromium], ['firefox', firefox]]) {
     // Exploratory real inputs, no claim of success without inspecting resulting
     // screenshots and persistent save contents. The first tutorial queue starts
     // with two mice; no board/score or RNG is injected.
-    await page.mouse.click(565, 320); // tutorial Skip
+    await page.mouse.click(565, 520); // tutorial Skip
     await page.waitForTimeout(1000);
     for (let i=0; i<2; i++) {
       await page.mouse.click(360, 700);

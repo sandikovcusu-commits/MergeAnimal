@@ -26,7 +26,7 @@ async function screens(){
  for(const [name,y,pattern,back] of [['collection',766,/discovered|collection/,1190],['statistics',837,/statistics|total games/,1190],['achievements',907,/achievements|locked/,1152],['themes',978,/themes|forest/,1138],['challenges',1045,/challenges|friend/,1118],['settings',1123,/settings|volume/,965]]){
   await tap(360,y);await sleep(3500);const text=await shot(name);check(pattern.test(text),`${browser} ${name} opened via menu (OCR)`);await tap(360,back);await sleep(2500);let returned=await shot(`${name}-back`);check(returned.includes('best score'),`${browser} ${name} Back returns to menu`);
  }
- await tap(360,600);await sleep(3500);let t=await shot('tutorial');check(/drag|skip/.test(t),`${browser} Play opens tutorial`);await tap(565,320);await sleep(700);await tap(360,700);await sleep(5000);await shot('gameplay');
+ await tap(360,600);await sleep(3500);let t=await shot('tutorial');check(/drag|skip/.test(t),`${browser} Play opens tutorial`);await tap(565,520);await sleep(700);await tap(360,700);await sleep(5000);await shot('gameplay');
  await tap(600,58);await sleep(2500);t=await shot('pause');check(/resume|pause/.test(t),`${browser} Pause opens`);
 }
 async function matrix(){
@@ -35,7 +35,7 @@ async function matrix(){
   let info=await page.evaluate(()=>({width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight,canvas:(()=>{let c=document.querySelector('canvas'),r=c.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,backWidth:c.width,backHeight:c.height}})()}));console.log(`LAYOUT ${w}x${h} ${JSON.stringify(info)}`);
   check(info.width===w&&info.height===h&&info.scrollWidth<=w&&info.scrollHeight<=h&&info.canvas.width>0&&info.canvas.height>0,`${browser} ${w}x${h} canvas visible, no DOM overflow`);await shot(`${w}x${h}-menu`);
  }
- await page.setViewportSize({width:720,height:1280});await sleep(2000);await tap(360,600);await sleep(3500);await tap(565,320);await sleep(1000);
+ await page.setViewportSize({width:720,height:1280});await sleep(2000);await tap(360,600);await sleep(3500);await tap(565,520);await sleep(1000);
  for(let [w,h] of viewports){await page.setViewportSize({width:w,height:h});await sleep(2500);await shot(`${w}x${h}-game`)}
 }
 async function localeTest(){
@@ -52,7 +52,7 @@ async function localeTest(){
  for(const [w,h] of sizes){await page.setViewportSize({width:w,height:h});await sleep(500);const file=path.join(out,`${browser}-${locale}-${name}-${w}x${h}.png`);await page.screenshot({path:file});console.log(`CAPTURE ${browser} ${locale} ${name} ${w}x${h} ${file}`)}
  await page.setViewportSize({width:720,height:1280});await sleep(700);if(back){await tap(360,back);await sleep(1200)}
  }
- await tap(360,600);await sleep(2500);await tap(565,320);await sleep(700);await tap(260,700);await sleep(6000);
+ await tap(360,600);await sleep(2500);await tap(565,520);await sleep(700);await tap(260,700);await sleep(6000);
  const game=await waitState(d=>d.active&&d.spawn_count===1,'localized gameplay');check(game.active&&game.spawn_count===1,`${locale} Play creates a saved gameplay session`);
  for(const [w,h] of sizes){await page.setViewportSize({width:w,height:h});await sleep(500);await page.screenshot({path:path.join(out,`${browser}-${locale}-gameplay-${w}x${h}.png`)});console.log(`CAPTURE ${browser} ${locale} gameplay ${w}x${h}`)}
 }
@@ -102,7 +102,7 @@ async function touchTest(){
  const diff=spawnSync('compare',['-fuzz','15%','-metric','AE',cropBefore,cropAfter,'null:'],{encoding:'utf8'});const pixels=Number(diff.stderr.trim());console.log('SCROLL_CHANGED_PIXELS',pixels);
  check(Number.isFinite(pixels)&&pixels>5000,'Collection swipe changes substantial content, beyond button highlighting');await tap(360,1190,true);await sleep(1500);
  await tap(360,600,true);await sleep(4500);await shot('play-tapped');
- await tap(565,320,true);await sleep(1500);await tap(260,700,true);await sleep(6500);
+ await tap(565,520,true);await sleep(1500);await tap(260,700,true);await sleep(6500);
  let s=await waitState(d=>d.active&&d.spawn_count>=1,'touch drop');check(s.spawn_count===1,`one touch creates exactly one drop`);console.log('TOUCH_FIRST',JSON.stringify({spawn_count:s.spawn_count,bodies:s.bodies}));await shot('first-drop');
  let old=s.spawn_count;await tap(600,58,true);await sleep(3000);await shot('pause');s=await state();check(s.spawn_count===old,'Pause UI touch does not create a drop');
  await tap(360,715,true);await sleep(2500);
@@ -133,6 +133,9 @@ async function touchTest(){
 // A fresh organic session tests actual navigation and touch restart/Continue.
 async function navigationTest(touch=false){
  const sizes=[[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]];
+ // OCR at mobile scale is unreliable: preserve the mobile image but use a
+ // second 720px capture for the assertion, then restore the touch viewport.
+ async function readableShot(label){const previous=page.viewportSize();await shot(label+'-actual-viewport');if(previous.width!==720||previous.height!==1280){await page.setViewportSize({width:720,height:1280});await sleep(900)}const text=await shot(label);await page.setViewportSize(previous);await sleep(900);return text;}
  async function captureSizes(label){
   const previous=page.viewportSize();
   for(const [w,h] of sizes){
@@ -144,15 +147,15 @@ async function navigationTest(touch=false){
   }
   await page.setViewportSize(previous);await sleep(1000);
  }
- await tap(360,600,touch);await sleep(4000);let text=await shot('tutorial');check(/drag|skip/.test(text),'Play opens tutorial');await captureSizes('tutorial');
- await tap(565,320,touch);await sleep(1200);await tap(260,700,touch);await sleep(6500);
+ await tap(360,600,touch);await sleep(4000);let text=await readableShot('tutorial');check(/drag|skip/.test(text),'Play opens tutorial');await captureSizes('tutorial');
+ await tap(565,520,touch);await sleep(1200);await tap(260,700,touch);await sleep(6500);
  let first=await waitState(d=>d.active&&d.spawn_count===1,'first navigation drop');
  check(first.bodies.length===1&&Math.abs(first.bodies[0].x-260)<40,'one board input drops one animal near chosen x');console.log('NAV_FIRST',JSON.stringify(first));
  await tap(600,58,touch);await sleep(3000);text=await shot('pause');check(/pause|resume/.test(text),'Pause button opens overlay');
  let paused=await state();check(paused.spawn_count===1,'Pause does not create a drop');await captureSizes('pause');
  await tap(360,915,touch);await sleep(4000);text=await shot('return-menu');check(text.includes('best score'),'Pause Main Menu returns to menu');
  let saved=await state();check(saved.active&&saved.spawn_count===1&&saved.bodies.length===1,'session remains saved after return to menu');
- await tap(360,690,touch);await sleep(6500);text=await shot('continued');check(/score|next/.test(text),'Continue opens gameplay');
+ await tap(360,690,touch);await sleep(6500);text=await readableShot('continued');check(/score|next/.test(text),'Continue opens gameplay');
  let continued=await state();check(continued.active&&continued.spawn_count===1&&continued.bodies.length===1,'Continue retains original saved animal with no extra drop');await captureSizes('continue');
  await tap(130,55,touch);await sleep(6000);await shot('restart');
  let restarted=await state();console.log('NAV_RESTART',JSON.stringify(restarted));
@@ -165,7 +168,7 @@ async function tutorialLocaleTest(){
  await tap(360,1123);await sleep(1500);await tap(360,805);await sleep(600);await tap(160,833+23*locales.indexOf(locale));await sleep(4000);await tap(360,965);await sleep(1500);
  await tap(360,600);await sleep(4000);await shot('tutorial');
  for(const [w,h] of [[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]]){await page.setViewportSize({width:w,height:h});await sleep(600);await page.screenshot({path:path.join(out,`${browser}-${locale}-tutorial-${w}x${h}.png`)})}
- await page.setViewportSize({width:720,height:1280});await sleep(900);await tap(565,320);await sleep(1000);await tap(260,700);await sleep(6500);
+ await page.setViewportSize({width:720,height:1280});await sleep(900);await tap(565,520);await sleep(1000);await tap(260,700);await sleep(6500);
  const s=await waitState(d=>d.active&&d.spawn_count===1,'localized tutorial Skip and drop');check(s.active&&s.spawn_count===1&&s.tutorial_stage===-1,`${locale} tutorial Skip then one gameplay drop`);await shot('after-skip');
 }
 // Unlock prerequisite challenges in an isolated profile, not an organic playthrough.
@@ -189,7 +192,7 @@ async function outcomesTest(){
 async function lifecycleTest(){
  if(browser!=='chromium')throw Error('CDP lifecycle uses Chromium only');
  await page.evaluate(()=>{window.__lifecycle=[];for(const event of ['visibilitychange','blur','focus']){const target=event==='visibilitychange'?document:window;target.addEventListener(event,()=>window.__lifecycle.push({event,hidden:document.hidden,focus:document.hasFocus(),time:Date.now()}),true)}});
- await tap(360,600,true);await sleep(3500);await tap(565,320,true);await sleep(1000);await tap(260,700,true);await sleep(6500);
+ await tap(360,600,true);await sleep(3500);await tap(565,520,true);await sleep(1000);await tap(260,700,true);await sleep(6500);
  let s=await waitState(d=>d.active&&d.spawn_count===1,'lifecycle baseline');let old=s.spawn_count;
  const cdp=await context.newCDPSession(page), p=point(350,700);
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:p.x,y:p.y,id:21}]});
