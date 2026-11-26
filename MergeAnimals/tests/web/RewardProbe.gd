@@ -23,6 +23,16 @@ func _process(_delta: float) -> void:
 		var b = game.create_animal(game.animals[8], Vector2(220,800)); b.freeze = true
 		game._on_game_over()
 		result = true
+	elif op == "arm_ad_test" and game and game.has_method("_on_game_over") and game.game_state == game.GameState.GAME_OVER:
+		var body = game.pieces.get_child(0)
+		body.freeze = false
+		body.linear_velocity = Vector2(0, 100)
+		game.danger_monitor.set_physics_process(true)
+		game.danger_monitor.timers[body.instance_uid] = 1.25
+		game.active_touch = 99
+		game.mouse_down = true
+		game.drop_requested = true
+		result = true
 	elif op == "block_save":
 		result = DirAccess.make_dir_absolute(ProjectSettings.globalize_path(SessionSave.POWERUP_PATH + ".tmp")) == OK
 	elif op == "unblock_save":
@@ -36,5 +46,6 @@ func _process(_delta: float) -> void:
 	var doc := SessionSave.load_session()
 	var state := {"id": last_id, "result": result, "sdk": manager.sdk_state, "environment": manager.sdk_environment, "available": manager.rewarded_available(), "provider": manager.provider, "ad_state": manager.ad_state, "tx": manager.transaction_id, "tx_session": manager.transaction_session, "paused": get_tree().paused, "ad_audio": audio.ad_audio_paused, "music_paused": audio.music.stream_paused, "master_mute": AudioServer.is_bus_mute(0), "doc_status": doc.status, "doc": doc.get("data", {}), "scene": game.name if game else ""}
 	if game and game.has_method("_on_game_over"):
-		state.merge({"session":game.session_id, "game_state":game.game_state, "rescue":game.rescue_remaining, "earned":game.ad_rescue_earned, "pending_save":game.reward_commit_pending, "processing":game.rescue_processing, "button_visible":game.rescue_button.visible, "button_disabled":game.rescue_button.disabled, "button_text":game.rescue_button.text, "message":game.rescue_message.text, "bodies":game.pieces.get_child_count(), "request_id":game.reward_request_id}, true)
+		var body = game.pieces.get_child(0) if game.pieces.get_child_count() > 0 else null
+		state.merge({"body_y": body.position.y if body else -1, "danger": game.danger_monitor.timers.get(body.instance_uid, 0.0) if body else -1, "touch":game.active_touch, "drop_requested":game.drop_requested, "session":game.session_id, "game_state":game.game_state, "rescue":game.rescue_remaining, "earned":game.ad_rescue_earned, "pending_save":game.reward_commit_pending, "processing":game.rescue_processing, "button_visible":game.rescue_button.visible, "button_disabled":game.rescue_button.disabled, "button_text":game.rescue_button.text, "message":game.rescue_message.text, "bodies":game.pieces.get_child_count(), "request_id":game.reward_request_id}, true)
 	JavaScriptBridge.eval("window.__rewardQAResult=" + JSON.stringify(state))
