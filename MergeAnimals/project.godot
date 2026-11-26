@@ -18,6 +18,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 window/handheld/orientation=1
 
+[editor]
+; Godot 4.7.2 binary conversion loses inherited Challenge UI offsets and PackedStringArray data on Web.
+export/convert_text_resources_to_binary.web=false
+
 [physics]
 common/physics_ticks_per_second=120
 
