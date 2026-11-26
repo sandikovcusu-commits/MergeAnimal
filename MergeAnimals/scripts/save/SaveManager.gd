@@ -52,6 +52,8 @@ static func save_progress(data: Dictionary, path: String = DEFAULT_PATH, backup_
 	var encoded := JSON.stringify(data)
 	var envelope := {"version": VERSION, "payload": encoded, "checksum": encoded.sha256_text()}
 	var tmp := path + ".tmp"
+	if DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(tmp)):
+		return ERR_CANT_CREATE
 	var file := FileAccess.open(tmp, FileAccess.WRITE)
 	if file == null:
 		return FileAccess.get_open_error()

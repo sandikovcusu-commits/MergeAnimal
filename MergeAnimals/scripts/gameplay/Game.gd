@@ -188,6 +188,7 @@ func _physics_process(delta: float) -> void:
 		if autosave_elapsed >= 1.0 and not save_scheduled:
 			save_scheduled = true
 			call_deferred("_autosave_safe")
+	if is_instance_valid(undo_button): _update_undo_ui()
 	if debug_panel.visible:
 		_update_debug()
 	if debug_outlines or remove_selecting:
@@ -313,7 +314,7 @@ func _setup_undo_ui() -> void:
 
 func _update_undo_ui() -> void:
 	if not is_instance_valid(undo_button): return
-	undo_button.disabled = undo_processing or undo_remaining <= 0 or undo_snapshot.is_empty() or not is_playing() or remove_selecting or remove_committing
+	undo_button.disabled = undo_processing or undo_remaining <= 0 or undo_snapshot.is_empty() or not is_playing() or remove_selecting or remove_committing or drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled
 	if undo_processing: undo_button.text = tr("UNDO_PROCESSING")
 	elif undo_remaining <= 0: undo_button.text = tr("UNDO_USED")
 	elif undo_snapshot.is_empty(): undo_button.text = tr("UNDO_EMPTY")
@@ -372,6 +373,7 @@ func _commit_undo() -> void:
 	for timer in danger_monitor.timers.values(): danger_monitor.peak_time = maxf(danger_monitor.peak_time, float(timer))
 	undo_processing = false
 	get_tree().paused = false
+	save_status = OK
 	$HUD/SaveStatus.visible = false
 	_update_hud()
 	queue_redraw()
@@ -484,6 +486,7 @@ func _commit_remove(body: Animal) -> void:
 	undo_snapshot = {}
 	remove_selecting = false
 	remove_committing = false
+	save_status = OK
 	$HUD/SaveStatus.visible = false
 	_update_hud()
 	queue_redraw()
@@ -592,6 +595,10 @@ func _attempt_drop() -> void:
 	cooldown_left = drop_cooldown
 	spawn_state = SpawnState.COOLDOWN
 	_update_hud()
+	# Persist the new undo boundary promptly at the next safe idle point.
+	if persist_best and not save_scheduled:
+		save_scheduled = true
+		call_deferred("_autosave_safe")
 
 func create_animal(data: AnimalData, point: Vector2) -> Animal:
 	var animal := animal_scene.instantiate() as Animal
