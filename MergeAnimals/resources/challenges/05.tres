@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 5
+title_key = &"SCORE_HUNTER"
+objective_key = &"REACH_SCORE"
+objective_type = "score"
+animal_id = &""
+target = 300

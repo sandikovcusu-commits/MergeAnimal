@@ -19,7 +19,7 @@ func run() -> void:
 	root.add_child(menu); current_scene = menu
 	await frames()
 	check(is_instance_valid(menu.play_button) and not menu.play_button.disabled, "main menu exposes working Play")
-	check(not menu.find_child("Collection", true, false).disabled and menu.find_child("Challenges", true, false).disabled, "collection enabled and unfinished challenge disabled")
+	check(not menu.find_child("Collection", true, false).disabled and not menu.find_child("Challenges", true, false).disabled, "collection and challenge selection enabled")
 	menu.settings_button.pressed.emit()
 	await frames()
 	check(is_instance_valid(menu.settings_panel), "menu opens settings")

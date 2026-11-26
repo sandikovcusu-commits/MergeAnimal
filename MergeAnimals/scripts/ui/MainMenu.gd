@@ -36,7 +36,8 @@ func _build() -> void:
 	collection.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Collection.tscn"))
 	var statistics := _button("Statistics", "STATISTICS", "star", 65); list.add_child(statistics)
 	statistics.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Statistics.tscn"))
-	var challenges := _button("Challenges", "CHALLENGES", "challenge", 70); challenges.disabled = true; list.add_child(challenges)
+	var challenges := _button("Challenges", "CHALLENGES", "challenge", 70); list.add_child(challenges)
+	challenges.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/ChallengeSelection.tscn"))
 	settings_button = _button("Settings", "SETTINGS", "settings", 70); list.add_child(settings_button); settings_button.pressed.connect(_settings)
 	best_label = Label.new(); best_label.name = "Best"; best_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	best_label.add_theme_font_size_override("font_size", 27); best_label.add_theme_color_override("font_color", Color("f3ecd7")); list.add_child(best_label)
