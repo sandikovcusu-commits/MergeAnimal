@@ -75,6 +75,11 @@ var session_tainted := false
 # Legacy/debug fixture bodies have unknown provenance; their score cannot become a lifetime record.
 var score_untrusted := false
 var discovery_notifier: Control
+var remove_remaining := 1
+var remove_selecting := false
+var remove_committing := false
+var remove_button: Button
+var remove_hint: Label
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -107,6 +112,7 @@ func _ready() -> void:
 	$HUD/Overlay/RestartButton.icon = load("res://assets/ui/icons/restart.svg")
 	$HUD/Overlay/SettingsButton.icon = load("res://assets/ui/icons/settings.svg")
 	$HUD/Overlay/MainMenuButton.icon = load("res://assets/ui/icons/home.svg")
+	_setup_remove_ui()
 	_refresh_ui_text()
 	discovery_notifier = preload("res://scripts/ui/DiscoveryNotification.gd").new()
 	$HUD.add_child(discovery_notifier)
@@ -178,7 +184,7 @@ func _physics_process(delta: float) -> void:
 			call_deferred("_autosave_safe")
 	if debug_panel.visible:
 		_update_debug()
-	if debug_outlines:
+	if debug_outlines or remove_selecting:
 		queue_redraw()
 
 func _session_snapshot() -> Dictionary:
@@ -189,7 +195,7 @@ func _session_snapshot() -> Dictionary:
 			return {}
 		uid += 1
 		bodies.append({"uid": uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
-	return {"session_version": 2, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted}
+	return {"session_version": 2, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
 
 func save_session() -> Error:
 	# Recheck at execution time, after physics/contact callbacks and deferred merges.
@@ -218,6 +224,7 @@ func _autosave_safe() -> void:
 func _restore_session(data: Dictionary) -> void:
 	# SessionSave.valid ran before creating any body; a fresh scene has an empty board.
 	if data.has("progression"): progression = data.progression.duplicate(true)
+	remove_remaining = int(data.get("remove_remaining", 1))
 	session_tainted = bool(data.get("tainted", false))
 	score_untrusted = bool(data.get("score_untrusted", false))
 	score = int(data.score); best_score = maxi(best_score, int(data.best_score)); best_at_start = int(data.best_at_start)
@@ -280,10 +287,138 @@ func _set_aim(x: float) -> void:
 	current_preview.visible = false # Rechecked safely on the next physics tick.
 	queue_redraw()
 
+# Remove is committed outside physics callbacks. The candidate snapshot is
+# written before mutating the live board, so a rejected write costs nothing.
+func _setup_remove_ui() -> void:
+	remove_button = Button.new()
+	remove_button.name = "RemoveButton"
+	remove_button.position = Vector2(80, 212)
+	remove_button.size = Vector2(200, 54)
+	remove_button.icon = load("res://assets/ui/icons/remove.svg")
+	remove_button.expand_icon = true
+	remove_button.add_theme_constant_override("icon_max_width", 32)
+	remove_button.add_theme_font_size_override("font_size", 19)
+	$HUD.add_child(remove_button)
+	remove_button.pressed.connect(_toggle_remove)
+	remove_hint = Label.new()
+	remove_hint.name = "RemoveHint"
+	remove_hint.position = Vector2(288, 215)
+	remove_hint.size = Vector2(360, 48)
+	remove_hint.add_theme_font_size_override("font_size", 18)
+	remove_hint.add_theme_color_override("font_color", Color("263e2b"))
+	remove_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$HUD.add_child(remove_hint)
+	_update_remove_ui()
+
+func _update_remove_ui() -> void:
+	if not is_instance_valid(remove_button): return
+	remove_button.disabled = remove_committing or (not remove_selecting and (remove_remaining <= 0 or not is_playing()))
+	remove_button.text = tr("REMOVE_CANCEL") if remove_selecting else (tr("REMOVE_USED") if remove_remaining == 0 else tr("REMOVE_AVAILABLE"))
+	remove_hint.visible = remove_selecting
+	remove_hint.text = tr("REMOVE_SELECT")
+
+func _toggle_remove() -> void:
+	if remove_selecting:
+		_cancel_remove()
+		return
+	if not is_playing() or remove_remaining <= 0 or remove_committing or drop_requested: return
+	remove_selecting = true
+	active_touch = -1
+	mouse_down = false
+	if spawn_state == SpawnState.AIMING: spawn_state = SpawnState.READY
+	current_preview.visible = false
+	_update_remove_ui()
+	queue_redraw()
+
+func _cancel_remove() -> void:
+	if remove_committing: return
+	remove_selecting = false
+	_update_remove_ui()
+	queue_redraw()
+
+func _remove_eligible(node: Node) -> bool:
+	return node is Animal and is_instance_valid(node) and node.get_parent() == pieces and not node.is_queued_for_deletion() and not node.merge_locked
+
+func _select_remove_at(point: Vector2) -> void:
+	if not remove_selecting or remove_committing: return
+	var chosen: Animal = null
+	var nearest := INF
+	for node in pieces.get_children():
+		if not _remove_eligible(node): continue
+		var distance: float = node.global_position.distance_squared_to(point)
+		if distance <= node.data.radius * node.data.radius and distance < nearest:
+			chosen = node
+			nearest = distance
+	if chosen == null: return
+	remove_committing = true
+	_update_remove_ui()
+	call_deferred("_commit_remove", chosen)
+
+func _commit_remove(body: Animal) -> void:
+	if not is_playing() or not remove_selecting or remove_remaining <= 0 or not _remove_eligible(body) or drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled:
+		remove_committing = false
+		_update_remove_ui()
+		return
+	var snapshot := _session_snapshot()
+	if snapshot.is_empty():
+		remove_committing = false
+		_update_remove_ui()
+		return
+	var index := pieces.get_children().find(body)
+	if index < 0 or index >= snapshot.bodies.size():
+		remove_committing = false
+		_update_remove_ui()
+		return
+	snapshot.bodies.remove_at(index)
+	snapshot.remove_remaining = remove_remaining - 1
+	var result: Error = OK
+	if persist_best:
+		if not SessionSave.can_write() or not SessionSave.valid(snapshot):
+			result = ERR_UNAVAILABLE
+		else:
+			var primary := SaveManager._read_envelope(SessionSave.PATH)
+			var keep_primary: bool = primary.status == "ok" and (SessionSave.valid(primary.data) or SessionSave._inactive(primary.data))
+			result = SaveManager.save_progress(snapshot, SessionSave.PATH, keep_primary)
+	if result != OK:
+		save_status = result
+		$HUD/SaveStatus.text = tr("SAVE_FAILED")
+		$HUD/SaveStatus.visible = true
+		remove_committing = false
+		_update_remove_ui()
+		return
+	# The primary write is the commit point. Mirror it to the backup so normal
+	# corrupt-primary recovery cannot revive an already spent allowance. If the
+	# mirror fails the committed primary remains authoritative; report the risk.
+	if persist_best:
+		var mirror := SaveManager.save_progress(snapshot, SessionSave.PATH)
+		if mirror != OK:
+			push_warning("Remove committed but backup refresh failed: %s" % mirror)
+	# Block stale contact callbacks before detaching. No merge or reward is emitted.
+	body.merge_locked = true
+	if body.body_entered.is_connected(merge_manager._on_body_entered.bind(body)):
+		body.body_entered.disconnect(merge_manager._on_body_entered.bind(body))
+	danger_monitor.timers.erase(body.instance_uid)
+	pieces.remove_child(body)
+	body.queue_free()
+	remove_remaining -= 1
+	remove_selecting = false
+	remove_committing = false
+	$HUD/SaveStatus.visible = false
+	_update_hud()
+	queue_redraw()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_playing():
 		return
 	if event is InputEventMouse and event.device == InputEvent.DEVICE_ID_EMULATION:
+		return
+	if remove_selecting or remove_committing:
+		if remove_selecting and not remove_committing:
+			if event is InputEventScreenTouch and event.pressed:
+				_select_remove_at(event.position)
+			elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				_select_remove_at(event.position)
+		get_viewport().set_input_as_handled()
 		return
 	if event is InputEventScreenTouch:
 		if event.pressed and active_touch == -1 and not mouse_down and _can_begin_input() and _inside_input_area(event.position):
@@ -316,18 +451,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			drop_animal()
 
 func _can_aim() -> bool:
-	return spawn_state == SpawnState.READY or spawn_state == SpawnState.AIMING
+	return not remove_selecting and not remove_committing and (spawn_state == SpawnState.READY or spawn_state == SpawnState.AIMING)
 
 func _can_begin_input() -> bool:
 	# A blocked spawn must not swallow a new tap at a different x-coordinate.
-	return _can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0)
+	return not remove_selecting and not remove_committing and (_can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0))
 
 func _inside_input_area(point: Vector2) -> bool:
 	return point.x >= left_bound and point.x <= right_bound and point.y >= 260.0 and point.y <= floor_height
 
 # Requests are committed at the next physics tick so the space query is safe.
 func drop_animal() -> bool:
-	if not is_playing() or not _can_aim() or drop_requested:
+	if not is_playing() or remove_selecting or remove_committing or not _can_aim() or drop_requested:
 		return false
 	spawn_state = SpawnState.DROPPING
 	current_preview.visible = false
@@ -492,7 +627,9 @@ func _on_danger_changed(_seconds: float) -> void:
 func _on_game_over() -> void:
 	if not is_playing():
 		return
+	_cancel_remove()
 	game_state = GameState.GAME_OVER
+	_update_remove_ui()
 	if persist_best:
 		progression.completed_games = int(progression.completed_games) + 1
 		save_status = SessionSave.clear_session(progression)
@@ -518,6 +655,7 @@ func _toggle_pause() -> void:
 	if game_state == GameState.GAME_OVER:
 		return
 	if game_state == GameState.PLAYING:
+		_cancel_remove()
 		game_state = GameState.PAUSED
 		active_touch = -1
 		mouse_down = false
@@ -544,6 +682,7 @@ func _refresh_ui_text() -> void:
 	$HUD/Overlay/SettingsButton.text = tr("SETTINGS")
 	$HUD/Overlay/MainMenuButton.text = tr("MAIN_MENU")
 	$HUD/Hint.text = tr("GUIDE")
+	_update_remove_ui()
 
 func _open_settings() -> void:
 	if game_state != GameState.PAUSED or is_instance_valid(settings_panel):
@@ -628,6 +767,7 @@ func _update_hud() -> void:
 		score_label.text += "  " + tr("COMBO") + " %d" % combo_count
 	best_label.text = tr("BEST").to_upper() + "  %d" % best_score
 	_update_preview()
+	_update_remove_ui()
 
 func _draw() -> void:
 	var theme_index := clampi(visual_theme, 0, 2)
@@ -663,6 +803,11 @@ func _draw() -> void:
 		draw_string(font, Vector2(x - 25, y + 56), "%d %s" % [item.level, item.display_name.substr(0, 3).to_upper()], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("394f39"))
 		if i % 6 < 5:
 			draw_line(Vector2(x + 31, y + 23), Vector2(x + 78, y + 23), Color(0.35, 0.45, 0.33, 0.5), 1.5)
+
+	if remove_selecting and is_instance_valid(pieces):
+		for body in pieces.get_children():
+			if _remove_eligible(body):
+				draw_arc(body.position, body.data.radius + 8.0, 0, TAU, 48, Color("f4bb38"), 4.0)
 
 	if debug_outlines and is_instance_valid(pieces):
 		for body in pieces.get_children():

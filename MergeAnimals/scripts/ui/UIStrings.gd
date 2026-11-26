@@ -18,6 +18,14 @@ static func install() -> void:
 		"tr": {"NEW_GAME":"Yeni oyun", "NEW_GAME_CONFIRM":"Yeni oyun başlatılsın mı? Kayıtlı oyun değiştirilecek.", "SAVE_FAILED":"Kayıt başarısız", "CONTINUE":"Oyuna devam et", "SAVE_WAIT":"Kaydedilemedi. Devam edip tekrar deneyin.", "SAVE_UNAVAILABLE":"Kayıtlı oyun kullanılamıyor"},
 		"ru": {"NEW_GAME":"Новая игра", "NEW_GAME_CONFIRM":"Начать новую игру? Сохранённая игра будет заменена.", "SAVE_FAILED":"Ошибка сохранения", "CONTINUE":"Продолжить игру", "SAVE_WAIT":"Не удалось сохранить. Продолжите и повторите.", "SAVE_UNAVAILABLE":"Сохранённая игра недоступна"}
 	}
+	var remove_messages := {
+		"en": {"REMOVE_AVAILABLE":"Remove: 1", "REMOVE_USED":"Remove: used", "REMOVE_CANCEL":"Cancel", "REMOVE_SELECT":"Select an animal"},
+		"az": {"REMOVE_AVAILABLE":"Sil: 1", "REMOVE_USED":"Sil: istifadə edilib", "REMOVE_CANCEL":"Ləğv et", "REMOVE_SELECT":"Heyvan seçin"},
+		"tr": {"REMOVE_AVAILABLE":"Kaldır: 1", "REMOVE_USED":"Kaldır: kullanıldı", "REMOVE_CANCEL":"İptal", "REMOVE_SELECT":"Bir hayvan seçin"},
+		"ru": {"REMOVE_AVAILABLE":"Убрать: 1", "REMOVE_USED":"Убрать: нет", "REMOVE_CANCEL":"Отмена", "REMOVE_SELECT":"Выберите животное"}
+	}
+	for locale in remove_messages:
+		messages[locale].merge(remove_messages[locale])
 	for locale in save_messages:
 		messages[locale].merge(save_messages[locale])
 	var collection_messages := {

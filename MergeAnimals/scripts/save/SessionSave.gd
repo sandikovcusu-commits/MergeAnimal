@@ -28,6 +28,8 @@ static func valid(data: Variant) -> bool:
 	if data.has("progression") and not Progression.valid(data.progression): return false
 	if data.has("tainted") and typeof(data.tainted) != TYPE_BOOL: return false
 	if data.has("score_untrusted") and typeof(data.score_untrusted) != TYPE_BOOL: return false
+	# Optional additive v2 field: old snapshots migrate to one free use.
+	if data.has("remove_remaining") and not _integer(data.remove_remaining, 0, 1): return false
 	if typeof(data.get("bodies")) != TYPE_ARRAY or data.bodies.size() > 500: return false
 	var seen := {}
 	for body in data.bodies:
