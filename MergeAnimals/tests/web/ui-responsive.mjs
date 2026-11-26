@@ -26,7 +26,7 @@ async function screens(){
  for(const [name,y,pattern,back] of [['collection',766,/discovered|collection/,1190],['statistics',837,/statistics|total games/,1190],['achievements',907,/achievements|locked/,1152],['themes',978,/themes|forest/,1138],['challenges',1045,/challenges|friend/,1118],['settings',1123,/settings|volume/,965]]){
   await tap(360,y);await sleep(3500);const text=await shot(name);check(pattern.test(text),`${browser} ${name} opened via menu (OCR)`);await tap(360,back);await sleep(2500);let returned=await shot(`${name}-back`);check(returned.includes('best score'),`${browser} ${name} Back returns to menu`);
  }
- await tap(360,600);await sleep(3500);let t=await shot('tutorial');check(/drag|skip/.test(t),`${browser} Play opens tutorial`);await tap(565,520);await sleep(700);await tap(360,700);await sleep(5000);await shot('gameplay');
+ await tap(360,600);await sleep(3500);await shot('tutorial');const tutorial=await waitState(d=>d.active&&d.tutorial_stage===0,'tutorial stage zero');check(tutorial.tutorial_stage===0,`${browser} Play opens tutorial`);await tap(565,520);await sleep(700);await tap(360,700);await sleep(5000);await shot('gameplay');
  await tap(600,58);await sleep(2500);t=await shot('pause');check(/resume|pause/.test(t),`${browser} Pause opens`);
 }
 async function matrix(){
