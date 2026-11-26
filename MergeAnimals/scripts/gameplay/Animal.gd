@@ -43,4 +43,4 @@ func _on_visual_contact(other: Node) -> void:
 	if impact_speed < 100.0: return
 	var landing := not other is Animal
 	if landing: visual.animate_action("landing")
-	AudioManager.impact(impact_speed, landing)
+	FeelAudio.impact(impact_speed, landing)

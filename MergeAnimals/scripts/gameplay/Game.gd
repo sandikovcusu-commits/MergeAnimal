@@ -417,7 +417,7 @@ func _commit_undo() -> void:
 	if golden_tween and golden_tween.is_running(): golden_tween.kill()
 	golden_label.visible = false
 	_restore_session(candidate)
-	AudioManager.play_event("undo")
+	FeelAudio.play_event("undo")
 	if persist_best: AchievementManager.synchronize(progression, {}, false)
 	for timer in danger_monitor.timers.values(): danger_monitor.peak_time = maxf(danger_monitor.peak_time, float(timer))
 	undo_processing = false
@@ -532,7 +532,7 @@ func _commit_remove(body: Animal) -> void:
 	pieces.remove_child(body)
 	body.queue_free()
 	remove_remaining -= 1
-	AudioManager.play_event("remove")
+	FeelAudio.play_event("remove")
 	undo_snapshot = {}
 	remove_selecting = false
 	remove_committing = false
@@ -634,7 +634,7 @@ func _attempt_drop() -> void:
 	var dropped_body := create_animal(dropped, Vector2(aim_x, spawn_height))
 	dropped_body.progression_eligible = true
 	dropped_body.visual.animate_action("drop")
-	AudioManager.play_event("animal_drop")
+	FeelAudio.play_event("animal_drop")
 	spawn_count += 1
 	if persist_best and not session_tainted:
 		progression.total_drops = int(progression.total_drops) + 1
@@ -707,8 +707,8 @@ func _on_merged(data: AnimalData, point: Vector2) -> void:
 	var previous_score := score
 	if persist_best and not merge_manager.last_merge_eligible: score_untrusted = true
 	_award_merge(data.merge_score)
-	AudioManager.play_event("small_merge" if data.level <= 4 else "medium_merge" if data.level <= 8 else "large_merge")
-	if combo_count > 1: AudioManager.play_event("combo", minf(1.15, 1.0 + combo_count * 0.025), -7.0)
+	FeelAudio.play_event("small_merge" if data.level <= 4 else "medium_merge" if data.level <= 8 else "large_merge")
+	if combo_count > 1: FeelAudio.play_event("combo", minf(1.15, 1.0 + combo_count * 0.025), -7.0)
 	_show_score_effect(point, score - previous_score)
 	if persist_best and not session_tainted and merge_manager.last_merge_eligible:
 		progression.total_merges = int(progression.total_merges) + 1
@@ -780,7 +780,7 @@ func _show_score_effect(point: Vector2, amount: int) -> void:
 	tween.chain().tween_callback(func(): floating_scores -= 1; label.queue_free())
 
 func _on_golden_merged(point: Vector2) -> void:
-	AudioManager.play_event("golden_merge")
+	FeelAudio.play_event("golden_merge")
 	_show_score_effect(point, golden_config.bonus_score if golden_config else 1000)
 	if not reduced_effects and is_instance_valid(effect_camera):
 		effect_camera.offset = Vector2(5, -3)
@@ -818,13 +818,13 @@ func _save_best() -> void:
 
 func _on_danger_changed(seconds: float) -> void:
 	if seconds > 0.0 and not danger_sound_active:
-		danger_sound_active = true; AudioManager.play_event("danger_warning")
+		danger_sound_active = true; FeelAudio.play_event("danger_warning")
 	elif seconds <= 0.0: danger_sound_active = false
 	queue_redraw()
 
 func _on_game_over() -> void:
 	if not is_playing(): return
-	AudioManager.play_event("game_over")
+	FeelAudio.play_event("game_over")
 	_cancel_remove()
 	# Cancel reservations, not body/score mutations, before checkpointing. A
 	# previously deferred commit sees GAME_OVER and cannot touch this board.
@@ -994,7 +994,7 @@ func _commit_rescue() -> void:
 		save_status = result
 		_rescue_failed("SAVE_FAILED"); return
 	# The checkpoint is the commit point. Highlight while paused, then detach.
-	AudioManager.play_event("rescue")
+	FeelAudio.play_event("rescue")
 	for uid in ids:
 		var body: Animal = by_uid[uid]
 		rescue_selected.append(body)

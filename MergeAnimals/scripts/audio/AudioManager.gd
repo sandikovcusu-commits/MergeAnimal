@@ -1,6 +1,7 @@
 extends Node
 ## Single bounded audio pool and one persistent music player across scenes.
 const EVENTS := ["button_click", "menu_back", "animal_drop", "soft_landing", "animal_collision", "small_merge", "medium_merge", "large_merge", "combo", "golden_merge", "animal_discovered", "achievement_unlocked", "challenge_success", "challenge_failed", "undo", "remove", "rescue", "game_over", "danger_warning", "theme_unlocked"]
+const THEME_IDS := ["forest", "sunset", "snow"]
 const MAX_PLAYERS := 8
 const IMPACT_MIN := 100.0
 const IMPACT_COOLDOWN := 0.18
@@ -17,7 +18,8 @@ var accepted_events: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	SettingsStore.apply(SettingsStore.load_values())
+	var settings = load("res://scripts/ui/SettingsStore.gd")
+	settings.apply(settings.load_values())
 	for id in EVENTS: streams[id] = load("res://assets/audio/sfx/%s.wav" % id)
 	for i in range(MAX_PLAYERS):
 		var player := AudioStreamPlayer.new(); player.name = "Sound%d" % i; add_child(player); players.append(player)
@@ -29,14 +31,14 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if not unlocked_audio and ((event is InputEventMouseButton and event.pressed) or (event is InputEventScreenTouch and event.pressed) or (event is InputEventKey and event.pressed and not event.echo)):
 		unlocked_audio = true
-		set_music(ThemeStore.IDS[ThemeStore.current_index()])
+		set_music(THEME_IDS[load("res://scripts/themes/ThemeStore.gd").current_index()])
 
 func _process(delta: float) -> void:
 	impact_elapsed += delta
 	theme_check += delta
 	if unlocked_audio and theme_check >= 1.0:
 		theme_check = 0.0
-		set_music(ThemeStore.IDS[ThemeStore.current_index()])
+		set_music(THEME_IDS[load("res://scripts/themes/ThemeStore.gd").current_index()])
 	var scene := get_tree().current_scene
 	if scene != last_scene and is_instance_valid(scene):
 		last_scene = scene

@@ -48,7 +48,7 @@ static func refresh() -> Dictionary:
 		if count >= 10 and "snow" not in next.unlocked: next.unlocked.append("snow")
 	if next != state.data:
 		if _save(next) != OK: return {"status": "write_failed", "data": state.data}
-		AudioManager.play_event("theme_unlocked")
+		FeelAudio.play_event("theme_unlocked")
 	return {"status": "ok", "data": next}
 static func select(id: String) -> Error:
 	var loaded := refresh()

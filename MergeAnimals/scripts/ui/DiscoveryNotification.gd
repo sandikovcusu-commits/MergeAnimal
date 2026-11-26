@@ -37,13 +37,13 @@ func _show_next() -> void:
 		var data: AnimalData = item.data
 		image.texture = data.sprite
 		text.text = "%s\n%s · %s %d" % [tr("ANIMAL_DISCOVERED"), tr(data.translation_key), tr("LEVEL"), data.level]
-		AudioManager.play_event("animal_discovered")
+		FeelAudio.play_event("animal_discovered")
 		shown.emit(data.id)
 	else:
 		var achievement: AchievementData = item.data
 		image.texture = achievement.icon
 		text.text = "%s\n%s" % [tr("ACHIEVEMENT_UNLOCKED"), achievement.localized_title()]
-		AudioManager.play_event("achievement_unlocked")
+		FeelAudio.play_event("achievement_unlocked")
 		achievement_shown.emit(achievement.id)
 	visible = true
 	card.modulate.a = 1.0 if reduced_effects else 0.0
