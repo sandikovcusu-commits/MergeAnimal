@@ -154,6 +154,14 @@ async function run(name,engine,scenario) {
    await evidence(page,prefix,'game-over-attempt');
    assert(!!pending,`${prefix} danger overflow produces persisted Game Over`);
    assert(pending.rescue_remaining===1,`${prefix} rescue initially available`);
+   // The game is paused at Game Over, so no active-game autosave should be
+   // expected after Continue. Prove the pending screen restores, then require
+   // the actual Rescue button to work on that restored screen.
+   await page.reload({waitUntil:'domcontentloaded',timeout:120000}); await delay(15000);
+   await page.mouse.click(360,690); await delay(7000);
+   const pendingReload=await waitState(page,d=>d.active&&d.game_over_pending&&d.rescue_remaining===1&&d.score===pending.score,'pending Game Over reload');
+   assert(equalRestored(pendingReload.selected.data,pending),`${prefix} pending Game Over survives refresh before Rescue`);
+   await evidence(page,prefix,'pending-continue');
    await page.mouse.click(360,792);
    before=(await waitState(page,d=>d.active&&!d.game_over_pending&&d.rescue_remaining===0,'rescue commit',45000)).selected.data;
    assert(before.score===pending.score && before.bodies.length<pending.bodies.length,`${prefix} Rescue spends one use, removes bodies and preserves score`);
