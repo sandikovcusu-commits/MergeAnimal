@@ -36,7 +36,61 @@ for (const [name, engine] of [['chromium', chromium], ['firefox', firefox]]) {
     // a requested interaction, not evidence that New Game/merge/save passed.
     await page.mouse.click(360, 600); await page.waitForTimeout(7000);
     await page.screenshot({path:path.join(out, `${name}-after-play.png`)});
-    const canvasInfo = await page.evaluate(() => {
+    // Exploratory real inputs, no claim of success without inspecting resulting
+    // screenshots and persistent save contents. The first tutorial queue starts
+    // with two mice; no board/score or RNG is injected.
+    await page.mouse.click(565, 275); // tutorial Skip
+    await page.waitForTimeout(1000);
+    for (let i=0; i<2; i++) {
+      await page.mouse.click(360, 700);
+      await page.waitForTimeout(4500);
+    }
+    await page.waitForTimeout(8000);
+    await page.screenshot({path:path.join(out, `${name}-two-drops.png`)});
+    // Read IndexedDB only as evidence, without modifying the game filesystem.
+    const saved = await page.evaluate(async () => {
+      if (!indexedDB.databases) return {unsupported:true};
+      const result = {};
+      for (const info of await indexedDB.databases()) {
+        const db = await new Promise((resolve,reject) => {
+          const req=indexedDB.open(info.name); req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error);
+        });
+        for (const store of db.objectStoreNames) {
+          const tx=db.transaction(store,'readonly'), obj=tx.objectStore(store);
+          const rows=await new Promise((resolve,reject)=>{ const a=[]; const req=obj.openCursor();
+            req.onsuccess=()=>{ const c=req.result; if(!c) return resolve(a);
+              let text=null; if(c.value?.contents) try { text=new TextDecoder().decode(c.value.contents); } catch {};
+              a.push({key:String(c.key), text}); c.continue(); }; req.onerror=()=>reject(req.error);
+          });
+          result[`${info.name}/${store}`]=rows;
+        }
+        db.close();
+      }
+      return result;
+    });
+    fs.writeFileSync(path.join(out, `${name}-idb.json`), JSON.stringify(saved,null,2));
+    console.log(`${name} indexeddb_keys ${JSON.stringify(Object.values(saved).flat().map(v=>v.key))}`);
+    await page.reload({waitUntil:'domcontentloaded',timeout:120000});
+    await page.waitForTimeout(20000);
+    await page.screenshot({path:path.join(out, `${name}-refresh-menu.png`)});
+    await page.mouse.click(360,690); // Continue game
+    await page.waitForTimeout(7000);
+    await page.screenshot({path:path.join(out, `${name}-refresh-continue.png`)});
+    // Close all browser processes, then reopen same persistent profile.
+    await context.close(); context = null;
+    context = await engine.launchPersistentContext(profile, {
+      headless:false, viewport:{width:720,height:1280},
+      args:name === 'chromium' ? ['--no-sandbox','--use-gl=angle','--use-angle=swiftshader-webgl','--enable-unsafe-swiftshader'] : [],
+      firefoxUserPrefs:{'webgl.force-enabled':true,'webgl.disabled':false},
+    });
+    const reopened=context.pages()[0] || await context.newPage();
+    await reopened.goto(base,{waitUntil:'domcontentloaded',timeout:120000});
+    await reopened.waitForTimeout(20000);
+    await reopened.screenshot({path:path.join(out, `${name}-reopen-menu.png`)});
+    await reopened.mouse.click(360,690);
+    await reopened.waitForTimeout(7000);
+    await reopened.screenshot({path:path.join(out, `${name}-reopen-continue.png`)});
+    const canvasInfo = await reopened.evaluate(() => {
       const c=document.querySelector('canvas');
       return {width:c?.width, height:c?.height, webgl2:!!c?.getContext('webgl2'),
         databases:typeof indexedDB.databases === 'function'};

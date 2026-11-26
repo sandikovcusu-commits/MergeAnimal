@@ -1,7 +1,5 @@
 name: Godot Web phase A
 on:
-  push:
-    branches: ['arena/2b071717-mergeanimal']
   workflow_dispatch:
 permissions:
   contents: write
@@ -52,7 +50,7 @@ jobs:
           path: |
             /tmp/web-test
             /tmp/web-qa/*.log
-            /tmp/web-qa/*-events.json
+            /tmp/web-qa/*.json
             /tmp/web-qa/*.png
           if-no-files-found: warn
       - name: Transport test build and evidence as temporary Git blob
