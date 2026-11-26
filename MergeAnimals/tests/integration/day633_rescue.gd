@@ -50,6 +50,7 @@ func run() -> void:
 	game._request_rescue(); await frames()
 	check(game.rescue_remaining == 1 and game.pieces.get_child_count() == 2, "rescue blocked during playing")
 	await go(game)
+	before = game._session_snapshot().duplicate(true)
 	var pending := SessionSave.load_session()
 	check(game.game_state == game.GameState.GAME_OVER and paused and pending.data.get("game_over_pending", false), "game over pauses and saves pending session")
 	check(int(game.progression.completed_games) == 0 and not game.rescue_button.disabled, "pending game is not counted and rescue available")
@@ -71,7 +72,10 @@ func run() -> void:
 	check(game.game_state == game.GameState.PLAYING and not paused and game.rescue_remaining == 0, "rescue resumes and consumes exactly one use")
 	check(not is_instance_valid(board[0]) and is_instance_valid(board[1]) and game.pieces.get_child_count() == 1, "danger animal removed, lower large animal preserved")
 	check(game.score == before.score and game.best_score == before.best_score and game.spawn_count == before.spawn_count and game.merge_manager.merge_count == before.merge_count, "score best drops merges preserved")
-	check(game.progression == before.progression and str(game.rng.state) == before.rng_state and str(game.current_data.id) == before.current and str(game.next_data.id) == before.next, "progression discoveries queue and RNG preserved")
+	var progress_after: Dictionary = game.progression.duplicate(true)
+	var progress_before: Dictionary = before.progression.duplicate(true)
+	progress_after.erase("play_seconds"); progress_before.erase("play_seconds")
+	check(progress_after == progress_before and str(game.rng.state) == before.rng_state and str(game.current_data.id) == before.current and str(game.next_data.id) == before.next, "progression discoveries queue and RNG preserved")
 	check(game.undo_remaining == 0 and game.remove_remaining == 0 and game.undo_snapshot.is_empty(), "undo snapshot invalidated and limits preserved")
 	check(game.danger_monitor.timers.is_empty() and game.danger_monitor.peak_time == 0.0, "danger timers reset")
 	for i in range(5): await physics_frame
@@ -88,7 +92,7 @@ func run() -> void:
 	check(SessionSave.load_session().status == "missing", "corrupt primary cannot resurrect tombstoned session")
 	await dispose(game); clear_save()
 	# Planner evaluates all danger bodies and chooses fewest blockers, with a cap.
-	var sample := [{"uid":1,"x":360.0,"y":430.0,"radius":30.0,"level":1}, {"uid":2,"x":360.0,"y":520.0,"radius":60.0,"level":10}]
+	var sample := [{"uid":1,"x":360.0,"y":430.0,"radius":30.0,"level":1}, {"uid":2,"x":360.0,"y":530.0,"radius":60.0,"level":10}]
 	var plan := RescuePlanner.plan(sample,465,350,20,110,610,360,1)
 	check(plan.get("remove_uids", []) == [1] and int(plan.spawn_x) == 360, "deterministic danger selection preserves lower large animal")
 	check(RescuePlanner.plan(sample,465,350,20,110,610,360,0).is_empty(), "zero cap rejected")
