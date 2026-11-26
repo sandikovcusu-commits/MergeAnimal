@@ -2,6 +2,8 @@ extends Node
 # Test-only autoload. The workflow injects this into a temporary copy of the
 # project for a separate instrumented Web export; it is not in production.
 var last_id := -1
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 func _process(_delta: float) -> void:
 	if not OS.has_feature("web"): return
 	var raw = JavaScriptBridge.eval("JSON.stringify(window.__audioQACommand || null)")
@@ -14,6 +16,9 @@ func _process(_delta: float) -> void:
 	match str(command.get("op", "state")):
 		"event": result = manager.play_event(str(command.get("name", "")))
 		"impact": result = manager.impact(float(command.get("speed", 0)), bool(command.get("landing", false)))
+		"impact_test":
+			manager.impact_elapsed = 1.0
+			result = [manager.impact(99.0, false), manager.impact(300.0, false), manager.impact(300.0, false)]
 		"theme": manager.set_music(str(command.get("name", ""))); result = true
 		"ad": manager.set_ad_audio_paused(bool(command.get("paused", false))); result = true
 		"stop_sfx":
