@@ -8,7 +8,7 @@ static func load_values(path: String = PATH) -> Dictionary:
 	var saved := SaveManager.load_progress(path)
 	if saved.status in ["ok", "recovered"]:
 		for key in values: values[key] = saved.data.get(key, values[key])
-	elif saved.status == "missing":
+	elif saved.status == "missing" or path.ends_with(".cfg"):
 		var cfg := ConfigFile.new()
 		var legacy := LEGACY_PATH if path == PATH else path
 		if cfg.load(legacy) == OK:

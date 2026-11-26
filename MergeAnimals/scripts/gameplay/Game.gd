@@ -777,7 +777,11 @@ func _show_score_effect(point: Vector2, amount: int) -> void:
 	var tween := label.create_tween(); tween.set_parallel(true)
 	tween.tween_property(label, "position:y", label.position.y - (12.0 if reduced_effects else 45.0), 0.7)
 	tween.tween_property(label, "modulate:a", 0.0, 0.7)
-	tween.chain().tween_callback(func(): floating_scores -= 1; label.queue_free())
+	tween.chain().tween_callback(_finish_score_effect.bind(label))
+
+func _finish_score_effect(label: Label) -> void:
+	floating_scores -= 1
+	if is_instance_valid(label): label.queue_free()
 
 func _on_golden_merged(point: Vector2) -> void:
 	FeelAudio.play_event("golden_merge")

@@ -16,19 +16,19 @@ var blink_duration := 0.15
 var next_blink := 0.0
 var action_tween: Tween
 var reduced := false
+var audio_manager: Node
 
 func _ready() -> void:
 	idle_phase = randf_range(0.0, TAU)
 	next_blink = randf_range(3.0, 8.0)
 	blink_duration = randf_range(0.12, 0.18)
-	var audio := get_node_or_null("/root/AudioManager")
-	if audio: reduced = audio.reduced_effects
+	audio_manager = get_node_or_null("/root/AudioManager")
+	if audio_manager: reduced = audio_manager.reduced_effects
 	# Previews are static; only real Animal bodies animate.
 	set_process(get_parent() is Animal)
 
 func _process(delta: float) -> void:
-	var audio := get_node_or_null("/root/AudioManager")
-	var now_reduced: bool = audio.reduced_effects if audio else reduced
+	var now_reduced: bool = audio_manager.reduced_effects if is_instance_valid(audio_manager) else reduced
 	if now_reduced:
 		if not reduced:
 			if action_tween and action_tween.is_running(): action_tween.kill()
@@ -58,7 +58,14 @@ func animate_action(kind: String) -> void:
 	scale = target
 	action_tween = create_tween()
 	action_tween.tween_property(self, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	action_tween.tween_callback(func(): expression = AnimalExpression.NORMAL)
+	action_tween.tween_callback(_end_action)
+
+func _end_action() -> void:
+	expression = AnimalExpression.NORMAL
+
+func _exit_tree() -> void:
+	if action_tween and action_tween.is_running(): action_tween.kill()
+	action_tween = null
 
 func _draw() -> void:
 	if data == null: return
