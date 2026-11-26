@@ -1,3 +1,11 @@
+# V0.8.2 WIP — SDK və monetizasiya
+
+- CrazyGames rewarded provider, hər üç reklam mükafatı, transaction/callback/timeout təhlükəsizliyi, UI və reward checkpoint yoxdur; düymələr fail-closed gizlidir. Reklam zamanı pause/audio və reward bütünlüyü yoxlanmayıb.
+- SDK `muteAudio` başlanğıc dəyəri local demo-da yoxlanıb; canlı platformada dəyişiklik və fiziki audio cihazları yoxlanmayıb. Happy Time yoxdur. Rəsmi platforma preview və real reklam sınağı yoxdur.
+- IndexedDB asinxron son-yazı itkisi, sprite kommersiya hüquqları və əvvəlki açıq risklər qalır. Bu build nə monetizasiya, nə də platformaya çıxış üçün hazırdır.
+
+---
+
 # V0.8.1.3 — audio acceptance gaps
 
 - Real blur/hidden/tab return, OS interruptions, physical devices and speakers, Firefox touch, and sustained memory/performance behavior remain untested. Chromium touch is simulated. Slider touch drag itself needs independent testing.

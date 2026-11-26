@@ -1,3 +1,9 @@
+# V0.8.2 WIP — CrazyGames Godot SDK
+
+Rəsmi Godot Asset Store-dan CrazySDK asset v2.0.0, MIT: `addons/crazygames/LICENSE` (Copyright 2026 CrazyGames); arxiv və daxili versiya uyğunsuzluğu, SHA və yerli patch-lər üçün `SDK_INTEGRATION_REPORT.md`-yə baxın. Uzaqdan yüklənən HTML5 SDK CDN üçün ayrıca mövcud CrazyGames şərtləri və platforma icazələri nəzərdən keçirilməlidir; bu qeyd kommersiya hüquqlarını ümumi təsdiq etmir. Heyvan sprite-larının hüquqları əvvəlki kimi həll edilməyib.
+
+---
+
 # Aktiv mənşəyi
 
 Gün 1: kodla çəkilmiş müvəqqəti diaqnostik həndəsi fiqurlar və mətnlər bu layihə üçün yazılıb; üçüncü tərəf sprite, audio, şrift, model tərəfindən generasiya edilmiş şəkil və ya rəqib aktivləri daxil edilməyib. Bunlar yekun qrafika deyil. Godot mühərriki layihəyə daxil edilmir, mühərrikin öz MIT lisenziyası ayrıca tətbiq olunur: https://github.com/godotengine/godot/blob/4.7.2-stable/LICENSE.txt.

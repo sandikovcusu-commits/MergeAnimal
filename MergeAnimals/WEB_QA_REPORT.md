@@ -1,3 +1,9 @@
+# V0.8.2 WIP — SDK Web smoke
+
+Rəsmi SDK localhost başlanması və skript bloklanması hər iki brauzerdə, platform mute isə ayrıca təsdiqlənib; faktiki CI linkləri və ilkin uğursuz mute sınaqları `SDK_INTEGRATION_REPORT.md`-dədir. Bunlar reklam oynadılması və ya mükafat testi deyil. Rewarded ssenariləri tətbiq olunmadığından yoxlanmayıb; Basic Launch tam uyğunluğu və real platforma sınağı təsdiqlənməyib.
+
+---
+
 # V0.8.1.3 — Web audio QA update
 
 Instrumented Godot 4.7.2 WASM audio tests: Chromium 47/47, Firefox 47/47, Chromium simulated touch 48/48; separate uninstrumented Chromium and Firefox production smoke each 6/6. Actual browser graph output is measured rather than inferred from playing state. See `WEB_AUDIO_REPORT.md` for CI links, settings values, fixture-assisted coverage and failed earlier attempts. Real tab lifecycle, physical devices, human listening and multiple natural gameplay audio paths remain unverified; this is partial acceptance. IndexedDB immediate-close last-write loss remains open. Prior UI reports below are historical, not rerun wholesale.

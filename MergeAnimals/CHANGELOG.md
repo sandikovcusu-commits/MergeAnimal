@@ -1,3 +1,11 @@
+# V0.8.2 WIP — CrazyGames SDK hazırlığı
+
+- Rəsmi MIT Godot SDK, ayrıca opt-in Web preset, sonlu initialization və reklamsız fallback; gameplay start/stop və platform mute inteqrasiyası.
+- Rəsmi SDK local demo, skript bloklanması və mute üçün Chromium/Firefox CI smoke.
+- Reklam/reward provider-i və mükafatlar hələ yoxdur; bütün reklam düymələri bağlıdır. `SDK_INTEGRATION_REPORT.md` və `MONETIZATION_REPORT.md`-yə baxın.
+
+---
+
 # V0.8.1.3 development — Web audio compatibility
 
 - Use stream playback on Web for the existing bounded SFX pool and singleton music; preserve the existing 20 SFX and three music WAVs.
