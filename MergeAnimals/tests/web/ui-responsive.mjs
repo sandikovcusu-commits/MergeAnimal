@@ -120,12 +120,13 @@ async function outcomesTest(){
 }
 async function lifecycleTest(){
  if(browser!=='chromium')throw Error('CDP lifecycle uses Chromium only');
+ await page.evaluate(()=>{window.__lifecycle=[];for(const event of ['visibilitychange','blur','focus']){const target=event==='visibilitychange'?document:window;target.addEventListener(event,()=>window.__lifecycle.push({event,hidden:document.hidden,focus:document.hasFocus(),time:Date.now()}),true)}});
  await tap(360,600,true);await sleep(3500);await tap(565,275,true);await sleep(1000);await tap(260,700,true);await sleep(6500);
  let s=await waitState(d=>d.active&&d.spawn_count===1,'lifecycle baseline');let old=s.spawn_count;
  const cdp=await context.newCDPSession(page), p=point(350,700);
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:p.x,y:p.y,id:21}]});
  const second=await context.newPage();await second.goto('about:blank');await second.bringToFront();await sleep(1800);await page.bringToFront();await sleep(1200);
- await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(5000);s=await state();await shot('tab-return');check(s.spawn_count===old,'held touch across tab switch does not drop');await second.close();
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(5000);s=await state();await shot('tab-return');check(s.spawn_count===old,'held touch across tab switch does not drop');console.log('LIFECYCLE_EVENTS',JSON.stringify(await page.evaluate(()=>window.__lifecycle)));old=s.spawn_count;await second.close();
  // Request/exit fullscreen via a real user click on a temporary test-page button.
  await page.evaluate(()=>{let b=document.createElement('button');b.id='qa-fullscreen';b.textContent='QA fullscreen';Object.assign(b.style,{position:'fixed',zIndex:'99999',top:'0',left:'0'});b.onclick=()=>document.documentElement.requestFullscreen();document.body.appendChild(b)});
  await page.locator('#qa-fullscreen').click();await sleep(1500);check(await page.evaluate(()=>!!document.fullscreenElement),'fullscreen entered');await shot('fullscreen');

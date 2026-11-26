@@ -556,13 +556,22 @@ func _install_web_touch_cancel_guard() -> void:
 	JavaScriptBridge.eval("""
 	if (!window.__wildGardenTouchCancel) {
 	  const cancelled = new Set();
+	  const held = new Set();
 	  window.__wildGardenTouchCancel = cancelled;
 	  window.addEventListener('touchstart', e => {
-	    for (const t of e.changedTouches) cancelled.delete(t.identifier);
+	    for (const t of e.changedTouches) { cancelled.delete(t.identifier); held.add(t.identifier); }
+	  }, true);
+	  window.addEventListener('touchend', e => {
+	    for (const t of e.changedTouches) held.delete(t.identifier);
+	  }, true);
+	  const invalidateHeld = () => { for (const id of held) cancelled.add(id); };
+	  window.addEventListener('blur', invalidateHeld, true);
+	  document.addEventListener('visibilitychange', () => {
+	    if (document.hidden) invalidateHeld();
 	  }, true);
 	  window.addEventListener('touchcancel', e => {
 	    const ids = Array.from(e.changedTouches, t => t.identifier);
-	    for (const id of ids) cancelled.add(id);
+	    for (const id of ids) { cancelled.add(id); held.delete(id); }
 	    setTimeout(() => { for (const id of ids) cancelled.delete(id); }, 0);
 	  }, true);
 	}
