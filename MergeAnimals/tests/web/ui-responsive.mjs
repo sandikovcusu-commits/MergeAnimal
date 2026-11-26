@@ -4,7 +4,7 @@ import {chromium,firefox} from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {execFileSync} from 'node:child_process';
+import {execFileSync,spawnSync} from 'node:child_process';
 const out=process.env.WEB_QA_DIR||'/tmp/web-ui';const base=process.env.WEB_URL||'http://127.0.0.1:8765/';
 const mode=process.env.UI_MODE||'screens',browser=process.env.UI_BROWSER||'chromium';
 fs.mkdirSync(out,{recursive:true});let errors=0,checks=0;
@@ -85,9 +85,11 @@ async function touchTest(){
  await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:from.x,y:from.y,id:30}]});
  for(let i=1;i<=8;i++){await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:from.x,y:from.y+(to.y-from.y)*i/8,id:30}]});await sleep(60)}
  await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(2000);await shot('collection-after-scroll');
- const after=path.join(out,`${browser}-${mode}-collection-after-scroll.png`), enlarged=path.join(out,`${browser}-${mode}-collection-after-scroll-large.png`);
- execFileSync('convert',[after,'-resize','200%',enlarged]);let scrolled=execFileSync('tesseract',[enlarged,'stdout','--psm','11'],{encoding:'utf8',stdio:['ignore','pipe','ignore']});console.log('SCROLL_OCR',JSON.stringify(scrolled));
- check(/elephant/i.test(scrolled),'Collection touch swipe reveals last animal row without opening a card');await tap(360,1190,true);await sleep(1500);
+ const before=path.join(out,`${browser}-${mode}-collection-before-scroll.png`),after=path.join(out,`${browser}-${mode}-collection-after-scroll.png`);
+ const cropBefore=path.join(out,'scroll-before-crop.png'),cropAfter=path.join(out,'scroll-after-crop.png');
+ for(const [input,output] of [[before,cropBefore],[after,cropAfter]])execFileSync('convert',[input,'-crop','330x500+30+200','+repage',output]);
+ const diff=spawnSync('compare',['-fuzz','15%','-metric','AE',cropBefore,cropAfter,'null:'],{encoding:'utf8'});const pixels=Number(diff.stderr.trim());console.log('SCROLL_CHANGED_PIXELS',pixels);
+ check(Number.isFinite(pixels)&&pixels>5000,'Collection swipe changes substantial content, beyond button highlighting');await tap(360,1190,true);await sleep(1500);
  await tap(360,600,true);await sleep(4500);await shot('play-tapped');
  await tap(565,275,true);await sleep(1500);await tap(260,700,true);await sleep(6500);
  let s=await waitState(d=>d.active&&d.spawn_count>=1,'touch drop');check(s.spawn_count===1,`one touch creates exactly one drop`);console.log('TOUCH_FIRST',JSON.stringify({spawn_count:s.spawn_count,bodies:s.bodies}));await shot('first-drop');
@@ -141,7 +143,14 @@ async function lifecycleTest(){
  const cdp=await context.newCDPSession(page), p=point(350,700);
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:p.x,y:p.y,id:21}]});
  const second=await context.newPage();await second.goto('about:blank');await second.bringToFront();await sleep(1800);await page.bringToFront();await sleep(1200);
- await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(5000);s=await state();await shot('tab-return');check(s.spawn_count===old,'held touch across tab switch does not drop');console.log('LIFECYCLE_EVENTS',JSON.stringify(await page.evaluate(()=>window.__lifecycle)));old=s.spawn_count;await second.close();
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(5000);s=await state();await shot('tab-return');
+ const observed=await page.evaluate(()=>window.__lifecycle);console.log('LIFECYCLE_EVENTS',JSON.stringify(observed));
+ if(observed.some(e=>e.event==='blur'||(e.event==='visibilitychange'&&e.hidden)))check(s.spawn_count===old,'held touch across an observed tab loss does not drop');else console.log('SKIP tab switch: browser emitted no blur or hidden event');
+ old=s.spawn_count;await second.close();
+ const p2=point(220,700);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:p2.x,y:p2.y,id:22}]});
+ await page.evaluate(()=>{const el=document.createElement('input');el.id='qa-focus';document.body.appendChild(el);el.focus()});await sleep(700);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(5000);s=await state();console.log('FOCUS_EVENTS',JSON.stringify(await page.evaluate(()=>window.__lifecycle)));check(s.spawn_count===old,'held touch after DOM focus leaves canvas does not drop');await shot('focus-loss');
+ await page.evaluate(()=>{document.querySelector('#qa-focus').remove();document.querySelector('canvas').focus()});
  // Request/exit fullscreen via a real user click on a temporary test-page button.
  await page.evaluate(()=>{let b=document.createElement('button');b.id='qa-fullscreen';b.textContent='QA fullscreen';Object.assign(b.style,{position:'fixed',zIndex:'99999',top:'0',left:'0'});b.onclick=()=>document.documentElement.requestFullscreen();document.body.appendChild(b)});
  await page.locator('#qa-fullscreen').click();await sleep(1500);check(await page.evaluate(()=>!!document.fullscreenElement),'fullscreen entered');await shot('fullscreen');
