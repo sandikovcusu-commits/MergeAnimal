@@ -99,7 +99,12 @@ func run() -> void:
 		check(game.result_finished and game.result_success and game.result_saved and game.game_state == game.GameState.GAME_OVER, "challenge %d success from real collisions and saved" % id)
 		if id == 5: check(game.score >= 300 and game.merge_manager.merge_count >= 1, "score hunter reached 300 through collision score")
 		loaded = ChallengeStore.load_results()
-		check(loaded.status in ["ok", "recovered"] and loaded.data.entries[id - 1].completed, "challenge %d completion persisted" % id)
+		if loaded.status not in ["ok", "recovered"]:
+			var raw := SaveManager._read_envelope(ChallengeStore.PATH)
+			print("BAD_RESULT raw=", raw, " valid=", ChallengeStore.valid(raw.get("data")))
+			check(false, "result loading failed")
+			quit(1); return
+		check(loaded.data.entries[id - 1].completed, "challenge %d completion persisted" % id)
 		if id < 5: check(ChallengeStore.is_unlocked(loaded.data, id + 1) and game.next_button.visible, "challenge %d unlocks next" % id)
 		await dispose(game)
 	# Replaying a completed task and losing must not revoke its unlock.
