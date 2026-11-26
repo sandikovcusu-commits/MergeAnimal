@@ -15,7 +15,7 @@ on:
         default: 'false'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production"
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked"
         default: 'none'
         required: true
       ui_locale:
@@ -94,7 +94,16 @@ jobs:
             pactl load-module module-null-sink sink_name=qa_audio >/dev/null
             pactl set-default-sink qa_audio
           fi
-          if [ "$UI_MODE" = audio-production ]; then
+          if [ "$UI_MODE" = sdk-real ] || [ "$UI_MODE" = sdk-blocked ]; then
+            cp -a MergeAnimals /tmp/sdk-qa-project
+            cp /tmp/sdk-qa-project/tests/web/SdkProbe.gd /tmp/sdk-qa-project/scripts/ads/SdkProbe.gd
+            sed -i '/^\[autoload\]/a SdkProbe="*res://scripts/ads/SdkProbe.gd"' /tmp/sdk-qa-project/project.godot
+            mkdir -p /tmp/web-test/sdk-qa
+            "$GODOT" --headless --path /tmp/sdk-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
+            export SDK_CASE="${UI_MODE#sdk-}"
+          elif [ "$UI_MODE" = audio-production ]; then
             TEST=audio-production.mjs
           elif [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ]; then
             # Separate instrumented build. The release ZIP remains untouched.
