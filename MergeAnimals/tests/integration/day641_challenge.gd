@@ -132,12 +132,15 @@ func run() -> void:
 	await dispose(next)
 	var natural = new_game(1); await frames(); natural.danger_monitor.set_physics_process(false)
 	var first := await drop(natural, natural.animals[0], 360)
+	var first_dropped := first != null
 	for i in range(240): await physics_frame
 	var second := await drop(natural, natural.animals[0], 360)
+	var second_dropped := second != null
 	for i in range(300):
 		await process_frame
 		if natural.result_finished: break
-	check(first != null and second != null and natural.result_success and natural.merge_manager.merge_count >= 1, "first friend completes via natural gravity and real drop collision")
+	print("NATURAL drops=%s/%s merges=%d result=%s" % [first_dropped, second_dropped, natural.merge_manager.merge_count, natural.result_success])
+	check(first_dropped and second_dropped and natural.result_success and natural.merge_manager.merge_count >= 1, "first friend completes via natural gravity and real drop collision")
 	check(FileAccess.get_sha256(SessionSave.PATH) == classic_hash and FileAccess.get_sha256(SessionSave.POWERUP_PATH) == checkpoint_hash, "all challenge navigation and replay preserve classic files")
 	await dispose(natural)
 	print("CHALLENGE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
