@@ -56,6 +56,7 @@ func run() -> void:
 	audio.set_ad_audio_paused(false); audio.set_ad_audio_paused(false)
 	check(not audio.music.stream_paused and audio.music.get_instance_id() == music_before_ad and SettingsStore.load_values() == settings_before_ad and AudioServer.is_bus_mute(AudioServer.get_bus_index("Master")), "ad resume keeps player and previously muted user settings")
 	audio.set_music("snow")
+	music_stream = audio.music.stream
 	settings.reduced_effects = false; settings.mute = false; SettingsStore.save_values(settings); SettingsStore.apply(settings)
 	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH, AchievementManager.PATH, AchievementManager.CHECKPOINT_PATH]:
 		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
