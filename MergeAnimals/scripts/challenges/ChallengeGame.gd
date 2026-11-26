@@ -37,6 +37,8 @@ func _ready() -> void:
 	remove_button.visible = false; remove_button.disabled = true
 	undo_button.visible = false; undo_button.disabled = true
 	rescue_button.visible = false; rescue_button.disabled = true
+	if OS.has_feature("web"):
+		print("QA_CHALLENGE_STATE id=", challenge_id, " starting=", challenge.definition.starting_animals, " sequence=", challenge.definition.spawn_sequence, " bodies=", pieces.get_child_count(), " current=", current_data.id, " title_pos=", $HUD/Title.position, " pause_pos=", pause_button.position)
 	best_score = int(loaded.data.entries[challenge_id - 1].best)
 	goal_label = Label.new(); goal_label.name = "ChallengeGoal"
 	goal_label.position = Vector2(85, 205); goal_label.size = Vector2(365, 65)
