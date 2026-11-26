@@ -10,6 +10,14 @@ on:
         description: "Comma-separated chromium, firefox"
         default: 'chromium,firefox'
         required: true
+      ui_mode:
+        description: "UI: none, screens, matrix, touch"
+        default: 'none'
+        required: true
+      ui_browser:
+        description: "UI: chromium or firefox"
+        default: 'chromium'
+        required: true
 permissions:
   contents: write
   checks: write
@@ -30,7 +38,7 @@ jobs:
           exec > >(tee /tmp/web-qa/install.log) 2>&1
           set -x
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick tesseract-ocr
           wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
           unzip -q /tmp/godot.zip -d /tmp/godot
           wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz -O /tmp/templates.tpz
@@ -43,6 +51,8 @@ jobs:
         env:
           WEB_SCENARIOS: ${{ inputs.scenarios }}
           WEB_BROWSERS: ${{ inputs.browsers }}
+          UI_MODE: ${{ inputs.ui_mode }}
+          UI_BROWSER: ${{ inputs.ui_browser }}
         run: |
           set -e -o pipefail
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
@@ -54,7 +64,8 @@ jobs:
           python3 -m http.server 8765 --directory /tmp/web-test >/tmp/web-qa/server.log 2>&1 &
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
-          WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/powerup-persistence.mjs 2>&1 | tee /tmp/web-qa/browser.log
+          if [ "$UI_MODE" = none ]; then TEST=powerup-persistence.mjs; else TEST=ui-responsive.mjs; fi
+          WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node "MergeAnimals/tests/web/$TEST" 2>&1 | tee /tmp/web-qa/browser.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -64,6 +75,7 @@ jobs:
             /tmp/web-qa/*.log
             /tmp/web-qa/*.json
             /tmp/web-qa/*.png
+            /tmp/web-qa/*.txt
           if-no-files-found: warn
       - name: Transport test build and evidence as temporary Git blob
         if: always()
