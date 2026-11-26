@@ -39,9 +39,9 @@ func _process(delta: float) -> void:
 	idle_phase += delta * 1.5
 	next_blink -= delta
 	if next_blink <= 0.0:
+		blink_duration = randf_range(0.12, 0.18)
 		blink_left = blink_duration
 		next_blink = randf_range(3.0, 8.0)
-		blink_duration = randf_range(0.12, 0.18)
 	if blink_left > 0.0: blink_left = maxf(0.0, blink_left - delta)
 	if not action_tween or not action_tween.is_running():
 		# Without per-sprite eye layers this is a gentle whole-sprite blink cue,
