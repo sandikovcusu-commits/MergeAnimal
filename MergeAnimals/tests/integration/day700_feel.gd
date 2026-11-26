@@ -69,6 +69,10 @@ func run() -> void:
 	reduced_body.visual.animate_action("landing")
 	check(reduced_body.visual.scale == Vector2.ONE and reduced_body.circle.shape.radius == game.animals[0].radius, "reduced effects disables squash without changing collision")
 	reduced_body.queue_free(); audio.reduced_effects = false; await frames(3)
+	var music_id: int = audio.music.get_instance_id()
+	check(audio.music.playing and audio.music.get_instance_id() == music_id, "music continues when game scene changes")
+	for player in audio.players: player.stop()
+	var old_drops: int = int(audio.accepted_events.get("animal_drop", 0))
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
 	for i in range(260): await physics_frame
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
@@ -76,7 +80,13 @@ func run() -> void:
 		await physics_frame
 		if game.merge_manager.merge_count >= 1: break
 	var merge_score: int = game.score
+	check(int(audio.accepted_events.get("animal_drop", 0)) > old_drops and int(audio.accepted_events.get("small_merge", 0)) > 0, "real drops and merge dispatch audio")
 	check(game.merge_manager.merge_count == 1 and merge_score > 0, "real physical merge produces one score")
 	for i in range(300): await physics_frame
 	check(game.merge_manager.merge_count == 1 and game.score == merge_score, "motion does not repeat merge or score")
+	paused = false
+	game.queue_free(); current_scene = null
+	for player in audio.players: player.stop()
+	audio.music.stop(); audio.queue_free()
+	await frames(3)
 	print("FEEL checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
