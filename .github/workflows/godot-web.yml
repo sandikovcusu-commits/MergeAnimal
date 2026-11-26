@@ -38,7 +38,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Inspect official Godot asset metadata
+        if: ${{ inputs.ui_mode == 'sdk-inspect' }}
+        run: |
+          mkdir -p /tmp/web-qa
+          curl -L --max-time 45 -sS https://store.godotengine.org/asset/crazygames/crazysdk/ -o /tmp/web-qa/store.html
+          head -c 1000 /tmp/web-qa/store.html
       - name: Install Godot, Web templates and browsers
+        if: ${{ inputs.ui_mode != 'sdk-inspect' }}
         shell: bash
         run: |
           set -e -o pipefail
@@ -56,6 +63,7 @@ jobs:
           npm ci --prefix MergeAnimals/tests/web
           cd MergeAnimals/tests/web && npx playwright install --with-deps chromium firefox
       - name: Export and browser power-up tests over local HTTP
+        if: ${{ inputs.ui_mode != 'sdk-inspect' }}
         env:
           WEB_SCENARIOS: ${{ inputs.scenarios }}
           WEB_BROWSERS: ${{ inputs.browsers }}
