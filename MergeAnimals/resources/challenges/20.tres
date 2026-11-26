@@ -12,4 +12,4 @@ animal_id = &""
 target = 1
 time_limit = 0.0
 starting_animals = PackedStringArray("bear")
-spawn_sequence = PackedStringArray("bear")
+spawn_sequence = PackedStringArray("bear", "lion", "lion", "lion")
