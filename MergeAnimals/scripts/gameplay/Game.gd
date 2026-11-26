@@ -68,6 +68,9 @@ var tutorial_skip: Button
 const SETTINGS_SCENE := preload("res://scenes/ui/SettingsPanel.tscn")
 const EFFECT_SCRIPT := preload("res://scripts/effects/MergeEffects.gd")
 var reduced_effects := false
+var effect_camera: Camera2D
+var floating_scores := 0
+var danger_sound_active := false
 var autosave_elapsed := 0.0
 var save_scheduled := false
 var save_status: Error = OK
@@ -108,6 +111,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var saved_settings := SettingsStore.load_values()
 	SettingsStore.apply(saved_settings)
+	effect_camera = Camera2D.new(); effect_camera.position = Vector2(360, 640); add_child(effect_camera)
 	visual_theme = ThemeStore.current_index()
 	$HUD.theme = ThemeStore.ui_theme()
 	reduced_effects = saved_settings.reduced_effects
@@ -413,6 +417,7 @@ func _commit_undo() -> void:
 	if golden_tween and golden_tween.is_running(): golden_tween.kill()
 	golden_label.visible = false
 	_restore_session(candidate)
+	AudioManager.play_event("undo")
 	if persist_best: AchievementManager.synchronize(progression, {}, false)
 	for timer in danger_monitor.timers.values(): danger_monitor.peak_time = maxf(danger_monitor.peak_time, float(timer))
 	undo_processing = false
@@ -527,6 +532,7 @@ func _commit_remove(body: Animal) -> void:
 	pieces.remove_child(body)
 	body.queue_free()
 	remove_remaining -= 1
+	AudioManager.play_event("remove")
 	undo_snapshot = {}
 	remove_selecting = false
 	remove_committing = false
@@ -627,6 +633,8 @@ func _attempt_drop() -> void:
 	var dropped := current_data
 	var dropped_body := create_animal(dropped, Vector2(aim_x, spawn_height))
 	dropped_body.progression_eligible = true
+	dropped_body.visual.animate_action("drop")
+	AudioManager.play_event("animal_drop")
 	spawn_count += 1
 	if persist_best and not session_tainted:
 		progression.total_drops = int(progression.total_drops) + 1
@@ -696,8 +704,12 @@ func _award_merge(base_score: int) -> void:
 	_update_hud()
 
 func _on_merged(data: AnimalData, point: Vector2) -> void:
+	var previous_score := score
 	if persist_best and not merge_manager.last_merge_eligible: score_untrusted = true
 	_award_merge(data.merge_score)
+	AudioManager.play_event("small_merge" if data.level <= 4 else "medium_merge" if data.level <= 8 else "large_merge")
+	if combo_count > 1: AudioManager.play_event("combo", minf(1.15, 1.0 + combo_count * 0.025), -7.0)
+	_show_score_effect(point, score - previous_score)
 	if persist_best and not session_tainted and merge_manager.last_merge_eligible:
 		progression.total_merges = int(progression.total_merges) + 1
 		if not score_untrusted:
@@ -748,12 +760,31 @@ func _flush_achievement_queue() -> void:
 func _achievement_recovered() -> void: pass
 
 func _spawn_effect(kind: String, point: Vector2) -> void:
+	if get_tree().get_nodes_in_group("visual_effects").size() >= 40: return
 	var effect := EFFECT_SCRIPT.new()
 	effect.effect_kind = kind
 	effect.position = to_local(point)
+	effect.add_to_group("visual_effects")
 	add_child(effect)
 
+func _show_score_effect(point: Vector2, amount: int) -> void:
+	if floating_scores >= 8: return
+	floating_scores += 1
+	var label := Label.new(); label.text = "+%d" % amount; label.position = to_local(point) + Vector2(-35, -50)
+	label.size = Vector2(130, 50); label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.add_theme_font_size_override("font_size", 28); label.add_theme_color_override("font_color", Color("fff2b5")); label.z_index = 8
+	$HUD.add_child(label)
+	var tween := label.create_tween(); tween.set_parallel(true)
+	tween.tween_property(label, "position:y", label.position.y - (12.0 if reduced_effects else 45.0), 0.7)
+	tween.tween_property(label, "modulate:a", 0.0, 0.7)
+	tween.chain().tween_callback(func(): floating_scores -= 1; label.queue_free())
+
 func _on_golden_merged(point: Vector2) -> void:
+	AudioManager.play_event("golden_merge")
+	_show_score_effect(point, golden_config.bonus_score if golden_config else 1000)
+	if not reduced_effects and is_instance_valid(effect_camera):
+		effect_camera.offset = Vector2(5, -3)
+		var shake := effect_camera.create_tween(); shake.tween_property(effect_camera, "offset", Vector2(-3, 2), 0.06); shake.tween_property(effect_camera, "offset", Vector2.ZERO, 0.12)
 	if persist_best and not merge_manager.last_merge_eligible: score_untrusted = true
 	_spawn_effect("soft_burst", point)
 	if not reduced_effects: _spawn_effect("golden_glow", point)
@@ -785,11 +816,15 @@ func _save_best() -> void:
 	# Writing a separate legacy file would resurrect a record after Undo.
 	pass
 
-func _on_danger_changed(_seconds: float) -> void:
+func _on_danger_changed(seconds: float) -> void:
+	if seconds > 0.0 and not danger_sound_active:
+		danger_sound_active = true; AudioManager.play_event("danger_warning")
+	elif seconds <= 0.0: danger_sound_active = false
 	queue_redraw()
 
 func _on_game_over() -> void:
 	if not is_playing(): return
+	AudioManager.play_event("game_over")
 	_cancel_remove()
 	# Cancel reservations, not body/score mutations, before checkpointing. A
 	# previously deferred commit sees GAME_OVER and cannot touch this board.
@@ -959,6 +994,7 @@ func _commit_rescue() -> void:
 		save_status = result
 		_rescue_failed("SAVE_FAILED"); return
 	# The checkpoint is the commit point. Highlight while paused, then detach.
+	AudioManager.play_event("rescue")
 	for uid in ids:
 		var body: Animal = by_uid[uid]
 		rescue_selected.append(body)

@@ -91,6 +91,8 @@ func _attempt_drop() -> void:
 	var data := current_data
 	var body := create_animal(data, Vector2(aim_x, spawn_height))
 	body.progression_eligible = true
+	body.visual.animate_action("drop")
+	AudioManager.play_event("animal_drop")
 	spawn_count += 1
 	current_data = next_data
 	next_data = _pick_animal()
@@ -159,6 +161,7 @@ func _finish(success: bool) -> void:
 	# A goal reached before the deferred failure resolves always wins.
 	success = success or challenge.reached
 	result_finished = true; result_success = success
+	AudioManager.play_event("challenge_success" if success else "challenge_failed")
 	game_state = GameState.GAME_OVER
 	drop_requested = false; active_touch = -1; mouse_down = false
 	current_preview.visible = false

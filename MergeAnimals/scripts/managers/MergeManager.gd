@@ -81,4 +81,5 @@ func _commit_pending() -> void:
 		else:
 			var result: Animal = game.create_animal(target, safe_point)
 			result.progression_eligible = last_merge_eligible
+			result.visual.animate_action("merge")
 			merged.emit(target, safe_point)

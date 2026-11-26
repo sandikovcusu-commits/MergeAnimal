@@ -3,8 +3,11 @@ config_version=5
 
 [application]
 config/name="Merge Animals: Wild Garden"
-config/version="0.6.5"
+config/version="0.7.0-dev"
 run/main_scene="res://scenes/ui/MainMenu.tscn"
+
+[autoload]
+AudioManager="*res://scripts/audio/AudioManager.gd"
 
 [display]
 window/size/viewport_width=720

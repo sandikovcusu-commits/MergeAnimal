@@ -1,4 +1,5 @@
 extends Control
+const LOGO := preload("res://assets/ui/logo/wild_garden.svg")
 const FOREST := preload("res://assets/backgrounds/forest_garden.svg")
 const THEME := preload("res://assets/ui/themes/forest.tres")
 const SETTINGS := preload("res://scenes/ui/SettingsPanel.tscn")
@@ -124,9 +125,7 @@ func _settings() -> void:
 	settings_panel.closed.connect(func(): settings_panel = null; settings_button.grab_focus())
 func _draw() -> void:
 	draw_texture_rect(ThemeStore.background(), Rect2(0, 0, 720, 1280), false)
-	var font := preload("res://assets/fonts/DejaVuSans.ttf")
-	draw_string(font, Vector2(0, 190), "MERGE ANIMALS", HORIZONTAL_ALIGNMENT_CENTER, 720, 60, Color("334b36"))
-	draw_string(font, Vector2(0, 250), "WILD GARDEN", HORIZONTAL_ALIGNMENT_CENTER, 720, 37, Color("73513b"))
+	draw_texture_rect(LOGO, Rect2(40, 64, 640, 205), false)
 	draw_texture_rect(DECOR[0], Rect2(95, 345, 150, 150), false)
 	draw_texture_rect(DECOR[1], Rect2(278, 305, 180, 180), false)
 	draw_texture_rect(DECOR[2], Rect2(478, 345, 150, 150), false)

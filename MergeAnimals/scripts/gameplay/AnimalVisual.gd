@@ -1,6 +1,5 @@
 extends Node2D
-
-# Shared by bodies and previews. Experimental art is not cleared for commercial use.
+# Cosmetic animation only. Physics body and collision shape never change size.
 static var warned_missing: Dictionary = {}
 enum AnimalExpression { NORMAL, HAPPY, SURPRISE }
 var expression: AnimalExpression = AnimalExpression.NORMAL:
@@ -11,16 +10,62 @@ var data: AnimalData:
 	set(value):
 		data = value
 		queue_redraw()
+var idle_phase := 0.0
+var blink_left := 0.0
+var blink_duration := 0.15
+var next_blink := 0.0
+var action_tween: Tween
+var reduced := false
+
+func _ready() -> void:
+	idle_phase = randf_range(0.0, TAU)
+	next_blink = randf_range(3.0, 8.0)
+	blink_duration = randf_range(0.12, 0.18)
+	var audio := get_node_or_null("/root/AudioManager")
+	if audio: reduced = audio.reduced_effects
+	# Previews are static; only real Animal bodies animate.
+	set_process(get_parent() is Animal)
+
+func _process(delta: float) -> void:
+	var audio := get_node_or_null("/root/AudioManager")
+	var now_reduced: bool = audio.reduced_effects if audio else reduced
+	if now_reduced:
+		if not reduced:
+			if action_tween and action_tween.is_running(): action_tween.kill()
+			scale = Vector2.ONE; expression = AnimalExpression.NORMAL
+		reduced = true
+		return
+	reduced = false
+	idle_phase += delta * 1.5
+	next_blink -= delta
+	if next_blink <= 0.0:
+		blink_left = blink_duration
+		next_blink = randf_range(3.0, 8.0)
+		blink_duration = randf_range(0.12, 0.18)
+	if blink_left > 0.0: blink_left = maxf(0.0, blink_left - delta)
+	if not action_tween or not action_tween.is_running():
+		# Without per-sprite eye layers this is a gentle whole-sprite blink cue,
+		# not a fabricated or occluding eyelid texture.
+		var blink := sin(PI * (1.0 - blink_left / blink_duration)) * 0.045 if blink_left > 0.0 else 0.0
+		var breathe := sin(idle_phase) * 0.012
+		scale = Vector2(1.0 + breathe + blink, 1.0 - breathe - blink)
+
+func animate_action(kind: String) -> void:
+	if reduced: return
+	if action_tween and action_tween.is_running(): action_tween.kill()
+	var target := Vector2(1.1, 0.88) if kind == "landing" else Vector2(0.88, 1.12) if kind == "drop" else Vector2(0.72, 0.72) if kind == "merge" else Vector2(1.05, 0.95)
+	expression = AnimalExpression.HAPPY if kind in ["merge", "happy"] else AnimalExpression.SURPRISE if kind in ["drop", "surprise"] else AnimalExpression.NORMAL
+	scale = target
+	action_tween = create_tween()
+	action_tween.tween_property(self, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	action_tween.tween_callback(func(): expression = AnimalExpression.NORMAL)
 
 func _draw() -> void:
-	if data == null:
-		return
+	if data == null: return
 	var r := data.radius
 	var texture: Texture2D = data.sprite
-	if expression == AnimalExpression.HAPPY and data.happy_sprite:
-		texture = data.happy_sprite
-	elif expression == AnimalExpression.SURPRISE and data.surprise_sprite:
-		texture = data.surprise_sprite
+	if expression == AnimalExpression.HAPPY and data.happy_sprite: texture = data.happy_sprite
+	elif expression == AnimalExpression.SURPRISE and data.surprise_sprite: texture = data.surprise_sprite
 	if texture:
 		draw_texture_rect(texture, Rect2(-r, -r, r * 2.0, r * 2.0), false)
 		return
