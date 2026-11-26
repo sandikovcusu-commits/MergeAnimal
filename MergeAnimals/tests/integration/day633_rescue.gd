@@ -93,6 +93,8 @@ func run() -> void:
 	await dispose(game); clear_save()
 	await backup_failure_test(); clear_save()
 	await pending_merge_test(); clear_save()
+	await blocked_spawn_test(); clear_save()
+	await overflow_test(); clear_save()
 	# Planner evaluates all danger bodies and chooses fewest blockers, with a cap.
 	var sample := [{"uid":1,"x":360.0,"y":430.0,"radius":30.0,"level":1}, {"uid":2,"x":360.0,"y":530.0,"radius":60.0,"level":10}]
 	var plan := RescuePlanner.plan(sample,465,350,20,110,610,360,1)
@@ -128,6 +130,32 @@ func pending_merge_test() -> void:
 	check(game.merge_manager.pending.is_empty() and not a.merge_locked and not b.merge_locked and doc.data.bodies.size() == 2, "game over cancels merge reservations without losing bodies")
 	game.merge_manager._commit_pending()
 	check(game.pieces.get_child_count() == 2 and game.merge_manager.merge_count == 0, "deferred merge cannot mutate paused game over")
+	await dispose(game)
+func blocked_spawn_test() -> void:
+	var game = make_game(); await frames(); make_board(game)
+	# Restrict the lane to one point and place a non-animal collider there.
+	game.current_data = game.animals[0]
+	game.left_bound = 360.0 - game.current_data.radius - game.spawn_margin
+	game.right_bound = 360.0 + game.current_data.radius + game.spawn_margin
+	var wall := StaticBody2D.new(); wall.collision_layer = 1
+	var shape := CollisionShape2D.new(); var circle := CircleShape2D.new(); circle.radius = 12
+	shape.shape = circle; wall.add_child(shape); game.add_child(wall)
+	wall.position = Vector2(360, game.spawn_height)
+	await physics_frame; await go(game)
+	var hash := FileAccess.get_sha256(SessionSave.POWERUP_PATH)
+	await rescue(game)
+	check(game.rescue_remaining == 1 and game.pieces.get_child_count() == 2 and game.game_state == game.GameState.GAME_OVER and FileAccess.get_sha256(SessionSave.POWERUP_PATH) == hash, "actual spawn blocker fails before commit")
+	await dispose(game)
+func overflow_test() -> void:
+	var game = make_game(); await frames()
+	game.danger_monitor.set_physics_process(false)
+	var a: Animal = game.create_animal(game.animals[0], Vector2(360, 430)); a.freeze = true; a.supported = true
+	game.danger_monitor._physics_process(game.danger_monitor.grace_period + 0.1)
+	await frames()
+	check(game.game_state == game.GameState.GAME_OVER and paused and SessionSave.load_session().data.get("game_over_pending", false), "supported danger timer triggers real game-over signal and checkpoint")
+	await rescue(game)
+	game.danger_monitor._physics_process(0.1)
+	check(game.game_state == game.GameState.PLAYING and game.danger_monitor.peak_time == 0.0, "no immediate repeat overflow after rescue")
 	await dispose(game)
 func read_phase() -> void:
 	var before := SessionSave.load_session()
