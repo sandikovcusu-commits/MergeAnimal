@@ -37,7 +37,9 @@ func init_sdk(version: String):
 		var script = document.createElement('script');
 		script.src = 'https://sdk.crazygames.com/crazygames-sdk-v3.js';
 		document.head.appendChild(script);
+		script.addEventListener('error', function () { console.warn('CrazyGames SDK unavailable'); });
 		script.addEventListener('load', async function () {
+		  try {
 			await window.CrazyGames.SDK.init(initOptions);
 			window.onSdkInitialized();
 			window.CrazyGames.SDK.ad.hasAdblock().then(function (result) {
@@ -49,6 +51,7 @@ func init_sdk(version: String):
 			window.CrazyGames.SDK.user.addAuthListener(function (user) {
 				window.onAuthListener(JSON.stringify(user));
 			});
+		  } catch (error) { console.warn('CrazyGames SDK initialization failed', error); }
 		});
 	""" % [version, version]
 	JavaScriptBridge.eval(js)
