@@ -130,6 +130,36 @@ async function touchTest(){
  check(s.remove_remaining===0&&s.bodies.length===count-1&&s.spawn_count===spawns,'touch Remove and animal selection spend use without drop');await shot('remove');
  console.log('TOUCH_EVENTS',JSON.stringify(await page.evaluate(()=>window.__touches)));
 }
+// A fresh organic session tests actual navigation and touch restart/Continue.
+async function navigationTest(touch=false){
+ const sizes=[[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]];
+ async function captureSizes(label){
+  const previous=page.viewportSize();
+  for(const [w,h] of sizes){
+   await page.setViewportSize({width:w,height:h});await sleep(650);
+   const info=await page.evaluate(()=>{const c=document.querySelector('canvas'),r=c.getBoundingClientRect();return {w:innerWidth,h:innerHeight,sw:document.documentElement.scrollWidth,sh:document.documentElement.scrollHeight,x:r.x,y:r.y,cw:r.width,ch:r.height}});
+   console.log(`NAV_LAYOUT ${label} ${w}x${h} ${JSON.stringify(info)}`);
+   check(info.w===w&&info.h===h&&info.sw<=w&&info.sh<=h&&info.cw>0&&info.ch>0,`${label} ${w}x${h} canvas visible and no DOM overflow`);
+   await page.screenshot({path:path.join(out,`${browser}-${mode}-${label}-${w}x${h}.png`)});
+  }
+  await page.setViewportSize(previous);await sleep(1000);
+ }
+ await tap(360,600,touch);await sleep(4000);let text=await shot('tutorial');check(/drag|skip/.test(text),'Play opens tutorial');await captureSizes('tutorial');
+ await tap(565,275,touch);await sleep(1200);await tap(260,700,touch);await sleep(6500);
+ let first=await waitState(d=>d.active&&d.spawn_count===1,'first navigation drop');
+ check(first.bodies.length===1&&Math.abs(first.bodies[0].x-260)<40,'one board input drops one animal near chosen x');console.log('NAV_FIRST',JSON.stringify(first));
+ await tap(600,58,touch);await sleep(3000);text=await shot('pause');check(/pause|resume/.test(text),'Pause button opens overlay');
+ let paused=await state();check(paused.spawn_count===1,'Pause does not create a drop');await captureSizes('pause');
+ await tap(360,915,touch);await sleep(4000);text=await shot('return-menu');check(text.includes('best score'),'Pause Main Menu returns to menu');
+ let saved=await state();check(saved.active&&saved.spawn_count===1&&saved.bodies.length===1,'session remains saved after return to menu');
+ await tap(360,690,touch);await sleep(6500);text=await shot('continued');check(/score|next/.test(text),'Continue opens gameplay');
+ let continued=await state();check(continued.active&&continued.spawn_count===1&&continued.bodies.length===1,'Continue retains original saved animal with no extra drop');await captureSizes('continue');
+ await tap(130,55,touch);await sleep(6000);await shot('restart');
+ let restarted=await state();console.log('NAV_RESTART',JSON.stringify(restarted));
+ check(!restarted?.active||restarted.spawn_count===0,'Restart clears the previous run and creates no drop');
+ await tap(470,700,touch);await sleep(6500);let fresh=await waitState(d=>d.active&&d.spawn_count===1,'first drop after restart');
+ check(fresh.spawn_count===1&&fresh.bodies.length===1&&Math.abs(fresh.bodies[0].x-470)<40,'after Restart one input creates one animal at chosen x');console.log('NAV_AFTER_RESTART',JSON.stringify(fresh));await shot('after-restart-drop');
+}
 // Unlock prerequisite challenges in an isolated profile, not an organic playthrough.
 async function outcomesTest(){
  await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,856);await sleep(4000);await context.close();
@@ -170,6 +200,6 @@ async function lifecycleTest(){
  await page.evaluate(()=>document.exitFullscreen());await sleep(1500);check(await page.evaluate(()=>!document.fullscreenElement),'fullscreen exited');await page.locator('#qa-fullscreen').evaluate(e=>e.remove());await shot('fullscreen-exit');
  s=await state();check(s.spawn_count===old,'fullscreen enter and exit do not drop');
 }
-try{await launch(mode==='touch'||mode==='lifecycle');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale'||mode==='gameplay-locale')await localeTest();else if(mode==='theme'||mode==='theme-matrix')await themeTest();else if(mode==='lifecycle')await lifecycleTest();else if(mode==='outcomes')await outcomesTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
+try{await launch(mode==='touch'||mode==='lifecycle'||mode==='touch-navigation');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale'||mode==='gameplay-locale')await localeTest();else if(mode==='theme'||mode==='theme-matrix')await themeTest();else if(mode==='lifecycle')await lifecycleTest();else if(mode==='outcomes')await outcomesTest();else if(mode==='navigation'||mode==='touch-navigation')await navigationTest(mode==='touch-navigation');else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
 finally{fs.writeFileSync(path.join(out,`${browser}-${mode}-events.json`),JSON.stringify(events,null,2));if(context)await context.close()}
 console.log(`WEB_UI mode=${mode} browser=${browser} checks=${checks} failures=${errors}`);process.exitCode=errors?1:0;
