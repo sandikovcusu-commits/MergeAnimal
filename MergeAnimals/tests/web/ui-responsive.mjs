@@ -147,7 +147,7 @@ async function navigationTest(touch=false){
   }
   await page.setViewportSize(previous);await sleep(1000);
  }
- await tap(360,600,touch);await sleep(4000);let text=await readableShot('tutorial');check(/drag|skip/.test(text),'Play opens tutorial');await captureSizes('tutorial');
+ await tap(360,600,touch);await sleep(4000);let text=await readableShot('tutorial');const tutorial=await waitState(d=>d.active&&d.tutorial_stage===0,'tutorial stage zero');check(tutorial.tutorial_stage===0,'Play opens tutorial stage zero');await captureSizes('tutorial');
  await tap(565,520,touch);await sleep(1200);await tap(260,700,touch);await sleep(6500);
  let first=await waitState(d=>d.active&&d.spawn_count===1,'first navigation drop');
  check(first.bodies.length===1&&Math.abs(first.bodies[0].x-260)<40,'one board input drops one animal near chosen x');console.log('NAV_FIRST',JSON.stringify(first));
