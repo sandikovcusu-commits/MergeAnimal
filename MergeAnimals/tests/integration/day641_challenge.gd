@@ -59,6 +59,15 @@ func run() -> void:
 	clear_files()
 	var loaded := ChallengeStore.load_results()
 	check(loaded.status == "missing" and ChallengeStore.is_unlocked(loaded.data, 1) and not ChallengeStore.is_unlocked(loaded.data, 2), "first challenge only unlocked")
+	change_scene_to_file("res://scenes/ui/MainMenu.tscn"); await frames()
+	var menu = current_scene
+	menu.find_child("Challenges", true, false).pressed.emit(); await frames()
+	var selection = current_scene
+	check(selection.scene_file_path.ends_with("ChallengeSelection.tscn") and not selection.buttons[0].disabled and selection.buttons[1].disabled, "main menu opens selection with locks")
+	selection.buttons[0].pressed.emit(); await frames()
+	var entry = current_scene
+	check(entry.challenge_id == 1 and entry.challenge != null, "selection starts first challenge")
+	await dispose(entry)
 	var classic = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
 	classic.test_seed = 41; root.add_child(classic); current_scene = classic; await frames()
 	classic.score = 123; classic.best_score = 123; classic.progression.best_score = 123
@@ -106,6 +115,21 @@ func run() -> void:
 	check(FileAccess.get_sha256(SessionSave.PATH) == classic_hash and FileAccess.get_sha256(SessionSave.POWERUP_PATH) == checkpoint_hash, "challenge leaves both classic files byte-identical")
 	check(SessionSave.load_session().data.score == 123 and SessionSave.load_progression().best_score == 123, "classic session and record preserved")
 	await dispose(replay)
+	var retry = new_game(1); await frames(); retry.danger_monitor.set_physics_process(false)
+	var obstruction := ProjectSettings.globalize_path(ChallengeStore.PATH + ".tmp")
+	check(DirAccess.make_dir_absolute(obstruction) == OK, "result write obstruction created")
+	var hamster := await drop(retry, retry.animals[1], 360)
+	await frames()
+	check(hamster != null and retry.result_success and not retry.result_saved and retry.save_retry_button.visible, "actual hamster drop reaches objective but failed result remains retryable")
+	check(not retry.next_button.visible and retry.get_node("HUD/Overlay/MainMenuButton").disabled, "failed save blocks navigation without unlocking")
+	DirAccess.remove_absolute(obstruction)
+	retry.save_retry_button.pressed.emit(); await frames()
+	loaded = ChallengeStore.load_results()
+	check(retry.result_saved and int(loaded.data.entries[0].attempts) == 3, "retry commits result exactly once")
+	retry.next_button.pressed.emit(); await frames(5)
+	var next = current_scene
+	check(next.challenge_id == 2 and next.challenge.count == 0 and next.score == 0, "next challenge button loads fresh unlocked challenge")
+	await dispose(next)
 	print("CHALLENGE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
 func read_phase() -> void:
 	var loaded := ChallengeStore.load_results()
