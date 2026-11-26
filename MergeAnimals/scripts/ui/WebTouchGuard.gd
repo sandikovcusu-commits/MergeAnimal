@@ -4,6 +4,8 @@ extends Node
 # button can otherwise activate on cancellation, including irreversible Rescue.
 # Cancel pending GUI button presses before the engine receives that release.
 # The gameplay aim/remove handlers independently consume the cancelled touch ID.
+signal touch_cancelled
+
 var cancel_callback: JavaScriptObject
 
 func _ready() -> void:
@@ -13,4 +15,5 @@ func _ready() -> void:
 	window.addEventListener("touchcancel", cancel_callback, true)
 
 func _on_touch_cancel(_arguments: Array) -> void:
+	touch_cancelled.emit()
 	get_tree().root.propagate_notification(Control.NOTIFICATION_SCROLL_BEGIN)

@@ -7,6 +7,9 @@ var sliders: Dictionary = {}
 var mute_toggle: CheckBox
 var reduced_toggle: CheckBox
 var language_select: OptionButton
+var slider_touch_id := -1
+var slider_touch_key := ""
+var slider_touch_original := 0.0
 const LOCALES := ["en", "az", "tr", "ru"]
 
 func _ready() -> void:
@@ -21,6 +24,11 @@ func _ready() -> void:
 	values = SettingsStore.load_values()
 	SettingsStore.apply(values)
 	_build()
+	# Godot's Slider uses mouse emulation for touch, disabled for gameplay.
+	# Track touch explicitly without changing global input emulation.
+	var guard := get_node_or_null("/root/WebTouchGuard")
+	if guard and guard.has_signal("touch_cancelled"): guard.touch_cancelled.connect(_cancel_slider_touch)
+	get_tree().root.size_changed.connect(_cancel_slider_touch)
 
 func _build() -> void:
 	var shade := ColorRect.new()
@@ -59,6 +67,51 @@ func _build() -> void:
 	replay.icon = load("res://assets/ui/icons/restart.svg"); column.add_child(replay); replay.pressed.connect(func(): replay_requested.emit())
 	var back := Button.new(); back.name = "Back"; back.text = "BACK"; back.icon = load("res://assets/ui/icons/back.svg"); back.custom_minimum_size.y = 70; back.add_theme_font_size_override("font_size", 24)
 	column.add_child(back); back.pressed.connect(_close)
+
+# Preview a single touch/drag, commit only on valid release. A browser
+# touchcancel/focus/resize restores the old value and performs no save.
+func _input(event: InputEvent) -> void:
+	if not is_visible_in_tree(): return
+	if event is InputEventScreenTouch:
+		if event.pressed and slider_touch_id == -1:
+			for key in sliders:
+				var slider: HSlider = sliders[key]
+				if slider.get_global_rect().has_point(event.position):
+					slider_touch_id = event.index
+					slider_touch_key = key
+					slider_touch_original = slider.value
+					_preview_slider_touch(event.position)
+					break
+		elif not event.pressed and event.index == slider_touch_id:
+			if event.canceled:
+				_cancel_slider_touch()
+			else:
+				_preview_slider_touch(event.position)
+				var key := slider_touch_key
+				var value: float = sliders[key].value
+				slider_touch_id = -1
+				slider_touch_key = ""
+				_on_slider(value, key)
+	elif event is InputEventScreenDrag and event.index == slider_touch_id:
+		_preview_slider_touch(event.position)
+
+func _preview_slider_touch(point: Vector2) -> void:
+	if slider_touch_key.is_empty(): return
+	var slider: HSlider = sliders[slider_touch_key]
+	var rect := slider.get_global_rect()
+	if rect.size.x <= 0.0: return
+	var ratio := clampf((point.x - rect.position.x) / rect.size.x, 0.0, 1.0)
+	slider.set_value_no_signal(slider.min_value + ratio * (slider.max_value - slider.min_value))
+
+func _cancel_slider_touch() -> void:
+	if slider_touch_id != -1 and sliders.has(slider_touch_key):
+		var slider: HSlider = sliders[slider_touch_key]
+		slider.set_value_no_signal(slider_touch_original)
+	slider_touch_id = -1
+	slider_touch_key = ""
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT: _cancel_slider_touch()
 
 func _on_slider(value: float, key: String) -> void:
 	values[key] = value
