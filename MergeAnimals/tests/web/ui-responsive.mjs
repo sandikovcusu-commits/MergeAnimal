@@ -52,6 +52,9 @@ async function localeTest(){
  for(const [w,h] of sizes){await page.setViewportSize({width:w,height:h});await sleep(500);const file=path.join(out,`${browser}-${locale}-${name}-${w}x${h}.png`);await page.screenshot({path:file});console.log(`CAPTURE ${browser} ${locale} ${name} ${w}x${h} ${file}`)}
  await page.setViewportSize({width:720,height:1280});await sleep(700);if(back){await tap(360,back);await sleep(1200)}
  }
+ await tap(360,600);await sleep(2500);await tap(565,275);await sleep(700);await tap(260,700);await sleep(6000);
+ const game=await waitState(d=>d.active&&d.spawn_count===1,'localized gameplay');check(game.active&&game.spawn_count===1,`${locale} Play creates a saved gameplay session`);
+ for(const [w,h] of sizes){await page.setViewportSize({width:w,height:h});await sleep(500);await page.screenshot({path:path.join(out,`${browser}-${locale}-gameplay-${w}x${h}.png`)});console.log(`CAPTURE ${browser} ${locale} gameplay ${w}x${h}`)}
 }
 // Explicit isolated IDB fixture: cosmetic unlocks only, never claim natural unlock.
 async function themeTest(){
@@ -135,8 +138,10 @@ async function outcomesTest(){
  await clickWord('Quick','selection-scroll-seven');await sleep(4000);await shot('challenge-seven-start');
  let fail='';for(let i=0;i<12;i++){await sleep(15000);fail=await shot(`challenge-fail-wait-${i}`);if(fail.includes('challenge failed'))break}
  check(fail.includes('challenge failed'),'timed challenge reaches failed overlay without drops');if(!fail.includes('challenge failed'))throw Error('failure overlay not observed');
+ for(const [w,h] of [[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]]){await page.setViewportSize({width:w,height:h});await sleep(500);await page.screenshot({path:path.join(out,`${browser}-outcomes-failed-${w}x${h}.png`)})}await page.setViewportSize({width:720,height:1280});await sleep(500);
  await tap(360,865);await sleep(2500);await page.mouse.move(350,750);await page.mouse.wheel(0,220);await sleep(1600);await shot('selection-scroll-eleven');await clickWord('Koala','selection-scroll-eleven');await sleep(3500);await shot('challenge-eleven-start');
  await tap(360,700);await sleep(12000);let success=await shot('challenge-success');check(success.includes('challenge success'),'fixture-unlocked Challenge 11 reaches success via actual drop');
+ if(success.includes('challenge success'))for(const [w,h] of [[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]]){await page.setViewportSize({width:w,height:h});await sleep(500);await page.screenshot({path:path.join(out,`${browser}-outcomes-success-${w}x${h}.png`)})}
 }
 async function lifecycleTest(){
  if(browser!=='chromium')throw Error('CDP lifecycle uses Chromium only');

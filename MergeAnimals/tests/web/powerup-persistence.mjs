@@ -165,6 +165,8 @@ async function run(name,engine,scenario) {
    const pendingReload=await waitState(page,d=>d.active&&d.game_over_pending&&d.rescue_remaining===1&&d.score===pending.score,'pending Game Over reload');
    assert(equalRestored(pendingReload.selected.data,pending),`${prefix} pending Game Over survives refresh before Rescue`);
    await evidence(page,prefix,'pending-continue');
+   for(const [w,h] of [[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]]){await page.setViewportSize({width:w,height:h});await delay(500);await evidence(page,prefix,`game-over-${w}x${h}`)}
+   await page.setViewportSize({width:720,height:1280});await delay(600);
    if(useTouch){
     const cdp=await ctx.newCDPSession(page);
     await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:360,y:792,id:91}]});
