@@ -11,8 +11,12 @@ on:
         default: 'chromium,firefox'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch"
+        description: "UI: none, screens, matrix, touch, locale"
         default: 'none'
+        required: true
+      ui_locale:
+        description: 'UI locale: en, az, tr, ru'
+        default: 'en'
         required: true
       ui_browser:
         description: "UI: chromium or firefox"
@@ -53,6 +57,7 @@ jobs:
           WEB_BROWSERS: ${{ inputs.browsers }}
           UI_MODE: ${{ inputs.ui_mode }}
           UI_BROWSER: ${{ inputs.ui_browser }}
+          UI_LOCALE: ${{ inputs.ui_locale }}
         run: |
           set -e -o pipefail
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64

@@ -37,6 +37,20 @@ async function matrix(){
  await page.setViewportSize({width:720,height:1280});await sleep(2000);await tap(360,600);await sleep(3500);await tap(565,275);await sleep(1000);
  for(let [w,h] of viewports){await page.setViewportSize({width:w,height:h});await sleep(2500);await shot(`${w}x${h}-game`)}
 }
+async function localeTest(){
+ const locale=process.env.UI_LOCALE||'en', locales=['en','az','tr','ru'];if(!locales.includes(locale))throw Error('unsupported locale');
+ await tap(360,1123);await sleep(1500);await tap(360,805);await sleep(700);await shot('language-options');
+ await page.keyboard.press('Home');for(let i=0;i<locales.indexOf(locale);i++)await page.keyboard.press('ArrowDown');await page.keyboard.press('Enter');await sleep(3000);await shot('selected-language');
+ const saved=await page.evaluate(async()=>{for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let result=await new Promise((res,rej)=>{let r=db.transaction(n).objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res(null);if(String(c.key).endsWith('/wild_garden_settings.json'))return res(JSON.parse(JSON.parse(new TextDecoder().decode(c.value.contents)).payload));c.continue()};r.onerror=()=>rej(r.error)});if(result)return result}db.close()}return null});
+ console.log('LOCALE_STATE',JSON.stringify(saved));check(saved?.language===locale,`settings persisted requested locale ${locale}`);if(saved?.language!==locale)throw Error('locale selection failed');
+ await tap(360,965);await sleep(1200);
+ const sizes=[[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]];
+ const screens=[['menu',0,0],['collection',766,1190],['statistics',837,1190],['achievements',907,1152],['themes',978,1138],['challenges',1045,1118],['settings',1123,965]];
+ for(const [name,y,back] of screens){await page.setViewportSize({width:720,height:1280});await sleep(700);if(y){await tap(360,y);await sleep(1400)}
+ for(const [w,h] of sizes){await page.setViewportSize({width:w,height:h});await sleep(500);const file=path.join(out,`${browser}-${locale}-${name}-${w}x${h}.png`);await page.screenshot({path:file});console.log(`CAPTURE ${browser} ${locale} ${name} ${w}x${h} ${file}`)}
+ await page.setViewportSize({width:720,height:1280});await sleep(700);if(back){await tap(360,back);await sleep(1200)}
+ }
+}
 async function touchTest(){
  if(browser!=='chromium')throw Error('CDP touch uses Chromium only');
  await page.evaluate(()=>{window.__touches=[];for(let k of ['touchstart','touchmove','touchend','touchcancel','pointercancel'])document.addEventListener(k,e=>window.__touches.push({type:k,count:e.touches?.length??null}),true)});
@@ -60,6 +74,6 @@ async function touchTest(){
  check(s.remove_remaining===0&&s.bodies.length===count-1&&s.spawn_count===spawns,'touch Remove and animal selection spend use without drop');await shot('remove');
  console.log('TOUCH_EVENTS',JSON.stringify(await page.evaluate(()=>window.__touches)));
 }
-try{await launch(mode==='touch');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
+try{await launch(mode==='touch');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale')await localeTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
 finally{fs.writeFileSync(path.join(out,`${browser}-${mode}-events.json`),JSON.stringify(events,null,2));if(context)await context.close()}
 console.log(`WEB_UI mode=${mode} browser=${browser} checks=${checks} failures=${errors}`);process.exitCode=errors?1:0;
