@@ -1116,7 +1116,7 @@ func _draw() -> void:
 	if current_data and is_playing() and _can_aim():
 		draw_dashed_line(Vector2(aim_x, spawn_height + current_data.radius + 12), Vector2(aim_x, floor_height - 8), Color(0.38, 0.48, 0.37, 0.35), 2.0, 8.0)
 	# Two rows keep all twelve tiers in the bottom margin without shrinking the board.
-	var font := ThemeDB.fallback_font
+	var font := preload("res://assets/fonts/DejaVuSans.ttf")
 	for i in range(animals.size()):
 		var item := animals[i]
 		var x := 75.0 + (i % 6) * 114.0

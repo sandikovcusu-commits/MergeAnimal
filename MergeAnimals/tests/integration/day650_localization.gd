@@ -29,10 +29,11 @@ func run() -> void:
 		for def in AchievementManager.definitions():
 			check(not def.localized_title().is_empty() and not def.localized_title().begins_with("ACH_") and not def.localized_description().begins_with("ACH_"), "%s %s achievement text resolved" % [locale, def.id])
 	var glyphs := "ƏəİıÖöÜüĞğÇçŞşАяЁё"
+	var font := preload("res://assets/fonts/DejaVuSans.ttf")
 	var absent := ""
 	for i in range(glyphs.length()):
-		if not ThemeDB.fallback_font.has_char(glyphs.unicode_at(i)): absent += glyphs.substr(i, 1)
-	check(absent.is_empty(), "fallback font Azerbaijani/Cyrillic glyphs available; absent=" + absent)
+		if not font.has_char(glyphs.unicode_at(i)): absent += glyphs.substr(i, 1)
+	check(absent.is_empty(), "bundled font Azerbaijani/Cyrillic glyphs available; absent=" + absent)
 	change_scene_to_file("res://scenes/ui/MainMenu.tscn"); await frames()
 	current_scene._settings(); await frames()
 	var panel = current_scene.settings_panel
