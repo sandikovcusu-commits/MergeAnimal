@@ -24,6 +24,13 @@ func run() -> void:
 	game = load("res://scenes/game/Game.tscn").instantiate(); game.test_seed = 9
 	root.add_child(game); current_scene = game
 	for i in range(60): await physics_frame
+	var recording := -1
+	if OS.get_environment("RECORD_VIDEO") == "1":
+		var out := []
+		if OS.execute("xdotool", ["search", "--onlyvisible", "--pid", str(OS.get_process_id())], out, true) == 0 and not out.is_empty():
+			var id := str(out[0]).strip_edges().split("\n", false)[0]
+			OS.execute("xdotool", ["windowmove", id, "0", "0"])
+			recording = OS.create_process("ffmpeg", ["-y", "-loglevel", "error", "-f", "x11grab", "-framerate", "15", "-video_size", "720x1280", "-i", OS.get_environment("DISPLAY") + "+0,0", "-t", "5", "-an", "-vf", "scale=360:640", "-c:v", "libx264", "-preset", "ultrafast", "-crf", "30", OS.get_environment("CAPTURE_DIR") + "/scripted_merge.mp4"])
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
 	for i in range(220): await physics_frame
 	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
@@ -31,5 +38,11 @@ func run() -> void:
 		await physics_frame
 		if game.merge_manager.merge_count > 0: break
 	if game.merge_manager.merge_count != 1 or not await capture("physical_merge"): printerr("FAIL merge capture"); quit(1); return
+	if recording > 0:
+		for i in range(120):
+			if not OS.is_process_running(recording): break
+			await create_timer(0.1, true).timeout
+		if OS.is_process_running(recording): OS.kill(recording)
+		if FileAccess.file_exists(OS.get_environment("CAPTURE_DIR") + "/scripted_merge.mp4"): print("CAPTURE scripted gameplay video (no audio), not human play")
 	print("PASS V070 X11 screenshots: deterministic drops, not human play")
 	quit()

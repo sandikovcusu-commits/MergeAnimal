@@ -15,7 +15,7 @@ jobs:
       - name: Install Godot and X11
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool ffmpeg
           wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
           unzip -q /tmp/godot.zip -d /tmp/godot
       - name: Real Godot animation and audio integration
@@ -31,6 +31,7 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
           CAPTURE_DIR: /tmp/feel-captures
+          RECORD_VIDEO: '1'
         run: |
           set -e -o pipefail
           mkdir -p "$CAPTURE_DIR"
@@ -40,7 +41,7 @@ jobs:
         if: always()
         with:
           name: feel-windows
-          path: /tmp/feel-captures/*.png
+          path: /tmp/feel-captures/*
           if-no-files-found: warn
       - name: Publish diagnostic
         if: always()
@@ -55,13 +56,15 @@ jobs:
           p.write_text(json.dumps({'name':'Game Feel diagnostic','head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':'Game Feel diagnostic','summary':'Godot engine, headless dummy audio; not a listening test','text':log.read_text(errors='replace')[-55000:] if log.exists() else 'No log'}}))
           subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
           import base64
-          for f in sorted(pathlib.Path('/tmp/feel-captures').glob('*.png')):
+          captures=pathlib.Path('/tmp/feel-captures')
+          for f in sorted(captures.glob('*.png')) + sorted(captures.glob('*.mp4')):
               jpg=pathlib.Path('/tmp')/(f.stem+'.jpg')
-              subprocess.run(['convert',str(f),'-quality','78',str(jpg)],check=True)
-              encoded=base64.b64encode(jpg.read_bytes()).decode()
+              if f.suffix == '.png':
+                  subprocess.run(['convert',str(f),'-quality','78',str(jpg)],check=True)
+              encoded=base64.b64encode((jpg if f.suffix == '.png' else f).read_bytes()).decode()
               for i in range(0,len(encoded),48000):
                   part=i//48000+1; total=(len(encoded)+47999)//48000
-                  name='Feel screenshot %s %03d of %03d' % (f.stem,part,total)
+                  name='Feel %s %s %03d of %03d' % ('video' if f.suffix == '.mp4' else 'screenshot',f.stem,part,total)
                   p.write_text(json.dumps({'name':name,'head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':name,'summary':'X11 scripted fixture; not a human playtest','text':encoded[i:i+48000]}}))
                   subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
           PY
