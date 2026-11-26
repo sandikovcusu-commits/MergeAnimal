@@ -21,9 +21,9 @@ async function reset(){await page.goto(base,{waitUntil:'domcontentloaded',timeou
 async function state(){return await page.evaluate(async()=>{let out=[];for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let tx=db.transaction(n,'readonly');await new Promise((res,rej)=>{let r=tx.objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res();if(/wild_garden_(session|powerup)\.json(\.bak)?$/.test(String(c.key))&&c.value?.contents){try{let e=JSON.parse(new TextDecoder().decode(c.value.contents));out.push(JSON.parse(e.payload))}catch{}}c.continue()};r.onerror=()=>rej(r.error)})}db.close()}return out.sort((a,b)=>(b.generation||0)-(a.generation||0))[0]||null})}
 async function waitState(predicate,what,limit=30000){let s;let t=Date.now();while(Date.now()-t<limit){s=await state();if(s&&predicate(s))return s;await sleep(800)}throw Error(`${what}: ${JSON.stringify(s)}`)}
 async function screens(){
- const menu=await shot('menu');check(menu.includes('play')&&menu.includes('collection'),`${browser} menu visible (OCR)`);
- for(const [name,y,pattern] of [['collection',766,/discovered|collection/],['statistics',837,/statistics|total games/],['achievements',907,/achievements|locked/],['themes',978,/themes|forest/],['challenges',1045,/challenges|friend/],['settings',1123,/settings|volume/]]){
-  await tap(360,y);await sleep(3500);const text=await shot(name);check(pattern.test(text),`${browser} ${name} opened via menu (OCR)`);await reset();
+ const menu=await shot('menu');check(menu.includes('best score')&&menu.includes('garden'),`${browser} menu visible (OCR)`);
+ for(const [name,y,pattern,back] of [['collection',766,/discovered|collection/,1190],['statistics',837,/statistics|total games/,1190],['achievements',907,/achievements|locked/,1152],['themes',978,/themes|forest/,1138],['challenges',1045,/challenges|friend/,1118],['settings',1123,/settings|volume/,965]]){
+  await tap(360,y);await sleep(3500);const text=await shot(name);check(pattern.test(text),`${browser} ${name} opened via menu (OCR)`);await tap(360,back);await sleep(2500);let returned=await shot(`${name}-back`);check(returned.includes('best score'),`${browser} ${name} Back returns to menu`);
  }
  await tap(360,600);await sleep(3500);let t=await shot('tutorial');check(/drag|skip/.test(t),`${browser} Play opens tutorial`);await tap(565,275);await sleep(700);await tap(360,700);await sleep(5000);await shot('gameplay');
  await tap(600,58);await sleep(2500);t=await shot('pause');check(/resume|pause/.test(t),`${browser} Pause opens`);
@@ -50,6 +50,14 @@ async function touchTest(){
  await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:a.x,y:a.y,id:1},{x:b.x,y:b.y,id:2}]});
  await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await sleep(6000);s=await state();check(s.spawn_count===old,'multi-touch cancel does not drop');
  await tap(500,700,true);await sleep(6500);s=await waitState(d=>d.spawn_count===old+1,'post-cancel touch');check(s.spawn_count===old+1,'post-cancel touch creates one drop');await shot('post-cancel');
+ old=s.spawn_count;
+ const hold=point(300,700);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:hold.x,y:hold.y,id:4}]});
+ await page.setViewportSize({width:540,height:1170});await sleep(1500);
+ await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await sleep(7000);s=await state();
+ check(s.spawn_count===old,'resize during active touch does not produce a drop');await shot('after-resize-hold');
+ await tap(360,238,true);await sleep(4500);s=await state();check(s.undo_remaining===0,'touch Undo spends one use');await shot('undo');
+ let target=s.bodies[0];await tap(175,238,true);await sleep(1000);await tap(target.x,target.y,true);await sleep(5000);s=await state();
+ check(s.remove_remaining===0&&s.bodies.length===0,'touch Remove and animal selection spend use without drop');await shot('remove');
  console.log('TOUCH_EVENTS',JSON.stringify(await page.evaluate(()=>window.__touches)));
 }
 try{await launch(mode==='touch');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
