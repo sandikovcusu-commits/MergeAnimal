@@ -14,6 +14,11 @@ var reduced_effects := false
 var impact_elapsed := 1.0
 var last_scene: Node
 var accepted_events: Dictionary = {}
+# External integrations can temporarily suspend game audio without changing
+# the user's saved settings or starting a second player.
+var ad_audio_paused := false
+var _music_paused_before_ad := false
+var _sfx_paused_before_ad: Array[bool] = []
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -51,10 +56,12 @@ func set_music(id: String) -> void:
 	stream.loop_begin = 0
 	stream.loop_end = int(stream.get_length() * stream.mix_rate)
 	music.stop(); music.stream = stream; music_theme = id
-	if unlocked_audio: music.play()
+	if unlocked_audio:
+		music.play()
+		if ad_audio_paused: music.stream_paused = true
 
 func play_event(id: String, pitch: float = 1.0, volume_db: float = -3.0) -> bool:
-	if not unlocked_audio or not streams.has(id) or streams[id] == null: return false
+	if ad_audio_paused or not unlocked_audio or not streams.has(id) or streams[id] == null: return false
 	for player in players:
 		if not player.playing:
 			player.stream = streams[id]
@@ -65,6 +72,25 @@ func play_event(id: String, pitch: float = 1.0, volume_db: float = -3.0) -> bool
 			accepted_events[id] = int(accepted_events.get(id, 0)) + 1
 			return true
 	return false
+
+# Idempotent ad lifecycle hook; no SDK and no persistent settings mutations.
+# Existing streams resume at their old positions; newly requested one-shots
+# are dropped while suspended rather than unexpectedly replayed afterward.
+func set_ad_audio_paused(paused: bool) -> void:
+	if paused == ad_audio_paused: return
+	ad_audio_paused = paused
+	if paused:
+		_music_paused_before_ad = music.stream_paused
+		_sfx_paused_before_ad.clear()
+		for player in players:
+			_sfx_paused_before_ad.append(player.stream_paused)
+			player.stream_paused = true
+		music.stream_paused = true
+	else:
+		music.stream_paused = _music_paused_before_ad
+		for i in range(players.size()):
+			players[i].stream_paused = _sfx_paused_before_ad[i] if i < _sfx_paused_before_ad.size() else false
+		_sfx_paused_before_ad.clear()
 
 func impact(speed: float, landing: bool) -> bool:
 	if speed < IMPACT_MIN or impact_elapsed < IMPACT_COOLDOWN: return false
