@@ -17,6 +17,7 @@ enum GameState { PLAYING, PAUSED, GAME_OVER }
 @export var golden_config: GoldenConfig
 @export var combo_enabled: bool = true
 @export_range(0.1, 5.0) var combo_window: float = 1.0
+@export_range(1, 100, 1) var rescue_max_remove: int = 10
 @export var debug_enabled: bool = false
 @export var persist_best: bool = true
 @export_enum("Forest Garden", "Sunset Safari", "Snowy Valley") var visual_theme: int = 0
@@ -85,6 +86,18 @@ var undo_snapshot: Dictionary = {}
 var undo_processing := false
 var undo_button: Button
 var next_body_uid := 1
+var rescue_remaining := 1
+var rescue_processing := false
+var rescue_finalized := false
+var gameover_checkpoint_pending := false
+var rescue_verifying := false
+var rescue_button: Button
+var rescue_message: Label
+var rescued_label: Label
+var rescue_selected: Array[Animal] = []
+# Adapter is present for a future verified platform integration only. It is
+# not connected to inventory or an ad SDK and never grants a reward here.
+var reward_gateway := RewardRequestGateway.new()
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -119,6 +132,7 @@ func _ready() -> void:
 	$HUD/Overlay/MainMenuButton.icon = load("res://assets/ui/icons/home.svg")
 	_setup_remove_ui()
 	_setup_undo_ui()
+	_setup_rescue_ui()
 	_refresh_ui_text()
 	discovery_notifier = preload("res://scripts/ui/DiscoveryNotification.gd").new()
 	$HUD.add_child(discovery_notifier)
@@ -134,6 +148,8 @@ func _ready() -> void:
 		var loaded := SessionSave.load_session()
 		if loaded.status in ["ok", "recovered"]:
 			_restore_session(loaded.data)
+			if bool(loaded.data.get("game_over_pending", false)):
+				_show_game_over()
 		else:
 			push_warning("Continue unavailable: %s" % loaded.status)
 			set_physics_process(false)
@@ -172,6 +188,11 @@ func _physics_process(delta: float) -> void:
 	if combo_left <= 0.0 and combo_count > 0:
 		combo_count = 0
 		score_label.text = "SCORE  %d" % score
+	if rescue_verifying:
+		if _spawn_clear(current_data, aim_x):
+			rescue_verifying = false
+			_update_hud()
+		# Input remains locked until the real physics-space query is clear.
 	if drop_requested:
 		drop_requested = false
 		_attempt_drop()
@@ -200,7 +221,7 @@ func _session_snapshot(include_undo: bool = true) -> Dictionary:
 		if not animal is Animal or animal.is_queued_for_deletion() or animal.merge_locked:
 			return {}
 		bodies.append({"uid": animal.save_uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
-	return {"session_version": 3, "generation": 0, "undo_remaining": undo_remaining, "undo_snapshot": undo_snapshot.duplicate(true) if include_undo else {}, "next_body_uid": next_body_uid, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
+	return {"session_version": 3, "generation": 0, "undo_remaining": undo_remaining, "undo_snapshot": undo_snapshot.duplicate(true) if include_undo else {}, "next_body_uid": next_body_uid, "rescue_remaining": rescue_remaining, "game_over_pending": game_state == GameState.GAME_OVER and not rescue_finalized, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
 
 func save_session() -> Error:
 	# Recheck at execution time, after physics/contact callbacks and deferred merges.
@@ -229,6 +250,7 @@ func _restore_session(data: Dictionary) -> void:
 	if data.has("progression"): progression = data.progression.duplicate(true)
 	remove_remaining = int(data.get("remove_remaining", 1))
 	undo_remaining = int(data.get("undo_remaining", 1))
+	rescue_remaining = int(data.get("rescue_remaining", 1))
 	undo_snapshot = data.get("undo_snapshot", {}).duplicate(true)
 	next_body_uid = maxi(next_body_uid, int(data.get("next_body_uid", 1)))
 	session_tainted = bool(data.get("tainted", false))
@@ -339,6 +361,7 @@ func _commit_undo() -> void:
 		candidate.undo_snapshot = {}
 		candidate.undo_remaining = undo_remaining - 1
 		candidate.remove_remaining = remove_remaining
+		candidate.rescue_remaining = rescue_remaining
 		candidate.next_body_uid = next_body_uid
 		candidate.tainted = session_tainted or bool(candidate.get("tainted", false))
 		# Discovery dates are durable; counts/merge totals/score are rolled back.
@@ -540,11 +563,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			drop_animal()
 
 func _can_aim() -> bool:
-	return not remove_selecting and not remove_committing and (spawn_state == SpawnState.READY or spawn_state == SpawnState.AIMING)
+	return not remove_selecting and not remove_committing and not rescue_verifying and (spawn_state == SpawnState.READY or spawn_state == SpawnState.AIMING)
 
 func _can_begin_input() -> bool:
 	# A blocked spawn must not swallow a new tap at a different x-coordinate.
-	return not remove_selecting and not remove_committing and (_can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0))
+	return not remove_selecting and not remove_committing and not rescue_verifying and (_can_aim() or (spawn_state == SpawnState.COOLDOWN and cooldown_left <= 0.0))
 
 func _inside_input_area(point: Vector2) -> bool:
 	return point.x >= left_bound and point.x <= right_bound and point.y >= 260.0 and point.y <= floor_height
@@ -717,31 +740,211 @@ func _on_danger_changed(_seconds: float) -> void:
 	queue_redraw()
 
 func _on_game_over() -> void:
-	if not is_playing():
-		return
+	if not is_playing(): return
 	_cancel_remove()
-	game_state = GameState.GAME_OVER
-	_update_remove_ui()
-	_update_undo_ui()
-	if persist_best:
-		progression.completed_games = int(progression.completed_games) + 1
-		save_status = SessionSave.clear_session(progression)
-		if save_status != OK: push_warning("Could not invalidate finished session")
-	combo_count = 0
-	combo_left = 0.0
+	# Cancel reservations, not body/score mutations, before checkpointing. A
+	# previously deferred commit sees GAME_OVER and cannot touch this board.
+	for pair in merge_manager.pending:
+		for key in ["a", "b"]:
+			var body: Variant = pair.get(key)
+			if is_instance_valid(body): body.merge_locked = false
+	merge_manager.pending.clear()
+	merge_manager.commit_scheduled = false
 	drop_requested = false
 	active_touch = -1
 	mouse_down = false
+	if spawn_state == SpawnState.DROPPING or spawn_state == SpawnState.AIMING: spawn_state = SpawnState.READY
+	_show_game_over()
+	if persist_best:
+		gameover_checkpoint_pending = true
+		_update_rescue_ui()
+		call_deferred("_checkpoint_game_over")
+
+func _show_game_over() -> void:
+	game_state = GameState.GAME_OVER
+	rescue_finalized = false
 	current_preview.visible = false
+	_update_remove_ui()
+	_update_undo_ui()
 	var record := "\n" + tr("NEW_RECORD") if score > best_at_start and score > 0 and not session_tainted and not score_untrusted else ""
 	overlay_title.text = "%s\n%s: %d   %s: %d\n%s: %s\n%s: %d   %s: %d%s" % [tr("GAME_OVER"), tr("FINAL_SCORE"), score, tr("BEST"), best_score, tr("LARGEST"), animals[clampi(highest_level - 1, 0, animals.size() - 1)].display_name, tr("MERGES"), merge_manager.merge_count, tr("MAX_COMBO"), max_combo, record]
 	resume_button.visible = false
 	$HUD/Overlay/SettingsButton.visible = false
+	$HUD/Overlay/RestartButton.position.y = 180
+	$HUD/Overlay/RestartButton.text = tr("PLAY_AGAIN")
+	$HUD/Overlay/MainMenuButton.position.y = 330
+	rescue_button.visible = true
+	rescue_message.text = ""
+	rescue_message.visible = true
 	overlay.visible = true
 	get_tree().paused = true
+	_update_rescue_ui()
 	if not record.is_empty() and not reduced_effects:
 		overlay_title.modulate = Color("ffd96c")
 		create_tween().tween_property(overlay_title, "modulate", Color.WHITE, 0.8)
+	queue_redraw()
+
+func _checkpoint_game_over() -> void:
+	gameover_checkpoint_pending = false
+	if game_state != GameState.GAME_OVER or rescue_finalized: return
+	var snapshot := _session_snapshot()
+	save_status = SessionSave.write_snapshot(snapshot, true) if not snapshot.is_empty() else ERR_BUSY
+	if save_status != OK:
+		rescue_message.text = tr("SAVE_FAILED")
+	_update_rescue_ui()
+
+# Exactly one completed-game increment, committed together with tombstone.
+func _finalize_game() -> Error:
+	if game_state != GameState.GAME_OVER or rescue_finalized: return OK
+	var final_progress := progression.duplicate(true)
+	if persist_best: final_progress.completed_games = int(final_progress.completed_games) + 1
+	var result: Error = SessionSave.clear_session(final_progress) if persist_best else OK
+	if result == OK:
+		progression = final_progress
+		rescue_finalized = true
+	return result
+
+func _setup_rescue_ui() -> void:
+	rescue_button = Button.new()
+	rescue_button.name = "RescueButton"
+	rescue_button.position = Vector2(70, 255)
+	rescue_button.size = Vector2(340, 55)
+	rescue_button.icon = load("res://assets/ui/icons/rescue.svg")
+	rescue_button.expand_icon = true
+	rescue_button.add_theme_constant_override("icon_max_width", 38)
+	rescue_button.add_theme_font_size_override("font_size", 23)
+	rescue_button.visible = false
+	overlay.add_child(rescue_button)
+	rescue_button.pressed.connect(_request_rescue)
+	rescue_message = Label.new()
+	rescue_message.name = "RescueMessage"
+	rescue_message.position = Vector2(20, 395)
+	rescue_message.size = Vector2(440, 85)
+	rescue_message.add_theme_font_size_override("font_size", 18)
+	rescue_message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	rescue_message.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	rescue_message.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rescue_message.visible = false
+	overlay.add_child(rescue_message)
+	rescued_label = Label.new()
+	rescued_label.name = "RescuedLabel"
+	rescued_label.position = Vector2(150, 410)
+	rescued_label.size = Vector2(420, 70)
+	rescued_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	rescued_label.add_theme_font_size_override("font_size", 38)
+	rescued_label.add_theme_color_override("font_color", Color("e59a23"))
+	rescued_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rescued_label.visible = false
+	$HUD.add_child(rescued_label)
+
+func _update_rescue_ui() -> void:
+	if not is_instance_valid(rescue_button): return
+	rescue_button.disabled = game_state != GameState.GAME_OVER or rescue_remaining <= 0 or rescue_finalized or rescue_processing or gameover_checkpoint_pending
+	rescue_button.text = tr("RESCUE_PROCESSING") if rescue_processing or gameover_checkpoint_pending else (tr("RESCUE_USED") if rescue_remaining <= 0 else tr("RESCUE_AVAILABLE"))
+
+func _request_rescue() -> void:
+	if game_state != GameState.GAME_OVER or rescue_finalized or rescue_processing or gameover_checkpoint_pending or rescue_remaining <= 0: return
+	rescue_processing = true
+	rescue_message.text = ""
+	_update_rescue_ui()
+	call_deferred("_commit_rescue")
+
+func _rescue_failed(key: String) -> void:
+	rescue_processing = false
+	rescue_selected.clear()
+	rescue_message.text = tr(key)
+	_update_rescue_ui()
+	queue_redraw()
+
+func _commit_rescue() -> void:
+	if game_state != GameState.GAME_OVER or rescue_finalized or not rescue_processing or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled:
+		_rescue_failed("RESCUE_FAILED"); return
+	var snapshot := _session_snapshot()
+	if snapshot.is_empty():
+		_rescue_failed("RESCUE_FAILED"); return
+	var items: Array = []
+	var by_uid := {}
+	for body in pieces.get_children():
+		if not body is Animal or body.merge_locked or body.is_queued_for_deletion():
+			_rescue_failed("RESCUE_FAILED"); return
+		items.append({"uid": body.save_uid, "x": body.position.x, "y": body.position.y, "radius": body.data.radius, "level": body.data.level})
+		by_uid[body.save_uid] = body
+	var xmin := left_bound + current_data.radius + spawn_margin
+	var xmax := right_bound - current_data.radius - spawn_margin
+	var plan := RescuePlanner.plan(items, danger_height, spawn_height, current_data.radius, xmin, xmax, aim_x, rescue_max_remove)
+	if plan.is_empty():
+		_rescue_failed("RESCUE_FAILED"); return
+	var ids: Array = plan.remove_uids
+	# Check the actual collision world too, excluding only the planned removals.
+	# Geometric planning alone cannot account for additional static fixtures.
+	var circle := CircleShape2D.new()
+	circle.radius = current_data.radius + 1.0
+	var query := PhysicsShapeQueryParameters2D.new()
+	query.shape = circle
+	query.transform = Transform2D(0.0, Vector2(float(plan.spawn_x), spawn_height))
+	query.collision_mask = 1
+	var excluded: Array[RID] = []
+	for uid in ids: excluded.append(by_uid[uid].get_rid())
+	query.exclude = excluded
+	if not get_world_2d().direct_space_state.intersect_shape(query, 1).is_empty():
+		_rescue_failed("RESCUE_FAILED"); return
+	var kept: Array = []
+	for item in snapshot.bodies:
+		if int(item.uid) not in ids:
+			item.danger = 0.0
+			kept.append(item)
+	snapshot.bodies = kept
+	snapshot.aim_x = plan.spawn_x
+	snapshot.rescue_remaining = rescue_remaining - 1
+	snapshot.game_over_pending = false
+	snapshot.undo_snapshot = {}
+	# A short cooldown also prevents held or synthetic input from dropping
+	# before the physics space has confirmed a free spawn circle.
+	snapshot.cooldown_left = maxf(0.25, float(snapshot.cooldown_left))
+	if not SessionSave.valid(snapshot):
+		_rescue_failed("RESCUE_FAILED"); return
+	var result: Error = SessionSave.write_snapshot(snapshot, true) if persist_best else OK
+	if result != OK:
+		save_status = result
+		_rescue_failed("SAVE_FAILED"); return
+	# The checkpoint is the commit point. Highlight while paused, then detach.
+	for uid in ids:
+		var body: Animal = by_uid[uid]
+		rescue_selected.append(body)
+		body.visual.modulate = Color(1.0, 0.75, 0.35, 1.0)
+	overlay.visible = false
+	queue_redraw()
+	await get_tree().create_timer(0.4, true).timeout
+	for body in rescue_selected:
+		if not is_instance_valid(body): continue
+		var point: Vector2 = body.global_position
+		body.merge_locked = true
+		if body.body_entered.is_connected(merge_manager._on_body_entered.bind(body)):
+			body.body_entered.disconnect(merge_manager._on_body_entered.bind(body))
+		pieces.remove_child(body)
+		body.queue_free()
+		if not reduced_effects: _spawn_effect("soft_burst", point)
+	rescue_selected.clear()
+	danger_monitor.timers.clear()
+	danger_monitor.peak_time = 0.0
+	rescue_remaining -= 1
+	undo_snapshot = {}
+	aim_x = float(plan.spawn_x)
+	cooldown_left = float(snapshot.cooldown_left)
+	spawn_state = SpawnState.COOLDOWN
+	rescue_processing = false
+	rescue_verifying = true
+	game_state = GameState.PLAYING
+	save_status = OK
+	get_tree().paused = false
+	rescued_label.text = tr("RESCUED")
+	rescued_label.visible = true
+	rescued_label.modulate.a = 1.0
+	var tween := create_tween()
+	tween.tween_interval(0.7)
+	tween.tween_property(rescued_label, "modulate:a", 0.0, 0.4)
+	tween.tween_callback(func(): rescued_label.visible = false)
+	_update_hud()
 	queue_redraw()
 
 func _toggle_pause() -> void:
@@ -750,6 +953,11 @@ func _toggle_pause() -> void:
 	if game_state == GameState.PLAYING:
 		_cancel_remove()
 		game_state = GameState.PAUSED
+		rescue_button.visible = false
+		rescue_message.visible = false
+		$HUD/Overlay/RestartButton.position.y = 245
+		$HUD/Overlay/RestartButton.text = tr("RESTART")
+		$HUD/Overlay/MainMenuButton.position.y = 385
 		_update_remove_ui()
 		_update_undo_ui()
 		active_touch = -1
@@ -827,10 +1035,9 @@ func _finish_tutorial() -> void:
 	if tutorial: tutorial.queue_free()
 
 func _main_menu() -> void:
-	if game_state == GameState.GAME_OVER and persist_best and save_status != OK:
-		save_status = SessionSave.clear_session(progression)
-		if save_status != OK:
-			overlay_title.text = tr("SAVE_WAIT")
+	if game_state == GameState.GAME_OVER:
+		if rescue_processing or _finalize_game() != OK:
+			rescue_message.text = tr("SAVE_WAIT")
 			return
 	if game_state == GameState.PAUSED and persist_best:
 		if save_session() != OK:
@@ -840,7 +1047,11 @@ func _main_menu() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func _restart() -> void:
-	if persist_best and SessionSave.clear_session(progression) != OK:
+	if game_state == GameState.GAME_OVER:
+		if rescue_processing or _finalize_game() != OK:
+			rescue_message.text = tr("SAVE_WAIT")
+			return
+	elif persist_best and SessionSave.clear_session(progression) != OK:
 		overlay_title.text = tr("SAVE_WAIT")
 		return
 	get_tree().paused = false
@@ -902,6 +1113,10 @@ func _draw() -> void:
 		draw_string(font, Vector2(x - 25, y + 56), "%d %s" % [item.level, item.display_name.substr(0, 3).to_upper()], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("394f39"))
 		if i % 6 < 5:
 			draw_line(Vector2(x + 31, y + 23), Vector2(x + 78, y + 23), Color(0.35, 0.45, 0.33, 0.5), 1.5)
+
+	if rescue_processing:
+		for body in rescue_selected:
+			if is_instance_valid(body): draw_arc(body.position, body.data.radius + 10.0, 0, TAU, 48, Color("ffd96c"), 6.0)
 
 	if remove_selecting and is_instance_valid(pieces):
 		for body in pieces.get_children():

@@ -32,6 +32,8 @@ static func valid(data: Variant, allow_undo: bool = true) -> bool:
 	if data.has("score_untrusted") and typeof(data.score_untrusted) != TYPE_BOOL: return false
 	# Optional additive v2 field: old snapshots migrate to one free use.
 	if data.has("remove_remaining") and not _integer(data.remove_remaining, 0, 1): return false
+	if data.has("rescue_remaining") and not _integer(data.rescue_remaining, 0, 1): return false
+	if data.has("game_over_pending") and typeof(data.game_over_pending) != TYPE_BOOL: return false
 	if int(data.session_version) == 3:
 		if not _integer(data.get("generation"), 0, 1000000000): return false
 		if not _integer(data.get("undo_remaining"), 0, 1): return false
@@ -144,9 +146,12 @@ static func clear_session(progress: Variant = null) -> Error:
 	if not can_write(): return ERR_UNAVAILABLE
 	var primary := SaveManager._read_envelope(PATH)
 	var keep_primary: bool = primary.status == "ok" and (valid(primary.data) or _inactive(primary.data))
-	if progress == null: progress = load_progression()
-	if not Progression.valid(progress): return ERR_INVALID_DATA
 	var doc := load_document()
+	if progress == null:
+		progress = load_progression()
+		if doc.status in ["ok", "recovered"] and doc.data.get("active") == true and doc.data.get("game_over_pending", false) == true:
+			progress.completed_games = int(progress.completed_games) + 1
+	if not Progression.valid(progress): return ERR_INVALID_DATA
 	var generation: int = int(doc.data.get("generation", 0)) + 1 if doc.status in ["ok", "recovered"] else 1
 	var tombstone := {"session_version": 3, "generation": generation, "active": false, "progression": progress}
 	# The generation checkpoint is also the commit point for ending/restarting a

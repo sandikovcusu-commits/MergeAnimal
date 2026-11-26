@@ -18,6 +18,14 @@ static func install() -> void:
 		"tr": {"NEW_GAME":"Yeni oyun", "NEW_GAME_CONFIRM":"Yeni oyun başlatılsın mı? Kayıtlı oyun değiştirilecek.", "SAVE_FAILED":"Kayıt başarısız", "CONTINUE":"Oyuna devam et", "SAVE_WAIT":"Kaydedilemedi. Devam edip tekrar deneyin.", "SAVE_UNAVAILABLE":"Kayıtlı oyun kullanılamıyor"},
 		"ru": {"NEW_GAME":"Новая игра", "NEW_GAME_CONFIRM":"Начать новую игру? Сохранённая игра будет заменена.", "SAVE_FAILED":"Ошибка сохранения", "CONTINUE":"Продолжить игру", "SAVE_WAIT":"Не удалось сохранить. Продолжите и повторите.", "SAVE_UNAVAILABLE":"Сохранённая игра недоступна"}
 	}
+	var rescue_messages := {
+		"en": {"PLAY_AGAIN":"Play again", "RESCUE_AVAILABLE":"Rescue: 1 free", "RESCUE_USED":"Rescue: used", "RESCUE_PROCESSING":"Rescue: processing", "RESCUE_FAILED":"Rescue failed: no safe clearing within the limit.", "RESCUED":"RESCUED!"},
+		"az": {"PLAY_AGAIN":"Yenidən oyna", "RESCUE_AVAILABLE":"Xilas: 1 pulsuz", "RESCUE_USED":"Xilas: istifadə edilib", "RESCUE_PROCESSING":"Xilas edilir", "RESCUE_FAILED":"Xilas alınmadı: limit daxilində təhlükəsiz yol yoxdur.", "RESCUED":"XİLAS EDİLDİ!"},
+		"tr": {"PLAY_AGAIN":"Tekrar oyna", "RESCUE_AVAILABLE":"Kurtar: 1 ücretsiz", "RESCUE_USED":"Kurtar: kullanıldı", "RESCUE_PROCESSING":"Kurtarılıyor", "RESCUE_FAILED":"Kurtarma başarısız: limit içinde güvenli alan yok.", "RESCUED":"KURTARILDI!"},
+		"ru": {"PLAY_AGAIN":"Играть снова", "RESCUE_AVAILABLE":"Спасти: 1 бесплатно", "RESCUE_USED":"Спасение использовано", "RESCUE_PROCESSING":"Спасение", "RESCUE_FAILED":"Не удалось безопасно очистить поле в пределах лимита.", "RESCUED":"СПАСЕНО!"}
+	}
+	for locale in rescue_messages:
+		messages[locale].merge(rescue_messages[locale])
 	var undo_messages := {
 		"en": {"UNDO_AVAILABLE":"Undo: 1", "UNDO_EMPTY":"No undo", "UNDO_USED":"Undo: used", "UNDO_PROCESSING":"Restoring"},
 		"az": {"UNDO_AVAILABLE":"Geri al: 1", "UNDO_EMPTY":"Geri alma yox", "UNDO_USED":"Geri al: bitdi", "UNDO_PROCESSING":"Bərpa edilir"},

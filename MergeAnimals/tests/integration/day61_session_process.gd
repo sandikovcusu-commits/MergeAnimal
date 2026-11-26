@@ -186,7 +186,10 @@ func read_phase() -> void:
 		check(game.save_session() == ERR_BUSY, "save refused during pending merge")
 		check(FileAccess.get_sha256(SessionSave.PATH) == hash_before, "pending save did not change durable data")
 		game._on_game_over()
-		check(SessionSave.load_session().status == "missing", "game over invalidates continue")
+		await process_frame
+		await process_frame
+		check(SessionSave.load_session().data.get("game_over_pending", false), "game over saves pending continue")
+		check(game._finalize_game() == OK and SessionSave.load_session().status == "missing", "finalized game over invalidates continue")
 		file = FileAccess.open(SessionSave.PATH, FileAccess.WRITE)
 		file.store_string("damaged tombstone"); file.close()
 		check(SessionSave.load_session().status == "missing", "corrupt tombstone cannot resurrect old game")

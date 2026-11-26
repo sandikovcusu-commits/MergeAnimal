@@ -167,9 +167,12 @@ func run() -> void:
 	check(int(game.progression.best_score) == 1000 and game.best_score == 1000 and int(game.progression.max_combo) == 1, "golden gameplay updates best and preserves maximum combo")
 	check(int(game.progression.animals.mouse.count) == 2 and int(game.progression.animals.hamster.count) == 1 and int(game.progression.animals.elephant.count) == 3 and game.progression.animals.elephant.date == "2026-01-01 12:00:00", "golden merge preserves existing Elephant discovery")
 	game._on_game_over()
-	check(int(game.progression.completed_games) == 1 and SessionSave.load_session().status == "missing", "completion counted once, no continue after game over")
+	await process_frame
+	await process_frame
+	check(int(game.progression.completed_games) == 0 and SessionSave.load_session().data.get("game_over_pending", false), "pending game over is recoverable without completion")
+	check(game._finalize_game() == OK and int(game.progression.completed_games) == 1 and SessionSave.load_session().status == "missing", "finalization counts completion once")
 	game._on_game_over()
-	check(int(game.progression.completed_games) == 1, "game-over reentry does not duplicate completion")
+	check(game._finalize_game() == OK and int(game.progression.completed_games) == 1, "game-over reentry does not duplicate completion")
 	check(int(SessionSave.load_progression().animals.elephant.count) == 3, "golden collection persists after game over")
 	file = FileAccess.open(SessionSave.PATH, FileAccess.WRITE); file.store_string("broken primary"); file.close()
 	file = FileAccess.open(SessionSave.PATH + ".bak", FileAccess.WRITE); file.store_string("broken backup"); file.close()
