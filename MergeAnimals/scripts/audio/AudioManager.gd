@@ -90,3 +90,10 @@ func _button_down(button: BaseButton) -> void:
 	button.set_meta("feel_tween", tween)
 	tween.tween_property(button, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_SINE)
 	# This never invokes pressed and cannot repeat an action.
+
+func _exit_tree() -> void:
+	# Release streams when the single manager is destroyed (not on scene change).
+	for player in players:
+		if is_instance_valid(player): player.stop(); player.stream = null
+	if is_instance_valid(music): music.stop(); music.stream = null
+	streams.clear()

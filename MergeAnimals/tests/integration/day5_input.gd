@@ -55,5 +55,10 @@ func run() -> void:
 		var file := FileAccess.open(tutorial_path, FileAccess.WRITE); file.store_buffer(tutorial_backup); file.close()
 	else:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(tutorial_path))
+	# Input now starts real audio. Drain the dummy mix thread before this short
+	# test exits; otherwise its in-flight playback is reported as a resource leak.
+	var audio := root.get_node_or_null("AudioManager")
+	if audio:
+		audio.queue_free(); await frames(3); OS.delay_msec(400)
 	print("Day5 GUI dispatch: checks=%d failures=%d" % [checks, failures])
 	quit(1 if failures else 0)
