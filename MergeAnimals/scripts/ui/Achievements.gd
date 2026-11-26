@@ -31,8 +31,11 @@ func _ready() -> void:
 			var card := PanelContainer.new(); card.name = def.id; card.custom_minimum_size.y = 170; list.add_child(card); cards.append(card)
 			var row := HBoxContainer.new(); row.add_theme_constant_override("separation", 12); card.add_child(row)
 			var icon := TextureRect.new(); icon.texture = def.icon; icon.custom_minimum_size = Vector2(64, 64); icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			if not entry.unlocked: icon.modulate = Color(0.35, 0.4, 0.35)
-			row.add_child(icon)
+			# The original dark line artwork needs a light backing on dark cards.
+			var icon_frame := PanelContainer.new()
+			var icon_back := StyleBoxFlat.new(); icon_back.bg_color = Color("c8ddcb") if not entry.unlocked else Color("f5dd9b")
+			icon_frame.add_theme_stylebox_override("panel", icon_back)
+			icon_frame.add_child(icon); row.add_child(icon_frame)
 			var stack := VBoxContainer.new(); stack.size_flags_horizontal = Control.SIZE_EXPAND_FILL; row.add_child(stack)
 			var label := Label.new(); label.name = "Details"; label.add_theme_font_size_override("font_size", 23); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			var name := "???" if def.hidden and not entry.unlocked else def.localized_title()
