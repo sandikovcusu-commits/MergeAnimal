@@ -23,6 +23,7 @@ static func save_values(values: Dictionary, path: String = PATH) -> Error:
 		cfg.set_value("settings", key, values.get(key, DEFAULTS[key]))
 	return cfg.save(path)
 static func apply(values: Dictionary) -> void:
+	ThemeDB.fallback_font = preload("res://assets/fonts/DejaVuSans.ttf")
 	UIStrings.install()
 	TranslationServer.set_locale(values.language)
 	for bus in ["Music", "SFX"]:

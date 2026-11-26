@@ -29,7 +29,8 @@ func run() -> void:
 		for def in AchievementManager.definitions():
 			check(not def.localized_title().is_empty() and not def.localized_title().begins_with("ACH_") and not def.localized_description().begins_with("ACH_"), "%s %s achievement text resolved" % [locale, def.id])
 	var glyphs := "ƏəİıÖöÜüĞğÇçŞşАяЁё"
-	var font := preload("res://assets/fonts/DejaVuSans.ttf")
+	SettingsStore.apply(SettingsStore.load_values())
+	var font := ThemeDB.fallback_font
 	var absent := ""
 	for i in range(glyphs.length()):
 		if not font.has_char(glyphs.unicode_at(i)): absent += glyphs.substr(i, 1)
