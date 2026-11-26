@@ -104,6 +104,7 @@ var rescue_selected: Array[Animal] = []
 var reward_gateway := RewardRequestGateway.new()
 
 func _ready() -> void:
+	get_tree().auto_accept_quit = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var saved_settings := SettingsStore.load_values()
 	SettingsStore.apply(saved_settings)
@@ -1113,6 +1114,9 @@ func _restart() -> void:
 	get_tree().reload_current_scene()
 
 func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if not achievement_blocked: get_tree().quit()
+		return
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_node_ready() and is_playing():
 		_toggle_pause()
 
