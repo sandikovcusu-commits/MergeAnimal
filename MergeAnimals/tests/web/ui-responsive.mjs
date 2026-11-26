@@ -160,6 +160,14 @@ async function navigationTest(touch=false){
  await tap(470,700,touch);await sleep(6500);let fresh=await waitState(d=>d.active&&d.spawn_count===1,'first drop after restart');
  check(fresh.spawn_count===1&&fresh.bodies.length===1&&Math.abs(fresh.bodies[0].x-470)<40,'after Restart one input creates one animal at chosen x');console.log('NAV_AFTER_RESTART',JSON.stringify(fresh));await shot('after-restart-drop');
 }
+async function tutorialLocaleTest(){
+ const locale=process.env.UI_LOCALE||'en',locales=['en','az','tr','ru'];if(!locales.includes(locale))throw Error('unsupported locale');
+ await tap(360,1123);await sleep(1500);await tap(360,805);await sleep(600);await tap(160,833+23*locales.indexOf(locale));await sleep(4000);await tap(360,965);await sleep(1500);
+ await tap(360,600);await sleep(4000);await shot('tutorial');
+ for(const [w,h] of [[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]]){await page.setViewportSize({width:w,height:h});await sleep(600);await page.screenshot({path:path.join(out,`${browser}-${locale}-tutorial-${w}x${h}.png`)})}
+ await page.setViewportSize({width:720,height:1280});await sleep(900);await tap(565,320);await sleep(1000);await tap(260,700);await sleep(6500);
+ const s=await waitState(d=>d.active&&d.spawn_count===1,'localized tutorial Skip and drop');check(s.active&&s.spawn_count===1&&s.tutorial_stage===-1,`${locale} tutorial Skip then one gameplay drop`);await shot('after-skip');
+}
 // Unlock prerequisite challenges in an isolated profile, not an organic playthrough.
 async function outcomesTest(){
  await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,856);await sleep(4000);await context.close();
@@ -200,6 +208,6 @@ async function lifecycleTest(){
  await page.evaluate(()=>document.exitFullscreen());await sleep(1500);check(await page.evaluate(()=>!document.fullscreenElement),'fullscreen exited');await page.locator('#qa-fullscreen').evaluate(e=>e.remove());await shot('fullscreen-exit');
  s=await state();check(s.spawn_count===old,'fullscreen enter and exit do not drop');
 }
-try{await launch(mode==='touch'||mode==='lifecycle'||mode==='touch-navigation');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale'||mode==='gameplay-locale')await localeTest();else if(mode==='theme'||mode==='theme-matrix')await themeTest();else if(mode==='lifecycle')await lifecycleTest();else if(mode==='outcomes')await outcomesTest();else if(mode==='navigation'||mode==='touch-navigation')await navigationTest(mode==='touch-navigation');else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
+try{await launch(mode==='touch'||mode==='lifecycle'||mode==='touch-navigation');if(mode==='screens')await screens();else if(mode==='matrix')await matrix();else if(mode==='touch')await touchTest();else if(mode==='locale'||mode==='gameplay-locale')await localeTest();else if(mode==='theme'||mode==='theme-matrix')await themeTest();else if(mode==='lifecycle')await lifecycleTest();else if(mode==='outcomes')await outcomesTest();else if(mode==='navigation'||mode==='touch-navigation')await navigationTest(mode==='touch-navigation');else if(mode==='tutorial-locale')await tutorialLocaleTest();else throw Error('unknown mode');let bad=events.filter(e=>['pageerror','console:error','requestfailed','http_error'].includes(e.type));check(!bad.length,`${browser} ${mode} no observed console/page/network errors`)}catch(e){check(false,`${browser} ${mode}: ${e.stack||e}`);if(page)try{await shot('error')}catch{}}
 finally{fs.writeFileSync(path.join(out,`${browser}-${mode}-events.json`),JSON.stringify(events,null,2));if(context)await context.close()}
 console.log(`WEB_UI mode=${mode} browser=${browser} checks=${checks} failures=${errors}`);process.exitCode=errors?1:0;
