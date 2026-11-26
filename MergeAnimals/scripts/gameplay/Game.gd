@@ -750,6 +750,8 @@ func _on_game_over() -> void:
 			if is_instance_valid(body): body.merge_locked = false
 	merge_manager.pending.clear()
 	merge_manager.commit_scheduled = false
+	combo_count = 0
+	combo_left = 0.0
 	drop_requested = false
 	active_touch = -1
 	mouse_down = false

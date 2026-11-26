@@ -91,6 +91,8 @@ func run() -> void:
 	f = FileAccess.open(SessionSave.PATH, FileAccess.WRITE); f.store_string("broken"); f.close()
 	check(SessionSave.load_session().status == "missing", "corrupt primary cannot resurrect tombstoned session")
 	await dispose(game); clear_save()
+	await backup_failure_test(); clear_save()
+	await pending_merge_test(); clear_save()
 	# Planner evaluates all danger bodies and chooses fewest blockers, with a cap.
 	var sample := [{"uid":1,"x":360.0,"y":430.0,"radius":30.0,"level":1}, {"uid":2,"x":360.0,"y":530.0,"radius":60.0,"level":10}]
 	var plan := RescuePlanner.plan(sample,465,350,20,110,610,360,1)
@@ -102,6 +104,31 @@ func run() -> void:
 		check(g.rescue_remaining == 0 and g.pieces.get_child_count() == 1 and g.game_state == g.GameState.PLAYING, "stress rescue %d" % (i+1))
 		await dispose(g)
 	print("RESCUE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
+func backup_failure_test() -> void:
+	var game = make_game(); await frames(); make_board(game); await physics_frame
+	await go(game)
+	var obstruction := ProjectSettings.globalize_path(SessionSave.PATH + ".bak.tmp")
+	check(DirAccess.make_dir_absolute(obstruction) == OK, "obstruct ordinary rescue mirror")
+	await rescue(game)
+	check(game.rescue_remaining == 0 and game.game_state == game.GameState.PLAYING, "checkpoint commits even when mirror fails")
+	DirAccess.remove_absolute(obstruction)
+	var f := FileAccess.open(SessionSave.PATH, FileAccess.WRITE); f.store_string("broken"); f.close()
+	var doc := SessionSave.load_session()
+	check(doc.status == "recovered" and int(doc.data.rescue_remaining) == 0 and doc.data.bodies.size() == 1, "checkpoint prevents refund after failed mirror and corrupt primary")
+	await dispose(game)
+func pending_merge_test() -> void:
+	var game = make_game(); await frames()
+	game.danger_monitor.set_physics_process(false)
+	game.merge_manager.set_physics_process(false)
+	var a: Animal = game.create_animal(game.animals[0], Vector2(300,430)); a.freeze = true
+	var b: Animal = game.create_animal(game.animals[0], Vector2(400,430)); b.freeze = true
+	check(game.merge_manager.request_merge(a, b), "fixture reserves pending merge")
+	await go(game)
+	var doc := SessionSave.load_session()
+	check(game.merge_manager.pending.is_empty() and not a.merge_locked and not b.merge_locked and doc.data.bodies.size() == 2, "game over cancels merge reservations without losing bodies")
+	game.merge_manager._commit_pending()
+	check(game.pieces.get_child_count() == 2 and game.merge_manager.merge_count == 0, "deferred merge cannot mutate paused game over")
+	await dispose(game)
 func read_phase() -> void:
 	var before := SessionSave.load_session()
 	check(before.data.get("game_over_pending", false), "separate process reads pending game over")
