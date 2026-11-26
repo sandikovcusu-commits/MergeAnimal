@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 14
+title_key = &"DOUBLE_TROUBLE"
+objective_key = &"TWO_FOXES"
+objective_type = "animal"
+animal_id = &"fox"
+target = 2
+starting_animals = PackedStringArray()
+spawn_sequence = PackedStringArray("dog")
