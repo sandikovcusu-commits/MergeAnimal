@@ -87,7 +87,11 @@ func run() -> void:
 	check(game.merge_manager.merge_count == 1 and game.score == merge_score, "motion does not repeat merge or score")
 	paused = false
 	game.queue_free(); current_scene = null
-	for player in audio.players: player.stop()
-	audio.music.stop(); audio.queue_free()
+	for player in audio.players: player.stop(); player.stream = null
+	audio.music.stop(); audio.music.stream = null
+	audio.streams.clear(); music_stream = null
+	audio.queue_free()
 	await frames(3)
+	# Allow the dummy audio mixer thread to release stopped playback references.
+	OS.delay_msec(400)
 	print("FEEL checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
