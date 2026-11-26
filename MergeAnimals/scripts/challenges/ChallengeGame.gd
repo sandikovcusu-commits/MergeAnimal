@@ -161,6 +161,7 @@ func _finish(success: bool) -> void:
 	# A goal reached before the deferred failure resolves always wins.
 	success = success or challenge.reached
 	result_finished = true; result_success = success
+	AdManager.set_gameplay_active(false)
 	FeelAudio.play_event("challenge_success" if success else "challenge_failed")
 	game_state = GameState.GAME_OVER
 	drop_requested = false; active_touch = -1; mouse_down = false

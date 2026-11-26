@@ -194,6 +194,7 @@ func _ready() -> void:
 		$HUD/DebugPanel/Spawn.pressed.connect(_debug_spawn_selected)
 	_update_hud()
 	_set_aim(aim_x)
+	if game_state == GameState.PLAYING and not get_tree().paused: AdManager.set_gameplay_active(true)
 
 func _return_to_menu_after_load_failure() -> void:
 	get_tree().paused = false
@@ -908,6 +909,7 @@ func _on_game_over() -> void:
 		call_deferred("_checkpoint_game_over")
 
 func _show_game_over() -> void:
+	AdManager.set_gameplay_active(false)
 	game_state = GameState.GAME_OVER
 	rescue_finalized = false
 	current_preview.visible = false
@@ -1091,6 +1093,7 @@ func _commit_rescue() -> void:
 	spawn_state = SpawnState.COOLDOWN
 	rescue_processing = false
 	rescue_verifying = true
+	AdManager.set_gameplay_active(true)
 	game_state = GameState.PLAYING
 	save_status = OK
 	get_tree().paused = false
@@ -1104,12 +1107,13 @@ func _commit_rescue() -> void:
 	_update_hud()
 	queue_redraw()
 
-func _toggle_pause() -> void:
+func _toggle_pause(report_gameplay: bool = true) -> void:
 	if achievement_blocked: return
 	if game_state == GameState.GAME_OVER:
 		return
 	if game_state == GameState.PLAYING:
 		_cancel_remove()
+		if report_gameplay: AdManager.set_gameplay_active(false)
 		game_state = GameState.PAUSED
 		rescue_button.visible = false
 		rescue_message.visible = false
@@ -1132,6 +1136,7 @@ func _toggle_pause() -> void:
 		get_tree().paused = true
 	else:
 		game_state = GameState.PLAYING
+		AdManager.set_gameplay_active(true)
 		_update_remove_ui()
 		_update_undo_ui()
 		overlay.visible = false
@@ -1226,7 +1231,7 @@ func _notification(what: int) -> void:
 		if not achievement_blocked: get_tree().quit()
 		return
 	if what == NOTIFICATION_APPLICATION_FOCUS_OUT and is_node_ready() and is_playing():
-		_toggle_pause()
+		_toggle_pause(false)
 
 # A held input belongs to the old screen-to-world transform. Never commit it
 # after resize/orientation changes; the player can begin a fresh gesture.
@@ -1238,6 +1243,7 @@ func _on_window_size_changed() -> void:
 		spawn_state = SpawnState.READY
 
 func _exit_tree() -> void:
+	AdManager.set_gameplay_active(false)
 	if get_tree().root.size_changed.is_connected(_on_window_size_changed):
 		get_tree().root.size_changed.disconnect(_on_window_size_changed)
 	get_tree().auto_accept_quit = true

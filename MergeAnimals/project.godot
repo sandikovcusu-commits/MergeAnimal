@@ -7,6 +7,9 @@ config/version="0.7.0-dev"
 run/main_scene="res://scenes/ui/MainMenu.tscn"
 
 [autoload]
+CrazyGamesBridge="*res://addons/crazygames/Utils/CrazyGamesBridge.gd"
+CrazyGames="*res://addons/crazygames/CrazyGames.gd"
+AdManager="*res://scripts/ads/AdManager.gd"
 AudioManager="*res://scripts/audio/AudioManager.gd"
 WebTouchGuard="*res://scripts/ui/WebTouchGuard.gd"
 
