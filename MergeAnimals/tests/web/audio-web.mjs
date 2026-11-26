@@ -36,7 +36,9 @@ try{
  check(after.unlocked&&after.music_playing,'first real click unlocks AudioManager and starts music');check(live.contexts>0&&live.states.includes('running'),'browser AudioContext running after gesture');// An independent oscillator validates the analyser path; never confuse it
  // with game audio. It is stopped before any game measurements.
  await page.evaluate(()=>{let ctx=window.__audioContexts[0],o=ctx.createOscillator(),g=ctx.createGain();g.gain.value=0.05;o.connect(g);g.connect(ctx.destination);o.start();window.__qaOsc=o;window.__qaGain=g});let calibration=await measure(500);await page.evaluate(()=>{window.__qaOsc.stop();window.__qaGain.disconnect()});console.log('TAP_CALIBRATION',JSON.stringify(calibration));check(calibration.maxRms>0.000001,'WebAudio analyser calibration signal reaches graph',JSON.stringify(calibration));
- await sleep(400);live=await measure(800);check(live.taps>0&&live.maxRms>0.00001,'non-zero game samples reach WebAudio output graph after gesture',JSON.stringify(live));
+ await sleep(400);live=await measure(800);console.log('DEFAULT_GAME_GRAPH',JSON.stringify(live));
+ await qa('force_stream');await sleep(1000);let streamed=await measure(1000);console.log('FORCE_STREAM_GRAPH',JSON.stringify(streamed));
+ check(streamed.taps>0&&streamed.maxRms>0.00001,'non-zero game samples reach WebAudio output graph after gesture',JSON.stringify(streamed));
  check((after.accepted.button_click||0)>0,'actual Settings button triggers button_click');await page.screenshot({path:path.join(out,`${browser}-audio-settings.png`)});
  // Three real settings sliders and mute toggle, then check the authoritative save and buses.
  await tap(310,313);await tap(410,417);await tap(510,521);await tap(360,590);await sleep(4000);let muted=await qa('state');let mutedSamples=await measure(900);
