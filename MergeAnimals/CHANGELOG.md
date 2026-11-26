@@ -1,3 +1,8 @@
+# V0.6.4.1-dev — Challenge Mode, Phase 1
+
+- Added five resource-defined challenges, selection with sequential unlock, objective/time HUD, success/failure, replay/restart and separate per-challenge result storage. Classic session and best are isolated; Classic power-ups are disabled in Challenge.
+- Added actual Godot drop/physics-collision tests, untouched-board gravity fixtures, separate-process persistence/recovery, regression coverage and five real X11 window captures. Queue selection in fixtures is controlled; no human/device playtest is claimed.
+
 # V0.6.3.3-dev — Classic Rescue
 
 - Added recoverable pending Game Over, one Classic Rescue, deterministic conservative selection, spawn preflight, pause/processing/used/failure states, existing procedural effect and transactional checkpoint. Finalization counts a completed game once and commits a tombstone.
