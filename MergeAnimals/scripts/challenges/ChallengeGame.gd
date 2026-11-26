@@ -78,12 +78,25 @@ func _pick_animal() -> AnimalData:
 	return super._pick_animal()
 
 func _attempt_drop() -> void:
-	var before_count := spawn_count
+	# Classic snapshots forbid high-tier queued animals. Challenge has no Undo or
+	# Classic session save, so it uses the same physical spawn without snapshotting.
+	if not merge_manager.pending.is_empty() or merge_manager.commit_scheduled or not _spawn_clear(current_data, aim_x):
+		spawn_state = SpawnState.COOLDOWN
+		cooldown_left = 0.0
+		_update_preview()
+		return
 	var data := current_data
-	super._attempt_drop()
-	if spawn_count > before_count:
-		challenge.record_creation(data, true, score)
-		_update_challenge_hud()
+	var body := create_animal(data, Vector2(aim_x, spawn_height))
+	body.progression_eligible = true
+	spawn_count += 1
+	current_data = next_data
+	next_data = _pick_animal()
+	_set_aim(aim_x)
+	cooldown_left = drop_cooldown
+	spawn_state = SpawnState.COOLDOWN
+	challenge.record_creation(data, true, score)
+	_update_challenge_hud()
+	_update_hud()
 
 func _on_merged(data: AnimalData, point: Vector2) -> void:
 	super._on_merged(data, point)
