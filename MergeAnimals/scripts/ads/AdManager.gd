@@ -7,6 +7,8 @@ var provider := "local"
 var sdk_state := "unavailable"
 var sdk_environment := "disabled"
 var platform_muted := false
+var platform_mute_observed = null
+var platform_mute_observed_type := -1
 var gameplay_active := false
 var _sent_gameplay := false
 var _elapsed := 0.0
@@ -20,6 +22,8 @@ func _process(delta: float) -> void:
 	if sdk_state == "ready":
 		# The platform's mute setting takes precedence over the local setting.
 		var muted = JavaScriptBridge.eval("!!(window.CrazyGames && window.CrazyGames.SDK && window.CrazyGames.SDK.game && window.CrazyGames.SDK.game.settings && window.CrazyGames.SDK.game.settings.muteAudio)")
+		platform_mute_observed = muted
+		platform_mute_observed_type = typeof(muted)
 		if typeof(muted) == TYPE_BOOL and muted != platform_muted:
 			platform_muted = muted
 			# Resolve lazily: autoloads compile before imported fonts exist in
