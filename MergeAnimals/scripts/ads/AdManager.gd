@@ -22,7 +22,10 @@ func _process(delta: float) -> void:
 		var muted = JavaScriptBridge.eval("!!(window.CrazyGames && window.CrazyGames.SDK && window.CrazyGames.SDK.game && window.CrazyGames.SDK.game.settings && window.CrazyGames.SDK.game.settings.muteAudio)")
 		if typeof(muted) == TYPE_BOOL and muted != platform_muted:
 			platform_muted = muted
-			SettingsStore.apply(SettingsStore.load_values())
+			# Resolve lazily: autoloads compile before imported fonts exist in
+			# a fresh project/editor import.
+			var store = load("res://scripts/ui/SettingsStore.gd")
+			if store: store.apply(store.load_values())
 		return
 	if sdk_state != "initializing": return
 	_elapsed += delta
