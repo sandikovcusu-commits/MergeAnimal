@@ -76,6 +76,10 @@ var session_tainted := false
 # Legacy/debug fixture bodies have unknown provenance; their score cannot become a lifetime record.
 var score_untrusted := false
 var discovery_notifier: Control
+# Events wait here while storage is unavailable; physics and navigation pause.
+var achievement_pending: Array[Dictionary] = []
+var achievement_blocked := false
+var achievement_retry_elapsed := 0.0
 var remove_remaining := 1
 var remove_selecting := false
 var remove_committing := false
@@ -185,6 +189,12 @@ func is_playing() -> bool:
 	return game_state == GameState.PLAYING and not undo_processing
 
 func _physics_process(delta: float) -> void:
+	if achievement_blocked:
+		achievement_retry_elapsed += delta
+		if achievement_retry_elapsed >= 1.0:
+			achievement_retry_elapsed = 0.0
+			_flush_achievement_queue()
+		if achievement_blocked: return
 	if not is_playing() or get_tree().paused:
 		return
 	cooldown_left = maxf(0.0, cooldown_left - delta)
@@ -708,9 +718,33 @@ func _record_discovery(data: AnimalData) -> void:
 
 func _sync_achievements() -> void:
 	if not persist_best or session_tainted: return
-	var result := AchievementManager.synchronize(progression, {}, true)
-	if result.status == "ok" and is_instance_valid(discovery_notifier):
-		for achievement in result.new: discovery_notifier.enqueue_achievement(achievement)
+	_queue_achievement(progression, {}, true)
+
+func _queue_achievement(progress: Dictionary, challenges: Dictionary, live: bool, event: Dictionary = {}) -> void:
+	achievement_pending.append({"progress": progress.duplicate(true), "challenges": challenges.duplicate(true), "live": live, "event": event.duplicate(true)})
+	_flush_achievement_queue()
+
+func _flush_achievement_queue() -> void:
+	while not achievement_pending.is_empty():
+		var job: Dictionary = achievement_pending[0]
+		var result := AchievementManager.synchronize(job.progress, job.challenges, job.live, job.event)
+		if result.status != "ok":
+			achievement_blocked = true
+			get_tree().paused = true
+			if is_node_ready():
+				$HUD/SaveStatus.text = tr("ACH_SAVE_WAIT")
+				$HUD/SaveStatus.visible = true
+			return
+		achievement_pending.pop_front()
+		if is_instance_valid(discovery_notifier):
+			for achievement in result.new: discovery_notifier.enqueue_achievement(achievement)
+	if achievement_blocked:
+		achievement_blocked = false
+		if is_node_ready(): $HUD/SaveStatus.visible = false
+		if game_state == GameState.PLAYING: get_tree().paused = false
+		_achievement_recovered()
+
+func _achievement_recovered() -> void: pass
 
 func _spawn_effect(kind: String, point: Vector2) -> void:
 	var effect := EFFECT_SCRIPT.new()
@@ -964,6 +998,7 @@ func _commit_rescue() -> void:
 	queue_redraw()
 
 func _toggle_pause() -> void:
+	if achievement_blocked: return
 	if game_state == GameState.GAME_OVER:
 		return
 	if game_state == GameState.PLAYING:
@@ -1053,6 +1088,7 @@ func _finish_tutorial() -> void:
 	if tutorial: tutorial.queue_free()
 
 func _main_menu() -> void:
+	if achievement_blocked: return
 	if game_state == GameState.GAME_OVER:
 		if rescue_processing or _finalize_game() != OK:
 			rescue_message.text = tr("SAVE_WAIT")
@@ -1065,6 +1101,7 @@ func _main_menu() -> void:
 	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
 
 func _restart() -> void:
+	if achievement_blocked: return
 	if game_state == GameState.GAME_OVER:
 		if rescue_processing or _finalize_game() != OK:
 			rescue_message.text = tr("SAVE_WAIT")

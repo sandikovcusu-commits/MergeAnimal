@@ -34,5 +34,6 @@
   "ACH_A14_TITLE": "Challenge Explorer",
   "ACH_A14_DESC": "Complete 10 different Challenges.",
   "ACH_A15_TITLE": "Animal Collector",
-  "ACH_A15_DESC": "Discover all 12 animals in Collection."
+  "ACH_A15_DESC": "Discover all 12 animals in Collection.",
+  "ACH_SAVE_WAIT": "Achievement save failed. Retrying…"
 }

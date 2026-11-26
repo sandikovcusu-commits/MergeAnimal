@@ -34,5 +34,6 @@
   "ACH_A14_TITLE": "Görev kâşifi",
   "ACH_A14_DESC": "10 farklı görevi tamamla.",
   "ACH_A15_TITLE": "Hayvan koleksiyoncusu",
-  "ACH_A15_DESC": "Koleksiyondaki 12 hayvanın hepsini keşfet."
+  "ACH_A15_DESC": "Koleksiyondaki 12 hayvanın hepsini keşfet.",
+  "ACH_SAVE_WAIT": "Başarım kaydedilemedi. Yeniden deneniyor…"
 }

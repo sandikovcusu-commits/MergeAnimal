@@ -4,7 +4,7 @@ extends SceneTree
 var failures := 0
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
-	for path in [AchievementManager.PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
+	for path in [AchievementManager.PATH, AchievementManager.CHECKPOINT_PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
 		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 	var access := ChallengeStore.empty()
 	for i in range(16): access.entries[i].completed = true

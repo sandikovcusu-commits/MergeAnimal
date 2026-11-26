@@ -12,6 +12,8 @@ var result_finished := false
 var spawn_sequence_index := 0
 var drop_settled_for := 0.0
 var confirm_exit: ConfirmationDialog
+var achievement_finish_waiting := false
+var achievement_finish_success := false
 
 func _ready() -> void:
 	persist_best = false
@@ -117,9 +119,17 @@ func _on_golden_merged(point: Vector2) -> void:
 
 func _challenge_achievement_event(event: Dictionary) -> void:
 	var inputs := AchievementManager.saved_inputs()
-	var result := AchievementManager.synchronize(inputs.progress, {}, true, event)
-	if result.status == "ok" and is_instance_valid(discovery_notifier):
-		for achievement in result.new: discovery_notifier.enqueue_achievement(achievement)
+	_queue_achievement(inputs.progress, {}, true, event)
+
+func _achievement_recovered() -> void:
+	if achievement_finish_waiting:
+		achievement_finish_waiting = false
+		call_deferred("_finish", achievement_finish_success)
+	elif result_finished:
+		next_button.visible = result_saved and result_success and challenge_id < ChallengeManager.DEFINITIONS.size()
+		$HUD/Overlay/RestartButton.disabled = not result_saved
+		$HUD/Overlay/MainMenuButton.disabled = not result_saved
+		rescue_message.text = tr("CH_RESULT_SAVED") if result_saved else tr("CH_SAVE_FAILED")
 
 func _update_hud() -> void:
 	super._update_hud()
@@ -142,6 +152,10 @@ func _on_game_over() -> void:
 
 func _finish(success: bool) -> void:
 	if result_finished: return
+	if achievement_blocked:
+		achievement_finish_waiting = true
+		achievement_finish_success = achievement_finish_success or success
+		return
 	# A goal reached before the deferred failure resolves always wins.
 	success = success or challenge.reached
 	result_finished = true; result_success = success
@@ -166,16 +180,15 @@ func _persist_result() -> void:
 	result_saved = result == OK
 	if result_saved and result_success:
 		var inputs := AchievementManager.saved_inputs()
-		var achievement_result := AchievementManager.synchronize(inputs.progress, inputs.challenges, true)
-		if achievement_result.status == "ok":
-			for achievement in achievement_result.new: discovery_notifier.enqueue_achievement(achievement)
+		_queue_achievement(inputs.progress, inputs.challenges, true)
 	save_retry_button.visible = not result_saved
-	next_button.visible = result_saved and result_success and challenge_id < ChallengeManager.DEFINITIONS.size()
-	$HUD/Overlay/RestartButton.disabled = not result_saved
-	$HUD/Overlay/MainMenuButton.disabled = not result_saved
-	rescue_message.text = tr("CH_RESULT_SAVED") if result_saved else tr("CH_SAVE_FAILED")
+	next_button.visible = result_saved and result_success and not achievement_blocked and challenge_id < ChallengeManager.DEFINITIONS.size()
+	$HUD/Overlay/RestartButton.disabled = not result_saved or achievement_blocked
+	$HUD/Overlay/MainMenuButton.disabled = not result_saved or achievement_blocked
+	rescue_message.text = tr("ACH_SAVE_WAIT") if achievement_blocked else (tr("CH_RESULT_SAVED") if result_saved else tr("CH_SAVE_FAILED"))
 
 func _next_challenge() -> void:
+	if achievement_blocked: return
 	if not result_saved or not result_success or challenge_id >= ChallengeManager.DEFINITIONS.size(): return
 	get_tree().set_meta("challenge_id", challenge_id + 1)
 	get_tree().paused = false
@@ -185,10 +198,12 @@ func _selection() -> void:
 	if get_tree().has_meta("challenge_id"): get_tree().remove_meta("challenge_id")
 	get_tree().change_scene_to_file(SELECTION)
 func _main_menu() -> void:
+	if achievement_blocked: return
 	if result_finished and not result_saved: return
 	if not result_finished: _confirm_abandon("selection"); return
 	_selection()
 func _restart() -> void:
+	if achievement_blocked: return
 	if result_finished and not result_saved: return
 	if not result_finished: _confirm_abandon("restart"); return
 	get_tree().paused = false
@@ -220,6 +235,7 @@ func _confirm_abandon(action: String) -> void:
 	confirm_exit.popup_centered(Vector2i(510, 240))
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and challenge != null:
+		if achievement_blocked: return
 		if result_finished and result_saved: get_tree().quit()
 		else: _confirm_abandon("quit")
 	else: super._notification(what)

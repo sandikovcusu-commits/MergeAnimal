@@ -8,7 +8,7 @@ func check(value: bool, what: String) -> void:
 func frames(n := 3) -> void:
 	for i in range(n): await process_frame
 func clear_files() -> void:
-	for path in [AchievementManager.PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
+	for path in [AchievementManager.PATH, AchievementManager.CHECKPOINT_PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
 		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 func run() -> void:
 	if OS.get_environment("ACH_PHASE") == "read": read_phase(); return

@@ -19,7 +19,7 @@ func capture(name: String) -> bool:
 func screenshot(name: String) -> void:
 	if not await capture(name): printerr("FAIL visual capture ", name); quit(1)
 func clear_files() -> void:
-	for path in [AchievementManager.PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
+	for path in [AchievementManager.PATH, AchievementManager.CHECKPOINT_PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
 		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 func run() -> void:
 	clear_files()

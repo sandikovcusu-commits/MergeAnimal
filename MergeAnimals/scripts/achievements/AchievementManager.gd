@@ -3,6 +3,8 @@
 class_name AchievementManager
 extends RefCounted
 const PATH := "user://wild_garden_achievements.json"
+# Monotonic commit record; old versions have no checkpoint and migrate lazily.
+const CHECKPOINT_PATH := "user://wild_garden_achievement_checkpoint.json"
 const VERSION := 1
 
 static func definitions() -> Array[AchievementData]:
@@ -22,6 +24,9 @@ static func _empty() -> Dictionary:
 
 static func _valid(value: Variant) -> bool:
 	if typeof(value) != TYPE_DICTIONARY or typeof(value.get("version")) not in [TYPE_INT, TYPE_FLOAT] or float(value.version) != VERSION or typeof(value.get("entries")) != TYPE_DICTIONARY: return false
+	if value.has("generation"):
+		var gen: Variant = value.generation
+		if typeof(gen) not in [TYPE_INT, TYPE_FLOAT] or not is_finite(float(gen)) or float(gen) < 0 or float(gen) > 1000000000 or floorf(float(gen)) != float(gen): return false
 	if value.has("events"):
 		var events: Variant = value.events
 		if typeof(events) != TYPE_DICTIONARY or typeof(events.get("animals")) != TYPE_DICTIONARY: return false
@@ -38,14 +43,27 @@ static func _valid(value: Variant) -> bool:
 	return true
 
 static func load_state() -> Dictionary:
+	var checkpoint := SaveManager._read_envelope(CHECKPOINT_PATH)
+	# Like the existing power-up journal, a damaged commit record fails closed:
+	# silently falling back could repeat an unlock or lose committed events.
+	if checkpoint.status in ["future", "io_error", "corrupt"]: return {"status": "unavailable"}
+	if checkpoint.status == "ok" and not _valid(checkpoint.data): return {"status": "unavailable"}
 	var primary := SaveManager._read_envelope(PATH)
 	var backup := SaveManager._read_envelope(PATH + ".bak")
-	for file in [primary, backup]:
+	for file in [primary, backup, checkpoint]:
 		if file.status in ["future", "io_error"]: return {"status": "unavailable"}
 		if file.status == "ok" and typeof(file.data.get("version")) in [TYPE_INT, TYPE_FLOAT] and float(file.data.version) > VERSION: return {"status": "unavailable"}
-	if primary.status == "ok" and _valid(primary.data): return {"status": "ok", "data": primary.data}
-	if backup.status == "ok" and _valid(backup.data): return {"status": "recovered", "data": backup.data}
-	if primary.status == "missing" and backup.status == "missing": return {"status": "missing", "data": _empty()}
+	var best: Dictionary = {}
+	var best_gen := -1
+	var source := ""
+	for pair in [[primary, "primary"], [backup, "backup"], [checkpoint, "checkpoint"]]:
+		var file: Dictionary = pair[0]
+		if file.status != "ok" or not _valid(file.data): continue
+		var gen := int(file.data.get("generation", 0))
+		if gen > best_gen:
+			best_gen = gen; best = file.data; source = pair[1]
+	if source != "": return {"status": "ok" if source == "primary" else "recovered", "data": best}
+	if primary.status == "missing" and backup.status == "missing" and checkpoint.status == "missing": return {"status": "missing", "data": _empty()}
 	return {"status": "corrupt"}
 
 static func _value(def: AchievementData, progress: Dictionary, challenges: Dictionary, events: Dictionary) -> int:
@@ -99,12 +117,16 @@ static func synchronize(progress: Dictionary, challenges: Dictionary, live: bool
 			entry.date = Time.get_datetime_string_from_system(false, true) if live else ""
 			if live: unlocked.append(def)
 		state.entries[def.id] = entry
-	if old == state: return {"status": "ok", "new": [], "data": state}
+	if old == state and FileAccess.file_exists(CHECKPOINT_PATH): return {"status": "ok", "new": [], "data": state}
+	# Commit the full monotonically generated record first. Notifications occur
+	# only after this succeeds; ordinary mirrors may safely lag this record.
+	state.generation = int(state.get("generation", 0)) + 1
+	var committed := SaveManager.save_progress(state, CHECKPOINT_PATH, false)
+	if committed != OK: return {"status": "write_failed", "new": []}
 	var primary := SaveManager._read_envelope(PATH)
-	var err := SaveManager.save_progress(state, PATH, primary.status == "ok" and _valid(primary.data))
-	if err != OK: return {"status": "write_failed", "new": []}
-	# Refresh validated backup so recovery does not re-announce the last unlock.
-	if SaveManager.save_progress(state, PATH, true) != OK: push_warning("Achievement backup refresh failed")
+	var mirror := SaveManager.save_progress(state, PATH, primary.status == "ok" and _valid(primary.data))
+	if mirror == OK: mirror = SaveManager.save_progress(state, PATH, true)
+	if mirror != OK: push_warning("Achievement checkpoint committed; mirror refresh failed")
 	return {"status": "ok", "new": unlocked, "data": state}
 
 static func saved_inputs() -> Dictionary:

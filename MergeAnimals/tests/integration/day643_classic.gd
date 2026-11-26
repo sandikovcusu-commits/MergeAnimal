@@ -7,7 +7,7 @@ func check(ok: bool, msg: String) -> void:
 	checks += 1; print("%s: %s" % ["PASS" if ok else "FAIL", msg])
 	if not ok: failures += 1
 func run() -> void:
-	for path in [AchievementManager.PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
+	for path in [AchievementManager.PATH, AchievementManager.CHECKPOINT_PATH, ChallengeStore.PATH, SessionSave.PATH, SessionSave.POWERUP_PATH]:
 		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 	var game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
 	game.test_seed = 99; root.add_child(game); current_scene = game; await process_frame; await process_frame

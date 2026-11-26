@@ -28,6 +28,9 @@ jobs:
           XDG_DATA_HOME=/tmp/theme-user THEME_PHASE=read timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day650_theme.gd 2>&1 | tee -a /tmp/theme-log.txt
           mkdir -p /tmp/locale-user
           XDG_DATA_HOME=/tmp/locale-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day650_localization.gd 2>&1 | tee -a /tmp/theme-log.txt
+          mkdir -p /tmp/integrity-user
+          XDG_DATA_HOME=/tmp/integrity-user timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day650_integrity.gd 2>&1 | tee -a /tmp/theme-log.txt
+          XDG_DATA_HOME=/tmp/integrity-user INTEGRITY_PHASE=read timeout 120s "$GODOT" --headless --path MergeAnimals --fixed-fps 60 --script res://tests/integration/day650_integrity.gd 2>&1 | tee -a /tmp/theme-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/theme-log.txt; then exit 1; fi
       - name: Capture three themes and four locales at three sizes
         env:
