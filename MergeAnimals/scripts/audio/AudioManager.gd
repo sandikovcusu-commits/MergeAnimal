@@ -12,7 +12,6 @@ var music_theme := ""
 var unlocked_audio := false
 var reduced_effects := false
 var impact_elapsed := 1.0
-var theme_check := 0.0
 var last_scene: Node
 var accepted_events: Dictionary = {}
 
@@ -35,10 +34,6 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	impact_elapsed += delta
-	theme_check += delta
-	if unlocked_audio and theme_check >= 1.0:
-		theme_check = 0.0
-		set_music(THEME_IDS[load("res://scripts/themes/ThemeStore.gd").current_index()])
 	var scene := get_tree().current_scene
 	if scene != last_scene and is_instance_valid(scene):
 		last_scene = scene

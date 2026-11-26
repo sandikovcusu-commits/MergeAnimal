@@ -43,7 +43,7 @@ func run() -> void:
 	SettingsStore.apply(restored)
 	check(is_equal_approx(restored.master, 0.4) and is_equal_approx(restored.music, 0.3) and is_equal_approx(restored.sfx, 0.2) and restored.mute and restored.reduced_effects, "audio and reduced settings round-trip")
 	check(is_equal_approx(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")), linear_to_db(0.4)) and is_equal_approx(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")), linear_to_db(0.3)) and is_equal_approx(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("SFX")), linear_to_db(0.2)) and AudioServer.is_bus_mute(AudioServer.get_bus_index("Master")) and AudioServer.get_bus_send(AudioServer.get_bus_index("UI")) == "SFX", "master/music/SFX/mute and UI buses applied")
-	settings.reduced_effects = false; settings.mute = false; SettingsStore.apply(settings)
+	settings.reduced_effects = false; settings.mute = false; SettingsStore.save_values(settings); SettingsStore.apply(settings)
 	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH, AchievementManager.PATH, AchievementManager.CHECKPOINT_PATH]:
 		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
 	var game = load("res://scenes/game/Game.tscn").instantiate(); game.test_seed = 123; root.add_child(game); current_scene = game; await frames(3)

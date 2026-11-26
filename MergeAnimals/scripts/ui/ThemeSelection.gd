@@ -32,5 +32,6 @@ func _build() -> void:
 	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.custom_minimum_size.y = 60; column.add_child(back); back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
 func _select(id: String) -> void:
 	if ThemeStore.select(id) != OK: status.text = tr("SAVE_FAILED"); return
+	FeelAudio.set_music(id)
 	get_tree().reload_current_scene()
 func _draw() -> void: draw_texture_rect(ThemeStore.background(), Rect2(0, 0, 720, 1280), false)
