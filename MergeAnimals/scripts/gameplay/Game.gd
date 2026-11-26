@@ -107,6 +107,7 @@ var rescue_selected: Array[Animal] = []
 var reward_gateway := RewardRequestGateway.new()
 
 func _ready() -> void:
+	_install_web_touch_cancel_guard()
 	get_tree().auto_accept_quit = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var saved_settings := SettingsStore.load_values()
@@ -542,6 +543,31 @@ func _commit_remove(body: Animal) -> void:
 	_update_hud()
 	queue_redraw()
 
+# Godot 4.7.2 Web maps DOM touchcancel to an ordinary touch release and
+# does not set InputEventScreenTouch.canceled. Capture the cancelled DOM IDs
+# before the engine's canvas listener and consume the marker on release.
+# Native exports and ordinary touchend keep their original behavior.
+func _install_web_touch_cancel_guard() -> void:
+	if not OS.has_feature("web"): return
+	JavaScriptBridge.eval("""
+	if (!window.__wildGardenTouchCancel) {
+	  const cancelled = new Set();
+	  window.__wildGardenTouchCancel = cancelled;
+	  window.addEventListener('touchstart', e => {
+	    for (const t of e.changedTouches) cancelled.delete(t.identifier);
+	  }, true);
+	  window.addEventListener('touchcancel', e => {
+	    const ids = Array.from(e.changedTouches, t => t.identifier);
+	    for (const id of ids) cancelled.add(id);
+	    setTimeout(() => { for (const id of ids) cancelled.delete(id); }, 0);
+	  }, true);
+	}
+	""", true)
+
+func _web_touch_was_cancelled(index: int) -> bool:
+	if not OS.has_feature("web"): return false
+	return bool(JavaScriptBridge.eval("Boolean(window.__wildGardenTouchCancel && window.__wildGardenTouchCancel.delete(%d))" % index, true))
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_playing():
 		return
@@ -562,7 +588,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_set_aim(event.position.x)
 		elif not event.pressed and event.index == active_touch:
 			active_touch = -1
-			if event.canceled:
+			if event.canceled or _web_touch_was_cancelled(event.index):
 				if spawn_state == SpawnState.AIMING:
 					spawn_state = SpawnState.READY
 			else:
