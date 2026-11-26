@@ -77,8 +77,8 @@ async function prepareRescueFixture(page, initial, prefix) {
  await page.goto(new URL('__test_storage__',base).href);
  const original=await documentState(page);
  const sample=initial.bodies[0], bodies=[];let uid=initial.next_body_uid;
- for (const x of [215,505]) for (const [id,y] of [['bear',1001],['elephant',783],['bear',565],['elephant',347]]) {
-  bodies.push({...sample,uid:uid++,id,x,y,rotation:0,vx:0,vy:0,angular_velocity:0,sleeping:false,eligible:false,danger:0});
+ for (const [id,y] of [['elephant',969],['lion',736],['bear',535],['panda',362]]) {
+  bodies.push({...sample,uid:uid++,id,x:360,y,rotation:0,vx:0,vy:0,angular_velocity:0,sleeping:false,eligible:false,danger:0});
  }
  const fixture={...initial,generation:Math.max(...[initial.generation,original.selected.data.generation])+20,bodies,next_body_uid:uid,tainted:true,game_over_pending:false,undo_snapshot:{}};
  const payload=JSON.stringify(fixture);
