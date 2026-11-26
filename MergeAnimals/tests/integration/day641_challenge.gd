@@ -130,6 +130,16 @@ func run() -> void:
 	var next = current_scene
 	check(next.challenge_id == 2 and next.challenge.count == 0 and next.score == 0, "next challenge button loads fresh unlocked challenge")
 	await dispose(next)
+	var natural = new_game(1); await frames(); natural.danger_monitor.set_physics_process(false)
+	var first := await drop(natural, natural.animals[0], 360)
+	for i in range(240): await physics_frame
+	var second := await drop(natural, natural.animals[0], 360)
+	for i in range(300):
+		await process_frame
+		if natural.result_finished: break
+	check(first != null and second != null and natural.result_success and natural.merge_manager.merge_count >= 1, "first friend completes via natural gravity and real drop collision")
+	check(FileAccess.get_sha256(SessionSave.PATH) == classic_hash and FileAccess.get_sha256(SessionSave.POWERUP_PATH) == checkpoint_hash, "all challenge navigation and replay preserve classic files")
+	await dispose(natural)
 	print("CHALLENGE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
 func read_phase() -> void:
 	var loaded := ChallengeStore.load_results()
@@ -137,4 +147,7 @@ func read_phase() -> void:
 	for id in range(1, 6): check(loaded.data.entries[id - 1].completed and ChallengeStore.is_unlocked(loaded.data, id), "separate process restores challenge %d" % id)
 	check(int(loaded.data.entries[4].best) >= 300, "separate challenge best restored")
 	check(SessionSave.load_session().data.score == 123 and SessionSave.load_progression().best_score == 123, "separate process restores unchanged classic score and session")
+	var file := FileAccess.open(ChallengeStore.PATH, FileAccess.WRITE); file.store_string("damaged primary"); file.close()
+	loaded = ChallengeStore.load_results()
+	check(loaded.status == "recovered" and loaded.data.entries[4].completed and int(loaded.data.entries[4].best) >= 300, "validated backup restores challenge results after primary corruption")
 	print("CHALLENGE_READ checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
