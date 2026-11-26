@@ -772,7 +772,10 @@ func _show_score_effect(point: Vector2, amount: int) -> void:
 	floating_scores += 1
 	var label := Label.new(); label.text = "+%d" % amount; label.position = to_local(point) + Vector2(-35, -50)
 	label.size = Vector2(130, 50); label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.add_theme_font_size_override("font_size", 28); label.add_theme_color_override("font_color", Color("fff2b5")); label.z_index = 8
+	label.add_theme_font_size_override("font_size", 28)
+	label.add_theme_color_override("font_color", Color("4a3424"))
+	label.add_theme_color_override("font_outline_color", Color("fff4ce"))
+	label.add_theme_constant_override("outline_size", 3); label.z_index = 8
 	$HUD.add_child(label)
 	var tween := label.create_tween(); tween.set_parallel(true)
 	tween.tween_property(label, "position:y", label.position.y - (12.0 if reduced_effects else 45.0), 0.7)
