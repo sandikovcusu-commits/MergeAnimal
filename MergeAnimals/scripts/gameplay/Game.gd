@@ -191,7 +191,7 @@ func _physics_process(delta: float) -> void:
 	combo_left = maxf(0.0, combo_left - delta)
 	if combo_left <= 0.0 and combo_count > 0:
 		combo_count = 0
-		score_label.text = "SCORE  %d" % score
+		score_label.text = "%s  %d" % [tr("SCORE"), score]
 	if rescue_verifying:
 		if _spawn_clear(current_data, aim_x):
 			rescue_verifying = false
@@ -783,7 +783,7 @@ func _show_game_over() -> void:
 	_update_remove_ui()
 	_update_undo_ui()
 	var record := "\n" + tr("NEW_RECORD") if score > best_at_start and score > 0 and not session_tainted and not score_untrusted else ""
-	overlay_title.text = "%s\n%s: %d   %s: %d\n%s: %s\n%s: %d   %s: %d%s" % [tr("GAME_OVER"), tr("FINAL_SCORE"), score, tr("BEST"), best_score, tr("LARGEST"), animals[clampi(highest_level - 1, 0, animals.size() - 1)].display_name, tr("MERGES"), merge_manager.merge_count, tr("MAX_COMBO"), max_combo, record]
+	overlay_title.text = "%s\n%s: %d   %s: %d\n%s: %s\n%s: %d   %s: %d%s" % [tr("GAME_OVER"), tr("FINAL_SCORE"), score, tr("BEST"), best_score, tr("LARGEST"), tr(animals[clampi(highest_level - 1, 0, animals.size() - 1)].translation_key), tr("MERGES"), merge_manager.merge_count, tr("MAX_COMBO"), max_combo, record]
 	resume_button.visible = false
 	$HUD/Overlay/SettingsButton.visible = false
 	$HUD/Overlay/RestartButton.position.y = 180
@@ -1025,6 +1025,8 @@ func _open_settings() -> void:
 		_refresh_ui_text()
 		overlay_title.text = tr("PAUSE")
 		_update_hud()
+		if tutorial_stage >= 0: _tutorial_set_stage(tutorial_stage)
+		queue_redraw()
 	)
 	settings_panel.closed.connect(func(): settings_panel = null; $HUD/Overlay/SettingsButton.grab_focus())
 
@@ -1086,7 +1088,7 @@ func _update_preview() -> void:
 func _update_hud() -> void:
 	current_preview.data = current_data
 	next_preview.data = next_data
-	next_label.text = tr("NEXT") + "  ·  " + next_data.display_name.to_upper()
+	next_label.text = tr("NEXT") + "  ·  " + tr(next_data.translation_key).to_upper()
 	score_label.text = tr("SCORE") + "  %d" % score
 	if combo_count > 1:
 		score_label.text += "  " + tr("COMBO") + " %d" % combo_count
@@ -1126,7 +1128,7 @@ func _draw() -> void:
 			draw_circle(Vector2(x, y + 23), 21, item.placeholder_color)
 		if item.level == highest_level:
 			draw_arc(Vector2(x, y + 23), 25, 0, TAU, 32, Color("d29b31"), 3.0)
-		draw_string(font, Vector2(x - 25, y + 56), "%d %s" % [item.level, item.display_name.substr(0, 3).to_upper()], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("394f39"))
+		draw_string(font, Vector2(x - 25, y + 56), "%d %s" % [item.level, tr(item.translation_key).substr(0, 3).to_upper()], HORIZONTAL_ALIGNMENT_LEFT, -1, 14, Color("394f39"))
 		if i % 6 < 5:
 			draw_line(Vector2(x + 31, y + 23), Vector2(x + 78, y + 23), Color(0.35, 0.45, 0.33, 0.5), 1.5)
 

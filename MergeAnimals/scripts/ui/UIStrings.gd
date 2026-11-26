@@ -112,6 +112,10 @@ static func install() -> void:
 	}
 	for locale in theme_messages: messages[locale].merge(theme_messages[locale], true)
 	for locale in messages:
+		var file := FileAccess.open("res://translations/%s.json" % locale, FileAccess.READ)
+		if file != null:
+			var extra: Variant = JSON.parse_string(file.get_as_text())
+			if typeof(extra) == TYPE_DICTIONARY: messages[locale].merge(extra, true)
 		var translation := Translation.new()
 		translation.locale = locale
 		for key in messages[locale]:

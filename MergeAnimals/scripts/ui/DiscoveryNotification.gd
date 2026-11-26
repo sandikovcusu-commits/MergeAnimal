@@ -41,7 +41,7 @@ func _show_next() -> void:
 	else:
 		var achievement: AchievementData = item.data
 		image.texture = achievement.icon
-		text.text = "Achievement unlocked!\n%s" % achievement.title
+		text.text = "%s\n%s" % [tr("ACHIEVEMENT_UNLOCKED"), achievement.localized_title()]
 		achievement_shown.emit(achievement.id)
 	visible = true
 	card.modulate.a = 1.0 if reduced_effects else 0.0

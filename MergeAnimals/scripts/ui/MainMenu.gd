@@ -37,7 +37,7 @@ func _build() -> void:
 	collection.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Collection.tscn"))
 	var statistics := _button("Statistics", "STATISTICS", "star", 65); list.add_child(statistics)
 	statistics.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Statistics.tscn"))
-	var achievements := _button("Achievements", "Achievements", "trophy", 65); list.add_child(achievements)
+	var achievements := _button("Achievements", "ACHIEVEMENTS", "trophy", 65); list.add_child(achievements)
 	achievements.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/Achievements.tscn"))
 	var themes := _button("Themes", "THEMES", "star", 56); list.add_child(themes)
 	themes.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/ThemeSelection.tscn"))

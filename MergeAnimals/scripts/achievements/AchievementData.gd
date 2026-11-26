@@ -10,3 +10,12 @@ extends Resource
 @export var progress: int = 0
 @export var hidden: bool = false
 @export var unlock_condition: String = ""
+
+func localized_title() -> String:
+	var key := "ACH_" + id + "_TITLE"
+	var translated := TranslationServer.translate(key)
+	return title if translated == key else translated
+func localized_description() -> String:
+	var key := "ACH_" + id + "_DESC"
+	var translated := TranslationServer.translate(key)
+	return description if translated == key else translated
