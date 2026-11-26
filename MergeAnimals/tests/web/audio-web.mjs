@@ -1,0 +1,59 @@
+// Actual release WebAssembly with a test-only autoload in a separate export.
+// WebAudio analyser taps the graph before the physical output; not a listening test.
+import {chromium,firefox} from 'playwright';
+import fs from 'node:fs';
+import path from 'node:path';
+const browser=process.env.UI_BROWSER||'chromium', base=process.env.WEB_URL, out=process.env.WEB_QA_DIR||'/tmp/web-qa';
+const engine=browser==='firefox'?firefox:chromium, profile=path.join(out,`${browser}-audio-profile`);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));let checks=0,failures=0,id=0,context,page;const events=[];
+function check(ok,label,detail=''){checks++;console.log(`${ok?'PASS':'FAIL'} ${label} ${detail}`);if(!ok)failures++;}
+async function install(ctx){await ctx.addInitScript(()=>{
+ window.__audioContexts=[];window.__audioTaps=[];window.__audioSamples=[];
+ const Original=window.AudioContext||window.webkitAudioContext;
+ if(Original){const Wrapped=new Proxy(Original,{construct(target,args){const c=Reflect.construct(target,args);window.__audioContexts.push(c);return c}});window.AudioContext=Wrapped;window.webkitAudioContext=Wrapped}
+ const connect=AudioNode.prototype.connect;
+ AudioNode.prototype.connect=function(target,...args){const result=connect.call(this,target,...args);try{
+  if(target===this.context.destination && !window.__audioTaps.some(x=>x.source===this)){
+   const analyser=this.context.createAnalyser();analyser.fftSize=2048;const sink=this.context.createMediaStreamDestination();connect.call(this,analyser);connect.call(analyser,sink);
+   const tap={source:this,analyser,sink};window.__audioTaps.push(tap);
+  }
+ }catch(e){console.warn('Audio QA tap:',String(e))}return result};
+ setInterval(()=>{for(const t of window.__audioTaps){const a=new Float32Array(t.analyser.fftSize);t.analyser.getFloatTimeDomainData(a);let sum=0,peak=0;for(const x of a){sum+=x*x;peak=Math.max(peak,Math.abs(x))}window.__audioSamples.push({time:performance.now(),rms:Math.sqrt(sum/a.length),peak,state:t.source.context.state});}if(window.__audioSamples.length>12000)window.__audioSamples.splice(0,3000)},20);
+ });}
+async function launch(){context=await engine.launchPersistentContext(profile,{headless:false,viewport:{width:720,height:1280},args:browser==='chromium'?['--no-sandbox','--use-gl=angle','--use-angle=swiftshader-webgl','--enable-unsafe-swiftshader','--autoplay-policy=document-user-activation-required']:[],firefoxUserPrefs:{'webgl.force-enabled':true,'webgl.disabled':false,'media.autoplay.default':1,'media.autoplay.block-webaudio':true}});await install(context);page=context.pages()[0]||await context.newPage();page.on('console',m=>events.push({type:'console:'+m.type(),text:m.text()}));page.on('pageerror',e=>events.push({type:'pageerror',text:String(e)}));page.on('requestfailed',r=>events.push({type:'requestfailed',text:r.url()+' '+r.failure()?.errorText}));await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});await page.waitForSelector('canvas',{timeout:120000});await sleep(15000)}
+async function qa(op,args={}){let n=++id;await page.evaluate(c=>window.__audioQACommand=c,{id:n,op,...args});await page.waitForFunction(n=>window.__audioQAResult?.id===n,n,{timeout:20000});let r=await page.evaluate(()=>window.__audioQAResult);console.log('AUDIO_STATE',op,JSON.stringify(r));return r}
+async function mark(){return await page.evaluate(()=>performance.now())}
+async function metrics(since){return await page.evaluate(since=>{const a=window.__audioSamples.filter(x=>x.time>=since);return {samples:a.length,maxRms:Math.max(0,...a.map(x=>x.rms)),maxPeak:Math.max(0,...a.map(x=>x.peak)),states:window.__audioContexts.map(c=>c.state),contexts:window.__audioContexts.length,taps:window.__audioTaps.length}},since)}
+async function measure(ms){let t=await mark();await sleep(ms);return metrics(t)}
+async function tap(x,y){await page.mouse.click(x,y);await sleep(1000)}
+const ids=['button_click','menu_back','animal_drop','soft_landing','animal_collision','small_merge','medium_merge','large_merge','combo','golden_merge','animal_discovered','achievement_unlocked','challenge_success','challenge_failed','undo','remove','rescue','game_over','danger_warning','theme_unlocked'];
+try{
+ await launch();let initial=await qa('state');let before=await measure(1200);console.log('BEFORE_GESTURE',JSON.stringify(before));check(!initial.unlocked&&!initial.music_playing&&before.maxRms<0.00001,'before first gesture game does not play audio');
+ await tap(360,1123);await sleep(2500);let after=await qa('state'),live=await measure(800);console.log('AFTER_GESTURE',JSON.stringify(live));
+ check(after.unlocked&&after.music_playing,'first real click unlocks AudioManager and starts music');check(live.contexts>0&&live.states.includes('running'),'browser AudioContext running after gesture');check(live.taps>0&&live.maxRms>0.00001,'non-zero samples reach WebAudio output graph after gesture',JSON.stringify(live));
+ check((after.accepted.button_click||0)>0,'actual Settings button triggers button_click');await page.screenshot({path:path.join(out,`${browser}-audio-settings.png`)});
+ // Three real settings sliders and mute toggle, then check the authoritative save and buses.
+ await tap(310,313);await tap(410,417);await tap(510,521);await tap(360,590);await sleep(4000);let muted=await qa('state');let mutedSamples=await measure(900);
+ check(muted.settings.master<0.9&&muted.settings.music<0.9&&muted.settings.sfx<0.95&&muted.settings.mute,'real settings sliders and Mute persisted');
+ check(muted.buses.Master.mute&&mutedSamples.maxRms<0.0001,'Mute silences WebAudio graph',JSON.stringify(mutedSamples));
+ await tap(360,590);await sleep(1000);let unmuted=await qa('state'),unmutedSamples=await measure(1000);check(!unmuted.settings.mute&&!unmuted.buses.Master.mute&&unmutedSamples.maxRms>0.000001,'Unmute restores output',JSON.stringify(unmutedSamples));
+ const persisted=unmuted.settings;await page.reload({waitUntil:'domcontentloaded',timeout:120000});await sleep(15000);let reloaded=await qa('state');check(['master','music','sfx','mute'].every(k=>reloaded.settings[k]===persisted[k]),'audio settings persist after reload');await tap(360,1123);await sleep(1200);await tap(360,965);await sleep(1200);
+ await context.close();context=null;await launch();let reopened=await qa('state');check(['master','music','sfx','mute'].every(k=>reopened.settings[k]===persisted[k]),'audio settings persist after full browser close and reopen');await tap(360,1123);await sleep(500);await tap(360,965);await sleep(500);
+ // Record actual post-mix WebAudio graph; does not prove physical speaker output.
+ await page.evaluate(()=>{const tap=window.__audioTaps[0];if(!tap||!window.MediaRecorder)return;window.__recChunks=[];window.__rec=new MediaRecorder(tap.sink.stream);window.__rec.ondataavailable=e=>{if(e.data.size)window.__recChunks.push(e.data)};window.__rec.start()});
+ // Isolate effects by muting music through settings in this disposable profile.
+ await qa('settings',{master:1,music:0,sfx:1,mute:false});await sleep(900);
+ for(const name of ids){await qa('stop_sfx');await sleep(200);let t=await mark();let result=await qa('event',{name});await sleep(650);let m=await metrics(t);console.log('EFFECT',name,JSON.stringify(m));check(result.result===true&&m.maxRms>0.000001,`${name} test-triggered resource produces non-zero graph samples`,JSON.stringify(m));}
+ let m0=await qa('state');check(m0.pool_size===8,'SFX pool stays bounded at eight players');await qa('stop_sfx');let a=await qa('impact',{speed:99}),b=await qa('impact',{speed:300}),c=await qa('impact',{speed:300});check(!a.result&&b.result&&!c.result,'collision threshold and cooldown reject rapid collisions');
+ await qa('settings',{master:1,music:1,sfx:1,mute:false});let firstId=(await qa('state')).music_instance;
+ for(const name of ['forest','sunset','snow']){await qa('theme',{name});await sleep(800);let start=await qa('state'),t=await mark();await sleep(7800);let end=await qa('state'),m=await metrics(t);check(end.music_theme===name&&end.music_instance===firstId&&end.music_playing&&end.music_loop===1&&m.maxRms>0.000001,`${name} singleton looping music outputs samples`,JSON.stringify({start:start.music_position,end:end.music_position,length:end.music_length,metrics:m}));}
+ let prior=await qa('state');await qa('ad',{paused:true});let ad=await qa('state');let silent=await measure(900);check(ad.music_paused&&silent.maxRms<0.0001,'ad hook suspends music and output',JSON.stringify(silent));let rejected=await qa('event',{name:'animal_drop'});check(!rejected.result,'ad hook rejects new one-shot');await qa('theme',{name:'forest'});let themed=await qa('state');check(themed.music_paused&&themed.music_theme==='forest','theme change during ad remains paused');await qa('ad',{paused:false});let resumed=await qa('state');let audible=await measure(1000);check(!resumed.music_paused&&resumed.music_instance===prior.music_instance&&audible.maxRms>0.000001&&JSON.stringify(resumed.settings)===JSON.stringify(prior.settings),'ad resume preserves settings and same player',JSON.stringify(audible));
+ // Real gameplay: first tutorial pair physically lands and merges.
+ await tap(360,600);await sleep(2500);await tap(565,520);let old=await qa('state');await tap(360,700);await sleep(5000);await tap(360,700);await sleep(7000);let game=await qa('state');console.log('GAME_AUDIO',JSON.stringify(game.accepted));check((game.accepted.animal_drop||0)>=(old.accepted.animal_drop||0)+2,'real gameplay drops dispatch audio');check((game.accepted.soft_landing||0)>(old.accepted.soft_landing||0),'real landing dispatches audio');check((game.accepted.small_merge||0)>(old.accepted.small_merge||0),'real matching animals merge and dispatch audio');check(game.music_instance===firstId&&game.music_playing,'music player persists through scene transition');
+ await tap(600,58);let paused=await qa('state');check(paused.tree_paused&&paused.music_playing,'game Pause opens and music remains playing');await tap(360,715);let resumedGame=await qa('state');check(!resumedGame.tree_paused&&resumedGame.music_playing,'game Resume restores game and music remains playing');
+ await page.evaluate(()=>{const el=document.createElement('input');el.id='audio-qa-focus';document.body.appendChild(el);el.focus()});await sleep(1500);let focus=await qa('state');console.log('FOCUS_LOSS_STATE',JSON.stringify(focus));
+ let video=await page.evaluate(async()=>{if(!window.__rec)return null;return await new Promise(resolve=>{window.__rec.onstop=async()=>{const b=new Blob(window.__recChunks,{type:window.__rec.mimeType});const r=new FileReader();r.onload=()=>resolve({mime:b.type,data:String(r.result).split(',')[1]});r.readAsDataURL(b)};window.__rec.stop()})});if(video?.data){fs.writeFileSync(path.join(out,`${browser}-audio-graph.webm`),Buffer.from(video.data,'base64'));console.log('AUDIO_RECORDING',video.mime)}else console.log('SKIP audio graph recording: MediaRecorder unavailable');
+ const bad=events.filter(x=>['pageerror','console:error','requestfailed'].includes(x.type));check(bad.length===0,'no captured page, console or request errors',JSON.stringify(bad));
+}catch(e){check(false,'audio harness exception',String(e.stack||e));if(page)try{await page.screenshot({path:path.join(out,`${browser}-audio-error.png`)})}catch{}}
+finally{fs.writeFileSync(path.join(out,`${browser}-audio-events.json`),JSON.stringify(events,null,2));if(context)await context.close()}
+console.log(`WEB_AUDIO browser=${browser} checks=${checks} failures=${failures}`);process.exitCode=failures?1:0;

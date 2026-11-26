@@ -15,7 +15,7 @@ on:
         default: 'false'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale"
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio"
         default: 'none'
         required: true
       ui_locale:
@@ -74,8 +74,17 @@ jobs:
           python3 -m http.server 8765 --directory /tmp/web-test >/tmp/web-qa/server.log 2>&1 &
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
-          if [ "$UI_MODE" = none ]; then TEST=powerup-persistence.mjs; else TEST=ui-responsive.mjs; fi
-          WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node "MergeAnimals/tests/web/$TEST" 2>&1 | tee /tmp/web-qa/browser.log
+          URL=http://127.0.0.1:8765/
+          if [ "$UI_MODE" = audio ]; then
+            # Separate instrumented build. The release ZIP remains untouched.
+            cp -a MergeAnimals /tmp/audio-qa-project
+            sed -i '/^\[autoload\]/a AudioProbe="*res://tests/web/AudioProbe.gd"' /tmp/audio-qa-project/project.godot
+            mkdir -p /tmp/web-test/audio-qa
+            "$GODOT" --headless --path /tmp/audio-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/audio-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/audio-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/audio-qa/; TEST=audio-web.mjs
+          elif [ "$UI_MODE" = none ]; then TEST=powerup-persistence.mjs; else TEST=ui-responsive.mjs; fi
+          WEB_URL="$URL" WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node "MergeAnimals/tests/web/$TEST" 2>&1 | tee /tmp/web-qa/browser.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -86,6 +95,8 @@ jobs:
             /tmp/web-qa/*.json
             /tmp/web-qa/*.png
             /tmp/web-qa/*.txt
+            /tmp/web-qa/*.webm
+            /tmp/web-qa/*.ogg
           if-no-files-found: warn
       - name: Transport test build and evidence as temporary Git blob
         if: always()
