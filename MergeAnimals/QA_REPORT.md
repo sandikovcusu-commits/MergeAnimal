@@ -1,3 +1,17 @@
+# V0.6.5 QA — actual executions
+
+Tested code commit `a534ffb` using Godot 4.7.2 on Linux Actions. The report/screenshot-only packaging commit is newer. No human mobile playtest or platform durability test was performed.
+
+- [Theme/localization/integrity CI 45832641906](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641906): Theme 20/20 + separate-process restore 1/1; localization 74/74; integrity 14/14 + restore 2/2; A15 five legal forced drops 17/17. Three theme × four locale menus and supplementary screens captured at three actual X11 sizes, 72 images in `art_reports/v0650_themes_locales/`. Seeded fixture state for these screenshots.
+- [Achievement CI 45832641612](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641612): 35/35, real-physics Classic 13/13 (45 test-selected dog drops, 41 merges, 2539 score, combo 5), 100-merge fixture, Golden/Elephant/Cat real collision and separate-process 16/16. Some Challenge access/boards were prepared, not natural progression.
+- [Challenge CI 45832641623](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641623): 66 base + 34 phase 2 + 15 phase 3 + 17 phase 4 assertions passed; 20 distinct completion and 124 real Challenge merges checked with disclosed seeded/prepared boards. Separate-process reads passed. A14 replays do not inflate distinct count. Physical-solvability tests are not human difficulty acceptance.
+- [Undo 45832641629](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641629) 165 checks + 5/7/3 persistence; [Remove 45832641876](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641876) 80 + 26/7; [Rescue 45832641643](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641643) 61 + 3/3/2; all zero failures.
+- [Runtime 45832641786](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641786), [session 45832641679](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641679), [Collection 45832641687](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641687), and [software render 45832641519](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45832641519) passed.
+
+**Not passed / not completed:** complete fresh 12-species A15 run; cross-file atomicity or crash-exactly-once; full native-language review, all screens/scroll positions, real touch hit targets, safe areas, human play, actual mobile/Web/Windows and power-loss tests. Sample 360 px screenshots show small ~30 px buttons and reduced legibility; icon contrast was improved after the initial capture and retested. Commercial art rights and missing expressions still block release. See `KNOWN_ISSUES.md`.
+
+---
+
 # V0.6.4.3-dev QA — Achievement system (WIP)
 
 Godot 4.7.2 actual Linux CI on code commit `0521c61dd9bbabb0fe123fd46a27b0dda8da205a`:

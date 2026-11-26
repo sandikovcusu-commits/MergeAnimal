@@ -1,3 +1,12 @@
+# V0.6.5 (development)
+
+- Add Forest, Classic-score-unlocked Sunset and ten-distinct-Challenge-unlocked Snow theme selection, persistent selection and live visual application.
+- Translate Achievement names/descriptions and remaining gameplay animal labels into English, Azerbaijani, Turkish and Russian; add bundled DejaVu Sans glyph coverage and live language refresh.
+- Add monotonic Achievement checkpoint, mirror recovery, ordered retry/pause on failed writes, and tests for failure/reconciliation. Cross-file crash atomicity remains incomplete.
+- Add theme/localization/integrity Godot CI and X11 capture fixtures. A fresh A15 12-discovery proof remains incomplete; see reports. No new gameplay mechanics or physics tuning.
+
+---
+
 # V0.6.4.3-dev — Achievements (WIP)
 
 - Added 15 data resources, AchievementManager, scrollable menu screen, persistent unlock/progress/date storage and queued nonblocking discovery/achievement notices.

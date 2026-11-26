@@ -1,3 +1,17 @@
+# V0.6.5 save integrity report
+
+Existing SaveManager checksum envelopes, temporary-file rename, Classic session generation/power-up checkpoint and separate Challenge records remain in place. AchievementManager adds a full generation-numbered commit record `wild_garden_achievement_checkpoint.json`. It chooses the newest validated primary, backup or checkpoint; first writes the checkpoint, then mirrors to the ordinary Achievement primary/backup. A failed mirror cannot erase a checkpointed award. A corrupt/unreadable/future checkpoint fails closed instead of silently reverting. Existing version-1 saves without a checkpoint migrate lazily. Historical reconciliation does not invent dates or emit toasts.
+
+Eligible events are processed in order. If the checkpoint write fails, the event remains queued in memory, the game pauses and shows a translated retry warning; navigation and ordinary window close are blocked until automatic retry commits it. Notifications are sent only after the Achievement checkpoint succeeds. Challenge completion is persisted separately and reconciled if Achievement commit fails. No full save rewrite or physics change was introduced.
+
+Godot fault injection [45831737551](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45831737551): 14 checks and 2 separate-process checks passed. A real Classic merge with blocked temporary write paused; restart was blocked; removing the obstruction committed once and resumed. A failed ordinary mirror plus corruption of both mirrors recovered the checkpoint without a repeat unlock. Corrupt checkpoint failed closed. A real Challenge drop survived a failed write and retry. These failures are injected directories/corruption, not an actual full disk or power cut.
+
+**Important limits:** This is not a cross-file atomic transaction: Classic progression, Challenge results and Achievement records still commit separately. A kill or power loss while an event is queued in memory can lose it, and a crash between an Achievement commit and a Classic session save can leave the award ahead of the restored board/stats. Toast display is not transactionally exactly-once across a crash. Complete rollback/deletion of all copies, concurrent writers, fsync/power loss, hardware I/O failures, mobile/Web filesystem and downgrade are not proven. Corrupt/missing single checkpoint is not auto-repairable; delete nothing without backup and diagnosis. Recent non-checkpointed Classic play can roll back as before. These limits preclude claiming full data-integrity acceptance.
+
+---
+
+## Historical save reports
+
 # V0.6.3.3 DEV — pending Game Over and Rescue checkpoint
 
 Additive validated v3 fields `rescue_remaining` (0/1) and `game_over_pending` (boolean) default to one and false for older v1–v3 snapshots. Downgrading to an older build is not supported: it can ignore or discard these fields. A Game Over cancels merge reservations, pauses and writes a full pending snapshot into the generation power-up checkpoint. `completed_games` is not incremented yet. Continue restores the same pending overlay. On Play Again/Main Menu, a single increment and inactive tombstone are committed together; on New Game from a pending saved session the same increment is applied before the tombstone. Repeat finalization is idempotent in the live instance.

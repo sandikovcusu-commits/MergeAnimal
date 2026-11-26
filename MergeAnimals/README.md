@@ -1,3 +1,5 @@
+> **V0.6.5 development:** Themes, four-language Achievement text and Achievement save checkpoint/retry are available. Commercial release remains blocked and cross-file atomicity is not guaranteed. See `THEME_REPORT.md`, `LOCALIZATION_REPORT.md`, `SAVE_SYSTEM_REPORT.md`, `QA_REPORT.md`, and `KNOWN_ISSUES.md`.
+
 > **V0.6.4.3 DEV / WIP:** Achievements are available from the main menu. Unlocks are separate from Classic saves and permanent like Collection discovery; score thresholds use Classic best only. See `ACHIEVEMENT_REPORT.md`, `QA_REPORT.md` and `KNOWN_ISSUES.md`.
 
 > **V0.6.4.2 DEV / WIP:** 20 Challenges, separate progress, time/drop/combo/golden goals, and unsaved-attempt warnings are available. Human balance, particularly Golden Garden difficulty, remains unverified. See `CHALLENGE_REPORT.md`, `CHALLENGE_BALANCE_REPORT.md`, `QA_REPORT.md` and `KNOWN_ISSUES.md`.
@@ -12,7 +14,7 @@
 
 > **Historical V0.6.2 DEV / release blocked:** Collection, Statistics and local Classic Continue are available; Challenges remain disabled. AI sprite commercial rights are unresolved and 24 expression states remain missing. See `COLLECTION_REPORT.md`, `STATISTICS_REPORT.md` and `ASSET_LICENSES.md`.
 
-# Merge Animals: Wild Garden — V0.6.4.3-dev
+# Merge Animals: Wild Garden — V0.6.5-dev
 
 Godot 4.7.2, Compatibility renderer, 120 Hz fizika, redaktə edilə bilən 2D mənbə layihəsi. V0.2.1 üzərindən inkişaf etdirilib. Başsız Linux Actions testləri `QA_REPORT.md`-dədir. **DEV:** X11 proqram renderi yoxlanıb; real mobil touch və Windows yoxlanmayıb; qrafikalar son kommersiya qəbulundan keçməyib.
 

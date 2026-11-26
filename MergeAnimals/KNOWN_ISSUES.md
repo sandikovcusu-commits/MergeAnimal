@@ -1,3 +1,14 @@
+# V0.6.5 — open issues / acceptance gaps
+
+- Achievement checkpoint strengthens mirror recovery and failed-write retry but it is not atomic with Classic/Challenge saves. A forced kill while the event is in memory, a crash between separate commits, simultaneous writers, rollback of all files, and power-loss durability remain unresolved; see `SAVE_SYSTEM_REPORT.md`. Do not call this exactly-once or fully crash-safe.
+- Full A15 12-species organic/eligible chain was attempted but not completed; the first five used forced normal spawn selections. High-tier forced drops were rejected by the existing validator. Previous seeded historical state is not full proof.
+- 360×640 controls are about 30 physical px high; touch target, safe-area, native-speaker translation review and exhaustive long-text/contrast checks remain unverified. X11 scripted screenshots are not human/mobile playtests. Desktop is portrait-letterboxed.
+- Commercial sprite rights and 24 missing facial expression assets remain release blockers. Mobile FPS/battery/memory, Web exports and Windows hardware are untested. Previously measured physics penetration and dense pending merges remain. Golden Garden difficulty has not been verified by humans.
+
+The following sections are historical and superseded where noted.
+
+---
+
 # V0.6.4.3 DEV — current limitations
 
 - Achievement save and Classic/Challenge snapshots are separate transactions. Failed achievement writes can lose an event or suppress its notification; if backup refresh fails and primary subsequently corrupts, an older backup may lose an unlock and permit later re-notification. No abrupt-power-loss, concurrent writer, cross-file atomicity or all-platform guarantee.

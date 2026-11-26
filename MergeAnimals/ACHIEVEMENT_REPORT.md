@@ -1,3 +1,11 @@
+# V0.6.5 Achievement update
+
+Achievement data has four-language names/descriptions and the save checkpoint and retry changes described in `SAVE_SYSTEM_REPORT.md`. Regression CI continues to cover the 15 definitions, real collision events, score isolation, migration, recovery and duplicate notification behavior.
+
+A15 is **not fully proven by a fresh 12-discovery run**. The V0.6.5 attempt got the first five distinct species through real Classic drops with test-selected preview tiers on freshly cleared boards. An attempt to force high-tier previews was rejected by the existing snapshot validator (only the first five can naturally spawn), so those are not valid drops and A15 remains locked. The prior 12th-event test used 11 synthetic historical discoveries and is not natural 12-species proof. No fixture animal was counted as a new eligible discovery in the new attempt. Obtaining all 12 through actual chains remains open.
+
+---
+
 # V0.6.4.3-dev — Achievement system (WIP)
 
 Base `c53bdadab92f999a33299de0a90385bab377938f`; tested implementation `0521c61dd9bbabb0fe123fd46a27b0dda8da205a`. [Achievement CI](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916145), [Challenge/achievement event CI](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916710). Test logs in `tests/logs/v0643-*-0521c61.txt`.
