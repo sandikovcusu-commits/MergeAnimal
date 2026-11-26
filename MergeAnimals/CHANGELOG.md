@@ -129,3 +129,8 @@
 ## V0.8.1.1 — Web power-up və save sınaqları
 - Faktiki release WASM-da ayrı Chromium/Firefox profil ssenariləri: Undo, Remove, hazırlanmış təhlükə lövhəsi üzərində real Game Over/Rescue, refresh və tam reopen; nəticə və məhdudiyyətlər `WEB_POWERUP_REPORT.md`.
 - Test harness cache HTTP 304 və context cleanup işləməsini düzəldir; user:// yazısının Web IndexedDB-də dərhal davamlı olması barədə yanlış kod comment-ləri dəqiqləşdirilib. Qəfil bağlanma riskinə zəmanətli həll tətbiq edilməyib.
+
+## V0.8.1.2.1 — Web UI and touch QA (partial)
+- Preserve text resources in Web exports, use a multilingual theme font, constrain localized Restart, and enable touch scroll in menu lists.
+- Prevent canceled GUI and Remove selection touches from committing. Preserve the previous drop cancellation/resize safeguards.
+- Add browser locale/theme/viewport, challenge outcome, Game Over/Rescue and touch probes. Real device, full visual/translation matrix and tab-switch acceptance remain open; see Web UI and touch reports.

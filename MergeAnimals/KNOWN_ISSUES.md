@@ -1,3 +1,12 @@
+# V0.8.1.2.1 — open Web UI and touch issues
+
+- Full visual/translation acceptance is not complete: screenshot matrix is not fully manually reviewed, outcome states are English/Forest only, and translations lack native-speaker audit. At 360×640, Collection, Challenge and Restart labels and the evolution guide can be very small; some disabled controls have low contrast.
+- Physical Android/iOS, Firefox touch, real tab-switch/OS interruptions and device safe areas/performance remain untested. Headless tab switch was explicitly skipped when no lifecycle event was emitted. Simulated gestures do not prove all touch orderings.
+- Rescue/Game Over and Challenge unlocks use isolated fixture state, not natural play progression. Cross-product of gameplay/results in every language and theme remains untested.
+- IndexedDB sync remains asynchronous; an immediate tab/process close can lose the last save or power-up use despite a local write. Storage eviction/deletion, cross-file atomicity and sudden power loss are not guaranteed.
+- Commercial asset rights and platform testing remain unresolved; no public/commercial release claim. Earlier physics, asset and other risks below are not superseded by this Web UI work.
+
+---
 # V0.8.1.2 — current open issues / acceptance gaps
 
 - Web UI/mobile QA is incomplete, not release-ready: full viewport/screen visual review, four locales, applying all themes, Challenge outcomes, scrolling, Rescue/Restart, focus/fullscreen/orientation and Firefox touch remain open. Simulated Chromium touch is not a real Android test; see `WEB_UI_REPORT.md` and `MOBILE_TOUCH_REPORT.md`.
