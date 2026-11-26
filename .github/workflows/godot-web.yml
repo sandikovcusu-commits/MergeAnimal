@@ -15,7 +15,7 @@ on:
         default: 'false'
         required: true
       ui_mode:
-        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute"
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute, sdk-production"
         default: 'none'
         required: true
       ui_locale:
@@ -80,14 +80,15 @@ jobs:
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
           mkdir -p /tmp/web-test /tmp/web-qa
           "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/web-qa/export.log 2>&1
-          "$GODOT" --headless --path MergeAnimals --export-release 'Web (single-threaded)' /tmp/web-test/index.html >> /tmp/web-qa/export.log 2>&1
+          if [ "$UI_MODE" = sdk-production ]; then PRESET='Web CrazyGames (experimental)'; else PRESET='Web (single-threaded)'; fi
+          "$GODOT" --headless --path MergeAnimals --export-release "$PRESET" /tmp/web-test/index.html >> /tmp/web-qa/export.log 2>&1
           ls -l /tmp/web-test | tee /tmp/web-qa/files.log
           grep -E 'GODOT_THREADS_ENABLED *= *false' /tmp/web-test/index.html | head -1 | tee /tmp/web-qa/threads.log
           python3 -m http.server 8765 --directory /tmp/web-test >/tmp/web-qa/server.log 2>&1 &
           SERVER=$!
           trap 'kill $SERVER 2>/dev/null || true' EXIT
           URL=http://127.0.0.1:8765/
-          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ] || [ "$UI_MODE" = audio-production ]; then
+          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ] || [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ]; then
             # A virtual sink permits real browser audio graph processing in CI;
             # this is still not a physical speaker or listening test.
             pulseaudio --start --exit-idle-time=-1
@@ -103,7 +104,7 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
-          elif [ "$UI_MODE" = audio-production ]; then
+          elif [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ]; then
             TEST=audio-production.mjs
           elif [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ]; then
             # Separate instrumented build. The release ZIP remains untouched.
