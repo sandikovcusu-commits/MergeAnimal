@@ -92,3 +92,6 @@ The following sections are historical and superseded where noted.
 - The full power-up journal guards a stale backup when it survives; if it is deleted or an entire older save set is restored, no local-only mechanism guarantees spent balances. A corrupt journal intentionally blocks Continue/writes. Concurrent writers, forced power loss/fsync, actual disk-full, downgrade and mobile/Web/Windows durability are untested.
 - Undo is disabled until pending merges finish; an existing dense pair that cannot find room can remain locked, preventing Undo. Recent best score is checkpointed with progression, not separately at each merge; a crash before a safe save can lose recent progress.
 - Real mobile touch, FPS/battery, human play and commercial sprite rights remain unverified. The earlier 120 Hz 9.190 px maximum penetration, Bear silhouette mismatch and 24 missing facial states remain unresolved. Rescue, Challenge and Achievement remain unimplemented.
+
+## V0.8 Web aralıq statusu
+Web A sınaq matrisi natamamdır; real cihaz, audio dinləmə, power-up istifadə limiti persistensiyası və digər əsas ekranlar hələ yoxlanmayıb. SDK və monetizasiya mövcud deyil. Ətraflı `WEB_QA_REPORT.md`. Browser storage silinərsə progress itə bilər.

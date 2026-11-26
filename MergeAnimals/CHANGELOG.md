@@ -112,3 +112,8 @@
 - Added 12 local collection cards, scrollable details, progress and queued nonblocking discovery notifications using existing sprites and icons.
 - Added actual Classic-game statistics and integrated both systems with session-version-2 transactional snapshots and V0.6.1 migration. Prior unknown counts are not fabricated; debug and unverified legacy body creation are excluded.
 - Added Godot gameplay, cross-process, recovery and four-locale layout tests, plus 21 X11 fixture captures. No Challenge, Achievement, Undo, Remove or Rescue implementation.
+
+## V0.8.0 — aralıq Web mərhələsi A (natamam)
+- Single-threaded Web export preset, export resource listing düzəlişi və əl ilə başladılan Playwright/CI sınağı əlavə edildi.
+- Godot 4.7.2 ilə faktiki Web build və məhdud Chromium/Firefox render, iki drop/merge və refresh/reopen müşahidələri: `WEB_QA_REPORT.md`.
+- A-nın bütün qəbul sınaqları bitməyib; B SDK və C optimizasiya başlamayıb. Kommersiya və public release təsdiqi yoxdur.
