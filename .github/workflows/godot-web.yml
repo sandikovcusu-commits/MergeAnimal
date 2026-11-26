@@ -4,7 +4,7 @@ on:
     branches: ['arena/2b071717-mergeanimal']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   checks: write
 jobs:
   web:
@@ -68,12 +68,34 @@ jobs:
           def post(name,text):
               p.write_text(json.dumps({'name':name,'head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':name,'summary':'Phase A web test; scripted browser smoke, not human play','text':text}}))
               subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
-          text='\n'.join('=== '+f.name+' ===\n'+f.read_text(errors='replace') for f in sorted(root.glob('*.log')))
-          post('Web phase A diagnostic',text[-55000:] or 'No logs')
+          text='\n'.join('=== '+f.name+' ===\n'+f.read_text(errors='replace')[-6000:] for f in sorted(root.glob('*.log')))
+          post('Web phase A diagnostic',text[-20000:] or 'No logs')
           for f in sorted(root.glob('*.png')):
               jpg=pathlib.Path('/tmp')/(f.stem+'.jpg')
               subprocess.run(['convert',str(f),'-resize','360x640>','-quality','70',str(jpg)],check=True)
               encoded=base64.b64encode(jpg.read_bytes()).decode()
               for i in range(0,len(encoded),48000):
                   post('Web screenshot %s %03d of %03d' %(f.stem,i//48000+1,(len(encoded)+47999)//48000),encoded[i:i+48000])
+          PY
+      - name: Transport exported web build as unreferenced Git blob
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -e
+          if [ ! -f /tmp/web-test/index.html ]; then echo 'No build to transport'; exit 0; fi
+          python3 - <<'PY'
+          import base64,hashlib,json,os,pathlib,subprocess,zipfile
+          root=pathlib.Path('/tmp/web-test'); archive=pathlib.Path('/tmp/web-build.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for f in sorted(root.rglob('*')):
+                  if f.is_file(): z.write(f, f.relative_to(root))
+          payload=pathlib.Path('/tmp/web-blob.json')
+          payload.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          result=subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(payload),'--jq','.sha'],check=True,text=True,stdout=subprocess.PIPE).stdout.strip()
+          summary=json.dumps({'blob_sha':result,'sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'zip_bytes':archive.stat().st_size,'files':{str(f.relative_to(root)):f.stat().st_size for f in root.rglob('*') if f.is_file()}})
+          p=pathlib.Path('/tmp/web-blob-check.json');p.write_text(json.dumps({'name':'Web build transport','head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral','output':{'title':'Web build transport','summary':'Unreferenced Git blob, generated test archive only','text':summary}}))
+          subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)],check=True,stdout=subprocess.DEVNULL)
           PY
