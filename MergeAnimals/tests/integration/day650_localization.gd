@@ -17,6 +17,9 @@ func run() -> void:
 		required.append("ANIMAL_" + id.to_upper()); required.append("ANIMAL_DESC_" + id.to_upper())
 	for def in AchievementManager.definitions():
 		required.append("ACH_" + def.id + "_TITLE"); required.append("ACH_" + def.id + "_DESC")
+	var english := TranslationServer.get_translation_object("en")
+	for key in english.get_message_list():
+		if str(key) not in required: required.append(str(key))
 	for locale in locales:
 		TranslationServer.set_locale(locale)
 		var translation := TranslationServer.get_translation_object(locale)
