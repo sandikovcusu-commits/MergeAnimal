@@ -92,6 +92,33 @@ func run() -> void:
 	for i in range(300): await physics_frame
 	check(game.merge_manager.merge_count == 1 and game.score == merge_score, "motion does not repeat merge or score")
 	paused = false
+	game.queue_free(); current_scene = null; await frames(3)
+	# Only challenge access is seeded; Golden comes from actual configured
+	# starting board, ordinary queue and physics contacts.
+	var access := ChallengeStore.empty()
+	for i in range(19): access.entries[i].completed = true
+	check(SaveManager.save_progress(access, ChallengeStore.PATH) == OK, "seed access to Golden Garden")
+	set_meta("challenge_id", 20)
+	game = load("res://scenes/game/ChallengeGame.tscn").instantiate(); game.test_seed = 88
+	root.add_child(game); current_scene = game; await frames(3)
+	game.reduced_effects = true; audio.reduced_effects = true
+	var old_golden: int = int(audio.accepted_events.get("golden_merge", 0))
+	for attempt in range(10):
+		for i in range(220):
+			await physics_frame
+			if game.result_finished: break
+		if game.result_finished: break
+		for player in audio.players: player.stop()
+		game._set_aim(360); game.drop_animal()
+	for i in range(500):
+		await process_frame
+		if game.result_finished: break
+	check(game.result_success and game.challenge.count == 1 and int(audio.accepted_events.get("golden_merge", 0)) > old_golden, "real Golden collision dispatches special sound")
+	check(game.effect_camera.offset == Vector2.ZERO, "reduced effects suppress Golden camera shake")
+	var golden_score: int = game.score; var golden_merges: int = game.merge_manager.merge_count
+	await frames(90)
+	check(game.score == golden_score and game.merge_manager.merge_count == golden_merges, "Golden feedback does not duplicate score or merge")
+	paused = false
 	game.queue_free(); current_scene = null
 	for player in audio.players: player.stop(); player.stream = null
 	audio.music.stop(); audio.music.stream = null

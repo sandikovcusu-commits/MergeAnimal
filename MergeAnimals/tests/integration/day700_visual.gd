@@ -19,5 +19,17 @@ func run() -> void:
 		game.current_data = game.animals[drop % 3]; game._set_aim(220 + drop * 70); game.drop_animal()
 		for i in range(150): await physics_frame
 	if not await capture("gameplay"): printerr("FAIL gameplay capture"); quit(1); return
+	game.queue_free(); current_scene = null
+	for i in range(3): await process_frame
+	game = load("res://scenes/game/Game.tscn").instantiate(); game.test_seed = 9
+	root.add_child(game); current_scene = game
+	for i in range(60): await physics_frame
+	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
+	for i in range(220): await physics_frame
+	game.current_data = game.animals[0]; game._set_aim(360); game.drop_animal()
+	for i in range(600):
+		await physics_frame
+		if game.merge_manager.merge_count > 0: break
+	if game.merge_manager.merge_count != 1 or not await capture("physical_merge"): printerr("FAIL merge capture"); quit(1); return
 	print("PASS V070 X11 screenshots: deterministic drops, not human play")
 	quit()
