@@ -1,5 +1,7 @@
 // V0.8.1.1: real release PCK/WASM, browser input and isolated persistent
-// profiles. No JS bridge to Godot, injected board, mocked physics or save writes.
+// profiles. No JS bridge to Godot or mocked physics. The explicitly named
+// fixture-rescue scenario edits an isolated test profile after a real merge;
+// all other scenarios use unmodified saves and ordinary browser input.
 import { chromium, firefox } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -65,6 +67,39 @@ async function enterGame(page,prefix) {
  assert(saved.selected.data.score>0 && saved.selected.data.bodies.some(b=>b.id==='hamster'),`${prefix} two real tutorial drops physically merge`);
  return saved.selected.data;
 }
+// On a separate storage-only page, prepare a *tainted*, ineligible board in
+// the isolated rescue profile after the real tutorial merge. This is NOT a
+// naturally reached pile: the game-over flag stays false. Godot must restore
+// the board, simulate support/overflow, create its own Game Over checkpoint,
+// and handle a real Rescue click. No achievement or score is fabricated.
+async function prepareRescueFixture(page, initial, prefix) {
+ await page.route('**/__test_storage__',r=>r.fulfill({status:200,contentType:'text/html',body:'<!doctype html><title>Test storage only</title>'}));
+ await page.goto(new URL('__test_storage__',base).href);
+ const original=await documentState(page);
+ const sample=initial.bodies[0], bodies=[];let uid=initial.next_body_uid;
+ for (const x of [215,505]) for (const [id,y] of [['bear',1001],['elephant',783],['bear',565],['elephant',347]]) {
+  bodies.push({...sample,uid:uid++,id,x,y,rotation:0,vx:0,vy:0,angular_velocity:0,sleeping:false,eligible:false,danger:0});
+ }
+ const fixture={...initial,generation:Math.max(...[initial.generation,original.selected.data.generation])+20,bodies,next_body_uid:uid,tainted:true,game_over_pending:false,undo_snapshot:{}};
+ const payload=JSON.stringify(fixture);
+ const encoded=JSON.stringify({version:1,payload,checksum:crypto.createHash('sha256').update(payload).digest('hex')});
+ await page.evaluate(async encoded=>{
+  for(const info of await indexedDB.databases()){
+   const db=await new Promise((res,rej)=>{const r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+   for(const storeName of db.objectStoreNames){
+    const keys=await new Promise((res,rej)=>{const tx=db.transaction(storeName,'readonly'),r=tx.objectStore(storeName).getAllKeys();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+    const key=keys.find(k=>String(k).endsWith('/wild_garden_session.json')); if(!key)continue;
+    await new Promise((res,rej)=>{const tx=db.transaction(storeName,'readwrite'),store=tx.objectStore(storeName),r=store.get(key);
+      r.onsuccess=()=>{const value=r.result;value.contents=new TextEncoder().encode(encoded);value.timestamp=new Date();store.put(value,key)};
+      tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);tx.onabort=()=>rej(tx.error)});
+   }db.close();
+  }
+ },encoded);
+ const written=await documentState(page);
+ assert(written.selected?.data.generation===fixture.generation&&written.selected.data.tainted&&written.selected.data.game_over_pending===false,`${prefix} prepared board is tainted/ineligible and not pre-marked Game Over`);
+ fs.writeFileSync(path.join(out,`${prefix}-fixture.json`),JSON.stringify(fixture,null,2));
+ await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});await delay(15000);await page.mouse.click(360,690);
+}
 function equalRestored(a,b) {
  return a.score===b.score && a.spawn_count===b.spawn_count && a.merge_count===b.merge_count &&
  a.undo_remaining===b.undo_remaining && a.remove_remaining===b.remove_remaining && a.rescue_remaining===b.rescue_remaining &&
@@ -93,17 +128,21 @@ async function run(name,engine,scenario) {
    await page.mouse.click(175,238);await delay(600);await page.mouse.click(target.x,target.y);
    before=(await waitState(page,d=>d.active&&d.remove_remaining===0,'remove commit')).selected.data;
    assert(before.score>0 && before.bodies.length===0 && before.undo_remaining===1,`${prefix} remove consumes use and deletes target without changing score`);
-  } else if(scenario==='rescue') {
+  } else if(scenario==='rescue' || scenario==='fixture-rescue') {
    // Natural input-only attempts. No prepared board, no injected game over.
    let pending=null;
-   for(let i=0;i<230;i++) {
+   if(scenario==='fixture-rescue') {
+    await prepareRescueFixture(page,before,prefix);
+    try {pending=(await waitState(page,d=>d.game_over_pending,'fixture physical overflow',120000)).selected.data;} catch(e) {console.log(`${prefix} ${e}`);}
+   }
+   for(let i=0;scenario==='rescue' && i<230;i++) {
     const x=[140,220,300,380,460,540,600][i%7];
     await page.mouse.click(x,700);await delay(700);
     if(i%8===7){const s=await documentState(page);if(s.selected?.data.game_over_pending){pending=s.selected.data;break;}console.log(`${prefix} drops_attempted=${i+1} state=${JSON.stringify(s.selected&&simple(s.selected.data))}`);}
    }
    if(!pending) {try{pending=(await waitState(page,d=>d.game_over_pending,'natural game over',15000)).selected.data;}catch{}}
    await evidence(page,prefix,'game-over-attempt');
-   assert(!!pending,`${prefix} natural danger overflow produces persisted Game Over`);
+   assert(!!pending,`${prefix} danger overflow produces persisted Game Over`);
    assert(pending.rescue_remaining===1,`${prefix} rescue initially available`);
    await page.mouse.click(360,792);
    before=(await waitState(page,d=>d.active&&!d.game_over_pending&&d.rescue_remaining===0,'rescue commit',45000)).selected.data;
