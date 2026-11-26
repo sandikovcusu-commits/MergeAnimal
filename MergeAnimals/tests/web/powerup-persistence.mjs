@@ -76,7 +76,11 @@ async function enterGame(page,prefix) {
 // naturally reached pile: the game-over flag stays false. Godot must restore
 // the board, simulate support/overflow, create its own Game Over checkpoint,
 // and handle a real Rescue click. No achievement or score is fabricated.
-async function prepareRescueFixture(page, initial, prefix) {
+async function prepareRescueFixture(ctx, engine, name, profile, events, initial, prefix) {
+ // Fully stop the running game before opening a separate storage-only page.
+ await ctx.close();
+ ctx=await engine.launchPersistentContext(profile,options(name));
+ const page=ctx.pages()[0]||await ctx.newPage(); attach(page,events,'fixture-storage');
  await page.route('**/__test_storage__',r=>r.fulfill({status:200,contentType:'text/html',body:'<!doctype html><title>Test storage only</title>'}));
  await page.goto(new URL('__test_storage__',base).href);
  const original=await documentState(page);
@@ -103,6 +107,7 @@ async function prepareRescueFixture(page, initial, prefix) {
  assert(written.selected?.data.generation===fixture.generation&&written.selected.data.tainted&&written.selected.data.game_over_pending===false,`${prefix} prepared board is tainted/ineligible and not pre-marked Game Over`);
  fs.writeFileSync(path.join(out,`${prefix}-fixture.json`),JSON.stringify(fixture,null,2));
  await page.goto(base,{waitUntil:'domcontentloaded',timeout:120000});await delay(15000);await page.mouse.click(360,690);
+ return {ctx,page};
 }
 function equalRestored(a,b) {
  return a.score===b.score && a.spawn_count===b.spawn_count && a.merge_count===b.merge_count &&
@@ -136,7 +141,7 @@ async function run(name,engine,scenario) {
    // Natural input-only attempts. No prepared board, no injected game over.
    let pending=null;
    if(scenario==='fixture-rescue') {
-    await prepareRescueFixture(page,before,prefix);
+    ({ctx,page}=await prepareRescueFixture(ctx,engine,name,profile,events,before,prefix));
     try {pending=(await waitState(page,d=>d.game_over_pending,'fixture physical overflow',120000)).selected.data;} catch(e) {console.log(`${prefix} ${e}`);}
    }
    for(let i=0;scenario==='rescue' && i<230;i++) {
@@ -173,6 +178,12 @@ async function run(name,engine,scenario) {
   const restored=await waitState(page,d=>d.active&&d.generation>disk.selected.data.generation&&equalRestored(d,before),`${prefix} reopened Continue autosave`);
   assert(equalRestored(restored.selected.data,before),`${prefix} reopened Continue preserves score, animals and consumed limit`);
   await evidence(page,prefix,'reopen-continue');
+  if(scenario==='undo'||scenario==='remove') {
+   await page.mouse.click(scenario==='undo'?360:175,238);await delay(3500);
+   const again=await waitState(page,d=>d.active&&d.generation>restored.selected.data.generation,`${prefix} repeated-use observation`);
+   assert(equalRestored(again.selected.data,before),`${prefix} repeated click on spent power-up has no effect`);
+   await evidence(page,prefix,'spent-click');
+  }
   const final=await documentState(page);fs.writeFileSync(path.join(out,`${prefix}-final-idb.json`),JSON.stringify(final,null,2));
   const bad=events.filter(e=>['pageerror','requestfailed','http_error','console:error'].includes(e.type));
   check(bad.length===0,`${prefix} no captured console errors, page errors or failed requests`);
