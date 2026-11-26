@@ -1,3 +1,11 @@
+# V0.8.1.2 development — Web touch and partial UI QA
+
+- Prevent Web DOM touchcancel from being treated as a successful gameplay drop in Godot 4.7.2; clear held aim on window resize.
+- Add dispatchable release-Web Playwright UI, viewport and Chromium CDP touch probes with screenshots, OCR and logs. Fixes passed the limited simulated-touch regression; broader requested Web/mobile acceptance remains incomplete. See the Web reports and known issues.
+- No SDK integration, audio changes, new sprites, mechanics or physics tuning.
+
+---
+
 # V0.7.0 development — animation, audio and game feel
 
 - Add reusable visual-only idle, staggered blink cues, drop/landing and merge squash; no physics-size or impulse changes. Blink is not an actual eye animation.

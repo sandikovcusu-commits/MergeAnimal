@@ -1,3 +1,12 @@
+# V0.8.1.2 — current open issues / acceptance gaps
+
+- Web UI/mobile QA is incomplete, not release-ready: full viewport/screen visual review, four locales, applying all themes, Challenge outcomes, scrolling, Rescue/Restart, focus/fullscreen/orientation and Firefox touch remain open. Simulated Chromium touch is not a real Android test; see `WEB_UI_REPORT.md` and `MOBILE_TOUCH_REPORT.md`.
+- The Web touchcancel workaround applies to gameplay aim/drop; cancellation safety of every button and selection path is not established. Mouse, keyboard and native regression tests for the resize change still need to be rerun.
+- IndexedDB persistence is asynchronous: closing immediately after an action may lose the final write; a GDScript file close does not acknowledge durable IndexedDB commit. Storage eviction/private browsing remain risks. No crash, power loss or concurrent-writer guarantee.
+- Asset rights, missing expression sprites, real-device performance, safe areas and human usability remain release blockers; prior physics and save limitations also remain.
+
+---
+
 # V0.7.0 — open issues / release blockers
 
 - Blink is a whole-sprite visual cue, not eye closure; happy/surprise use simple motion because the separate 24 expression sprites are absent. Release acceptance still flags missing states.

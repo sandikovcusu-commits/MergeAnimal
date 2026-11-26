@@ -1,11 +1,7 @@
-# V0.8.1.1 — Web QA xülasəsi
+# V0.8.1.2 — Web QA summary
 
-Əhatə yalnız Undo, Remove, Rescue, Game Over, sessiya saxlama/yükləmə, Continue və istifadə limitləridir. Faktiki Godot 4.7.2 release Web export Chromium və Firefox-da HTTP üzərindən, ayrı persistent test profillərində işlədilib. Tam metod, dəqiq nəticələr, fixture və bağlanma riskləri: [WEB_POWERUP_REPORT.md](WEB_POWERUP_REPORT.md).
+**Partial / not accepted.** See `WEB_UI_REPORT.md` and `MOBILE_TOUCH_REPORT.md` for precise coverage, browser-run links and omissions. Evidence includes actual browser screenshots, DOM event/console logs, layout metrics and failing intermediate runs; CI uses Linux/Playwright software rendering and simulated touch, not a physical Android device.
 
-- Undo/Remove və istifadə edilmiş limitlərin refresh və tam profil reopen sonrası bərpası: [Web CI 45856491387](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45856491387), 42 check, 0 failure; immediate-close nəticələri assertion deyil.
-- Real fizika Game Over və Rescue, pending Game Over-un refresh/Continue bərpası, Rescue sonrası refresh və reopen: [Web CI 45858334711](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45858334711), 24 check, 0 failure. **Game Over lövhəsi hazırlanmış və tainted/ineligible test fixture-idir**, təbii oyun deyil.
-- Təbii Game Over sınağı [45847826869](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45847826869) uğursuz: Game Over alınmadı; təbii dolma/Rescue PASS deyil.
-- Dərhal səhifə bağlanarkən son əməliyyatın IndexedDB-yə keçməsinə zəmanət yoxdur. Real cihaz, digər browser-lər, storage failure/eviction və müxtəlif tab ssenariləri yoxlanmayıb.
+Production changes are limited to Web touch-cancellation handling and canceling held input on resize. No SDK, audio, sprite, gameplay mechanic or physics tuning was added. The final build is exported by Godot 4.7.2 at commit f16e908; documentation-only commits may follow. Screen checks were run on e3d9f13 and matrix checks on 2c4f8d7; those had identical UI layout but predate the resize fix. Touch checks were rerun after both changes.
 
-Heç bir SDK, monetizasiya, audio dəyişməsi və ya Web performans işi bu sınağın hissəsi deyil. Mövcud kommersiya hüquqları və digər əvvəlki release riskləri qalır.
-- [Birləşmiş Web CI 45858257485](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45858257485): `WEB_POWERUP checks=64 failures=0`, mənbə `b6e69c0`; çatdırılan Web test build-i bu run-dan götürülüb. Sonrakı `76337f7` yalnız test skriptinə Game Over-dan əvvəl refresh ssenarisini əlavə edir; həmin ssenari ayrıca yuxarıdakı 45858334711 run-da keçib.
+Open acceptance work: all requested screens/states including Continue, Challenge success/failure and Game Over on this version; all languages and themes; visual inspection for every requested viewport and screen; scrolling, Rescue, Restart, focus/tab/fullscreen/orientation; Firefox touch and real Android hardware. Prior V0.8.1.1 browser tests do not constitute V0.8.1.2 acceptance. No commercial or release-readiness claim is made.
