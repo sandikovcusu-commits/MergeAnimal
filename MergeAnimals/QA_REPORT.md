@@ -1,3 +1,24 @@
+# V0.6.4.3-dev QA — Achievement system (WIP)
+
+Godot 4.7.2 actual Linux CI on code commit `0521c61dd9bbabb0fe123fd46a27b0dda8da205a`:
+
+| Suite | Result and scope |
+|---|---|
+| [Achievement](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916145) | 35/35 integration, 11/11 Classic event/queue, 4×31 = 124 new actual Challenge physics merges, Cat/Elephant/Golden isolated actual-event tests, separate-process read 16/16; seeded fixtures disclosed in `ACHIEVEMENT_REPORT.md` |
+| [Challenge + events](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916710) | baseline 66/66; stages 32/32, 15/15, 17/17; achievement events 16/16; separate-process Challenge restore |
+| [Remove](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916192) | PASS; successful Remove leaves achievement file unchanged, plus existing Remove regressions |
+| [Rescue](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825917070) | PASS; successful Rescue leaves achievement file unchanged, plus existing Rescue regressions |
+| [Undo](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916313) | PASS; Achievement integration additionally verifies actual merge → Undo rolls back statistic but keeps permanent unlock |
+| [Classic runtime](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916252), [Collection](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916076), [session](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45825916435) | PASS for this commit |
+| Save and notifications | All 15 historical-evidence migrations (unknown dates), primary-corruption backup recovery, no duplicate notice on recovery and Continue, all 15 read in a second Godot process; Animal → Achievement → Achievement queue order and auto-close checked |
+| X11 visuals | 18 seeded windows across 360×640, 720×1280 and 1366×768; real-size JPEG captures included, originals in CI artifact; scripted fixtures are not human/device playtests |
+
+**Coverage boundaries:** A15 is tested with 11 historical fixture discoveries and a genuine twelfth drop, not all 12 gained from a fresh natural session. Classic score run deliberately selects dogs. A13 uses Challenge access fixture but 124 new actual drops/contacts across four fresh boards. A14's first 5 use legacy test fixtures and 06–10 fixed test-selected spawns. Migration counters are fixture inputs, not actual lifetime statistics. Debug taint is tested, but arbitrary test code can mutate live variables and is not an adversarial integrity boundary. These results do not establish every crash/interleaving, human difficulty, device touch, responsiveness, FPS or battery.
+
+Separate Achievement and Classic/Challenge commits are not a single atomic transaction. If achievement persistence fails, a live event may not be retained or notified; if backup refresh also fails and the primary is subsequently lost, the backup may be stale and cannot guarantee duplicate prevention. Filesystem power-loss/fsync, concurrent writers and platform-specific persistence have not been demonstrated. Commercial sprite provenance/rights, 24 missing expression sprites, prior physics overlap risks, and Web/mobile performance limitations remain. The pre-existing Golden Garden human difficulty gap remains open. This is WIP, not release approval.
+
+---
+## Previous QA history
 # V0.6.4.2-dev QA — WIP
 
 Godot 4.7.2 Linux CI on code commit `9dde09e45073de38fa3f52095235dcb4bb73c61a`; exact log `tests/logs/v0642-challenge-9dde09e.txt` and [Challenge CI](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45806711856). The separate phase runs were actually performed: [Phase 2](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45805038011), [Phase 3](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45805411014), [Phase 4 final](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45805847192). Earlier failed runs and fixes are visible in CI history.

@@ -1,3 +1,10 @@
+# V0.6.4.3-dev — Achievements (WIP)
+
+- Added 15 data resources, AchievementManager, scrollable menu screen, persistent unlock/progress/date storage and queued nonblocking discovery/achievement notices.
+- Evaluates validated Classic/Challenge evidence, migrates existing statistics without fabricating historical dates, preserves permanent unlocks through Undo, and keeps score thresholds Classic-only.
+- Added live collision, 100-merge, Golden, score, combo, power-up isolation, migration/recovery/Continue and three-resolution X11 fixtures. Scope and limitations are recorded in `ACHIEVEMENT_REPORT.md` and `QA_REPORT.md`.
+- No new Challenge, animal, sprite, gameplay mechanics, ad SDK or physics tuning; release remains blocked by existing asset rights and platform risks.
+
 # V0.6.4.2-dev — Challenge expansion (WIP)
 
 - Extended five existing challenges to 20 with difficulty categories, time/drop/combo/golden objectives, configured advanced boards/queues, independent score and time records, v1 save migration, and explicit unsaved-attempt exit/restart warning.

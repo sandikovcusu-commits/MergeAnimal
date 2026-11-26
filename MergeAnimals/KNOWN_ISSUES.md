@@ -1,3 +1,12 @@
+# V0.6.4.3 DEV — current limitations
+
+- Achievement save and Classic/Challenge snapshots are separate transactions. Failed achievement writes can lose an event or suppress its notification; if backup refresh fails and primary subsequently corrupts, an older backup may lose an unlock and permit later re-notification. No abrupt-power-loss, concurrent writer, cross-file atomicity or all-platform guarantee.
+- Animal Collector's twelfth discovery was tested with 11 pre-existing historical fixture discoveries, not a fresh complete 12-animal natural run. Classic score evidence uses a test-selected dog queue; Challenge A14 includes deterministic/repositioned test fixtures. Human play and distribution balance remain open.
+- New Achievement strings are English only; 360×640 and desktop captures are seeded X11, not human touch or safe-area tests; desktop is portrait-letterboxed.
+- Extra local save/evaluation cost has not been profiled on mobile. Unvalidated commercial art rights and 24 missing expression sprites still block release; earlier physics overlap, mobile performance and Web risks remain.
+- Golden Garden difficulty remains unverified as documented for V0.6.4.2.
+
+---
 # V0.6.4.2 DEV — current limitations
 
 - Golden Garden is physically solvable in four aligned drops, so requested challenge difficulty is not demonstrated and may not be satisfied. 11, 12, 15, 18, 19 are one-drop starter-board paths. Tune and human-playtest before accepting the difficulty progression.

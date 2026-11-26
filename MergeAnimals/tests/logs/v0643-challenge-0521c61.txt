@@ -1,0 +1,516 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Started Project initialization (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Scanning file structure...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Loading global class names...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Verifying GDExtensions...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Creating autoload scripts...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Initializing plugins...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Starting file scan...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mfirst_scan_filesystem^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Started Registering global classes... (76 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AchievementData^[[39m^[[0m
+[   1% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AchievementManager^[[39m^[[0m
+[   2% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ChallengeData^[[39m^[[0m
+[   3% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[   5% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ChallengeManager^[[39m^[[0m
+[   6% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ChallengeStore^[[39m^[[0m
+[   7% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[   9% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Animal^[[39m^[[0m
+[  10% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AnimalData^[[39m^[[0m
+[  11% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  12% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  14% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | GoldenConfig^[[39m^[[0m
+[  15% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | DangerMonitor^[[39m^[[0m
+[  16% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | MergeManager^[[39m^[[0m
+[  18% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | RescuePlanner^[[39m^[[0m
+[  19% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | RewardRequestGateway^[[39m^[[0m
+[  20% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Progression^[[39m^[[0m
+[  22% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SaveManager^[[39m^[[0m
+[  23% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SessionSave^[[39m^[[0m
+[  24% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  25% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  27% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  28% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | CollectionNames^[[39m^[[0m
+[  29% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  31% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  32% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  33% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SettingsStore^[[39m^[[0m
+[  35% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  36% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | UIStrings^[[39m^[[0m
+[  37% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  38% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  40% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  41% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  42% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  44% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  45% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  46% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  48% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  49% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  50% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  51% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  53% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  54% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  55% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  57% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  58% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  59% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  61% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  62% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  63% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  64% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  66% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  67% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  68% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  70% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  71% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  72% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  74% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  75% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  76% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  77% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  79% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  80% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  81% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  83% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  84% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  85% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  87% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  88% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  89% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  90% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  92% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  93% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  94% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  96% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  97% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mupdate_scripts_classes^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | Started Scanning actions... (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   2% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   5% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   8% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  11% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  13% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  16% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  19% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  22% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  25% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  27% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  30% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  33% ] ^[[90m^[[1m_update_scan_actions^[[22m | forest_garden.svg^[[39m^[[0m
+[  36% ] ^[[90m^[[1m_update_scan_actions^[[22m | snowy_valley.svg^[[39m^[[0m
+[  38% ] ^[[90m^[[1m_update_scan_actions^[[22m | sunset_safari.svg^[[39m^[[0m
+[  41% ] ^[[90m^[[1m_update_scan_actions^[[22m | back.svg^[[39m^[[0m
+[  44% ] ^[[90m^[[1m_update_scan_actions^[[22m | challenge.svg^[[39m^[[0m
+[  47% ] ^[[90m^[[1m_update_scan_actions^[[22m | check.svg^[[39m^[[0m
+[  50% ] ^[[90m^[[1m_update_scan_actions^[[22m | close.svg^[[39m^[[0m
+[  52% ] ^[[90m^[[1m_update_scan_actions^[[22m | collection.svg^[[39m^[[0m
+[  55% ] ^[[90m^[[1m_update_scan_actions^[[22m | home.svg^[[39m^[[0m
+[  58% ] ^[[90m^[[1m_update_scan_actions^[[22m | lock.svg^[[39m^[[0m
+[  61% ] ^[[90m^[[1m_update_scan_actions^[[22m | music.svg^[[39m^[[0m
+[  63% ] ^[[90m^[[1m_update_scan_actions^[[22m | mute.svg^[[39m^[[0m
+[  66% ] ^[[90m^[[1m_update_scan_actions^[[22m | pause.svg^[[39m^[[0m
+[  69% ] ^[[90m^[[1m_update_scan_actions^[[22m | play.svg^[[39m^[[0m
+[  72% ] ^[[90m^[[1m_update_scan_actions^[[22m | remove.svg^[[39m^[[0m
+[  75% ] ^[[90m^[[1m_update_scan_actions^[[22m | rescue.svg^[[39m^[[0m
+[  77% ] ^[[90m^[[1m_update_scan_actions^[[22m | restart.svg^[[39m^[[0m
+[  80% ] ^[[90m^[[1m_update_scan_actions^[[22m | reward.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1m_update_scan_actions^[[22m | settings.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1m_update_scan_actions^[[22m | sound.svg^[[39m^[[0m
+[  88% ] ^[[90m^[[1m_update_scan_actions^[[22m | star.svg^[[39m^[[0m
+[  91% ] ^[[90m^[[1m_update_scan_actions^[[22m | trophy.svg^[[39m^[[0m
+[  94% ] ^[[90m^[[1m_update_scan_actions^[[22m | undo.svg^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1m_update_scan_actions^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing pre-reimport operations...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | close.svg^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | collection.svg^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | home.svg^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | lock.svg^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | music.svg^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | mute.svg^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | pause.svg^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | play.svg^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | remove.svg^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | rescue.svg^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | restart.svg^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | reward.svg^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | settings.svg^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | sound.svg^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | star.svg^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | trophy.svg^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | undo.svg^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | forest_garden.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | snowy_valley.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | sunset_safari.svg^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | back.svg^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | challenge.svg^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | check.svg^[[39m^[[0m
+[  97% ] ^[[90m^[[1mreimport^[[22m | Finalizing Asset Import...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing post-reimport operations...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Started Loading editor (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading editor layout...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading docks...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mloading_editor_layout^[[22m
+^[[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: first challenge only unlocked
+PASS: main menu opens selection with locks
+PASS: selection starts first challenge
+PASS: classic session fixture saved
+PASS: challenge 1 loads
+PASS: challenge 1 disables classic powerups
+PASS: challenge 1 powerup actions blocked
+PASS: challenge timer stops during pause
+PASS: challenge 1 physical dropped pair 1 merged
+PASS: challenge 1 success from real collisions and saved
+PASS: challenge 1 completion persisted
+PASS: challenge 1 unlocks next
+PASS: challenge 2 loads
+PASS: challenge 2 disables classic powerups
+PASS: challenge 2 powerup actions blocked
+PASS: challenge 2 physical dropped pair 1 merged
+PASS: challenge 2 physical dropped pair 2 merged
+PASS: challenge 2 physical dropped pair 3 merged
+PASS: challenge 2 success from real collisions and saved
+PASS: challenge 2 completion persisted
+PASS: challenge 2 unlocks next
+PASS: challenge 3 loads
+PASS: challenge 3 disables classic powerups
+PASS: challenge 3 powerup actions blocked
+PASS: challenge 3 physical dropped pair 1 merged
+PASS: challenge 3 physical dropped pair 2 merged
+PASS: challenge 3 success from real collisions and saved
+PASS: challenge 3 completion persisted
+PASS: challenge 3 unlocks next
+PASS: challenge 4 loads
+PASS: challenge 4 disables classic powerups
+PASS: challenge 4 powerup actions blocked
+PASS: challenge 4 physical dropped pair 1 merged
+PASS: challenge 4 success from real collisions and saved
+PASS: challenge 4 completion persisted
+PASS: challenge 4 unlocks next
+PASS: challenge 5 loads
+PASS: challenge 5 disables classic powerups
+PASS: challenge 5 powerup actions blocked
+PASS: challenge 5 physical dropped pair 1 merged
+PASS: challenge 5 physical dropped pair 2 merged
+PASS: challenge 5 physical dropped pair 3 merged
+PASS: challenge 5 physical dropped pair 4 merged
+PASS: challenge 5 physical dropped pair 5 merged
+PASS: challenge 5 physical dropped pair 6 merged
+PASS: challenge 5 physical dropped pair 7 merged
+PASS: challenge 5 physical dropped pair 8 merged
+PASS: challenge 5 physical dropped pair 9 merged
+PASS: challenge 5 physical dropped pair 10 merged
+PASS: challenge 5 success from real collisions and saved
+PASS: score hunter reached 300 through collision score
+PASS: challenge 5 completion persisted
+PASS: replay starts a fresh attempt
+PASS: active challenge warns that restart discards progress
+PASS: restart reloads same challenge
+PASS: overflow displays and saves challenge failure
+PASS: failed replay retains completion and unlock
+PASS: challenge leaves both classic files byte-identical
+PASS: classic session and record preserved
+PASS: result write obstruction created
+PASS: actual hamster drop reaches objective but failed result remains retryable
+PASS: failed save blocks navigation without unlocking
+PASS: retry commits result exactly once
+PASS: next challenge button loads fresh unlocked challenge
+NATURAL drops=true/true merges=1 result=true
+PASS: first friend completes via natural gravity and real drop collision
+PASS: all challenge navigation and replay preserve classic files
+CHALLENGE checks=66 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: untouched-board challenge 2 drops=6 merges=4 score=39
+PASS: untouched-board challenge 3 drops=4 merges=2 score=24
+PASS: untouched-board challenge 4 drops=2 merges=1 score=20
+PASS: untouched-board challenge 5 drops=8 merges=7 score=353
+NATURAL_CHALLENGES failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: challenge 6 unlocked and starts
+PASS: challenge 6 disables powerups
+PASS: challenge 6 achieved via real drop and collision
+PASS: simultaneous overflow cannot override actual success
+PHASE2_RESULT id=6 drops=2 merges=1 score=32 combo=1 elapsed=4.85 success=true
+PASS: challenge 6 saves completion and best time
+PASS: challenge 6 unlocks next
+PASS: challenge 7 unlocked and starts
+PASS: challenge 7 disables powerups
+PASS: challenge 7 achieved via real drop and collision
+PHASE2_RESULT id=7 drops=8 merges=5 score=188 combo=2 elapsed=15.64 success=true
+PASS: challenge 7 saves completion and best time
+PASS: challenge 7 unlocks next
+PASS: challenge 8 unlocked and starts
+PASS: challenge 8 disables powerups
+PASS: challenge 8 achieved via real drop and collision
+PHASE2_RESULT id=8 drops=8 merges=7 score=353 combo=3 elapsed=16.22 success=true
+PASS: challenge 8 saves completion and best time
+PASS: challenge 8 unlocks next
+PASS: challenge 9 unlocked and starts
+PASS: challenge 9 disables powerups
+PASS: challenge 9 achieved via real drop and collision
+PHASE2_RESULT id=9 drops=4 merges=3 score=124 combo=2 elapsed=8.72 success=true
+PASS: challenge 9 saves completion and best time
+PASS: challenge 9 unlocks next
+PASS: challenge 10 unlocked and starts
+PASS: challenge 10 disables powerups
+PASS: challenge 10 achieved via real drop and collision
+PHASE2_RESULT id=10 drops=6 merges=4 score=156 combo=2 elapsed=12.08 success=true
+PASS: challenge 10 saves completion and best time
+PASS: timer stops on pause
+PASS: quick merge fails at actual 60 second limit
+PHASE2_LIMIT_RESULT drops=20 score=28
+PASS: drop limit refuses a 21st successful drop
+PASS: under-target board fails only after last drop settles
+PASS: blocked-spawn fixture requests a real first drop
+PASS: blocked spawn attempt does not spend a drop
+FINAL_DROP_RESULT pre=19 prescore=41 drops=20 score=261 merges=10 awaiting=true success=true
+PASS: last permitted drop completes real merge before failure
+PHASE2 checks=32 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: challenge 11 disables powerups
+PASS: challenge 11 real gameplay success
+PHASE3_RESULT id=11 drops=1 merges=1 score=70 combo=1 elapsed=2.95 success=true
+PASS: challenge 11 completion persisted
+PASS: challenge 12 disables powerups
+PASS: challenge 12 real gameplay success
+PHASE3_RESULT id=12 drops=1 merges=1 score=100 combo=1 elapsed=2.94 success=true
+PASS: challenge 12 completion persisted
+PASS: challenge 13 disables powerups
+PASS: challenge 13 real gameplay success
+PHASE3_RESULT id=13 drops=3 merges=2 score=1000 combo=1 elapsed=6.13 success=true
+PASS: challenge 13 completion persisted
+PASS: challenge 14 disables powerups
+PASS: challenge 14 real gameplay success
+PHASE3_RESULT id=14 drops=4 merges=2 score=64 combo=1 elapsed=8.43 success=true
+PASS: challenge 14 completion persisted
+PASS: challenge 15 disables powerups
+PASS: challenge 15 real gameplay success
+PHASE3_RESULT id=15 drops=1 merges=1 score=150 combo=1 elapsed=2.91 success=true
+PASS: challenge 15 completion persisted
+PHASE3 checks=15 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: challenge 16 disables powerups
+PASS: challenge 16 real gameplay success
+PHASE4_RESULT id=16 drops=14 merges=11 score=509 combo=3 elapsed=26.57 success=true
+PASS: challenge 16 completion persisted
+PASS: challenge 17 disables powerups
+PASS: challenge 17 real gameplay success
+PHASE4_RESULT id=17 drops=32 merges=31 score=2062 combo=5 elapsed=60.42 success=true
+PASS: real combo x5
+PASS: challenge 17 completion persisted
+PASS: challenge 18 disables powerups
+PASS: challenge 18 real gameplay success
+PHASE4_RESULT id=18 drops=1 merges=1 score=220 combo=1 elapsed=2.87 success=true
+PASS: challenge 18 completion persisted
+PASS: challenge 19 disables powerups
+PASS: challenge 19 real gameplay success
+PHASE4_RESULT id=19 drops=1 merges=1 score=500 combo=1 elapsed=2.82 success=true
+PASS: challenge 19 completion persisted
+PASS: challenge 20 disables powerups
+PASS: challenge 20 real gameplay success
+PHASE4_RESULT id=20 drops=4 merges=4 score=2220 combo=1 elapsed=8.41 success=true
+PASS: real golden merge event
+PASS: challenge 20 completion persisted
+PHASE4 checks=17 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: live challenge events were saved
+PASS: A01 unlocked by live challenge event
+PASS: A02 unlocked by live challenge event
+PASS: A03 unlocked by live challenge event
+PASS: A04 unlocked by live challenge event
+PASS: A05 unlocked by live challenge event
+PASS: A06 unlocked by live challenge event
+PASS: A11 unlocked by live challenge event
+PASS: A12 unlocked by live challenge event
+PASS: A14 unlocked by live challenge event
+PASS: A08 ignores Challenge score
+PASS: A09 ignores Challenge score
+PASS: A10 ignores Challenge score
+PASS: 20 distinct real completed challenges
+PASS: A13 from 100 real merges
+PASS: replays do not create new distinct challenge completions
+ACHIEVEMENT_EVENTS checks=16 failures=0 challenge_merges=124
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: write actual legacy v1 fixture
+PASS: v1 migration preserves five results
+PASS: migration opens challenge 6 without inventing old times
+PHASE2_MIGRATE checks=3 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: separate process loads results
+PASS: separate process restores challenge 1
+PASS: separate process restores challenge 2
+PASS: separate process restores challenge 3
+PASS: separate process restores challenge 4
+PASS: separate process restores challenge 5
+PASS: separate challenge best restored
+PASS: separate process restores unchanged classic score and session
+PASS: validated backup restores challenge results after primary corruption
+CHALLENGE_READ checks=9 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: separate process reads progression
+PASS: separate process restores challenge 1
+PASS: separate process restores challenge 2
+PASS: separate process restores challenge 3
+PASS: separate process restores challenge 4
+PASS: separate process restores challenge 5
+PASS: separate process restores challenge 6
+PASS: separate process restores challenge 7
+PASS: separate process restores challenge 8
+PASS: separate process restores challenge 9
+PASS: separate process restores challenge 10
+PHASE2_READ checks=11 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: separate process loads all challenge results
+PASS: challenge 1 completion and unlock restored
+PASS: challenge 2 completion and unlock restored
+PASS: challenge 3 completion and unlock restored
+PASS: challenge 4 completion and unlock restored
+PASS: challenge 5 completion and unlock restored
+PASS: challenge 6 completion and unlock restored
+PASS: challenge 7 completion and unlock restored
+PASS: challenge 8 completion and unlock restored
+PASS: challenge 9 completion and unlock restored
+PASS: challenge 10 completion and unlock restored
+PASS: challenge 11 completion and unlock restored
+PASS: challenge 12 completion and unlock restored
+PASS: challenge 13 completion and unlock restored
+PASS: challenge 14 completion and unlock restored
+PASS: challenge 15 completion and unlock restored
+PASS: challenge 16 completion and unlock restored
+PASS: challenge 17 completion and unlock restored
+PASS: challenge 18 completion and unlock restored
+PASS: challenge 19 completion and unlock restored
+PASS: challenge 20 completion and unlock restored
+PASS: challenge 6 best time restored
+PASS: challenge 7 best time restored
+PASS: challenge 8 best time restored
+PASS: challenge 9 best time restored
+PASS: challenge 10 best time restored
+PASS: challenge 11 best time restored
+PASS: challenge 12 best time restored
+PASS: challenge 13 best time restored
+PASS: challenge 14 best time restored
+PASS: challenge 15 best time restored
+PASS: challenge 16 best time restored
+PASS: challenge 17 best time restored
+PASS: challenge 18 best time restored
+PASS: challenge 19 best time restored
+PASS: challenge 20 best time restored
+PASS: classic session and progression files remain byte identical
+PASS: classic record and collection/statistics progression preserved
+PHASE4_READ checks=38 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE challenge_selection_locked 720x1280 seeded fixture
+CAPTURE challenge_gameplay 720x1280 seeded fixture
+CAPTURE challenge_success 720x1280 seeded fixture
+CAPTURE challenge_failed 720x1280 seeded fixture
+CAPTURE challenge_selection_unlocked 720x1280 seeded fixture
+PASS Challenge X11 scripted fixtures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE mobile_selection_20 720x1280 X11 fixture
+CAPTURE mobile_beginner 720x1280 X11 fixture
+CAPTURE mobile_intermediate 720x1280 X11 fixture
+CAPTURE mobile_advanced 720x1280 X11 fixture
+CAPTURE mobile_expert 720x1280 X11 fixture
+CAPTURE mobile_timer_challenge 720x1280 X11 fixture
+CAPTURE mobile_leave_warning 720x1280 X11 fixture
+CAPTURE mobile_limited_drops 720x1280 X11 fixture
+CAPTURE mobile_golden_garden 720x1280 X11 fixture
+CAPTURE mobile_success 720x1280 X11 fixture
+CAPTURE mobile_failed 720x1280 X11 fixture
+PASS expansion X11 visual fixtures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE desktop_selection_20 1280x720 X11 fixture
+CAPTURE desktop_beginner 1280x720 X11 fixture
+CAPTURE desktop_intermediate 1280x720 X11 fixture
+CAPTURE desktop_advanced 1280x720 X11 fixture
+CAPTURE desktop_expert 1280x720 X11 fixture
+CAPTURE desktop_timer_challenge 1280x720 X11 fixture
+CAPTURE desktop_leave_warning 1280x720 X11 fixture
+CAPTURE desktop_limited_drops 1280x720 X11 fixture
+CAPTURE desktop_golden_garden 1280x720 X11 fixture
+CAPTURE desktop_success 1280x720 X11 fixture
+CAPTURE desktop_failed 1280x720 X11 fixture
+PASS expansion X11 visual fixtures
