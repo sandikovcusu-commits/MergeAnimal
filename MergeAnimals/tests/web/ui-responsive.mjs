@@ -80,6 +80,9 @@ async function touchTest(){
  if(browser!=='chromium')throw Error('CDP touch uses Chromium only');
  await page.evaluate(()=>{window.__touches=[];for(let k of ['touchstart','touchmove','touchend','touchcancel','pointercancel'])document.addEventListener(k,e=>window.__touches.push({type:k,count:e.touches?.length??null}),true)});
  await shot('menu');
+ const menuCdp=await context.newCDPSession(page),play=point(360,600);
+ await menuCdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:play.x,y:play.y,id:29}]});await menuCdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await sleep(2000);
+ let afterMenuCancel=await shot('menu-cancel-play');check(afterMenuCancel.includes('garden')&&afterMenuCancel.includes('best score')&&!await state(),'cancelled Play touch remains on menu without starting game');
  await tap(360,766,true);await sleep(2000);await shot('collection-before-scroll');
  const scrollCdp=await context.newCDPSession(page), from=point(340,950),to=point(340,370);
  await scrollCdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:from.x,y:from.y,id:30}]});

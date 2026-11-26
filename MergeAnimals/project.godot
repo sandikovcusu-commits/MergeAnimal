@@ -8,6 +8,7 @@ run/main_scene="res://scenes/ui/MainMenu.tscn"
 
 [autoload]
 AudioManager="*res://scripts/audio/AudioManager.gd"
+WebTouchGuard="*res://scripts/ui/WebTouchGuard.gd"
 
 [display]
 window/size/viewport_width=720
