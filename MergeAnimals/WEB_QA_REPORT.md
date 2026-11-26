@@ -1,3 +1,10 @@
+# V0.8.1.2 — bu sessiyanın Web QA yekunu
+
+Əvvəlki UI və touch işlərini qoruyaraq `074108a`-dan davam edildi (`f482f0f` əcdaddır). Tutorial HUD düymələrini və əvvəlki düzəliş variantında spawn preview-ni örtürdü; son dəyişiklik bunları ayırdı. Yeni Chromium/Firefox WASM Continue, Pause, Tutorial, Restart və x-mövqe sınaqları, habelə Chromium simulyasiya touch testləri `WEB_UI_REPORT.md` və `MOBILE_TOUCH_REPORT.md`-dədir. Godot native testlərini Web kimi təqdim etmirik.
+
+Son UI kodu `bad7a03`, test kodu `87c5266`; hər iki real brauzerin Web ekran testi 16/16 keçdi və bu commit-in 11 native workflow-u da yaşıl oldu. Ekran görüntüləri və brauzer logları ayrıca evidence ZIP-dədir. Nəticə hələ **qisməndir**: bütün düymələr və ölçü/dil/mövzu kombinasiyalarının hər biri görmə və tərcümə baxımından yoxlanmayıb; tab dəyişməsi və fiziki Android sınağı yoxdu. IndexedDB dərhal bağlanmada son async yazını itirə bilər. SDK, audio, sprite və physics dəyişiklikləri edilmədi; kommersiya buraxılışı iddiası yoxdur.
+
+---
 # V0.8.1.2.1 — Web QA summary
 
 **Partial: substantial new Web UI and touch coverage, but not complete acceptance or release-ready.** This is a delta from V0.8.1.2, not a replacement for the historical evidence. See `WEB_UI_REPORT.md` for screen/size/language/theme capture matrices and the limited visual review; `MOBILE_TOUCH_REPORT.md` for touch checks and skips. Neither screenshots nor 0-failure scripts prove complete visual or translation quality.

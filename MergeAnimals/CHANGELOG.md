@@ -134,3 +134,7 @@
 - Preserve text resources in Web exports, use a multilingual theme font, constrain localized Restart, and enable touch scroll in menu lists.
 - Prevent canceled GUI and Remove selection touches from committing. Preserve the previous drop cancellation/resize safeguards.
 - Add browser locale/theme/viewport, challenge outcome, Game Over/Rescue and touch probes. Real device, full visual/translation matrix and tab-switch acceptance remain open; see Web UI and touch reports.
+
+## V0.8.1.2 — Web UI / touch davamı
+- Tutorial paneli Undo/Remove və spawn preview üzərindən ayrıldı; uzun tərcümələr sətirə bölünür.
+- Faktiki Web Continue, Restart, Pause, Tutorial, touch x-mövqeyi və dörd dildə tutorial viewport sınaqları əlavə edildi. Tam vizual/real-device qəbul hələ açıqdır.

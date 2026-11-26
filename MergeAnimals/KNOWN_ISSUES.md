@@ -1,3 +1,10 @@
+# V0.8.1.2 — son yoxlamada açıq qalanlar
+
+- Tutorial paneli artıq power-up düymələrini və spawn preview-ni örtmür, amma təlimat vaxtı oyun sahəsində zolaq tutur; bütün tutorial mərhələləri, dillər, mövzular və sıx oyun vəziyyətlərində vizual təsdiq aparılmayıb. 360 px-də bəzi yazılar çox kiçikdir.
+- Bütün ekranlardakı bütün düymələr və bütün lokalizasiya/viewport kombinasiyaları əl ilə tam yoxlanmayıb; real tab dəyişməsi, Firefox touch və real Android/iOS cihazları yoxlanmayıb.
+- `user://` IndexedDB sync asinxrondur: tab/proses dərhal bağlanarsa son save və ya power-up istifadəsi itə bilər. Bu risk düzəldilməyib.
+
+---
 # V0.8.1.2.1 — open Web UI and touch issues
 
 - Full visual/translation acceptance is not complete: screenshot matrix is not fully manually reviewed, outcome states are English/Forest only, and translations lack native-speaker audit. At 360×640, Collection, Challenge and Restart labels and the evolution guide can be very small; some disabled controls have low contrast.

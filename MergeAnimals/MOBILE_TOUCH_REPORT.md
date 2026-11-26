@@ -1,3 +1,10 @@
+# V0.8.1.2 — əlavə mobil touch nəticələri (delta)
+
+Real cihaz deyil: Linux Chromium + Playwright/CDP ilə 393×873 simulyasiya olunmuş touch. [45887924990](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45887924990) 29/29: Play, Tutorial Skip, koordinat x≈260-da bir düşürmə, Pause (əlavə düşürmə yox), Main Menu, Continue (saxlanmış bir heyvan), Restart (köhnə run təmizlənir, düşürmə olmur), x≈470-də bir yeni düşürmə. Tutorial/Pause/Continue-nun hər biri 6 viewportda çəkildi və canvas/DOM ölçüləri ölçüldü. Test `9b2cb4e`-dir; istehsal UI kodu `bad7a03` ilə eynidir.
+
+Son UI kodunda [45887166397](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45887166397) touch 12/12, [45887169489](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45887169489) Rescue fixture 13/13; əvvəlki resize, touchcancel, multi-touch, Undo/Remove yoxlamaları qorunub. Son layout üçün Tutorial Skip həqiqi touch ilə yoxlanıb. Fokus/fullscreen sınağının ən son təkrarı [45886558456](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45886558456), əvvəlki panel düzəlişində 5/5 və tab-switch hadisəsi olmadığı üçün **SKIP**; yeni panel yalnız yerini dəyişir, real tab dəyişməsi yenə təsdiqlənməyib. Firefox touch və real Android/iOS yoxlanmayıb. Konkret ssenarilərin PASS nəticəsini bütün mümkün touch sıralarına şamil etməyin.
+
+---
 # V0.8.1.2.1 — Touch regression delta
 
 **Simulated Chromium touch only, not real Android/iOS.** CDP dispatches touch events into a real Godot 4.7.2 WebAssembly build. The original `touchcancel` interception and active-touch resize invalidation from V0.8.1.2 remain in place. This report supplements the previous report in Git at `f466d78`.
