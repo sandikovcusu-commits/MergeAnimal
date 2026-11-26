@@ -13,7 +13,10 @@ async function install(ctx){await ctx.addInitScript(()=>{
  if(Original){const Wrapped=new Proxy(Original,{construct(target,args){const c=Reflect.construct(target,args);window.__audioContexts.push(c);return c}});window.AudioContext=Wrapped;window.webkitAudioContext=Wrapped}
  const connect=AudioNode.prototype.connect;
  AudioNode.prototype.connect=function(target,...args){const result=connect.call(this,target,...args);try{
-  if(target===this.context.destination && !window.__audioTaps.some(x=>x.source===this)){
+  if(target===this.context.destination){
+   // Godot may disconnect/reconnect its master bus during setup. A previous
+   // tap on the same source is then orphaned, so replace it on each connect.
+   const prior=window.__audioTaps.filter(x=>x.source===this);for(const old of prior){old.analyser.disconnect();old.sink.disconnect()};window.__audioTaps=window.__audioTaps.filter(x=>x.source!==this);
    const analyser=this.context.createAnalyser();analyser.fftSize=2048;const sink=this.context.createMediaStreamDestination();connect.call(this,analyser);connect.call(analyser,sink);
    const tap={source:this,analyser,sink};window.__audioTaps.push(tap);
   }
@@ -30,14 +33,17 @@ const ids=['button_click','menu_back','animal_drop','soft_landing','animal_colli
 try{
  await launch();let initial=await qa('state');let before=await measure(1200);console.log('BEFORE_GESTURE',JSON.stringify(before));check(!initial.unlocked&&!initial.music_playing&&before.maxRms<0.00001,'before first gesture game does not play audio');
  await tap(360,1123);await sleep(2500);let after=await qa('state'),live=await measure(800);console.log('AFTER_GESTURE',JSON.stringify(live));
- check(after.unlocked&&after.music_playing,'first real click unlocks AudioManager and starts music');check(live.contexts>0&&live.states.includes('running'),'browser AudioContext running after gesture');check(live.taps>0&&live.maxRms>0.00001,'non-zero samples reach WebAudio output graph after gesture',JSON.stringify(live));
+ check(after.unlocked&&after.music_playing,'first real click unlocks AudioManager and starts music');check(live.contexts>0&&live.states.includes('running'),'browser AudioContext running after gesture');// An independent oscillator validates the analyser path; never confuse it
+ // with game audio. It is stopped before any game measurements.
+ await page.evaluate(()=>{let ctx=window.__audioContexts[0],o=ctx.createOscillator(),g=ctx.createGain();g.gain.value=0.05;o.connect(g);g.connect(ctx.destination);o.start();window.__qaOsc=o;window.__qaGain=g});let calibration=await measure(500);await page.evaluate(()=>{window.__qaOsc.stop();window.__qaGain.disconnect()});console.log('TAP_CALIBRATION',JSON.stringify(calibration));check(calibration.maxRms>0.000001,'WebAudio analyser calibration signal reaches graph',JSON.stringify(calibration));
+ await sleep(400);live=await measure(800);check(live.taps>0&&live.maxRms>0.00001,'non-zero game samples reach WebAudio output graph after gesture',JSON.stringify(live));
  check((after.accepted.button_click||0)>0,'actual Settings button triggers button_click');await page.screenshot({path:path.join(out,`${browser}-audio-settings.png`)});
  // Three real settings sliders and mute toggle, then check the authoritative save and buses.
  await tap(310,313);await tap(410,417);await tap(510,521);await tap(360,590);await sleep(4000);let muted=await qa('state');let mutedSamples=await measure(900);
  check(muted.settings.master<0.9&&muted.settings.music<0.9&&muted.settings.sfx<0.95&&muted.settings.mute,'real settings sliders and Mute persisted');
  check(muted.buses.Master.mute&&mutedSamples.maxRms<0.0001,'Mute silences WebAudio graph',JSON.stringify(mutedSamples));
  await tap(360,590);await sleep(1000);let unmuted=await qa('state'),unmutedSamples=await measure(1000);check(!unmuted.settings.mute&&!unmuted.buses.Master.mute&&unmutedSamples.maxRms>0.000001,'Unmute restores output',JSON.stringify(unmutedSamples));
- const persisted=unmuted.settings;await page.reload({waitUntil:'domcontentloaded',timeout:120000});await sleep(15000);let reloaded=await qa('state');check(['master','music','sfx','mute'].every(k=>reloaded.settings[k]===persisted[k]),'audio settings persist after reload');await tap(360,1123);await sleep(1200);await tap(360,965);await sleep(1200);
+ const persisted=unmuted.settings;await sleep(10000);await page.reload({waitUntil:'domcontentloaded',timeout:120000});await sleep(15000);let reloaded=await qa('state');check(['master','music','sfx','mute'].every(k=>reloaded.settings[k]===persisted[k]),'audio settings persist after reload');await tap(360,1123);await sleep(1200);await tap(360,965);await sleep(1200);
  await context.close();context=null;await launch();let reopened=await qa('state');check(['master','music','sfx','mute'].every(k=>reopened.settings[k]===persisted[k]),'audio settings persist after full browser close and reopen');await tap(360,1123);await sleep(500);await tap(360,965);await sleep(500);
  // Record actual post-mix WebAudio graph; does not prove physical speaker output.
  await page.evaluate(()=>{const tap=window.__audioTaps[0];if(!tap||!window.MediaRecorder)return;window.__recChunks=[];window.__rec=new MediaRecorder(tap.sink.stream);window.__rec.ondataavailable=e=>{if(e.data.size)window.__recChunks.push(e.data)};window.__rec.start()});
