@@ -10,9 +10,10 @@ const VERSION := 1
 static func definitions() -> Array[AchievementData]:
 	var result: Array[AchievementData] = []
 	# Additional data resources are picked up without changing gameplay code.
-	var directory := DirAccess.open("res://resources/achievements")
-	if directory == null: return result
-	var names := directory.get_files(); names.sort()
+	# ResourceLoader handles exported .tres -> .res remaps; DirAccess only
+	# sees the remap files inside a PCK and used to return no definitions.
+	var names := ResourceLoader.list_directory("res://resources/achievements")
+	names.sort()
 	for file in names:
 		if file.ends_with(".tres"):
 			var def := load("res://resources/achievements/" + file) as AchievementData
