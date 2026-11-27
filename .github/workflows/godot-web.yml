@@ -116,6 +116,8 @@ jobs:
             "$GODOT" --headless --path /tmp/perf-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/perf-qa/index.html >> /tmp/web-qa/export.log 2>&1
             kill $SERVER; wait $SERVER 2>/dev/null || true
             WEB_ROOT=/tmp/web-test/perf-qa python3 MergeAnimals/tests/performance/serve.py >/tmp/web-qa/perf-server.log 2>&1 & SERVER=$!
+            for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/perf-server.log; exit 1; fi; sleep 1; done
+            curl -sf -o /dev/null http://127.0.0.1:8765/
             URL=http://127.0.0.1:8765/; TEST=benchmark.mjs
             export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE
           elif [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
