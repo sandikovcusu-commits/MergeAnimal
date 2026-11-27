@@ -1,3 +1,12 @@
+# V0.9.1-A.1 — PARTIAL, supersedes older status
+
+- `V091-A1-001`: controlled 96px deadlock mechanism reproduced and mitigated; original natural locked-pair geometry not proven, so P1 acceptance stays open. 192px fallback can relocate a result away from the contact and no-space cancellation may not retry until a fresh contact. Human gameplay evaluation needed.
+- `V091-A1-002`: revision-aware UI passes targeted tests, but cross-file atomicity, real quota/permission, sudden close and all natural interleavings are unproven. Active moving body positions may immediately make a checkpoint stale. Per-250ms snapshot hashing/read costs need real-device evaluation.
+- Both natural 120-input Game Over attempts failed to reach Game Over. Broad browser 100-seed merge, pause/resume/restart pending and long-session revision acceptance incomplete.
+- Commercial rights/use/distribution BLOCKED; only private tests. Existing Android/human QA, touch target, 9.190px penetration and INCONCLUSIVE performance risks remain.
+
+---
+
 # V0.9.1 — əlavələr (checkpoint PARTIAL)
 
 - `V091-001`: V0.9.0.4 matrisi Game Over `Save failed` etibarsız fixture score/best snapshot səbəbidir; fixture düzəldildi və hər iki browserdə köhnə/yeni sınaq keçdi. Bu, bütün natural Game Over axınının qəbul edildiyi demək deyil.

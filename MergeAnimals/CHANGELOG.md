@@ -1,3 +1,11 @@
+# V0.9.1-A.1 — pending merge / save PARTIAL
+
+- Added bounded safe-placement fallback and per-pair safe cancellation; schedule checkpoint after drained merge queue. No physics rate or game content changes.
+- Replaced aggregate-only checkpoint label logic with current/requested/written/read-back revision comparisons and unsaved/deferred states.
+- Added baseline/post dense fixtures, 300 synthetic reservation stress cases and both-browser revision tests. Natural Game Over and complete A.1 acceptance remain open. Commercial BLOCKED.
+
+---
+
 # V0.9.1-A — qismən QA checkpoint
 
 - Web Game Over matrix fixture-də score/best invariantı düzəldildi; əvvəlki və düzəldilmiş halın iki browserdə read-back regressiyası əlavə edildi. Production save kodu və save statusu dəyişdirilməyib.
