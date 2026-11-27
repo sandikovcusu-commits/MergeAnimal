@@ -857,6 +857,7 @@ func _spawn_effect(kind: String, point: Vector2) -> void:
 	if get_tree().get_nodes_in_group("visual_effects").size() >= 40: return
 	var effect := EFFECT_SCRIPT.new()
 	effect.effect_kind = kind
+	effect.reduced_visual = reduced_effects
 	effect.position = to_local(point)
 	effect.add_to_group("visual_effects")
 	add_child(effect)

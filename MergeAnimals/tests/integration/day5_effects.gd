@@ -25,6 +25,8 @@ func run() -> void:
 	var before := game.get_child_count()
 	game._on_merged(game.animals[1], Vector2(300, 600))
 	check(game.get_child_count() - before == 1, "reduced effects emits only one low-cost burst")
+	var reduced_fx = game.get_children().back()
+	check(reduced_fx.effect_kind == "soft_burst" and reduced_fx.reduced_visual, "reduced burst omits decorative second ring")
 	game.reduced_effects = false
 	before = game.get_child_count()
 	game._on_merged(game.animals[1], Vector2(300, 600))

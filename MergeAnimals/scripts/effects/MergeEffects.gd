@@ -2,6 +2,7 @@ extends Node2D
 # Six lightweight procedural, non-interactive effects. No collision or textures.
 const KINDS := ["sparkle", "soft_burst", "golden_glow", "leaves", "score_star", "combo_shine"]
 var effect_kind := "sparkle"
+var reduced_visual := false
 var elapsed := 0.0
 var duration := 0.7
 func _ready() -> void:
@@ -30,10 +31,23 @@ func _draw() -> void:
 				var offset := Vector2((i - 1) * 18.0, -20.0 - 14.0 * t)
 				draw_line(offset + Vector2(-9, 12), offset + Vector2(9, -12), shine, 4.0)
 		"soft_burst":
-			draw_arc(Vector2.ZERO, 12.0 + 35.0 * t, 0.0, TAU, 40, Color(1.0, 0.90, 0.65, alpha * 0.65), 4.0)
+			# Ease out the ring so the contact feels soft, not like an expanding
+			# rigid marker. Reduced mode retains only the essential first ring.
+			var eased := 1.0 - pow(1.0 - t, 3.0)
+			var radius := 12.0 + 35.0 * eased
+			draw_arc(Vector2.ZERO, radius, 0.0, TAU, 40, Color(1.0, 0.90, 0.65, alpha * 0.65), 4.0)
+			if not reduced_visual:
+				draw_arc(Vector2.ZERO, radius * 0.72, 0.0, TAU, 32, Color(1.0, 0.98, 0.81, alpha * 0.42), 2.0)
 		"golden_glow":
+			# Bounded procedural halo and rays; no textures, physics, or particles.
+			var eased := 1.0 - pow(1.0 - t, 2.0)
+			draw_circle(Vector2.ZERO, 48.0 + 12.0 * eased, Color(1.0, 0.76, 0.24, alpha * 0.10))
 			for i in range(3):
-				draw_arc(Vector2.ZERO, 25.0 + 22.0 * i + 20.0 * t, 0.0, TAU, 48, Color(1.0, 0.74, 0.18, alpha * 0.5), 5.0)
+				draw_arc(Vector2.ZERO, 25.0 + 22.0 * i + 20.0 * eased, 0.0, TAU, 48, Color(1.0, 0.74, 0.18, alpha * 0.5), 5.0)
+			for i in range(8):
+				var unit := Vector2.from_angle(TAU * i / 8.0)
+				var distance := 58.0 + 34.0 * eased
+				draw_circle(unit * distance, 3.0 * alpha + 1.0, Color(1.0, 0.87, 0.46, alpha * 0.8))
 		"leaves":
 			for i in range(5):
 				var a := TAU * i / 5.0 + t
