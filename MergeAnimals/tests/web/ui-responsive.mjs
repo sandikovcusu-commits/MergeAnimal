@@ -155,7 +155,10 @@ async function navigationTest(touch=false){
  let paused=await state();check(paused.spawn_count===1,'Pause does not create a drop');await captureSizes('pause');
  await tap(360,915,touch);await sleep(4000);text=await shot('return-menu');check(text.includes('best score'),'Pause Main Menu returns to menu');
  let saved=await state();check(saved.active&&saved.spawn_count===1&&saved.bodies.length===1,'session remains saved after return to menu');
- await tap(360,690,touch);await sleep(6500);text=await readableShot('continued');check(/score|next/.test(text),'Continue opens gameplay');
+ // OCR can miss SCORE and NEXT inside their outlined cards. The alternate
+ // gameplay-only title + Restart pair is still required, in addition to the
+ // independent persisted-board assertion below.
+ await tap(360,690,touch);await sleep(6500);text=await readableShot('continued');check(/score|next/.test(text)||(/wild garden/.test(text)&&/restart/.test(text)),'Continue opens gameplay (OCR)');
  let continued=await state();check(continued.active&&continued.spawn_count===1&&continued.bodies.length===1,'Continue retains original saved animal with no extra drop');await captureSizes('continue');
  await tap(130,55,touch);await sleep(6000);await shot('restart');
  let restarted=await state();console.log('NAV_RESTART',JSON.stringify(restarted));
