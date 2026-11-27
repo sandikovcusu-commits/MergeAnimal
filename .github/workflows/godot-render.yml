@@ -191,3 +191,50 @@ jobs:
           sha=subprocess.check_output(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(p),'--jq','.sha'],text=True).strip()
           print(f"::notice::NATIVE_MATRIX locale={os.environ['QA_LOCALE']} blob_sha={sha} sha256={hashlib.sha256(archive.read_bytes()).hexdigest()} bytes={archive.stat().st_size}")
           PY
+  animation-motion:
+    if: ${{ inputs.quality_matrix == true }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot and video capture tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri xdotool ffmpeg
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+      - name: Exercise and record actual Godot animation
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/animation-quality
+          XDG_DATA_HOME: /tmp/animation-user
+        run: |
+          set -e -o pipefail
+          mkdir -p "$CAPTURE_DIR" "$XDG_DATA_HOME"
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/animation-quality/import.log 2>&1
+          xvfb-run -a -s '-screen 0 1920x1400x24' timeout 90s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution 720x1280 --script res://tests/integration/quality_animation_motion.gd 2>&1 | tee /tmp/animation-quality/animation.log
+          ! grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/animation-quality/{import,animation}.log
+          test -s /tmp/animation-quality/animation-motion.mp4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: godot-animation-quality
+          path: /tmp/animation-quality
+      - name: Transport animation evidence as temporary blob
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import base64,hashlib,json,os,pathlib,subprocess,zipfile
+          root=pathlib.Path('/tmp/animation-quality');archive=pathlib.Path('/tmp/animation-quality.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              if root.exists():
+                  for f in sorted(root.iterdir()):
+                      if f.is_file(): z.write(f,f.name)
+          p=pathlib.Path('/tmp/payload.json');p.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          sha=subprocess.check_output(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(p),'--jq','.sha'],text=True).strip()
+          print(f'::notice::ANIMATION_QUALITY blob_sha={sha} sha256={hashlib.sha256(archive.read_bytes()).hexdigest()} bytes={archive.stat().st_size}')
+          PY
