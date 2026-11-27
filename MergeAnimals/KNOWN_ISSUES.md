@@ -1,3 +1,13 @@
+# V0.9.0.2.1 — açıq risklər
+
+- Ayrı save faylları üçün cross-file atomiklik və multi-tab lock yoxdur. Yalnız son yazılmış müşahidə edilmiş bytes təsdiqlənir; yazılmamış action, bütün backup-lar və legacy `.cfg` əhatə olunmur. Firefox-un bir abort-injection təkrarında yeni yazı 50 s ərzində təsdiqlənmədi; sonrakı təkrar keçdi.
+- Browser-in real quota, storage permission, eviction, private mode, process crash və fiziki power loss sınaqları yoxdur. İki browserdə permission/read/abort süni inyeksiyadır. Birdən bağlanma zamanı son təsdiqlənməmiş əməliyyat itə bilər.
+- Köhnə versiya testləri seçilmiş həqiqi format nümunələridir, bütün minor versiyaların və bütün ayrı mağazaların miqrasiyası deyil. Save queue və true parallel writer stresi yoxdur. Reward exactly-once server guarantee və real ad yoxdur.
+- Bütün dillər/dar ekranlar üçün yeni statusun insan vizual baxışı və fiziki cihaz QA aparılmayıb. Əvvəlki performans və səs/vizual riskləri qalır.
+- Kommersiya hüquqları **BLOCKED**: hesab/Agent Mode şərtləri və yayım/reklam üçün yazılı icazə müəyyən edilməlidir; `LICENSE_EVIDENCE.md`-yə baxın.
+
+---
+
 # V0.9.0.2 — open save-integrity issues
 
 - Web checkpoint read-back is not a flush barrier. Autosave, uncommitted rewards, abrupt termination, cross-file writes, multiple tabs, eviction and permission failures can still lose or roll back data. The indicator covers only the last written session/power-up checkpoint, not all state or unwritten actions.

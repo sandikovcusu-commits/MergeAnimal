@@ -1,3 +1,11 @@
+# V0.9.0.2.1 — save integrity private test
+
+- Əsas session ilə yanaşı settings/audio/language, theme, challenge və achievement save faylları üçün exact IDB read-back müşahidəsi; lokal xəta və əlçatmaz storage göstəriciləri, Challenge üçün vaxtından əvvəl «Saved» düzəlişi.
+- 10/50/100 ardıcıl Web stress, süni xəta/abort/gecikmə sınaqları və əvvəlki layihə tərəfindən yaradılan/captured save-lərin Web bərpası əlavə edildi. Əsl paralel yazı, real quota və bütün data migrasiya halları açıqdır.
+- Kommersiya hüquqları BLOCKED; ani bağlanma üçün zəmanət yoxdur.
+
+---
+
 # V0.9.0.2 — save investigation (WIP, private test only)
 
 - Added read-only IndexedDB read-back of exact Classic session and power-up checkpoint bytes with pending/verified/unconfirmed HUD status; no concurrent sync call and no game mechanics or asset changes.
