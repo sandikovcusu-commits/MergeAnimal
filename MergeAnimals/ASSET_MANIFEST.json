@@ -2423,6 +2423,21 @@
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
       "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+    },
+    {
+      "file": "assets/ui/icons/play_light.svg",
+      "sha256": "7f8cee702d91fdcfccb8649fbbf377602ca307c242a96dfff92ad1dc20a30b2b",
+      "creator_or_generator": "Arena Agent Mode deterministic vector edit; provider/model UNKNOWN",
+      "source_file": "assets/ui/icons/play.svg",
+      "generation_method": "tools/generate_ui_icons.py; light stroke variant of existing authored icon",
+      "prompt": "V0.9.0.4 improve contrast on primary Play button",
+      "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
+      "license": "Agent-authored private project asset; commercial grant not established",
+      "status": "BLOCKED",
+      "commercial_use": "NOT VERIFIED",
+      "attribution": "UNKNOWN provider / supplemental terms",
+      "modification_and_distribution": "NOT VERIFIED",
+      "evidence": "tools/generate_ui_icons.py; LICENSE_EVIDENCE.md"
     }
   ],
   "verification_date_utc": "2026-11-25",

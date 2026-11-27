@@ -32,7 +32,7 @@ func _build() -> void:
 	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]: margins.add_theme_constant_override(side, 28)
 	card.add_child(margins)
 	var list := VBoxContainer.new(); list.add_theme_constant_override("separation", 7); margins.add_child(list)
-	play_button = _button("Play", "PLAY", "play", 90); list.add_child(play_button); play_button.pressed.connect(_play)
+	play_button = _button("Play", "PLAY", "play_light", 90); list.add_child(play_button); play_button.pressed.connect(_play)
 	continue_button = _button("Continue", "CONTINUE", "play", 70); list.add_child(continue_button)
 	continue_button.disabled = SessionSave.load_session().status not in ["ok", "recovered"]
 	continue_button.pressed.connect(_continue_game)

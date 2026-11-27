@@ -52,7 +52,7 @@ with tempfile.TemporaryDirectory(prefix='asset-repro-') as tmp:
                     assert key not in ('href','src') and not any(v in value for v in ('data:','http:','https:')),(svg,key,value)
                     if 'url(' in value: assert value.startswith('url(#') and value.endswith(')'),(svg,value)
     run('python3',str(t/'tools/generate_ui_icons.py'))
-    icons = sorted((R/'assets/ui/icons').glob('*.svg')); assert len(icons)==20
+    icons = sorted((R/'assets/ui/icons').glob('*.svg')); assert len(icons)==21
     for icon in icons: same(icon,t/'assets/ui/icons'/icon.name)
     for svg in list((R/'assets/ui/icons').glob('*.svg')) + list((R/'assets/backgrounds').glob('*.svg')) + [R/'assets/ui/logo/wild_garden.svg']:
         document = ET.parse(svg)
@@ -73,5 +73,5 @@ with tempfile.TemporaryDirectory(prefix='asset-repro-') as tmp:
     (t/'assets/ui/logo').mkdir(parents=True)
     run('python3',str(t/'tools/generate_logo.py'))
     same(R/'assets/ui/logo/wild_garden.svg',t/'assets/ui/logo/wild_garden.svg')
-    print(f'PASS: {svg_count} SVG, 12 PNG, 36 expression SVG/PNG, 20 icons, 8 themes (including font edits), 23 WAV and logo reproduced; runtime SVGs contain no external link/image/script/use element')
+    print(f'PASS: {svg_count} SVG, 12 PNG, 36 expression SVG/PNG, 21 icons, 8 themes (including font edits), 23 WAV and logo reproduced; runtime SVGs contain no external link/image/script/use element')
     print('LIMIT: this establishes inputs and deterministic output only, not AI training provenance, character similarity, copyright, or commercial rights')

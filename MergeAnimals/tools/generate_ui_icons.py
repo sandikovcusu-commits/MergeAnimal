@@ -2,6 +2,7 @@
 from pathlib import Path
 icons = {
 'play':'<path d="M18 13L35 24 18 35Z"/>',
+'play_light':'<path d="M18 13L35 24 18 35Z"/>',
 'pause':'<path d="M17 14h5v20h-5zM27 14h5v20h-5z"/>',
 'restart':'<path d="M12 24a12 12 0 1 0 4-9M11 13v8h8"/>',
 'settings':'<circle cx="24" cy="24" r="6"/><path d="M24 8v5M24 35v5M8 24h5M35 24h5M13 13l4 4M31 31l4 4M35 13l-4 4M17 31l-4 4"/><circle cx="24" cy="24" r="12"/>',
@@ -24,6 +25,7 @@ icons = {
 out=Path(__file__).resolve().parents[1]/'assets/ui/icons'
 out.mkdir(parents=True,exist_ok=True)
 for name,body in icons.items():
-    svg=f'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="none" stroke="#513c31" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">{body}</g></svg>\n'
+    stroke = '#fff9e9' if name == 'play_light' else '#513c31'
+    svg=f'<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="none" stroke="{stroke}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">{body}</g></svg>\n'
     (out/f'{name}.svg').write_text(svg)
 print('Generated',len(icons),'original SVGs')
