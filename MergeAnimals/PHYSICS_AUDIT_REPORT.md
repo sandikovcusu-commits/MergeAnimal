@@ -32,3 +32,5 @@ BEFORE və AFTER CSV-ləri eyni baza ölçməsini daşıyır: production physics
 
 ## Regres və məhdudiyyətlər
 Native suite son run-da uğurludur. Əvvəlki baza Web Chromium/Firefox save testləri 52/52; power-up 66/66, reward mock 68/68. Bunlar bu fizika işindən əvvəlki nəticələrdir; real reklam, cihaz toxunuşu, səs dinləmə, bütün 20 challenge və 15 achievement üçün insan yoxlaması deyil. Natural game-over, post-Rescue, böyük/kiçik əzilmə, künclər, chain/golden, çoxlu eyni vaxtlı merge və oyun hissi üçün əhatə tamamlanmış deyil. Ani bağlanma/IDB məhdudiyyətləri əvvəlki hesabatlarda qalır. Commercial status BLOCKED.
+
+Son əlavə Web regressiyası [45985828602](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45985828602) `f6b214b`: standard single-thread export, Chromium undo/remove/fixture-rescue/immediate 33/33 success. Fixture-rescue təbii sıx oyunun əvəzi deyil; bir immediate-close müşahidəsi davamlılıq zəmanəti deyil. [45985813900](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45985813900) production WebAudio graph 6/6, virtual sink, real dinləmə deyil. Kod sonradan yalnız sənədlərlə dəyişdirilib.
