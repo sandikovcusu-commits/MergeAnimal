@@ -2,7 +2,7 @@
 
 - Tam character/UI/theme/VFX redesign, modul rig, video və insan/device QA tamamlanmayıb.
 - Normal və expression rasterları fərqli resolution-dadır; sprite swapping bütün frame-ə tətbiq edilir, piksel-sampling fərqi mümkündür.
-- 40-body eyni-runner ardıcıl üç təkrarda orta FPS −7.7%; ilk after təkrarı daha aşağı idi. Səbəb məlum deyil; alternasiya, atlas və cihaz sınaqları lazımdır.
+- 40-body eyni-runner ardıcıl üç təkrarda orta FPS −7.8%; ilk after təkrarı daha aşağı idi. Səbəb məlum deyil; alternasiya, atlas və cihaz sınaqları lazımdır.
 - Kommersiya statusu BLOCKED; 120 Hz physics və məlum 9.190 px penetration dəyişməyib.
 
 ---

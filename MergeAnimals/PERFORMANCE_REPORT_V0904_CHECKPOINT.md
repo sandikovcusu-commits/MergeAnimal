@@ -20,6 +20,6 @@ Current build measured first, then `5a50de4` baseline on the same runner; each c
 |---:|---|---|---:|---|
 | 10 | 44.77, 45.27, 45.40 | 40.62, 44.84, 45.15 | −3.6% | 62 → 62.4–62.7 |
 | 20 | 59.94, 59.67, 59.80 | 56.01, 58.61, 58.74 | −3.4% | 62 → 62.7–63.5 |
-| 40 | 45.63, 45.77, 45.88 | 34.90, 45.57, 46.14 | −7.7% | 62 → 64.0–64.3 |
+| 40 | 45.63, 45.77, 45.88 | 34.90, 45.57, 46.14 | −7.8% | 62 → 64.0–64.3 |
 
 The 40-body mean exceeds the 5% investigation threshold; first after repetition accounts for most of the difference, but the reason is not established. Intermittent extra draw calls are consistent with separate expression textures interrupting batching, but this is a hypothesis, not a causal measurement. Investigate alternating order, longer warm-up and an atlas/layer approach before claiming acceptance. 40-body p95 was 33.4 ms in all repeats; after median 33.3/16.7/16.7 ms. Cold-start after/before 10: 1492/1475 ms, 20: 1150/1168 ms, 40: 1537/1554 ms; these are software-runner observations, not user device launch times.
