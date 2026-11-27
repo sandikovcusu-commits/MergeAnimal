@@ -25,6 +25,8 @@ func run() -> void:
 	var mode := OS.get_environment("TRACE_EXPECT")
 	var old_ok: bool = found == null and game.merge_manager.pending.size() == 1 and a.merge_locked and b.merge_locked and game.score == 0
 	var new_ok: bool = found is Vector2 and found.distance_to(midpoint) > 96.0 and game.merge_manager.pending.is_empty() and game.merge_manager.merge_count == 1 and game.score > 0 and game.pieces.get_child_count() == doc.bodies.size()-1
-	var ok: bool = reserved and distance_a < 2.0 and distance_b < 2.0 and (old_ok if mode == "baseline" else new_ok)
+	var a3_ok: bool = found == null and game.merge_manager.pending.is_empty() and not a.merge_locked and not b.merge_locked and game.merge_manager.merge_count == 0 and game.score == 0 and game.pieces.get_child_count() == doc.bodies.size()
+	var expected: bool = old_ok if mode == "baseline" else a3_ok if mode == "a3" else new_ok
+	var ok: bool = reserved and distance_a < 2.0 and distance_b < 2.0 and expected
 	print("TRACE_RECONSTRUCTION mode=%s result=%s pair_offsets=%.3f,%.3f point=%s distance=%.3f pending=%d merges=%d score=%d bodies=%d" % [mode,"PASS" if ok else "FAIL",distance_a,distance_b,str(found),found.distance_to(midpoint) if found is Vector2 else -1.0,game.merge_manager.pending.size(),game.merge_manager.merge_count,game.score,game.pieces.get_child_count()])
 	game.queue_free(); quit(0 if ok else 1)

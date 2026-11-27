@@ -107,6 +107,7 @@ jobs:
           if [[ "${{ inputs.placement_a3 }}" == 'true' ]]; then
             mkdir -p /tmp/placement-a3-user
             XDG_DATA_HOME=/tmp/placement-a3-user run_test 'placement a3' --fixed-fps 60 --script res://tests/integration/placement_a3.gd
+            TRACE_EXPECT=a3 run_test 'Firefox trace approximate a3' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd
           fi
           if [[ "${{ inputs.trace_compare }}" == 'true' ]]; then
             TRACE_EXPECT=fixed run_test 'Firefox trace approximate fixed' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd
