@@ -246,6 +246,9 @@ func dispatch(cmd: Dictionary) -> void:
 		finish(int(cmd.id), {"error":"game unavailable"}); return
 	var result: Variant = null
 	if op == "reserve": result = game.merge_manager.request_merge(first,second)
+	# QA isolation for a same-request readback retry: stop the periodic
+	# autosave from superseding the deliberately faulted request.
+	elif op == "suspend_autosave": game.set_physics_process(false)
 	elif op == "save": result = game.save_session()
 	elif op == "score_427":
 		game.score = 427; game.best_score = 427; game.progression.best_score = 427
