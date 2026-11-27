@@ -27,6 +27,9 @@ on:
       perf_compare_v0904:
         description: 'On same runner, benchmark current then unchanged V0.9.0.4 baseline'
         default: 'false'
+      perf_aba:
+        description: 'After paired run, measure current again and reduced effects (ABA order)'
+        default: 'false'
       perf_variant:
         description: 'Physics benchmark only: baseline or predictive-bounds'
         default: 'baseline'
@@ -102,6 +105,7 @@ jobs:
           PERF_BASELINE: ${{ inputs.perf_baseline }}
           PERF_PROCESS: ${{ inputs.perf_process }}
           PERF_COMPARE_V0904: ${{ inputs.perf_compare_v0904 }}
+          PERF_ABA: ${{ inputs.perf_aba }}
           PERF_VARIANT: ${{ inputs.perf_variant }}
           PERF_TICKS: ${{ inputs.perf_ticks }}
           PERF_SECONDS: ${{ inputs.perf_seconds }}
@@ -248,6 +252,15 @@ jobs:
             for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/baseline-server.log; exit 1; fi; sleep 1; done
             WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee /tmp/web-qa/baseline-browser.log
             cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/before-metrics.json
+            if [ "$PERF_ABA" = true ]; then
+              kill $SERVER; wait $SERVER 2>/dev/null || true
+              WEB_ROOT=/tmp/web-test/perf-qa python3 MergeAnimals/tests/performance/serve.py >/tmp/web-qa/repeat-server.log 2>&1 & SERVER=$!
+              for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/repeat-server.log; exit 1; fi; sleep 1; done
+              WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee /tmp/web-qa/after-repeat-browser.log
+              cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/after-repeat-metrics.json
+              PERF_EFFECTS=reduced WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee /tmp/web-qa/reduced-browser.log
+              cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/reduced-metrics.json
+            fi
           fi
       - uses: actions/upload-artifact@v4
         if: always()

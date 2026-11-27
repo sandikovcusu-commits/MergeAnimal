@@ -52,6 +52,10 @@ func setup(game, scenario: String) -> void:
 	mode = scenario
 	if scenario == "natural": return
 	game.persist_best = false # fixture avoids stress saves and profile pollution; normal gameplay is separately measured
+	var reduced_requested: bool = bool(JavaScriptBridge.eval("window.__benchReducedEffects === true"))
+	if reduced_requested:
+		game.reduced_effects = true
+		get_node("/root/AudioManager").reduced_effects = true
 	game.danger_monitor.set_physics_process(false) # stable synthetic load, not natural overflow
 	for child in game.pieces.get_children(): child.queue_free()
 	if scenario in ["10", "20", "40", "collision", "effects", "reduced"]:
@@ -63,6 +67,7 @@ func setup(game, scenario: String) -> void:
 	if scenario == "reduced":
 		game.reduced_effects = true
 		get_node("/root/AudioManager").reduced_effects = true
+	JavaScriptBridge.eval("window.__benchReducedActive=" + str(get_node("/root/AudioManager").reduced_effects).to_lower())
 func make_merges(game, scenario: String) -> void:
 	if not is_instance_valid(game): return
 	if scenario == "chain":
