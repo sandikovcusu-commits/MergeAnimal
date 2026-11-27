@@ -212,3 +212,9 @@ Web A sınaq matrisi natamamdır; real cihaz, audio dinləmə, power-up istifad�
 
 ## V0.8.1.1 Web saxlama riski
 `user://` checkpoint yazısının tamamlanması brauzerin IndexedDB-yə async sync-i təsdiq etdiyi anlamına gəlmir. Dərhal tab/proses bağlanarsa son əməliyyat və istifadə limiti itə bilər; cross-file atomiklik və storage silinməsi/eviction riskləri qalır. Müşahidə və əhatə: `WEB_POWERUP_REPORT.md`.
+
+## V0.9.0.4 davam checkpoint — açıq
+- 12 növdə detal və SVG qrupları var, amma premium redraw, ayrıca göz/qulaq runtime rig və insan keyfiyyət təsdiqi tamamlanmayıb. Secondary ekranların yalnız bir hissəsi yeni tokenlərdən istifadə edir.
+- 40-body A/B/A ilk A orta FPS −5.9%, təkrar A +0.6%: səbəb və orijinal bazaya qarşı hədəfin əldə olunması sübut olunmayıb; texture memory ölçülə bilməyib. `PERFORMANCE_REPORT.md`.
+- 120 Hz-də əvvəldən ölçülmüş maksimum 9.190 px boundary penetration açıqdır; VFX bu problemi həll etmir. Web IndexedDB sync və dərhal bağlama riski davam edir.
+- Real Android, insan playtesti/audio və bütün dil × mövzu × ekran × viewport matrisi yoxlanmayıb. Kommersiya BLOCKED; provayder şərtləri və yazılı icazə yoxlanmayıb.

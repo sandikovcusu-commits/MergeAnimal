@@ -67,3 +67,19 @@ GitHub Actions `8eefda7` headless, 4 eyni seed-li bot ssenarisi, 90 simulyasiya 
 
 ## V0.8 Web aralıq statusu
 C mərhələsinə başlanmayıb. CI sınağı proqram renderidir və performans benchmarkı deyil; FPS, frame-time, yaddaş, mobil cihaz və compressed HTTP transfer ölçülməyib. İlkin Web export fayl ölçüləri və xəbərdarlıqlar `WEB_QA_REPORT.md`-dədir.
+
+## V0.9.0.4 davamı — scheduler A/B/A, 3 × 15 s
+
+Bu bölmə əvvəlki tarixi ölçüləri əvəz etmir. Eyni GitHub runner daxilində Chromium SwiftShader, 360×640, 120 Hz, sabit 10/20/40-body fixture, merge deaktiv. A=`2595bf6`, B=`3bd61aa` (eyni yeni artwork, fərdi visual callback), A təkrar, sonra A Reduced Effects. Hər count ayrı runner. [10](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46056860491), [20](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46056863829), [40](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46056867401); xam JSON `docs/visual/v0904/continuation/performance/`.
+
+| Bədən | A FPS | B FPS | A təkrar FPS | Reduced FPS | A/B orta fərq | A-təkrar/B |
+|---|---|---|---|---|---:|---:|
+| 10 | 40.16, 43.57, 43.29 | 43.11, 43.37, 43.95 | 43.42, 43.22, 44.02 | 43.20, 43.49, 43.75 | −2.6% | +0.2% |
+| 20 | 50.68, 55.08, 54.34 | 54.21, 54.01, 54.54 | 55.14, 55.14, 55.47 | 55.15, 54.47, 56.01 | −1.6% | +1.8% |
+| 40 | 36.19, 45.55, 45.75 | 45.08, 45.02, 45.35 | 45.35, 45.35, 45.55 | 45.00, 45.48, 45.88 | −5.9% | +0.6% |
+
+40 A 1% low 22.48/24.65/27.96 FPS, B 29.93/29.91/29.89, A təkrar 29.90/26.22/29.91; A median 33.3/16.7/16.7 ms, digər medianlar 16.7 ms; bütün 40 p95 33.4 ms. 10 və 20-də bütün p95 33.3–33.4 ms və median 16.7–16.8 ms. Bütün 1% low, median və s. ayrı təkrarlara dair xam JSON-da var. 40 mean draw calls A 64.29–65.13, B 64.36–65.00; node A 196, B 195 (bir scheduler əlavə node). Reduced draw calls 63; reduced sonda ölçüldüyünə və merge deaktiv olduğuna görə real VFX workload müqayisəsi deyil.
+
+İlk A-da >5% fərq, təkrarda isə əks nəticə var. Səbəb/tətbiqin performansı bərpa etdiyi sübut olunmayıb; cold start/order, VM və 60 Hz cap təsir edə bilər. Texture switching, Tween allocation və browser overhead burada ayrıca təcrid olunmayıb; texture-memory monitor 0 qaytarır və etibarlı ölçü deyil. Eyni seed/fixture, renderer, browser və viewport daxilində müqayisə edilsə də hardware cihaz testi, normal/reduced alternating, daha uzun warm-up və əvvəlki baza ilə yeni final artın müqayisəsi açıqdır. Bu benchmark sonradan əlavə edilmiş golden echo-nu ölçmür.
+
+`3783810` standart Web export: açılmamış Web faylları 42,082,820 byte, PCK 2,233,292, WASM 39,514,754; əvvəlki bazadan hər ikisi +730,364 byte (PCK +48.6%, ümumi +1.77%), WASM dəyişməyib. Zip ölçüsü/müştəri şəbəkə transferi başqa anlayışdır. 120 Hz physics dəyişdirilməyib; 9.190 px sərhəd nüfuzu qalır.

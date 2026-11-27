@@ -1,5 +1,11 @@
 # V0.9.0.4 — visual checkpoint (incomplete)
 
+## V0.9.0.4 — davam checkpoint (final deyil)
+- Mövcud 12 vektor personaja məhdud növ detalları və adlandırılmış mənbə qrupları; 12 real native əvvəl/sonra fixture.
+- Bir pausable kosmetik scheduler və Reduced Effects unregister; terminal golden merge üçün collision-suz texture echo.
+- Collection, Statistics, Challenges və Achievements-də ortaq panel/kart tokenləri.
+- Eyni-runner 10/20/40 A/B/A testləri; 40-body nəticəsi dəyişkəndir, >5% fərq hələ açıqdır. Kommersiya BLOCKED.
+
 - 12 animal facial-frame dəsti, gözə aid blink, Happy/Surprise və yumşaq action tween; locked Collection art kontrastı.
 - Bu tam redesign, full UI/VFX/theme polish və ya final acceptance deyil. Bax: `V0904_CHECKPOINT.md`.
 

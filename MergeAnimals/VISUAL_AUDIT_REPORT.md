@@ -15,3 +15,9 @@ Base `5ce6fa4`; clean checkpoint `7945b62`. The base rendered native and Web art
 Əlavə faktiki görüntülər: [achievements before](docs/visual/v0904/before/web-achievements.png), [after](docs/visual/v0904/after/web-achievements.png), [pause before](docs/visual/v0904/before/web-pause.png), [after](docs/visual/v0904/after/web-pause.png), [native menu](docs/visual/v0904/before/native-menu-thumbnail.jpg). Şəkillər fixture/automation vasitəsilə çəkilib, insan playtesti deyil. Statistics, game-over, Rewarded Rescue, bütün dillər və ekranlar hələ bu checkpoint üzrə tam audit edilməyib. Problemlərin prioritetləri agentin ilkin qiymətləndirməsidir.
 
 Chromium yeddi ölçüdə DOM canvas görünür və DOM overflow yoxdur: [46051325247](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46051325247). Bu yoxlama canvas içindəki bütün overlap, mətn clipping, OS safe area, fiziki mobil touch və ya insan oxunaqlılığı sübutu deyil.
+
+## V0.9.0.4 davam auditinin məhdud yekunu
+
+12 fərdi native əvvəl/sonra müqayisəsi və dörd ifadə kadrı, real Chromium secondary ekran müqayisələri və golden real-collision fixture `docs/visual/v0904/continuation/` altındadır. Şəkillər real software renderer çıxışıdır, konsept deyil; sabit fixture və avtomatlaşdırma olduğu ayrıca qeyd olunub. Əlavələr əsasən cizgi/işıq/detail və UI səthləridir: premium redesign, bütün ekranların və hər viewport/dilin yoxlanması və ya insan təsdiqi kimi təqdim edilmir. Ayrı növ qeydləri `CHARACTER_DESIGN_REPORT.md`, UI scope `UI_DESIGN_SYSTEM.md`, testlər `REGRESSION_REPORT.md`.
+
+Üç mövzunun ayrıca native gameplay səhnə fixture-ləri və Web collision debug capture də `continuation/themes/` və `continuation/collision-debug-automated.png` içərisindədir; bunlar müvafiq olaraq dondurulmuş test board və test-only debug probe ilə avtomatlaşdırılmış oyundur.
