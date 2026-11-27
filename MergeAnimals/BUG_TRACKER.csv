@@ -1,0 +1,2 @@
+Bug ID,Priority,System,Reproduction,Expected,Actual,Root cause,Path and line,Fix,Regression,Status
+V091-001,P1 under investigation,Game Over checkpoint,"quality-matrix en forest Game Over after synthetic score 124","Valid checkpoint or actionable failure","Save failed appears","Under investigation","Game.gd:1013-1019; QualityMatrixProbe.gd:42-47","Pending","Pending","OPEN - not yet confirmed production"
