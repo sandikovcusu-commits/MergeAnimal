@@ -1079,13 +1079,24 @@ func _animate_overlay() -> void:
 	var tween := overlay.create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(overlay, "modulate:a", 1.0, 0.18)
 
-func _checkpoint_game_over() -> void:
+func _checkpoint_game_over(attempt: int = 0) -> void:
 	gameover_checkpoint_pending = false
-	if game_state != GameState.GAME_OVER or rescue_finalized: return
+	if not is_inside_tree() or game_state != GameState.GAME_OVER or rescue_finalized: return
 	var snapshot := _session_snapshot()
 	save_status = _write_session_snapshot(snapshot, true) if not snapshot.is_empty() else ERR_BUSY
 	if save_status != OK:
 		rescue_message.text = tr("SAVE_FAILED")
+		# Only bounded transient failures are retried. Never bypass validation,
+		# overwrite a future schema, or clear the displayed error on failure.
+		if attempt < 2 and save_status in [ERR_BUSY, ERR_CANT_CREATE, ERR_FILE_CANT_OPEN, ERR_FILE_CANT_WRITE]:
+			gameover_checkpoint_pending = true
+			_update_rescue_ui()
+			await get_tree().create_timer(0.5 * (attempt + 1), true).timeout
+			if not is_inside_tree() or game_state != GameState.GAME_OVER or rescue_finalized: return
+			_checkpoint_game_over(attempt + 1)
+			return
+	elif attempt > 0:
+		rescue_message.text = ""
 	_update_rescue_ui()
 
 # Exactly one completed-game increment, committed together with tombstone.

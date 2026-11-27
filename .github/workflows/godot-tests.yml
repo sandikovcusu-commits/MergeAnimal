@@ -16,6 +16,10 @@ on:
       merge_probe:
         description: 'Dense merge fixture expectation: none, baseline or fixed'
         default: 'none'
+      save_retry_a3:
+        description: Run A.3 terminal local save retry and stale callback fixture
+        type: boolean
+        default: false
       placement_a3:
         description: Run A.3 bounded placement and danger integrity fixture
         type: boolean
@@ -103,6 +107,10 @@ jobs:
           fi
           if [[ "${{ inputs.merge_stress }}" == 'true' ]]; then
             run_test 'merge stress 100 seeds' --fixed-fps 60 --script res://tests/integration/merge_stress.gd
+          fi
+          if [[ "${{ inputs.save_retry_a3 }}" == 'true' ]]; then
+            mkdir -p /tmp/save-retry-a3-user
+            XDG_DATA_HOME=/tmp/save-retry-a3-user run_test 'terminal save retry a3' --fixed-fps 60 --script res://tests/integration/save_retry_a3.gd
           fi
           if [[ "${{ inputs.placement_a3 }}" == 'true' ]]; then
             mkdir -p /tmp/placement-a3-user

@@ -20,24 +20,48 @@ func _ready() -> void:
 	  if (window.__wildGardenCheckpoint) return;
 	  const tracker = { records: Object.create(null), next: 0 };
 	  tracker.track = (path, expected) => {
-	    const prev = tracker.records[path];
-	    const now = Date.now();
-	    const record = {id: ++tracker.next, state:'pending', expected, since:
-	      prev && prev.state === 'pending' ? prev.since : now};
+	    // A new immutable envelope is a new request, not the continuation of
+	    // an older request's deadline. Superseded callbacks may never verify it.
+	    const record = {id: ++tracker.next, state:'pending', expected,
+	      since:Date.now(), attempts:0, retries:0};
 	    tracker.records[path] = record;
+	    let timer = null;
+	    const current = () => tracker.records[path] === record;
+	    const recover = () => {
+	      if (!current() || record.state === 'verified' || timer !== null) return;
+	      record.state = 'unconfirmed';
+	      // Bounded read-only retry after transient errors or the normal 12s
+	      // deadline; never rewrite a snapshot or claim a verification.
+	      if (record.retries >= 3) return;
+	      const delay = 1000 * Math.pow(2, record.retries++);
+	      timer = setTimeout(() => { timer = null; check(); }, delay);
+	    };
 	    const check = () => {
-	      if (tracker.records[path] !== record || record.state !== 'pending') return;
-	      if (Date.now() - record.since > 12000) { record.state='unconfirmed'; return; }
-	      let req;
-	      try { req = indexedDB.open('/userfs'); } catch (_) { record.state='unconfirmed'; return; }
+	      if (!current() || record.state === 'verified' || record.state === 'failed') return;
+	      if (record.state === 'pending' && Date.now() - record.since > 12000) { recover(); return; }
+	      record.attempts++;
+	      let req, tx, settled = false;
+	      let watchdog;
+	      const fail = () => {
+	        if (settled) return;
+	        settled = true; clearTimeout(watchdog);
+	        if (tx) { try { tx.abort(); } catch (_) {} }
+	        if (current()) recover();
+	      };
+	      // A blocked readonly transaction may not emit any callback while a
+	      // writer holds the store. Bound each attempt without extending the
+	      // original 12 second confirmation deadline.
+	      const wait = record.state === 'pending' ? Math.max(0, 12000 - (Date.now() - record.since)) : 12000;
+	      watchdog = setTimeout(fail, wait);
+	      try { req = indexedDB.open('/userfs'); } catch (_) { fail(); return; }
 	      req.onupgradeneeded = () => { try { req.transaction.abort(); } catch (_) {} };
-	      req.onerror = () => { if (tracker.records[path] === record) record.state='unconfirmed'; };
-	      req.onblocked = () => { if (tracker.records[path] === record) record.state='unconfirmed'; };
+	      req.onerror = fail;
+	      req.onblocked = fail;
 	      req.onsuccess = () => {
 	        const db = req.result;
-	        if (tracker.records[path] !== record) { db.close(); return; }
+	        if (settled || !current()) { clearTimeout(watchdog); db.close(); return; }
 	        try {
-	          const tx = db.transaction('FILE_DATA','readonly');
+	          tx = db.transaction('FILE_DATA','readonly');
 	          const get = tx.objectStore('FILE_DATA').get(path);
 	          let matches = false;
 	          get.onsuccess = () => {
@@ -47,12 +71,14 @@ func _ready() -> void:
 	          };
 	          tx.oncomplete = () => {
 	            db.close();
-	            if (tracker.records[path] !== record) return;
-	            if (matches) record.state='verified'; else setTimeout(check,250);
+	            if (settled || !current()) { clearTimeout(watchdog); return; }
+	            settled = true; clearTimeout(watchdog);
+	            if (matches) record.state='verified';
+	            else if (record.state === 'pending') setTimeout(check,250);
+	            else recover();
 	          };
-	          tx.onabort = tx.onerror = () => { db.close();
-	            if (tracker.records[path] === record) record.state='unconfirmed'; };
-	        } catch (_) { db.close(); if (tracker.records[path] === record) record.state='unconfirmed'; }
+	          tx.onabort = tx.onerror = () => { db.close(); fail(); };
+	        } catch (_) { db.close(); fail(); }
 	      };
 	    };
 	    setTimeout(check,0);

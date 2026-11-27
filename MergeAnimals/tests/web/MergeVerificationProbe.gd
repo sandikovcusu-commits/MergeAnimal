@@ -31,7 +31,7 @@ func metrics(game) -> Dictionary:
 	var locks := 0
 	for b in game.pieces.get_children():
 		if b is Animal and b.merge_locked: locks += 1
-	return {"state":game.game_state, "paused":get_tree().paused, "pending":game.merge_manager.pending.size(), "locks":locks, "count":game.pieces.get_child_count(), "score":game.score, "merges":game.merge_manager.merge_count, "spawns":game.spawn_count, "undo":game.undo_remaining, "remove":game.remove_remaining, "snapshot_empty":game._session_snapshot().is_empty(), "details":game._checkpoint_details()}
+	return {"session_id":game.session_id, "state":game.game_state, "paused":get_tree().paused, "pending":game.merge_manager.pending.size(), "locks":locks, "count":game.pieces.get_child_count(), "score":game.score, "merges":game.merge_manager.merge_count, "spawns":game.spawn_count, "undo":game.undo_remaining, "remove":game.remove_remaining, "rescue_remaining":game.rescue_remaining, "rescue_finalized":game.rescue_finalized, "save_error":game.save_status, "snapshot_empty":game._session_snapshot().is_empty(), "details":game._checkpoint_details()}
 func dispatch(cmd: Dictionary) -> void:
 	var op := str(cmd.op)
 	if op == "setup":
