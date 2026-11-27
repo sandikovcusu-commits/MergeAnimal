@@ -31,6 +31,7 @@ func _ready() -> void:
 	set_process(get_parent() is Animal and not reduced)
 
 func _process(delta: float) -> void:
+	if reduced: return # also safe for explicit/manual calls while processing is disabled
 	idle_phase += delta * 1.5
 	next_blink -= delta
 	if next_blink <= 0.0:
