@@ -1322,7 +1322,7 @@
     },
     {
       "file": "scripts/effects/MergeEffects.gd",
-      "sha256": "776ec1b2ca277c884c03e60424d4df48d668f67225555de2fecebc8c2bbdc716",
+      "sha256": "bd8066ef6667fe3459a6f66e714607027d86afdd975b19800561f68d8a6e1e6b",
       "creator_or_generator": "Project/Agent authored; exact historical author unverified",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -1330,7 +1330,8 @@
       "commercial_use": "NOT VERIFIED: Arena Terms §5(i), applicable Agent Mode agreement and permission unresolved",
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
-      "evidence": "COMMERCIAL_RIGHTS_REPORT.md"
+      "evidence": "COMMERCIAL_RIGHTS_REPORT.md",
+      "modification_note": "V0.9.0.4: authored golden echo effect reuses the existing elephant happy texture; change committed at 3783810. No external imagery added; commercial rights remain blocked."
     },
     {
       "file": "art_source/vector_animals/bear/blink.svg",
