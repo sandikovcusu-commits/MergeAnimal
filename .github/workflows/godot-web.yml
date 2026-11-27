@@ -30,6 +30,9 @@ on:
       perf_aba:
         description: 'After paired run, measure current again and reduced effects (ABA order)'
         default: 'false'
+      perf_isolation:
+        description: 'Same-runner synthetic visual component isolation sequence'
+        default: 'false'
       perf_reference:
         description: 'Paired reference: base or pre-ui-optimization'
         default: 'base'
@@ -110,6 +113,7 @@ jobs:
           PERF_COMPARE_V0904: ${{ inputs.perf_compare_v0904 }}
           PERF_ABA: ${{ inputs.perf_aba }}
           PERF_REFERENCE: ${{ inputs.perf_reference }}
+          PERF_ISOLATION: ${{ inputs.perf_isolation }}
           PERF_VARIANT: ${{ inputs.perf_variant }}
           PERF_TICKS: ${{ inputs.perf_ticks }}
           PERF_SECONDS: ${{ inputs.perf_seconds }}
@@ -146,6 +150,14 @@ jobs:
               cp -a MergeAnimals /tmp/perf-qa-project
             fi
             if [ "$PERF_VARIANT" = predictive-bounds ]; then python3 MergeAnimals/tests/physics/apply_floor_guard.py /tmp/perf-qa-project bounds; elif [ "$PERF_VARIANT" != baseline ]; then echo "Invalid PERF_VARIANT"; exit 1; fi
+            if [ "$PERF_ISOLATION" = true ]; then
+              # e034511 is project-authored private-test artwork, not the
+              # rights-unknown historical legacy images; QA build only.
+              git fetch --no-tags --depth=1 origin e034511e234f6b6314e81dbeaa8ca7dd02df0ced
+              mkdir -p /tmp/perf-qa-project/assets/perf_baseline
+              git show e034511e234f6b6314e81dbeaa8ca7dd02df0ced:MergeAnimals/assets/animals/mouse/normal.png > /tmp/mouse_old.png
+              convert /tmp/mouse_old.png -resize 256x256 /tmp/perf-qa-project/assets/perf_baseline/mouse_old.png
+            fi
             cp MergeAnimals/tests/performance/PerfProbe.gd /tmp/perf-qa-project/scripts/PerfProbe.gd
             sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/perf-qa-project/project.godot
             mkdir -p /tmp/web-test/perf-qa
@@ -243,6 +255,16 @@ jobs:
             URL=http://127.0.0.1:8765/audio-qa/; TEST=audio-web.mjs
           elif [ "$UI_MODE" = none ]; then TEST=powerup-persistence.mjs; else TEST=ui-responsive.mjs; fi
           WEB_URL="$URL" WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node "MergeAnimals/tests/web/$TEST" 2>&1 | tee /tmp/web-qa/browser.log
+          if [ "$UI_MODE" = perf ] && [ "$PERF_ISOLATION" = true ]; then
+            cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/isolation-normal.json
+            for variant in no-blink old-texture per-node reduced golden normal-repeat; do
+              visual="$variant"; effects=normal
+              if [ "$variant" = reduced ]; then visual=normal; effects=reduced; fi
+              if [ "$variant" = normal-repeat ]; then visual=normal; fi
+              PERF_VISUAL_MODE="$visual" PERF_EFFECTS="$effects" WEB_URL="$URL" WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee "/tmp/web-qa/isolation-${variant}.log"
+              cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" "/tmp/web-qa/isolation-${variant}.json"
+            done
+          fi
           if [ "$UI_MODE" = perf ] && [ "$PERF_COMPARE_V0904" = true ]; then
             cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/after-metrics.json
             # Identical probe and browser harness, sequential on this exact runner.

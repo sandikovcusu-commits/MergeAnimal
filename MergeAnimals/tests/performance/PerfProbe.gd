@@ -3,6 +3,8 @@ extends Node
 var last_id := 0
 var scene_name := ""
 var mode := ""
+var visual_mode := "normal"
+var visual_fx_elapsed := 0.0
 var elapsed := 0.0
 var sample := 0.0
 var counters := {}
@@ -26,6 +28,12 @@ func _process(delta: float) -> void:
 				setup(game, str(cmd.get("mode", "")))
 			JavaScriptBridge.eval("window.__perfAck=" + str(last_id))
 	if not game or not game.has_method("create_animal"): return
+	if visual_mode == "golden" and mode in ["10", "20", "40"]:
+		visual_fx_elapsed += delta
+		if visual_fx_elapsed >= 2.0:
+			visual_fx_elapsed = 0.0
+			for kind in ["soft_burst", "golden_glow", "golden_echo", "sparkle", "score_star"]:
+				game._spawn_effect(kind, Vector2(360, 650))
 	if mode == "chain":
 		for animal in game.pieces.get_children():
 			if animal.data.level == 2 and not animal.merge_locked:
@@ -50,6 +58,14 @@ func _process(delta: float) -> void:
 		JavaScriptBridge.eval("window.__perfMon && window.__perfMon.push(" + JSON.stringify(monitor) + ")")
 func setup(game, scenario: String) -> void:
 	mode = scenario
+	var raw_visual: Variant = JavaScriptBridge.eval("window.__benchVisualMode || 'normal'")
+	visual_mode = str(raw_visual)
+	if visual_mode not in ["normal", "no-blink", "old-texture", "per-node", "golden"]:
+		push_error("Unknown visual fixture mode: " + visual_mode)
+		return
+	# Only a synthetic fixture: this does not seed or modify production play.
+	seed(71204)
+	game.rng.seed = 71204
 	if scenario == "natural": return
 	game.persist_best = false # fixture avoids stress saves and profile pollution; normal gameplay is separately measured
 	var reduced_requested: bool = bool(JavaScriptBridge.eval("window.__benchReducedEffects === true"))
@@ -64,10 +80,21 @@ func setup(game, scenario: String) -> void:
 			var body = game.create_animal(game.animals[0], Vector2(145 + (i % 8) * 58, 600 + int(i / 8) * 65))
 			body.merge_locked = true # isolate stable body/collision cost; real merge tests separate
 			body.can_sleep = false
+			if visual_mode in ["no-blink", "old-texture"]: body.visual.next_blink = 1000000.0
+			if visual_mode == "per-node":
+				var scheduler: Node = body.visual.visual_scheduler
+				if is_instance_valid(scheduler): scheduler.unregister_visual(body.visual)
+				body.visual.visual_scheduler = null
+				body.visual.set_process(true)
+		if visual_mode == "old-texture":
+			var old_texture: Texture2D = load("res://assets/perf_baseline/mouse_old.png")
+			if old_texture == null: push_error("Missing QA-only baseline texture"); return
+			game.animals[0].sprite = old_texture
 	if scenario == "reduced":
 		game.reduced_effects = true
 		get_node("/root/AudioManager").reduced_effects = true
 	JavaScriptBridge.eval("window.__benchReducedActive=" + str(get_node("/root/AudioManager").reduced_effects).to_lower())
+	JavaScriptBridge.eval("window.__benchVisualActive=" + JSON.stringify(visual_mode))
 func make_merges(game, scenario: String) -> void:
 	if not is_instance_valid(game): return
 	if scenario == "chain":
