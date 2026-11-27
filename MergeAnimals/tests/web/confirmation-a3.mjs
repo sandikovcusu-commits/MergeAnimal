@@ -15,8 +15,9 @@ try{browser=await engine.launch({headless:false,args:name==='chromium'?['--no-sa
  if(mode==='confirm-a3-baseline')check(match.state==='unconfirmed','baseline reproduces timed-out observer despite exact current readback',diag);else check(match.state==='verified'&&r.details.status==='verified','fixed observer verifies only exact latest revision after delayed transaction',diag);
  if(mode==='confirm-a3-fixed'){
   await cmd('setup');await cmd('suspend_autosave');await sleep(1500);await state('verified');
-  await page.evaluate(()=>{const base=IDBDatabase.prototype.transaction;window.__readFaultBase=base;IDBDatabase.prototype.transaction=function(s,m,...a){if(m==='readonly')throw new DOMException('QA injected read denial','SecurityError');return base.call(this,s,m,...a)}});
-  r=await cmd('save');check(r.result===0,'local write accepted while readback fault is injected');await state('unconfirmed');const before=await info();let request=Object.entries(before.records).find(([p])=>p.endsWith('wild_garden_session.json'))?.[1];check(request?.state==='unconfirmed','read fault is not reported as verified',before);
+  match=await matches();check(match.match,'observer fault test starts with exact committed bytes',match);
+  await page.evaluate(()=>{const base=IDBDatabase.prototype.transaction;window.__readFaultBase=base;IDBDatabase.prototype.transaction=function(s,m,...a){if(m==='readonly')throw new DOMException('QA injected read denial','SecurityError');return base.call(this,s,m,...a)};const t=window.__wildGardenCheckpoint,p=Object.keys(t.records).find(k=>k.endsWith('wild_garden_session.json'));t.track(p,t.records[p].expected)});
+  await state('unconfirmed');const before=await info();let request=Object.entries(before.records).find(([p])=>p.endsWith('wild_garden_session.json'))?.[1];check(request?.state==='unconfirmed','read fault is not reported as verified',before);
   await page.evaluate(()=>IDBDatabase.prototype.transaction=window.__readFaultBase);await state('verified',25000);const after=await info(),current=Object.entries(after.records).find(([p])=>p.endsWith('wild_garden_session.json'))?.[1];match=await matches();check(current?.id===request?.id&&match.match,'bounded read-only retry confirms the same request after recovery', {before,after,match});
  }
  check(errors.length===0,'no uncaught browser errors',errors);
