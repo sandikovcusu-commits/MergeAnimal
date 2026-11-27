@@ -1,3 +1,11 @@
+# V0.9.0.1.1 — commercial evidence and clean test packages
+
+- Audited public Arena Terms §§1, 3.2–3.5 and 5; ownership language does not remove the unresolved commercial-use restrictions. Added user steps and primary evidence; status remains BLOCKED.
+- Byte-regenerated 12 SVG/PNG pairs, 20 icons, 23 audio files and logo; audited runtime SVG links and bundled complete font and Godot logo license notices. No new graphics or gameplay changes.
+- Moved historical visual bytes into private research-only archive, preserved Git history, and added historical hash and PCK texture gates for clean test packages.
+
+---
+
 # V0.9.0.1 — commercial asset audit (work in progress)
 
 - Replaced 12 previous image-generated runtime animal PNGs with newly authored editable vector designs and rendered PNGs; kept animal IDs, sizes, collision radii and existing game logic. Legal rights are not yet established.

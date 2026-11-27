@@ -1,10 +1,11 @@
-# Third-party notices — test distribution
+# Third-party notices — V0.9.0.1.1 test build
 
-The notice texts are in `third_party_notices/` and must accompany the distributed Web build outside the PCK, as export filters exclude text files.
+The accompanying `third_party_notices/` folder (or `notices/` in the Web ZIP) contains the full texts. Preserve applicable notices when distributing; the Godot PCK intentionally excludes text. This is a test distribution and does not authorize commercial release.
 
-- Godot Engine 4.7.2: MIT; `GODOT-LICENSE.txt`. `GODOT-COPYRIGHT.txt` is the upstream engine bundled third-party component notice, https://github.com/godotengine/godot/blob/4.7.2-stable/COPYRIGHT.txt. Review applicability to the actual template before release.
-- DejaVu Sans: Bitstream Vera/DejaVu terms; `DEJAVU-LICENSE.txt`, https://dejavu-fonts.github.io/. Notice required for font and logo glyph outlines. Modified fonts are subject to naming conditions.
-- CrazyGames Godot addon: MIT; `CRAZYSDK-LICENSE.txt`, https://store.godotengine.org/asset/crazygames/crazysdk/. The CDN SDK is a separately delivered platform service, not covered merely by the addon license. Full-launch advertising requires platform entitlement and approved SDK terms; basic build remains no-ads.
-- resvg-js 2.6.2 is a development-only rasterizer, not shipped as game runtime. Its own dependencies and licenses apply to anyone redistributing the tool.
+- **Godot Engine 4.7.2:** MIT, copyright 2014-present Godot Engine contributors and 2007–2014 Juan Linietsky, Ariel Manzur. `GODOT-LICENSE.txt` and `GODOT-COPYRIGHT.txt` list upstream component licenses; review actual template components. https://github.com/godotengine/godot/tree/4.7.2-stable
+- **Godot Engine Logo:** © 2017 Andrea Calabró, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); [original notice](https://github.com/godotengine/godot/blob/4.7.2-stable/misc/logo/LICENSE.txt). The Web export's default splash (`index.png`) and app/favicon variants (`index.icon.png`, `index.apple-touch-icon.png`) are resized/export-generated logo presentations. These are modifications in size/presentation, not an endorsement. `GODOT-LOGO-LICENSE.txt` and `CC-BY-4.0.txt` accompany them.
+- **DejaVu Sans 2.37:** © Bitstream, Inc.; glyphs imported from Arev © Tavmjong Bah; DejaVu changes described by upstream as public domain. The full `DEJAVU-UPSTREAM-LICENSE.txt` and Debian package notice `DEJAVU-LICENSE.txt` cover bundled font and relevant glyph outlines in the Wild Garden wordmark. Renaming conditions apply to modified fonts and the font cannot be sold by itself. https://dejavu-fonts.github.io/License.html
+- **CrazyGames Godot addon:** © 2026 CrazyGames, MIT; `CRAZYSDK-LICENSE.txt`, https://store.godotengine.org/asset/crazygames/crazysdk/. The remotely loaded HTML SDK/service and platform monetization have separate terms and eligibility.
+- **Development only (not bundled as runtime):** resvg-js 2.6.2, MPL-2.0 (`RESVG-JS-MPL-2.0.txt`, source https://github.com/thx/resvg-js/tree/v2.6.2); fontTools 4.69.1 MIT (`FONTTOOLS-MIT.txt`, `FONTTOOLS-EXTERNAL-LICENSES.txt`, source https://github.com/fonttools/fonttools). Redistributors of these tools must separately meet their applicable source and notice obligations; this project does not ship their binaries.
 
-This list does not grant rights to project-created assets or establish a project-wide license. See `COMMERCIAL_RIGHTS_REPORT.md`.
+Notices do not clear project-authored/Agent-generated output. See `COMMERCIAL_RIGHTS_REPORT.md` and `LICENSE_EVIDENCE.md`.

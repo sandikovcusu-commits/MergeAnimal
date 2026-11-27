@@ -1,3 +1,12 @@
+# V0.9.0.1.1 — commercial verification blockers
+
+- Arena 2026-02-23 Terms §5(i) restricts selling, distributing, hosting or commercially exploiting Output; account-specific Agent Mode supplemental terms and written consent covering this project's intended distribution and ads have not been verified. User steps are in `LICENSE_EVIDENCE.md`. Project output remains BLOCKED.
+- 12 vectors are technically reproducible with no embedded/external image inputs but model training, similarity/non-infringement and applicable rights are not established. Exact original generation date is uncertain due conflicting session and Git clocks.
+- Full DejaVu upstream notice and Godot default Web logo CC BY attribution now accompany test ZIPs. Font name table says 2.37, but an independent upstream TTF byte-match remains unverified. Verify actual template dependencies and CDN terms before distribution.
+- Technical tests and clean package exact-hash checks do not prove absence of all derivatives, legal originality or permission to publish. Previous archives and Git history contain unresolved legacy assets and must not be treated as clean commercial deliverables.
+
+---
+
 # V0.9.0.1 — WIP clearance and sprite gaps
 
 - Commercial rights for Agent-authored vector/audio/UI/background/VFX output and applicable Arena terms are not established. Prior image-generated animals are blocked; replacement art is not legally cleared merely by its source being new. Owner grant and legal review required.

@@ -1,3 +1,5 @@
+> **V0.9.0.1.1:** Clean test packages and a rights evidence audit are in progress. Arena output commercial use is **BLOCKED** pending applicable agreement/written permission; see `LICENSE_EVIDENCE.md` and `COMMERCIAL_RIGHTS_REPORT.md`. Legacy images are in a private research-only archive and unmodified Git history, not the clean source package.
+
 > **V0.9.0.1 in progress:** Replacement vector animal assets and rights audit are under review. Commercial release remains blocked; runtime/export verification is pending. See `COMMERCIAL_RIGHTS_REPORT.md`.
 
 > **V0.7.0 development:** Procedural animation, original synthesized audio, central audio settings and SVG logo are included. First input starts audio. Separate eye/expression art and human audio/device acceptance remain incomplete; commercial sprite release is blocked. See `ANIMATION_REPORT.md`, `AUDIO_REPORT.md`, `PERFORMANCE_REPORT.md`, `ASSET_LICENSES.md`, `QA_REPORT.md`, and `KNOWN_ISSUES.md`.

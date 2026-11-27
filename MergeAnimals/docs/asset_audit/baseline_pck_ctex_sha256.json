@@ -1,0 +1,18 @@
+{
+  "baseline_commit": "8895ddf4b879d83c13952e608df68b2977dcb31d",
+  "pck_sha256": "7d27dc292e937627884c4faed9ba7b9e71a617452461c8e4d18680e39aa1dd32",
+  "texture_sha256": {
+    ".godot/imported/normal.png-1ad1d016f12013014fcd5b2eb1357d8c.ctex": "dded0612a633569da2540cd676db0de35d0b3721b01b34420fa2fd68052c7e7d",
+    ".godot/imported/normal.png-1dfdddf708809ef8fb79e2b0daaca4e6.ctex": "07838273783a3c937e89ee0a1ee937896cfe85a981c7762db6cb156b43fe4581",
+    ".godot/imported/normal.png-27972c0014c8f280b7cf8df18be91787.ctex": "b319420156cbdbfcf5020e3e3f30f4bdb00069e47be760f8928c830bfc9d9b8d",
+    ".godot/imported/normal.png-5f1875b6aab8e2cc3f1ee15a59db211d.ctex": "e8e288bed2f543a5e86c28d30f2c1356127e0c6019a04bf83308c141d82bf9c0",
+    ".godot/imported/normal.png-6a94e1858b24735051476aedd43ee89b.ctex": "50437a63c4e751bcf769af10a333aa1777da1d9c7dc726f769ca904285311159",
+    ".godot/imported/normal.png-793207ead8f978743e10e0525e2421a5.ctex": "337b4c1f358de0d476c854ebe89dda0c08dd3406376cd5b706a856394a5edacd",
+    ".godot/imported/normal.png-b84feea7b15f6e751f6da0dd2f5b5d96.ctex": "b7830e25f4587d73a6fd91890d51b58951785e7eeb3a362dc9f99f818c54d6f2",
+    ".godot/imported/normal.png-b9453be448ba8a92eb4a8a7130ac1960.ctex": "f0bb0f8b3365bc7da8c4f1da36518f3f82e953650174c164941f9a1401f26c97",
+    ".godot/imported/normal.png-ba54881b1affcd2176e53a60d39229e0.ctex": "f96ab9c35c1cac77de5c10bd8c6569157aa9c5f22ad9e51dbbbe4cd73a4586ad",
+    ".godot/imported/normal.png-c6494deedb561c1922cda0c62a47b6a7.ctex": "e8f9d3a1d94e293aa3ab211cc2b6bdd05b286ce4d4568321b3b0177898b4a04b",
+    ".godot/imported/normal.png-ea3b6dd7c84754b5dcc42fe5e207de42.ctex": "d35abea8933f7c9430d3751b2d4b37b8587ade7817babceab151464726a0ca33",
+    ".godot/imported/normal.png-f1e291cbbe0128bde18bb07b03100a16.ctex": "771d8a95e8ff908aed05d157957491270a77e7f5b0193943cc03398b66e466a2"
+  }
+}
