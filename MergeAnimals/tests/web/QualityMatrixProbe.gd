@@ -11,7 +11,8 @@ func _process(_delta: float) -> void:
 	if not cmd is Dictionary or int(cmd.get("id", 0)) == last_id: return
 	last_id = int(cmd.id)
 	if cmd.get("op") == "setup": call_deferred("setup", cmd)
-	elif cmd.get("op") == "gameover": call_deferred("gameover", cmd)
+	elif cmd.get("op") in ["gameover", "gameover-invalid"]: call_deferred("gameover", cmd)
+	elif cmd.get("op") == "inspect": call_deferred("inspect", cmd)
 func finish(id: int, data: Dictionary) -> void:
 	data["id"] = id
 	JavaScriptBridge.eval("window.__qualityReply=" + JSON.stringify(data))
@@ -42,7 +43,12 @@ func gameover(cmd: Dictionary) -> void:
 	if not game or not game.has_method("_on_game_over"):
 		finish(int(cmd.id), {"error":"game not ready"}); return
 	game.score = 124; game.best_at_start = 0; game.max_combo = 3
-	game._update_hud() # Keep the test-created score and gameplay HUD consistent.
+	# The normal eligible merge path updates both best_score and progression.
+	# Preserve the old invalid setup only for the explicit regression scenario.
+	if cmd.get("op") != "gameover-invalid":
+		game.best_score = maxi(game.best_score, game.score)
+		game.progression.best_score = maxi(int(game.progression.best_score), game.score)
+	game._update_hud()
 	game._on_game_over()
 	for i in range(4): await get_tree().process_frame
 	var title: Label = game.overlay_title
@@ -52,4 +58,11 @@ func gameover(cmd: Dictionary) -> void:
 		if character != "\n" and not font.has_char(character.unicode_at(0)): glyphs_ok = false
 	var text_bottom: float = title.position.y + title.get_line_count() * title.get_line_height()
 	var fits: bool = text_bottom + 10 <= button.position.y and game.rescue_message.position.y + game.rescue_message.size.y <= game.overlay.size.y
-	finish(int(cmd.id), {"locale":TranslationServer.get_locale(), "theme":game.visual_theme, "game_over":game.overlay.visible, "title_bottom":text_bottom, "action_y":button.position.y, "fits":fits, "glyphs":glyphs_ok, "action_width":button.size.x, "action_height":button.size.y})
+	var snap: Dictionary = game._session_snapshot()
+	var repaired := snap.duplicate(true)
+	if not repaired.is_empty(): repaired.best_score = maxi(int(repaired.best_score), int(repaired.score))
+	finish(int(cmd.id), {"locale":TranslationServer.get_locale(), "theme":game.visual_theme, "game_over":game.overlay.visible, "title_bottom":text_bottom, "action_y":button.position.y, "fits":fits, "glyphs":glyphs_ok, "action_width":button.size.x, "action_height":button.size.y, "save_status":game.save_status, "message":game.rescue_message.text, "valid":SessionSave.valid(snap), "valid_with_best_fixed":SessionSave.valid(repaired), "score":game.score, "best":game.best_score, "session_id":game.session_id, "can_write":SessionSave.can_write(), "document":SessionSave.load_document()})
+
+func inspect(cmd: Dictionary) -> void:
+	var doc := SessionSave.load_document()
+	finish(int(cmd.id), {"document":doc, "observer":get_node("/root/SaveDurability").state(), "can_write":SessionSave.can_write()})
