@@ -812,27 +812,44 @@ func create_animal(data: AnimalData, point: Vector2) -> Animal:
 	merge_manager.observe(animal)
 	return animal
 
+func merge_placement_limit(radius: float, a: Animal, b: Animal) -> float:
+	# At this distance the result centre can reach the edge of an original
+	# circle plus its own radius and the same 1px clearance used below. This
+	# scales with the actual collision geometry instead of a fixed 192px jump.
+	return radius + maxf(a.data.radius, b.data.radius) + 1.0
+
 func find_merge_position(midpoint: Vector2, radius: float, a: Animal, b: Animal) -> Variant:
-	# Preserve the original near-first search. Only if that fails, search a
-	# bounded 192px neighbourhood; never create an overlapping result.
-	for ring in range(0, 17):
+	var limit := merge_placement_limit(radius, a, b)
+	var baseline_danger := midpoint.y - radius < danger_height
+	var best: Variant = null
+	var best_distance_squared := INF
+	# Evaluate every bounded sampled candidate, including the exact outer edge;
+	# clamping can otherwise make a later ring closer than an earlier one.
+	var rings := ceili(limit / 12.0)
+	for ring in range(rings + 1):
+		var distance := minf(ring * 12.0, limit)
 		var samples := 1 if ring == 0 else 16
 		for index in range(samples):
-			var offset := Vector2.ZERO if ring == 0 else Vector2.from_angle(TAU * index / samples) * (ring * 12.0)
+			var offset := Vector2.ZERO if ring == 0 else Vector2.from_angle(TAU * index / samples) * distance
 			var point := midpoint + offset
 			point.x = clampf(point.x, left_bound + radius, right_bound - radius)
 			point.y = clampf(point.y, 300.0 + radius, floor_height - radius)
+			var displacement := point.distance_squared_to(midpoint)
+			if displacement > limit * limit + 0.01 or displacement >= best_distance_squared: continue
+			# A fallback may not move a naturally dangerous midpoint below the
+			# line. A naturally safe midpoint remains legal for mixed pairs.
+			if baseline_danger and point.y - radius >= danger_height: continue
 			var clear := true
 			for node in pieces.get_children():
 				var other := node as Animal
-				if other == null or other == a or other == b or other.is_queued_for_deletion():
-					continue
+				if other == null or other == a or other == b or other.is_queued_for_deletion(): continue
 				if point.distance_squared_to(other.global_position) < pow(radius + other.data.radius + 1.0, 2.0):
 					clear = false
 					break
 			if clear:
-				return point
-	return null
+				best = point
+				best_distance_squared = displacement
+	return best
 
 func _award_merge(base_score: int) -> void:
 	if combo_enabled:

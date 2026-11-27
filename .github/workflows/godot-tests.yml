@@ -16,6 +16,10 @@ on:
       merge_probe:
         description: 'Dense merge fixture expectation: none, baseline or fixed'
         default: 'none'
+      placement_a3:
+        description: Run A.3 bounded placement and danger integrity fixture
+        type: boolean
+        default: false
       trace_compare:
         description: Compare approximate old Firefox trace against exact baseline scripts
         type: boolean
@@ -99,6 +103,10 @@ jobs:
           fi
           if [[ "${{ inputs.merge_stress }}" == 'true' ]]; then
             run_test 'merge stress 100 seeds' --fixed-fps 60 --script res://tests/integration/merge_stress.gd
+          fi
+          if [[ "${{ inputs.placement_a3 }}" == 'true' ]]; then
+            mkdir -p /tmp/placement-a3-user
+            XDG_DATA_HOME=/tmp/placement-a3-user run_test 'placement a3' --fixed-fps 60 --script res://tests/integration/placement_a3.gd
           fi
           if [[ "${{ inputs.trace_compare }}" == 'true' ]]; then
             TRACE_EXPECT=fixed run_test 'Firefox trace approximate fixed' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd
