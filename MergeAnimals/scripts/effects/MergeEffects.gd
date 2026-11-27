@@ -33,14 +33,14 @@ func _draw() -> void:
 		"soft_burst":
 			# Ease out the ring so the contact feels soft, not like an expanding
 			# rigid marker. Reduced mode retains only the essential first ring.
-			var eased := 1.0 - pow(1.0 - t, 3.0)
+			var eased: float = 1.0 - pow(1.0 - t, 3.0)
 			var radius := 12.0 + 35.0 * eased
 			draw_arc(Vector2.ZERO, radius, 0.0, TAU, 40, Color(1.0, 0.90, 0.65, alpha * 0.65), 4.0)
 			if not reduced_visual:
 				draw_arc(Vector2.ZERO, radius * 0.72, 0.0, TAU, 32, Color(1.0, 0.98, 0.81, alpha * 0.42), 2.0)
 		"golden_glow":
 			# Bounded procedural halo and rays; no textures, physics, or particles.
-			var eased := 1.0 - pow(1.0 - t, 2.0)
+			var eased: float = 1.0 - pow(1.0 - t, 2.0)
 			draw_circle(Vector2.ZERO, 48.0 + 12.0 * eased, Color(1.0, 0.76, 0.24, alpha * 0.10))
 			for i in range(3):
 				draw_arc(Vector2.ZERO, 25.0 + 22.0 * i + 20.0 * eased, 0.0, TAU, 48, Color(1.0, 0.74, 0.18, alpha * 0.5), 5.0)
