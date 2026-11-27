@@ -761,9 +761,9 @@ func create_animal(data: AnimalData, point: Vector2) -> Animal:
 	return animal
 
 func find_merge_position(midpoint: Vector2, radius: float, a: Animal, b: Animal) -> Variant:
-	# Avoid inserting a larger circle into another body. If no nearby slot is
-	# safe, the locked pair remains pending and is retried, not deleted.
-	for ring in range(0, 9):
+	# Preserve the original near-first search. Only if that fails, search a
+	# bounded 192px neighbourhood; never create an overlapping result.
+	for ring in range(0, 17):
 		var samples := 1 if ring == 0 else 16
 		for index in range(samples):
 			var offset := Vector2.ZERO if ring == 0 else Vector2.from_angle(TAU * index / samples) * (ring * 12.0)

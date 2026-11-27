@@ -46,27 +46,45 @@ func _physics_process(_delta: float) -> void:
 	commit_scheduled = true
 	call_deferred("_commit_pending")
 
+# Release only this reservation; never unlock a body owned by another pair.
+# A failed transaction preserves all still-live bodies and does not award score.
+func _cancel_pair(pair: Dictionary) -> void:
+	pending.erase(pair)
+	for key in ["a", "b"]:
+		var body: Variant = pair.get(key)
+		if not is_instance_valid(body) or not body is Animal: continue
+		var reserved_elsewhere := false
+		for remaining in pending:
+			if remaining.get("a") == body or remaining.get("b") == body:
+				reserved_elsewhere = true
+				break
+		if not reserved_elsewhere: body.merge_locked = false
+
 func _commit_pending() -> void:
 	commit_scheduled = false
 	if not game.is_playing():
 		return
-	# Work on a snapshot; pending pairs without room are retried on later ticks.
 	for pair in pending.duplicate():
-		var a: Animal = pair["a"]
-		var b: Animal = pair["b"]
-		if not is_instance_valid(a) or not is_instance_valid(b):
-			if is_instance_valid(a):
-				a.merge_locked = false
-			if is_instance_valid(b):
-				b.merge_locked = false
-			pending.erase(pair)
+		var a: Variant = pair.get("a")
+		var b: Variant = pair.get("b")
+		if not is_instance_valid(a) or not is_instance_valid(b) or not a is Animal or not b is Animal:
+			_cancel_pair(pair)
 			continue
-		var target: AnimalData = pair["target"]
+		if a == b or a.is_queued_for_deletion() or b.is_queued_for_deletion() or a.get_parent() != game.pieces or b.get_parent() != game.pieces or not a.merge_locked or not b.merge_locked:
+			_cancel_pair(pair)
+			continue
+		var target: AnimalData = pair.get("target")
+		if a.data.id != b.data.id or a.data.level != b.data.level or (target == null and not pair.get("golden", false)):
+			_cancel_pair(pair)
+			continue
 		var midpoint: Vector2 = (a.global_position + b.global_position) * 0.5
 		var safe_point: Variant = midpoint
 		if not pair["golden"]:
 			safe_point = game.find_merge_position(midpoint, target.radius, a, b)
 			if safe_point == null:
+				# Search actually failed on this board. Cancel this pair only;
+				# preserve both originals and score rather than deadlock the game.
+				_cancel_pair(pair)
 				continue
 		pending.erase(pair)
 		# Remove from the tree outside physics callbacks before creating the replacement.
@@ -83,3 +101,7 @@ func _commit_pending() -> void:
 			result.progression_eligible = last_merge_eligible
 			result.visual.animate_action("merge")
 			merged.emit(target, safe_point)
+	# Capture only after the queue has drained, never a locked partial board.
+	if pending.is_empty() and game.persist_best and game.is_playing() and not game.save_scheduled:
+		game.save_scheduled = true
+		game.call_deferred("_autosave_safe")
