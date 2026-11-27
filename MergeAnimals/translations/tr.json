@@ -43,5 +43,7 @@
   "AD_UNAVAILABLE": "Reklam kullanılamıyor. Onsuz devam edebilirsin.",
   "CHECKPOINT_SAVING": "Kayıt noktası kaydediliyor…",
   "CHECKPOINT_SAVED": "Kayıt noktası kaydedildi",
-  "CHECKPOINT_UNCONFIRMED": "Kayıt doğrulanmadı"
+  "CHECKPOINT_UNCONFIRMED": "Kayıt doğrulanmadı",
+  "CHECKPOINT_FAILED": "Kayıt başarısız",
+  "CHECKPOINT_UNAVAILABLE": "Depolama kullanılamıyor"
 }

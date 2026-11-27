@@ -43,5 +43,7 @@
   "AD_UNAVAILABLE": "Реклама недоступна. Можно продолжить без неё.",
   "CHECKPOINT_SAVING": "Сохранение…",
   "CHECKPOINT_SAVED": "Точка сохранена",
-  "CHECKPOINT_UNCONFIRMED": "Сохранение не подтверждено"
+  "CHECKPOINT_UNCONFIRMED": "Сохранение не подтверждено",
+  "CHECKPOINT_FAILED": "Ошибка сохранения",
+  "CHECKPOINT_UNAVAILABLE": "Хранилище недоступно"
 }

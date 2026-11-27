@@ -43,5 +43,7 @@
   "AD_UNAVAILABLE": "Ad unavailable. You can continue without it.",
   "CHECKPOINT_SAVING": "Saving checkpoint…",
   "CHECKPOINT_SAVED": "Checkpoint saved",
-  "CHECKPOINT_UNCONFIRMED": "Save not confirmed"
+  "CHECKPOINT_UNCONFIRMED": "Save not confirmed",
+  "CHECKPOINT_FAILED": "Save failed",
+  "CHECKPOINT_UNAVAILABLE": "Storage unavailable"
 }

@@ -161,6 +161,15 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
+          elif [ "$UI_MODE" = save-integrity ]; then
+            # Isolated probe build; the standard export above remains unmodified.
+            cp -a MergeAnimals /tmp/save-qa-project
+            cp MergeAnimals/tests/web/SaveIntegrityProbe.gd /tmp/save-qa-project/scripts/save/SaveIntegrityProbe.gd
+            sed -i '/^\[autoload\]/a SaveIntegrityProbe="*res://scripts/save/SaveIntegrityProbe.gd"' /tmp/save-qa-project/project.godot
+            mkdir -p /tmp/web-test/save-qa
+            "$GODOT" --headless --path /tmp/save-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/save-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/save-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/save-qa/; TEST=save-integrity.mjs
           elif [ "$UI_MODE" = save-timing ]; then
             TEST=save-timing.mjs
           elif [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ] || [ "$UI_MODE" = reward-production ]; then

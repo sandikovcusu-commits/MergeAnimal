@@ -276,6 +276,8 @@ func _process(delta: float) -> void:
 		"pending": label.text = tr("CHECKPOINT_SAVING")
 		"verified": label.text = tr("CHECKPOINT_SAVED")
 		"unconfirmed": label.text = tr("CHECKPOINT_UNCONFIRMED")
+		"failed": label.text = tr("CHECKPOINT_FAILED")
+		"unavailable": label.text = tr("CHECKPOINT_UNAVAILABLE")
 
 func _session_snapshot(include_undo: bool = true) -> Dictionary:
 	var bodies: Array = []

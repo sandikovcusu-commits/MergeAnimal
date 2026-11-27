@@ -42,6 +42,14 @@ static func load_progress(path: String = DEFAULT_PATH) -> Dictionary:
 	return {"status": "missing" if primary.status == "missing" and backup.status == "missing" else "corrupt"}
 
 static func save_progress(data: Dictionary, path: String = DEFAULT_PATH, backup_current: bool = true) -> Error:
+	var result := _save_progress(data, path, backup_current)
+	if result != OK and OS.has_feature("web"):
+		var tree := Engine.get_main_loop() as SceneTree
+		var observer := tree.root.get_node_or_null("SaveDurability") if tree else null
+		if observer: observer.failed(path)
+	return result
+
+static func _save_progress(data: Dictionary, path: String, backup_current: bool) -> Error:
 	# Never overwrite newer saves, unreadable saves, or a newer backup.
 	if not path.begins_with("user://"):
 		return ERR_INVALID_PARAMETER

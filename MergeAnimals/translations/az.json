@@ -43,5 +43,7 @@
   "AD_UNAVAILABLE": "Reklam əlçatan deyil. Onsuz davam edə bilərsən.",
   "CHECKPOINT_SAVING": "Oyun saxlanır…",
   "CHECKPOINT_SAVED": "Yaddaş nöqtəsi saxlandı",
-  "CHECKPOINT_UNCONFIRMED": "Saxlama təsdiqlənməyib"
+  "CHECKPOINT_UNCONFIRMED": "Saxlama təsdiqlənməyib",
+  "CHECKPOINT_FAILED": "Saxlama alınmadı",
+  "CHECKPOINT_UNAVAILABLE": "Yaddaş əlçatan deyil"
 }
