@@ -24,6 +24,9 @@ on:
       perf_process:
         description: 'Measure Linux browser process-tree CPU/RSS'
         default: 'false'
+      perf_variant:
+        description: 'Physics benchmark only: baseline or predictive-bounds'
+        default: 'baseline'
       perf_ticks:
         description: 'Test-only physics tick rate: 60, 90 or 120'
         default: '120'
@@ -95,6 +98,7 @@ jobs:
           UI_LOCALE: ${{ inputs.ui_locale }}
           PERF_BASELINE: ${{ inputs.perf_baseline }}
           PERF_PROCESS: ${{ inputs.perf_process }}
+          PERF_VARIANT: ${{ inputs.perf_variant }}
           PERF_TICKS: ${{ inputs.perf_ticks }}
           PERF_SECONDS: ${{ inputs.perf_seconds }}
           PERF_REPEATS: ${{ inputs.perf_repeats }}
@@ -129,6 +133,7 @@ jobs:
             else
               cp -a MergeAnimals /tmp/perf-qa-project
             fi
+            if [ "$PERF_VARIANT" = predictive-bounds ]; then python3 MergeAnimals/tests/physics/apply_floor_guard.py /tmp/perf-qa-project bounds; elif [ "$PERF_VARIANT" != baseline ]; then echo "Invalid PERF_VARIANT"; exit 1; fi
             cp MergeAnimals/tests/performance/PerfProbe.gd /tmp/perf-qa-project/scripts/PerfProbe.gd
             sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/perf-qa-project/project.godot
             mkdir -p /tmp/web-test/perf-qa
