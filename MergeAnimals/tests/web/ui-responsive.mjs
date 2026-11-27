@@ -151,7 +151,7 @@ async function navigationTest(touch=false){
  await tap(565,520,touch);await sleep(1200);await tap(260,700,touch);await sleep(6500);
  let first=await waitState(d=>d.active&&d.spawn_count===1,'first navigation drop');
  check(first.bodies.length===1&&Math.abs(first.bodies[0].x-260)<40,'one board input drops one animal near chosen x');console.log('NAV_FIRST',JSON.stringify(first));
- await tap(600,58,touch);await sleep(3000);text=await shot('pause');check(/pause|resume/.test(text),'Pause button opens overlay');
+ await tap(600,58,touch);await sleep(3000);text=await readableShot('pause');check(/resume/.test(text)||(/main menu/.test(text)&&/settings/.test(text)),'Pause button opens overlay');
  let paused=await state();check(paused.spawn_count===1,'Pause does not create a drop');await captureSizes('pause');
  await tap(360,915,touch);await sleep(4000);text=await shot('return-menu');check(text.includes('best score'),'Pause Main Menu returns to menu');
  let saved=await state();check(saved.active&&saved.spawn_count===1&&saved.bodies.length===1,'session remains saved after return to menu');
