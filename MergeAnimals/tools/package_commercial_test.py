@@ -37,4 +37,12 @@ with zipfile.ZipFile(evidence) as original, zipfile.ZipFile(web,'w',zipfile.ZIP_
   if name.startswith(prefix) and name.endswith('.txt'):z.writestr('notices/'+name[len(prefix):],content)
  for notice in ('THIRD_PARTY_NOTICES.md','COMMERCIAL_RIGHTS_REPORT.md','LICENSE_EVIDENCE.md'):z.writestr('notices/'+notice,committed['MergeAnimals/'+notice])
  z.writestr('notices/TEST_ONLY.txt','V0.9.0.1.1 TEST ONLY — COMMERCIAL RELEASE BLOCKED. No ads in this standard Web export. Applicable Arena output rights and written consent are not established. See LICENSE_EVIDENCE.md and COMMERCIAL_RIGHTS_REPORT.md.\n')
+(assets/'notices').mkdir()
+for name,content in committed.items():
+ prefix='MergeAnimals/third_party_notices/'
+ if name.startswith(prefix) and name.endswith('.txt'):
+  (assets/'notices'/name[len(prefix):]).write_bytes(content)
+for name in ('THIRD_PARTY_NOTICES.md','COMMERCIAL_RIGHTS_REPORT.md','LICENSE_EVIDENCE.md'):
+ (assets/'notices'/name).write_bytes(committed['MergeAnimals/'+name])
+(assets/'TEST_ONLY.txt').write_text('TEST ONLY — NOT CLEARED FOR COMMERCIAL DISTRIBUTION. See notices/COMMERCIAL_RIGHTS_REPORT.md and LICENSE_EVIDENCE.md.\n')
 print('Packaged',source,web,'and',assets)
