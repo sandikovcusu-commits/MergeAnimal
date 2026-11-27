@@ -72,6 +72,7 @@ jobs:
           archive=pathlib.Path('/tmp/character-evidence.zip')
           with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
               for f in sorted(pathlib.Path('/tmp/character-renders').glob('*.png')): z.write(f,f.name)
+              for f in sorted(pathlib.Path('/tmp/godot-renders').glob('theme*_720x1280.png')): z.write(f,'gameplay-themes/'+f.name)
               log=pathlib.Path('/tmp/character-log.txt')
               if log.exists(): z.write(log,'character-log.txt')
           payload=pathlib.Path('/tmp/character-blob.json')
