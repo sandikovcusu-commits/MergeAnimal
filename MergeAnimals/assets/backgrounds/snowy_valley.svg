@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280">
 <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#d5eaf2"/><stop offset="1" stop-color="#f8f6ea"/></linearGradient><radialGradient id="sun"><stop stop-color="#fff8df" stop-opacity=".8"/><stop offset="1" stop-color="#fff8df" stop-opacity="0"/></radialGradient></defs>
 <rect width="720" height="1280" fill="url(#sky)"/><circle cx="165" cy="135" r="160" fill="url(#sun)"/>
-<path d="M0 390 Q90 290 160 375 Q250 240 340 375 Q445 250 540 360 Q640 280 720 365 V1280 H0Z" fill="#b6d1d5" opacity=".65"/>
-<path d="M0 540 Q170 420 300 535 Q470 410 720 535 V1280 H0Z" fill="#85aba9" opacity=".60"/>
-<path d="M0 1000 Q150 945 280 1000 Q460 925 720 1000 V1280 H0Z" fill="#608c91" opacity=".36"/>
-<g fill="#608c91" opacity=".52"><path d="M25 1040 l36 -130 36 130Z M51 1030h18v130H51Z M622 1040 l35 -135 36 135Z M649 1030h18v130h-18Z"/></g>
-<g fill="#fff8df" opacity=".65"><circle cx="38" cy="1170" r="5"/><circle cx="682" cy="1180" r="6"/><circle cx="95" cy="1240" r="5"/><circle cx="618" cy="1230" r="4"/></g>
+<!-- Layered angular peaks and snowy caps are different from the garden hills. -->
+<path d="M0 408 L100 302 L163 374 L254 273 L354 391 L454 288 L544 380 L625 305 L720 399 V1280 H0Z" fill="#b6d1d5" opacity=".7"/>
+<path d="M68 337 L100 302 L132 338 L115 331 L101 339 L90 331Z M214 318 L254 273 L292 318 L272 307 L254 317 L236 306Z M421 326 L454 288 L488 326 L469 316 L454 326 L440 315Z M592 340 L625 305 L659 341 L641 332 L626 341 L608 331Z" fill="#fffdf2" opacity=".75"/>
+<path d="M0 540 Q170 460 300 535 Q470 430 720 535 V1280 H0Z" fill="#85aba9" opacity=".55"/>
+<path d="M0 1000 Q150 945 280 1000 Q460 925 720 1000 V1280 H0Z" fill="#608c91" opacity=".3"/>
+<g fill="#608c91" opacity=".5"><path d="M17 1080 L60 940 L103 1080 L87 1080 L100 1107 L20 1107 L33 1080Z M51 1100 H69 V1160 H51Z M617 1080 L660 940 L703 1080 L687 1080 L700 1107 L620 1107 L633 1080Z M651 1100 H669 V1160 H651Z"/></g>
+<g fill="#fffdf5" opacity=".8"><path d="M42 999 L60 940 L78 999 L60 988Z M642 999 L660 940 L678 999 L660 988Z"/><circle cx="38" cy="1170" r="5"/><circle cx="682" cy="1180" r="6"/><circle cx="95" cy="1240" r="5"/><circle cx="618" cy="1230" r="4"/></g>
 </svg>

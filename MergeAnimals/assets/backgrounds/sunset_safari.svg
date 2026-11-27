@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280">
-<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#f9d6a8"/><stop offset="1" stop-color="#fbefd1"/></linearGradient><radialGradient id="sun"><stop stop-color="#fff2b4" stop-opacity=".8"/><stop offset="1" stop-color="#fff2b4" stop-opacity="0"/></radialGradient></defs>
-<rect width="720" height="1280" fill="url(#sky)"/><circle cx="165" cy="135" r="160" fill="url(#sun)"/>
-<path d="M0 390 Q90 290 160 375 Q250 240 340 375 Q445 250 540 360 Q640 280 720 365 V1280 H0Z" fill="#dcac7c" opacity=".65"/>
-<path d="M0 540 Q170 420 300 535 Q470 410 720 535 V1280 H0Z" fill="#ba8c6d" opacity=".60"/>
-<path d="M0 1000 Q150 945 280 1000 Q460 925 720 1000 V1280 H0Z" fill="#9d765e" opacity=".36"/>
-<g fill="#9d765e" opacity=".52"><path d="M25 1040 l36 -130 36 130Z M51 1030h18v130H51Z M622 1040 l35 -135 36 135Z M649 1030h18v130h-18Z"/></g>
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#f8cca3"/><stop offset="1" stop-color="#fbefd1"/></linearGradient><radialGradient id="sun"><stop stop-color="#fff2b4" stop-opacity=".85"/><stop offset="1" stop-color="#fff2b4" stop-opacity="0"/></radialGradient></defs>
+<rect width="720" height="1280" fill="url(#sky)"/><circle cx="166" cy="135" r="175" fill="url(#sun)"/>
+<path d="M0 387 Q118 322 226 383 Q316 342 406 389 Q560 310 720 377 V1280 H0Z" fill="#dfac7a" opacity=".62"/>
+<path d="M0 535 Q150 465 302 532 Q496 430 720 530 V1280 H0Z" fill="#ba8c6d" opacity=".56"/>
+<path d="M0 1000 Q150 946 280 1000 Q460 925 720 1000 V1280 H0Z" fill="#9d765e" opacity=".33"/>
+<!-- Wide acacia crowns, trunks and grass make the silhouette distinct. -->
+<g fill="#906d55" opacity=".43"><path d="M46 1160 L53 1015 L65 1015 L72 1160Z M648 1160 L655 1015 L667 1015 L674 1160Z"/><path d="M2 1019 Q12 988 33 995 Q47 970 67 989 Q91 980 113 1019 Q58 1030 2 1019Z M607 1019 Q629 980 653 989 Q673 970 687 995 Q708 988 718 1019 Q662 1030 607 1019Z"/></g>
+<g fill="none" stroke="#9d765e" stroke-width="4" stroke-linecap="round" opacity=".45"><path d="M18 1205 l-8 -23 M18 1205 l9 -28 M54 1240 l-8 -20 M54 1240 l10 -26 M702 1205 l8 -23 M702 1205 l-9 -28 M666 1240 l8 -20 M666 1240 l-10 -26"/></g>
 <g fill="#fff2b4" opacity=".65"><circle cx="38" cy="1170" r="5"/><circle cx="682" cy="1180" r="6"/><circle cx="95" cy="1240" r="5"/><circle cx="618" cy="1230" r="4"/></g>
 </svg>

@@ -7,3 +7,7 @@
 ## V0.9.0.4 facial-frame checkpoint
 
 36 SVG facial variants (blink/happy/surprise for 12 existing characters) and 36 256px PNGs are deterministic derivatives of the project-owned-in-this-checkout normal SVGs, by Arena Agent Mode via `tools/generate_expression_vectors.py` and @resvg/resvg-js 2.6.2. No external image-generation service was invoked. Per-file hashes, source paths, request summary and unresolved provider/rights are in `ASSET_MANIFEST.json`. Private development only; commercial status remains BLOCKED.
+
+## V0.9.0.4 theme artwork checkpoint
+
+The three editable SVG backgrounds are modifications to this project's prior vector sources, with hand-authored forest leaves, acacia/grass and snow-capped mountains/trees. No external image-generation service was used. Hashes and source reference are recorded in `ASSET_MANIFEST.json`. Applicable provider/terms remain unknown; private testing only, commercial use remains BLOCKED.
