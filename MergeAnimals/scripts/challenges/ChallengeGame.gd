@@ -44,9 +44,9 @@ func _ready() -> void:
 	goal_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; goal_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	$HUD.add_child(goal_label)
 	next_button = Button.new(); next_button.name = "NextChallenge"; next_button.position = Vector2(70, 255); next_button.size = Vector2(340, 55)
-	next_button.text = tr("CH_NEXT"); next_button.visible = false; overlay.add_child(next_button); next_button.pressed.connect(_next_challenge)
+	next_button.text = tr("CH_NEXT"); GARDEN_DESIGN.menu_button(next_button, visual_theme); next_button.visible = false; overlay.add_child(next_button); next_button.pressed.connect(_next_challenge)
 	save_retry_button = Button.new(); save_retry_button.name = "RetryResultSave"; save_retry_button.position = Vector2(70, 255); save_retry_button.size = Vector2(340, 55)
-	save_retry_button.text = tr("CH_RETRY_SAVE"); save_retry_button.visible = false; overlay.add_child(save_retry_button); save_retry_button.pressed.connect(_persist_result)
+	save_retry_button.text = tr("CH_RETRY_SAVE"); GARDEN_DESIGN.menu_button(save_retry_button, visual_theme); save_retry_button.visible = false; overlay.add_child(save_retry_button); save_retry_button.pressed.connect(_persist_result)
 	_update_challenge_hud()
 	_update_hud()
 

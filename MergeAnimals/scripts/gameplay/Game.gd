@@ -171,6 +171,7 @@ func _ready() -> void:
 	_setup_remove_ui()
 	_setup_undo_ui()
 	_setup_rescue_ui()
+	_style_modal_ui()
 	_refresh_ui_text()
 	discovery_notifier = preload("res://scripts/ui/DiscoveryNotification.gd").new()
 	$HUD.add_child(discovery_notifier)
@@ -1045,6 +1046,17 @@ func _setup_rescue_ui() -> void:
 func _ad_manager() -> Node:
 	return get_tree().root.get_node_or_null("AdManager")
 
+# Visual styling only; the existing overlay controls and signal connections
+# remain unchanged for Pause, Game Over, Rescue and Challenge results.
+func _style_modal_ui() -> void:
+	$HUD/Overlay/Background.add_theme_stylebox_override("panel", GARDEN_DESIGN.surface(visual_theme))
+	overlay_title.add_theme_color_override("font_color", GARDEN_DESIGN.INK)
+	rescue_message.add_theme_color_override("font_color", GARDEN_DESIGN.INK)
+	resume_button.icon = load("res://assets/ui/icons/play_light.svg")
+	GARDEN_DESIGN.menu_button(resume_button, visual_theme, true)
+	for button in [$HUD/Overlay/RestartButton, $HUD/Overlay/SettingsButton, $HUD/Overlay/MainMenuButton, rescue_button]:
+		GARDEN_DESIGN.menu_button(button, visual_theme)
+
 func _on_ad_provider_changed(_provider: String) -> void:
 	_update_rescue_ui()
 
@@ -1310,9 +1322,9 @@ func _begin_tutorial() -> void:
 	$HUD.add_child(hint)
 	# The banner stays below the spawn preview and power-up buttons; wrap longer translations
 	# rather than drawing through Skip or over the HUD controls.
-	var panel := ColorRect.new(); panel.name = "Panel"; panel.color = Color(0.12, 0.2, 0.15, 0.88); panel.position = Vector2(92, 480); panel.size = Vector2(536, 82); panel.mouse_filter = Control.MOUSE_FILTER_IGNORE; hint.add_child(panel)
-	tutorial_label = Label.new(); tutorial_label.position = Vector2(105, 485); tutorial_label.size = Vector2(400, 72); tutorial_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; tutorial_label.add_theme_font_size_override("font_size", 19); tutorial_label.mouse_filter = Control.MOUSE_FILTER_IGNORE; hint.add_child(tutorial_label)
-	tutorial_skip = Button.new(); tutorial_skip.name = "Skip"; tutorial_skip.position = Vector2(512, 497); tutorial_skip.size = Vector2(108, 48); tutorial_skip.add_theme_font_size_override("font_size", 14); hint.add_child(tutorial_skip); tutorial_skip.pressed.connect(_finish_tutorial)
+	var panel := Panel.new(); panel.name = "Panel"; panel.add_theme_stylebox_override("panel", GARDEN_DESIGN.surface(visual_theme)); panel.position = Vector2(92, 480); panel.size = Vector2(536, 82); panel.mouse_filter = Control.MOUSE_FILTER_IGNORE; hint.add_child(panel)
+	tutorial_label = Label.new(); tutorial_label.position = Vector2(105, 485); tutorial_label.size = Vector2(400, 72); tutorial_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; tutorial_label.add_theme_font_size_override("font_size", 19); tutorial_label.add_theme_color_override("font_color", GARDEN_DESIGN.INK); tutorial_label.mouse_filter = Control.MOUSE_FILTER_IGNORE; hint.add_child(tutorial_label)
+	tutorial_skip = Button.new(); tutorial_skip.name = "Skip"; tutorial_skip.position = Vector2(512, 497); tutorial_skip.size = Vector2(108, 48); tutorial_skip.add_theme_font_size_override("font_size", 14); GARDEN_DESIGN.menu_button(tutorial_skip, visual_theme); hint.add_child(tutorial_skip); tutorial_skip.pressed.connect(_finish_tutorial)
 	_tutorial_set_stage(0)
 
 func _tutorial_set_stage(stage: int) -> void:

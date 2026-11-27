@@ -25,6 +25,7 @@ func run() -> void:
 	await frames()
 	check(is_instance_valid(menu.settings_panel), "menu opens settings")
 	var settings = menu.settings_panel
+	check(settings.get_node("SettingsCard").has_theme_stylebox_override("panel") and settings.find_child("Back", true, false).has_theme_stylebox_override("normal"), "settings uses shared panel and button styles")
 	settings.sliders.master.value = 0.4
 	settings.language_select.select(1); settings.language_select.item_selected.emit(1)
 	await frames()
@@ -60,6 +61,7 @@ func run() -> void:
 	await frames()
 	check(not game.drop_requested and game.spawn_state == game.SpawnState.READY, "pause cancels an uncommitted drop")
 	check(paused and game.game_state == game.GameState.PAUSED and game.overlay.visible, "pause freezes game and shows overlay")
+	check(game.get_node("HUD/Overlay/Background").has_theme_stylebox_override("panel") and game.resume_button.has_theme_stylebox_override("normal") and game.rescue_button.has_theme_stylebox_override("normal"), "pause/game-over/rescue controls use shared styles")
 	game.get_node("HUD/Overlay/SettingsButton").pressed.emit()
 	await frames()
 	check(is_instance_valid(game.settings_panel) and paused, "settings opens while paused")

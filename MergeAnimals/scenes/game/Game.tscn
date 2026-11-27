@@ -184,12 +184,11 @@ offset_right = 600.0
 offset_bottom = 1010.0
 mouse_filter = 0
 
-[node name="Background" type="ColorRect" parent="HUD/Overlay"]
+[node name="Background" type="Panel" parent="HUD/Overlay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.16, 0.25, 0.19, 0.96)
 mouse_filter = 2
 
 [node name="Title" type="Label" parent="HUD/Overlay"]
