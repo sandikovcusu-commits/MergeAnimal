@@ -183,7 +183,9 @@ jobs:
           paths=[p for p in root.rglob('wild_garden*') if p.is_file() and not p.name.endswith(('.tmp','.bak.tmp'))]
           files={p.name:p.read_text() for p in paths}
           if 'wild_garden_session.json' not in files: raise RuntimeError('historical session missing '+str(root))
-          pathlib.Path('MergeAnimals/tests/web/fixtures/'+version+'-captured.json').write_text(json.dumps({'source':'historical Godot '+commit+' write-phase','files':files},indent=2))
+          fixture=json.dumps({'source':'historical Godot '+commit+' write-phase','files':files},indent=2)
+          pathlib.Path('MergeAnimals/tests/web/fixtures/'+version+'-captured.json').write_text(fixture)
+          pathlib.Path('/tmp/web-qa/'+version+'-captured.json').write_text(fixture)
           PYFIX
             done
             # Isolated probe build; the standard export above remains unmodified.
