@@ -1,6 +1,7 @@
 extends Control
 const FOREST := preload("res://assets/backgrounds/forest_garden.svg")
 const THEME := preload("res://assets/ui/themes/forest.tres")
+const DESIGN := preload("res://scripts/ui/GardenDesign.gd")
 var buttons: Array[Button] = []
 var status_label: Label
 var scroll: ScrollContainer
@@ -17,7 +18,7 @@ func _ready() -> void:
 	var title := Label.new(); title.name = "Progress"; title.text = "%s  %d/%d" % [tr("CHALLENGE_SELECT"), completed, ChallengeStore.COUNT]
 	title.position = Vector2(50, 70); title.size = Vector2(620, 65)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; title.add_theme_font_size_override("font_size", 34); title.add_theme_color_override("font_color", Color("334b36")); add_child(title)
-	var card := PanelContainer.new(); card.position = Vector2(65, 165); card.size = Vector2(590, 1000); add_child(card)
+	var card := PanelContainer.new(); card.position = Vector2(65, 165); card.size = Vector2(590, 1000); card.add_theme_stylebox_override("panel", DESIGN.surface(ThemeStore.current_index())); add_child(card)
 	var margins := MarginContainer.new()
 	for side in ["margin_left", "margin_right", "margin_top", "margin_bottom"]: margins.add_theme_constant_override(side, 20)
 	card.add_child(margins)
@@ -29,7 +30,7 @@ func _ready() -> void:
 		if (def.id - 1) % 5 == 0:
 			var header := Label.new(); header.name = "Difficulty%d" % def.id
 			header.text = tr(["CH_BEGINNER", "CH_INTERMEDIATE", "CH_ADVANCED", "CH_EXPERT"][(def.id - 1) / 5])
-			header.add_theme_font_size_override("font_size", 24); list.add_child(header)
+			header.add_theme_font_size_override("font_size", 24); header.add_theme_color_override("font_color", DESIGN.INK); list.add_child(header)
 		var unlocked := available and ChallengeStore.is_unlocked(loaded.data, def.id)
 		var b := Button.new(); b.name = "Challenge%02d" % def.id; b.custom_minimum_size.y = 110
 		b.add_theme_font_size_override("font_size", 19)
@@ -40,11 +41,11 @@ func _ready() -> void:
 			var best_time := "—" if float(record.best_time) < 0 else "%d:%02d" % [int(record.best_time) / 60, int(record.best_time) % 60]
 			stats = "\n%s %d  ·  %s %s" % [tr("CH_BEST_SCORE"), int(record.best), tr("CH_BEST_TIME"), best_time]
 		b.text = "%02d  %s  ·  %s\n%s%s" % [def.id, tr(def.title_key), state, tr(def.objective_key), stats]
-		b.disabled = not unlocked; list.add_child(b); buttons.append(b)
+		DESIGN.menu_button(b, ThemeStore.current_index()); b.disabled = not unlocked; list.add_child(b); buttons.append(b)
 		b.pressed.connect(_start.bind(def.id))
 	status_label = Label.new(); status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	status_label.custom_minimum_size.y = 40; status_label.text = "" if available else tr("CH_SAVE_UNAVAILABLE"); column.add_child(status_label)
-	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.custom_minimum_size.y = 55; column.add_child(back)
+	status_label.add_theme_color_override("font_color", DESIGN.INK); status_label.custom_minimum_size.y = 40; status_label.text = "" if available else tr("CH_SAVE_UNAVAILABLE"); column.add_child(status_label)
+	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.custom_minimum_size.y = 55; DESIGN.menu_button(back, ThemeStore.current_index()); column.add_child(back)
 	back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
 func _start(id: int) -> void:
 	var loaded := ChallengeStore.load_results()

@@ -141,6 +141,7 @@ func run() -> void:
 	menu.find_child("Statistics", true, false).pressed.emit(); await frames(5)
 	var statistics = current_scene
 	check(statistics.progress.total_games == 2 and statistics.progress.total_drops == 2 and statistics.progress.total_merges == 1, "statistics screen reads actual saved values")
+	check(statistics.rows.size() == 23 and statistics.rows.all(func(card): return card.has_theme_stylebox_override("panel")), "statistics shows all 11 totals and 12 animal counts in styled rows")
 	statistics.find_child("Back", true, false).pressed.emit(); await frames(5)
 	menu = current_scene
 	paused = true
