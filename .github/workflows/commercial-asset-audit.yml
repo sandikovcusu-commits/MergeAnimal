@@ -19,11 +19,15 @@ jobs:
       - name: Install development-only rasterizer and font tools
         run: |
           npm install --prefix /tmp/animal-render --no-save @resvg/resvg-js@2.6.2
-          python -m pip install fonttools==4.69.1
+          python -m pip install fonttools==4.69.1 pillow==11.3.0
       - name: Check generated content and static SVG inputs
         env:
           NODE_PATH: /tmp/animal-render/node_modules
         run: python MergeAnimals/tests/commercial/audit_vectors.py
+      - name: Check blink frames only change eye pixels
+        env:
+          NODE_PATH: /tmp/animal-render/node_modules
+        run: python MergeAnimals/tests/commercial/audit_blink_pixels.py
       - name: Confirm source tree has no known legacy visual bytes
         run: |
           python - <<'PY'

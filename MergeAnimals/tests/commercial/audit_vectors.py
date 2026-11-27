@@ -16,7 +16,7 @@ def run(*args):
 with tempfile.TemporaryDirectory(prefix='asset-repro-') as tmp:
     t = pathlib.Path(tmp)
     (t/'tools').mkdir(); (t/'assets/fonts').mkdir(parents=True)
-    for name in ['generate_animal_vectors.py','render_animal_vectors.cjs','generate_ui_icons.py','generate_audio.py','generate_logo.py','generate_button_themes.py']:
+    for name in ['generate_animal_vectors.py','render_animal_vectors.cjs','generate_expression_vectors.py','render_expression_vectors.cjs','generate_ui_icons.py','generate_audio.py','generate_logo.py','generate_button_themes.py']:
         shutil.copy2(R/'tools'/name,t/'tools'/name)
     shutil.copy2(R/'assets/fonts/DejaVuSans.ttf',t/'assets/fonts/DejaVuSans.ttf')
     run('python3',str(t/'tools/generate_animal_vectors.py'))
@@ -37,6 +37,20 @@ with tempfile.TemporaryDirectory(prefix='asset-repro-') as tmp:
     run('node',str(t/'tools/render_animal_vectors.cjs'))
     for name in NAMES:
         same(R/'assets/animals'/name/'normal.png',t/'assets/animals'/name/'normal.png')
+    run('python3',str(t/'tools/generate_expression_vectors.py'))
+    run('node',str(t/'tools/render_expression_vectors.cjs'))
+    for name in NAMES:
+        for frame in ('blink','happy','surprise'):
+            svg = R/'art_source/vector_animals'/name/(frame+'.svg')
+            same(svg,t/'art_source/vector_animals'/name/(frame+'.svg'))
+            same(R/'assets/animals'/name/(frame+'.png'),t/'assets/animals'/name/(frame+'.png'))
+            for element in ET.parse(svg).iter():
+                tag=element.tag.rsplit('}',1)[-1].lower()
+                assert tag not in ('image','script','foreignobject','use','style'),(svg,tag)
+                for key,value in element.attrib.items():
+                    key=key.rsplit('}',1)[-1].lower();value=value.lower().strip()
+                    assert key not in ('href','src') and not any(v in value for v in ('data:','http:','https:')),(svg,key,value)
+                    if 'url(' in value: assert value.startswith('url(#') and value.endswith(')'),(svg,value)
     run('python3',str(t/'tools/generate_ui_icons.py'))
     icons = sorted((R/'assets/ui/icons').glob('*.svg')); assert len(icons)==20
     for icon in icons: same(icon,t/'assets/ui/icons'/icon.name)
@@ -59,5 +73,5 @@ with tempfile.TemporaryDirectory(prefix='asset-repro-') as tmp:
     (t/'assets/ui/logo').mkdir(parents=True)
     run('python3',str(t/'tools/generate_logo.py'))
     same(R/'assets/ui/logo/wild_garden.svg',t/'assets/ui/logo/wild_garden.svg')
-    print(f'PASS: {svg_count} SVG, 12 PNG, 20 icons, 8 themes (including font edits), 23 WAV and logo reproduced; runtime SVGs contain no external link/image/script/use element')
+    print(f'PASS: {svg_count} SVG, 12 PNG, 36 expression SVG/PNG, 20 icons, 8 themes (including font edits), 23 WAV and logo reproduced; runtime SVGs contain no external link/image/script/use element')
     print('LIMIT: this establishes inputs and deterministic output only, not AI training provenance, character similarity, copyright, or commercial rights')

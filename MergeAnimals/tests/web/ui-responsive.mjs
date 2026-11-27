@@ -30,7 +30,7 @@ async function screens(){
  await tap(600,58);await sleep(2500);const t=await shot('pause');check(/resume|pause/.test(t),`${browser} Pause opens`);
 }
 async function matrix(){
- let viewports=[[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]];
+ let viewports=[[360,640],[393,873],[540,1170],[720,1280],[1080,1920],[1366,768],[1920,1080]];
  for(let [w,h] of viewports){await page.setViewportSize({width:w,height:h});await sleep(2500);
   let info=await page.evaluate(()=>({width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,scrollHeight:document.documentElement.scrollHeight,canvas:(()=>{let c=document.querySelector('canvas'),r=c.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,backWidth:c.width,backHeight:c.height}})()}));console.log(`LAYOUT ${w}x${h} ${JSON.stringify(info)}`);
   check(info.width===w&&info.height===h&&info.scrollWidth<=w&&info.scrollHeight<=h&&info.canvas.width>0&&info.canvas.height>0,`${browser} ${w}x${h} canvas visible, no DOM overflow`);await shot(`${w}x${h}-menu`);
