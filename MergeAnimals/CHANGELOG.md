@@ -1,3 +1,10 @@
+# V0.9.0.4 — visual checkpoint (incomplete)
+
+- 12 animal facial-frame dəsti, gözə aid blink, Happy/Surprise və yumşaq action tween; locked Collection art kontrastı.
+- Bu tam redesign, full UI/VFX/theme polish və ya final acceptance deyil. Bax: `V0904_CHECKPOINT.md`.
+
+---
+
 # V0.9.0.3 — physics investigation (private, incomplete)
 
 - 100-seed native müqayisə, 12 drop və 10/20/40 pile fixture-ları, test-only CCD/bounds eksperimentləri və Web FPS benchmarkları əlavə edildi.

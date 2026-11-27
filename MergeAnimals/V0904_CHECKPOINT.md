@@ -1,0 +1,5 @@
+# V0.9.0.4 — checkpoint, incomplete
+
+Bu V0.9.0.4 final acceptance və ya AAA sertifikatı deyil. Tətbiq edilənlər: 12 mövcud heyvanın göz qırpma/Happy/Surprise frame-ləri, cosmetic tween keçidi, kilidli Collection sprite kontrastı, səhnə/fizika/ID dəyişmədən. Godot visual fixture, Web screenshot və testlər ayrıca göstərilib. Bütün qalan mərhələlər növbəti sessiyada buradan davam etdirilməlidir.
+
+**Açıq:** 12 normal character redesign; modul rig və golden merge animasiyası; əsas menyu, HUD, theme, VFX və bütün secondary-screen redesign; tam dil və mobil/Firefox/device testləri; 60 saniyə real gameplay və audio video; tam regression, bütün qısa və uzun challenge/achievement ssenariləri; alternating-order robust performance müqayisəsi və Reduced Effects müqayisəsi; visual quality scorecard və yekun paket. Art direction və audit burada ilkin sənəddir. Fizika 120 Hz qalıb; məlum 9.190 px boundary penetration hələ açıqdır. Real Android, human playtest və commercial hüquqları yoxlanmayıb; **BLOCKED**.

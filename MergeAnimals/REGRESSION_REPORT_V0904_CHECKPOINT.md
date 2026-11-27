@@ -1,0 +1,7 @@
+# V0.9.0.4 checkpoint — regressions (partial)
+
+- Native Godot 4.7.2 [46051133821](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46051133821) passed at `8276fcc`: integration suite, 12 expression-frame/radius/mass/reduced reset checks, selected physics, save, input, merge and performance tests. Earlier [46050658377](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46050658377) failed due to strict float equality in new fixture; corrected and retested.
+- Native Collection workflow [46050979245](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46050979245) passed at `21561de`.
+- Chromium Web screens [46051328989](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46051328989) 16/16; Chromium viewport DOM canvas checks [46051325247](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46051325247) 8/8; no assertion that canvas contents have no internal overlap. These use software rendering and mouse automation, not Android.
+- Reproducibility, external-link guard and eye-region-only 12 pixel-diff [46051321876](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46051321876) succeeded; not commercial-rights clearance.
+- No full new Firefox, actual Android, real advertisements, natural gameplay challenge/achievement coverage, all four languages, audio listening, end-to-end save failure matrix or full regression performed on this checkpoint. Previous-version passes are not represented as new tests. See `V0904_CHECKPOINT.md`.

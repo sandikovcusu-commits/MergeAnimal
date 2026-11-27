@@ -1,0 +1,197 @@
+{
+  "browser": "chromium",
+  "scenario": "10",
+  "duration": 15,
+  "repetitions": 3,
+  "throttle": 1,
+  "cold_ms": 1492,
+  "warm_ms": 1302,
+  "info": {
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "cores": 4,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "deviceMemory": 8,
+    "menuReadyMs": 1425.3000000000175,
+    "resources": [
+      {
+        "name": "index.png",
+        "duration": 7.5,
+        "transferSize": 21743,
+        "encodedBodySize": 21443,
+        "decodedBodySize": 21443
+      },
+      {
+        "name": "index.js",
+        "duration": 7.899999999994179,
+        "transferSize": 68771,
+        "encodedBodySize": 68471,
+        "decodedBodySize": 279815
+      },
+      {
+        "name": "index.wasm",
+        "duration": 247.89999999999418,
+        "transferSize": 10055058,
+        "encodedBodySize": 10054758,
+        "decodedBodySize": 39514754
+      },
+      {
+        "name": "index.pck",
+        "duration": 310.3999999999942,
+        "transferSize": 2013913,
+        "encodedBodySize": 2013613,
+        "decodedBodySize": 2156012
+      },
+      {
+        "name": "index.icon.png",
+        "duration": 121.70000000001164,
+        "transferSize": 6000,
+        "encodedBodySize": 5700,
+        "decodedBodySize": 5700
+      }
+    ],
+    "heap": 103930547,
+    "physicsTicks": 120,
+    "warmResources": [
+      {
+        "name": "index.png",
+        "transferSize": 300,
+        "encodedBodySize": 0,
+        "decodedBodySize": 0
+      },
+      {
+        "name": "index.js",
+        "transferSize": 0,
+        "encodedBodySize": 68471,
+        "decodedBodySize": 279815
+      },
+      {
+        "name": "index.wasm",
+        "transferSize": 10055058,
+        "encodedBodySize": 10054758,
+        "decodedBodySize": 39514754
+      },
+      {
+        "name": "index.pck",
+        "transferSize": 0,
+        "encodedBodySize": 2013613,
+        "decodedBodySize": 2156012
+      },
+      {
+        "name": "index.icon.png",
+        "transferSize": 300,
+        "encodedBodySize": 5700,
+        "decodedBodySize": 5700
+      }
+    ]
+  },
+  "runs": [
+    {
+      "process_cpu_pct": 314.3404134446121,
+      "process_rss_mib": 1369.51904296875,
+      "run": 1,
+      "seconds": 15,
+      "frames": 610,
+      "avg_fps": 40.62306457735364,
+      "low_1pct_fps": 29.914529914528984,
+      "median_ms": 16.799999999999272,
+      "p95_ms": 33.400000000001455,
+      "physics_ms": 0.557142857142857,
+      "process_ms": 5.65,
+      "draw_calls": 62.714285714285715,
+      "static_bytes": 0,
+      "heap_bytes": 65715879,
+      "body_min": 10,
+      "body_max": 10,
+      "merges": 0,
+      "highest_level_max": 1,
+      "effects_max": 0,
+      "audio_latency_ms": 88.4399116039276
+    },
+    {
+      "process_cpu_pct": 353.89830534479546,
+      "process_rss_mib": 1375.42724609375,
+      "run": 2,
+      "seconds": 15,
+      "frames": 674,
+      "avg_fps": 44.835293491565125,
+      "low_1pct_fps": 27.955271565494236,
+      "median_ms": 16.700000000000728,
+      "p95_ms": 33.400000000001455,
+      "physics_ms": 0.4733333333333334,
+      "process_ms": 5.8933333333333335,
+      "draw_calls": 62.4,
+      "static_bytes": 0,
+      "heap_bytes": 60610517,
+      "body_min": 10,
+      "body_max": 10,
+      "merges": 0,
+      "highest_level_max": 1,
+      "effects_max": 0,
+      "audio_latency_ms": 88.4399116039276
+    },
+    {
+      "process_cpu_pct": 355.97745990282493,
+      "process_rss_mib": 1337.6552734375,
+      "run": 3,
+      "seconds": 15,
+      "frames": 678,
+      "avg_fps": 45.15183803942462,
+      "low_1pct_fps": 29.94011976047774,
+      "median_ms": 16.700000000004366,
+      "p95_ms": 33.400000000001455,
+      "physics_ms": 0.37999999999999995,
+      "process_ms": 6.293333333333333,
+      "draw_calls": 62.6,
+      "static_bytes": 0,
+      "heap_bytes": 61668508,
+      "body_min": 10,
+      "body_max": 10,
+      "merges": 0,
+      "highest_level_max": 1,
+      "effects_max": 0,
+      "audio_latency_ms": 88.4399116039276
+    }
+  ],
+  "events": [
+    {
+      "type": "console:log",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "type": "console:log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "type": "console:log",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x1514054aba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x1514054aba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x1514054aba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "console:log",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "type": "console:log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "type": "console:log",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x151403a5ba00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    }
+  ]
+}
