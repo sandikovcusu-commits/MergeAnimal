@@ -1,7 +1,7 @@
 # V0.9.1-A.3 — NOT ACCEPTED; commercial BLOCKED
 
 - Placement cancellation can miss retry when touching pair remains in contact and another blocker moves. 12/60 attempted pairs cancelled in each browser's frozen stress; natural play impact remains unknown.
-- Original natural save-confirmation failure remains OPEN; controlled Firefox reproduction is not proof of that cause. Fault retry, lifecycle and 3×/browser natural end-to-end acceptance remain incomplete.
+- Original natural save-confirmation failure remains OPEN; controlled Firefox reproduction is not proof of that cause. Six natural Game Over/refresh/Continue runs passed; Chromium delayed terminal aggregate test failed and full natural rescue/lifecycle acceptance remains incomplete.
 - Danger mixed/below and Game Over race matrix incomplete. Sudden-close, eviction, cross-file atomicity, real Android, mobile performance, human visual/audio/play and rights are unverified. No public release or distribution.
 
 ---
