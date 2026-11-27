@@ -8,7 +8,7 @@ import io, pathlib, subprocess, sys, tarfile, zipfile, shutil
 if len(sys.argv) not in (4,5): raise SystemExit(__doc__)
 commit,evidence,out=sys.argv[1:4]; version=sys.argv[4] if len(sys.argv)==5 else '0.9.0.1.1'
 if not all(c.isdigit() or c=='.' for c in version): raise SystemExit('invalid version')
- out=pathlib.Path(out).resolve();out.mkdir(parents=True,exist_ok=True)
+out=pathlib.Path(out).resolve();out.mkdir(parents=True,exist_ok=True)
 project=pathlib.Path(__file__).resolve().parents[1]
 repo=project.parent
 archive=subprocess.check_output(['git','archive',commit,'MergeAnimals'],cwd=repo)
