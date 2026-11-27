@@ -2,9 +2,10 @@ extends Control
 const FOREST := preload("res://assets/backgrounds/forest_garden.svg")
 const THEME := preload("res://assets/ui/themes/forest.tres")
 const IDS := Progression.IDS
+const DESIGN := preload("res://scripts/ui/GardenDesign.gd")
 # Keep locked artwork visibly muted without crushing the face to near-black.
 # The lock icon and label still communicate undiscovered state.
-const LOCKED_ART_TINT := Color(0.43, 0.48, 0.43, 0.92)
+const LOCKED_ART_TINT := Color(0.64, 0.68, 0.64, 0.95)
 var progress: Dictionary
 var cards: Array[Button] = []
 var detail: PanelContainer
@@ -35,9 +36,9 @@ func _build() -> void:
 		var data := load("res://resources/animals/%s.tres" % IDS[i]) as AnimalData
 		var entry: Dictionary = progress.animals[IDS[i]]
 		var unlocked := not str(entry.date).is_empty()
-		var card := Button.new(); card.name = "AnimalCard%d" % (i + 1); card.custom_minimum_size = Vector2(190, 340); card.size_flags_horizontal = Control.SIZE_EXPAND_FILL; grid.add_child(card); cards.append(card)
-		var column := VBoxContainer.new(); column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); column.offset_left = 5; column.offset_right = -5; column.offset_top = 5; column.offset_bottom = -5; column.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(column)
-		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(100, 86); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var card := Button.new(); card.name = "AnimalCard%d" % (i + 1); card.custom_minimum_size = Vector2(190, 340); card.size_flags_horizontal = Control.SIZE_EXPAND_FILL; DESIGN.collection_card(card, ThemeStore.current_index(), unlocked); grid.add_child(card); cards.append(card)
+		var column := VBoxContainer.new(); column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); column.offset_left = 5; column.offset_right = -5; column.offset_top = 5; column.offset_bottom = -5; column.add_theme_constant_override("separation", 3); column.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(column)
+		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(112, 112); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if not unlocked: art.modulate = LOCKED_ART_TINT
 		column.add_child(art)
 		for line in ["%s · %s %d" % [tr(data.translation_key), tr("LEVEL"), i + 1], tr("UNLOCKED") if unlocked else tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), tr("ANIMAL_DESC_" + IDS[i].to_upper()) if unlocked else _unlock_hint(i)]:
@@ -50,7 +51,7 @@ func _build() -> void:
 	TouchScroll.install(scroll, detail)
 
 func _add_back() -> void:
-	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.position = Vector2(210, 1160); back.size = Vector2(300, 65); add_child(back); back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
+	var back := Button.new(); back.name = "Back"; back.text = tr("BACK"); back.position = Vector2(210, 1160); back.size = Vector2(300, 65); DESIGN.menu_button(back, ThemeStore.current_index()); add_child(back); back.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn"))
 
 func _build_detail() -> void:
 	detail = PanelContainer.new(); detail.name = "AnimalDetails"; detail.position = Vector2(95, 300); detail.size = Vector2(530, 600); detail.z_index = 10; detail.visible = false; add_child(detail)

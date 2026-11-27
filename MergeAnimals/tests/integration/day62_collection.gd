@@ -114,6 +114,7 @@ func run() -> void:
 	menu.find_child("Collection", true, false).pressed.emit(); await frames(5)
 	var collection = current_scene
 	check(collection.cards.size() == 12 and collection.get_node_or_null("CollectionScroll/AnimalGrid") != null, "collection has 12 cards in three-column grid")
+	check(collection.cards.all(func(card): return card.has_theme_stylebox_override("normal") and card.has_theme_stylebox_override("hover") and card.has_theme_stylebox_override("pressed")), "collection cards share styled interaction states")
 	check(collection.cards[0].find_child("Lock", true, false) == null and collection.cards[11].find_child("Lock", true, false) != null, "unlocked and locked cards render appropriate state")
 	var previous_settings := SettingsStore.load_values()
 	for locale in ["en", "az", "tr", "ru"]:

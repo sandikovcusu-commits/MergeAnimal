@@ -38,3 +38,13 @@ static func menu_button(button: Button, index: int, primary: bool = false) -> vo
 	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(state, text_color)
 	button.add_theme_color_override("font_disabled_color", Color("747a70"))
+
+# Collection cards use the same palette and tactile states as the menu while
+# keeping a visibly distinct, but still readable, undiscovered state.
+static func collection_card(button: Button, index: int, unlocked: bool) -> void:
+	var i := clampi(index, 0, 2)
+	var base: Color = PANEL_COLORS[i] if unlocked else SECONDARY[i].lerp(PANEL_COLORS[i], 0.48)
+	var border: Color = BORDER_COLORS[i]
+	button.add_theme_stylebox_override("normal", _box(base, border, 14, 2))
+	button.add_theme_stylebox_override("hover", _box(base.lightened(0.07), border, 14, 3))
+	button.add_theme_stylebox_override("pressed", _box(base.darkened(0.08), border, 14))
