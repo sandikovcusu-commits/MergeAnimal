@@ -858,6 +858,9 @@ func _spawn_effect(kind: String, point: Vector2) -> void:
 	var effect := EFFECT_SCRIPT.new()
 	effect.effect_kind = kind
 	effect.reduced_visual = reduced_effects
+	if kind == "golden_echo":
+		effect.echo_texture = animals[11].happy_sprite
+		effect.echo_radius = animals[11].radius
 	effect.position = to_local(point)
 	effect.add_to_group("visual_effects")
 	add_child(effect)
@@ -891,6 +894,7 @@ func _on_golden_merged(point: Vector2) -> void:
 	_spawn_effect("soft_burst", point)
 	if not reduced_effects:
 		_spawn_effect("golden_glow", point)
+		_spawn_effect("golden_echo", point)
 		_spawn_effect("sparkle", point)
 		_spawn_effect("score_star", point)
 	# Golden award is exactly the configured bonus; it does not receive combo multiplication.

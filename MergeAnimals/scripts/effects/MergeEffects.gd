@@ -1,8 +1,10 @@
 extends Node2D
-# Six lightweight procedural, non-interactive effects. No collision or textures.
-const KINDS := ["sparkle", "soft_burst", "golden_glow", "leaves", "score_star", "combo_shine"]
+# Lightweight, non-interactive effects; golden echo reuses the existing animal texture.
+const KINDS := ["sparkle", "soft_burst", "golden_glow", "leaves", "score_star", "combo_shine", "golden_echo"]
 var effect_kind := "sparkle"
 var reduced_visual := false
+var echo_texture: Texture2D
+var echo_radius := 0.0
 var elapsed := 0.0
 var duration := 0.7
 func _ready() -> void:
@@ -48,6 +50,14 @@ func _draw() -> void:
 				var unit := Vector2.from_angle(TAU * i / 8.0)
 				var distance := 58.0 + 34.0 * eased
 				draw_circle(unit * distance, 3.0 * alpha + 1.0, Color(1.0, 0.87, 0.46, alpha * 0.8))
+		"golden_echo":
+			# Short, translucent image echo of the terminal animal, not a body.
+			# The source animals have already been removed by the merge manager.
+			if echo_texture:
+				var eased: float = 1.0 - pow(1.0 - t, 2.0)
+				var r: float = echo_radius * (0.78 + 0.22 * eased)
+				var center := Vector2(0, -18.0 * eased)
+				draw_texture_rect(echo_texture, Rect2(center - Vector2(r, r), Vector2(r * 2.0, r * 2.0)), false, Color(1.0, 0.88, 0.55, alpha * 0.48))
 		"leaves":
 			for i in range(5):
 				var a := TAU * i / 5.0 + t

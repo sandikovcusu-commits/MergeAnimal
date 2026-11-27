@@ -31,6 +31,15 @@ func run() -> void:
 	before = game.get_child_count()
 	game._on_merged(game.animals[1], Vector2(300, 600))
 	check(game.get_child_count() - before >= 4, "regular merge emits layered effects")
+	game._on_golden_merged(Vector2(300, 600))
+	var echo: Node = null
+	for child in game.get_children():
+		if child.get_script() == fx_script and child.effect_kind == "golden_echo": echo = child
+	check(echo != null and echo.echo_texture == game.animals[11].happy_sprite and echo.get_child_count() == 0, "golden echo uses existing happy artwork without physics children")
+	game.reduced_effects = true
+	before = game.get_child_count()
+	game._on_golden_merged(Vector2(300, 600))
+	check(game.get_child_count() - before == 1, "reduced golden merge emits no ghost or shake")
 	await create_timer(0.9).timeout
 	var remaining := 0
 	for node in game.get_children():
