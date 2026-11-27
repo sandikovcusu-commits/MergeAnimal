@@ -26,6 +26,7 @@ func run() -> void:
 	await create_timer(0.5, true).timeout
 	if not await capture("gameplay", locale, theme, dimensions): quit(1); return
 	game.score = 124; game.best_at_start = 0; game.max_combo = 3
+	game._update_hud() # Keep the test-created score and gameplay HUD consistent.
 	game._on_game_over()
 	await create_timer(0.5, true).timeout
 	var title: Label = game.overlay_title

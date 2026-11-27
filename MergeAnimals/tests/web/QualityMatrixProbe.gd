@@ -41,6 +41,7 @@ func gameover(cmd: Dictionary) -> void:
 	if not game or not game.has_method("_on_game_over"):
 		finish(int(cmd.id), {"error":"game not ready"}); return
 	game.score = 124; game.best_at_start = 0; game.max_combo = 3
+	game._update_hud() # Keep the test-created score and gameplay HUD consistent.
 	game._on_game_over()
 	for i in range(4): await get_tree().process_frame
 	var title: Label = game.overlay_title
