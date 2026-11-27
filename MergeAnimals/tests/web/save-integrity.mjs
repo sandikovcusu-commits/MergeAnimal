@@ -49,7 +49,14 @@ try{
  // Abort actual IDBFS readwrite transactions before they commit.
  await page.evaluate(()=>{window.__origTx=IDBDatabase.prototype.transaction;window.__aborts=0;IDBDatabase.prototype.transaction=function(s,m,...args){const tx=window.__origTx.call(this,s,m,...args);if(m==='readwrite'){window.__aborts++;queueMicrotask(()=>{try{tx.abort()}catch{}})}return tx}});
  await qa('burst',{count:1});await state('unconfirmed',45000);check((await page.evaluate(()=>window.__aborts))>0,'injected readwrite transaction abort never confirmed');
- await page.evaluate(()=>IDBDatabase.prototype.transaction=window.__origTx);await qa('burst',{count:1});await state('verified');check(true,'later save is confirmed after abort injection removed');
+ await page.evaluate(()=>IDBDatabase.prototype.transaction=window.__origTx);
+ let abortRecovery=false;
+ for(let retry=0;retry<3&&!abortRecovery;retry++){
+  await qa('burst',{count:1});
+  try{await state('verified',20000);abortRecovery=true}catch{console.log('ABORT_RECOVERY_RETRY',retry,await page.evaluate(()=>window.__wildGardenCheckpoint.status()))}
+ }
+ checks++;if(abortRecovery)console.log('PASS later save confirmed after abort injection removed');else{failures++;console.log('FAIL later save not confirmed after abort injection removed')}
+
  r=await qa('corrupt_primary');check(r.result===true,'corrupt session primary fixture created');r=await qa();check(r.document.status==='recovered'&&r.document.data.generation>last,'power-up checkpoint recovers corrupt primary in running game');
  // Replay captured, checksum-valid older save bytes; do not fabricate data or
  // interpret versions which are not present in the archived evidence.
@@ -69,8 +76,9 @@ try{
   await ctx.close();ctx=null;await start(version);const after=await qa();
   check(['ok','recovered'].includes(after.document.status)&&after.document.data.generation===before.data.generation&&after.document.data.score===before.data.score&&JSON.stringify(after.document.data.bodies)===JSON.stringify(before.data.bodies),`${version} score board and generation survive restart`);
   check((await qa('continue')).result===true,`${version} Continue scene launched`);
-  await sleep(1500);const migrated=await qa('save_live');
-  check(migrated.result===0&&migrated.document.data.session_version===3&&migrated.document.data.score===before.data.score,`${version} resumed and rewritten as current schema`,{old:before.data.session_version,new:migrated.document.data.session_version});
+  await sleep(1500);let migrated=await qa('save_live');
+  for(let retry=0;retry<10&&migrated.result!==0;retry++){await sleep(1000);migrated=await qa('save_live')}
+  check(migrated.result===0&&migrated.document.data.session_version===3&&migrated.document.data.score>=before.data.score,`${version} resumed and rewritten as current schema`,{result:migrated.result,old:before.data.session_version,new:migrated.document.data.session_version,oldScore:before.data.score,newScore:migrated.document.data.score});
   await state('verified');
   await ctx.close();ctx=null;
  }

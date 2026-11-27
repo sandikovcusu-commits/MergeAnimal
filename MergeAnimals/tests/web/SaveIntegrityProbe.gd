@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 		var written := []
 		if files is Dictionary:
 			for filename in files:
-				if not str(filename).begins_with("wild_garden_") or "/" in str(filename): continue
+				if not str(filename).begins_with("wild_garden") or "/" in str(filename): continue
 				var f := FileAccess.open("user://" + str(filename), FileAccess.WRITE)
 				if f: f.store_string(str(files[filename])); f.close(); written.append(filename)
 		result = written

@@ -170,13 +170,17 @@ jobs:
               git fetch --no-tags --depth=1 origin "$OLD_COMMIT"
               mkdir -p "/tmp/old-$OLD_VERSION" "/tmp/old-user-$OLD_VERSION"
               git archive "$OLD_COMMIT" MergeAnimals | tar -x -C "/tmp/old-$OLD_VERSION"
-              XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" "$GODOT" --headless --path "/tmp/old-$OLD_VERSION/MergeAnimals" --editor --quit >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1
+              if ! XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" "$GODOT" --headless --path "/tmp/old-$OLD_VERSION/MergeAnimals" --editor --quit >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1; then
+                echo 'Historical import failed; one clean retry' >> "/tmp/web-qa/$OLD_VERSION-generation.log"
+                rm -rf "/tmp/old-$OLD_VERSION/MergeAnimals/.godot"
+                XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" "$GODOT" --headless --path "/tmp/old-$OLD_VERSION/MergeAnimals" --editor --quit >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1
+              fi
               SESSION_PHASE=write XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" timeout 600 "$GODOT" --headless --fixed-fps 60 --path "/tmp/old-$OLD_VERSION/MergeAnimals" --script res://tests/integration/day61_session_process.gd >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1
               python3 - "$OLD_VERSION" "$OLD_COMMIT" <<'PYFIX'
           import json,pathlib,sys
           version,commit=sys.argv[1:]
           root=pathlib.Path('/tmp/old-user-'+version)
-          paths=[p for p in root.rglob('wild_garden_*') if p.is_file() and not p.name.endswith(('.tmp','.bak.tmp'))]
+          paths=[p for p in root.rglob('wild_garden*') if p.is_file() and not p.name.endswith(('.tmp','.bak.tmp'))]
           files={p.name:p.read_text() for p in paths}
           if 'wild_garden_session.json' not in files: raise RuntimeError('historical session missing '+str(root))
           pathlib.Path('MergeAnimals/tests/web/fixtures/'+version+'-captured.json').write_text(json.dumps({'source':'historical Godot '+commit+' write-phase','files':files},indent=2))
