@@ -99,6 +99,7 @@ jobs:
           if [ "$UI_MODE" = perf ]; then for sprite in mouse hamster rabbit; do cp "MergeAnimals/assets/animals/$sprite/normal.png.import" "/tmp/web-qa/$sprite.import.txt"; done; fi
           if [ "$UI_MODE" = sdk-production ]; then PRESET='Web CrazyGames (experimental)'; elif [ "$UI_MODE" = reward-production ]; then PRESET='Web CrazyGames Rewarded (full-launch opt-in)'; else PRESET='Web (single-threaded)'; fi
           "$GODOT" --headless --path MergeAnimals --export-release "$PRESET" /tmp/web-test/index.html >> /tmp/web-qa/export.log 2>&1
+          python3 MergeAnimals/tests/performance/audit_pck.py /tmp/web-test/index.pck | tee /tmp/web-qa/pck-audit.log
           ls -l /tmp/web-test | tee /tmp/web-qa/files.log
           grep -E 'GODOT_THREADS_ENABLED *= *false' /tmp/web-test/index.html | head -1 | tee /tmp/web-qa/threads.log
           python3 -m http.server 8765 --directory /tmp/web-test >/tmp/web-qa/server.log 2>&1 &
