@@ -1,3 +1,11 @@
+# V0.9.0.1 — commercial asset audit (work in progress)
+
+- Replaced 12 previous image-generated runtime animal PNGs with newly authored editable vector designs and rendered PNGs; kept animal IDs, sizes, collision radii and existing game logic. Legal rights are not yet established.
+- Preserved legacy provenance separately; added file-level audit and third-party notices. Reproduced 20 effects and 3 music tracks from mathematical synthesis without external samples.
+- Native and selected Web CI against the revised assets passed; further runs, full visual review and rights verification remain pending. No commercial release, merge, gameplay mechanic or ad-type change.
+
+---
+
 # V0.8.3 — Web performance optimization
 
 - Üç kiçik heyvanın importu 256², orijinal PNG-lər dəyişmədən saxlanır; artıq istifadə olunmayan export resursları və benchmark translation artifaktları çıxarılır.

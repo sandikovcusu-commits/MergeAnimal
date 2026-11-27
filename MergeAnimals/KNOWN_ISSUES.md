@@ -1,3 +1,12 @@
+# V0.9.0.1 — WIP clearance and sprite gaps
+
+- Commercial rights for Agent-authored vector/audio/UI/background/VFX output and applicable Arena terms are not established. Prior image-generated animals are blocked; replacement art is not legally cleared merely by its source being new. Owner grant and legal review required.
+- New art remains WIP; collision circles have not changed. Bounding-box/disk analysis is not rotated in-game or physical-device visual/contact approval; top/side gaps can be noticeable. Art quality, all UI contexts and human audio remain to review.
+- Selected export/runtime, all four language screenshots, Chromium/Firefox screens and fixture Golden Merge passed in CI; broader performance, natural-play, visual and physical-device evidence remains outstanding. Any packages are test-only, not release-ready. SDK/CDN terms, true platform monetization entitlement and template third-party notices require review.
+- IndexedDB final-write risk and the earlier physical-device, audio and performance gaps remain open.
+
+---
+
 # V0.8.3 — açıq performans və platforma riskləri
 
 - 25 MB sıxılmamış Web export hədəfi qarşılanmır: 43.11 MB; ZIP/şərti gzip transfer daha kiçikdir. WASM eyni Godot template ölçüsündə qalır. Real mobil 30 FPS və desktop 60 FPS təsdiqlənməyib; software-render/CPU throttling fiziki Android deyil və runner dəyişkənliyi böyükdür.

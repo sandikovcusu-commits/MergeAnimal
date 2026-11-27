@@ -16,5 +16,5 @@ DejaVu Sans license permits commercial distribution with notices and modificatio
 ## Open gates
 - Obtain applicable Agent Mode/asset output terms and explicit rights-holder grant; assess originality and all marks before commercial use.
 - Verify complete export template dependency notices and CrazyGames CDN terms/entitlement.
-- Run real native/Web builds and inspect PCK for exclusions; include notices alongside any distributed Web files (the export intentionally excludes text).
+- Native and Web CI and PCK exclusions passed on 4e9ac3a (see `ASSET_COMPARISON_REPORT.md`); include notices alongside any distributed Web files because the export intentionally excludes text. Additional real-device and human review remain required.
 - Human acceptance for visuals/contact, audio and devices; Firefox immediate-close IndexedDB final-write issue remains open.
