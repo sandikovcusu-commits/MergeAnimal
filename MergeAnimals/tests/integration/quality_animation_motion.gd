@@ -26,15 +26,20 @@ func run() -> void:
 	OS.execute("xdotool", ["windowmove", windows[0], "0", "0"])
 	var recording := OS.create_process("ffmpeg", ["-y", "-loglevel", "error", "-f", "x11grab", "-framerate", "20", "-video_size", "720x1280", "-i", OS.get_environment("DISPLAY") + "+0,0", "-t", "18", "-an", "-vf", "scale=540:960", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "ultrafast", "-crf", "27", OS.get_environment("CAPTURE_DIR") + "/animation-motion.mp4"])
 	if recording <= 0: printerr("FAIL start video"); quit(1); return
-	phase.text = "IDLE — 12 test bodies"; var before: float = bodies[0].visual.idle_phase
+	phase.text = "IDLE — 12 test bodies"
+	var phases: Array[float] = []
+	for animal in bodies: phases.append(animal.visual.idle_phase)
 	await create_timer(1.0).timeout
-	if is_equal_approx(before, bodies[0].visual.idle_phase): printerr("FAIL idle scheduler"); quit(1); return
+	for index in range(bodies.size()):
+		if is_equal_approx(phases[index], bodies[index].visual.idle_phase): printerr("FAIL idle scheduler ", bodies[index].data.id); quit(1); return
+	print("PASS idle scheduler 12/12")
 	phase.text = "BLINK — forced test timing"
 	for animal in bodies: animal.visual.next_blink = 0.0
 	await create_timer(0.05).timeout
 	for animal in bodies:
 		if animal.visual.blink_left <= 0.0 or animal.visual._texture_for_expression() != animal.data.blink_sprite:
 			printerr("FAIL blink ", animal.data.id); quit(1); return
+	print("PASS forced blink 12/12")
 	await create_timer(0.7).timeout
 	for action in ["happy", "surprise", "drop", "landing", "merge"]:
 		phase.text = action.to_upper() + " — 12 test bodies"
@@ -45,6 +50,8 @@ func run() -> void:
 				printerr("FAIL happy frame ", animal.data.id, " ", action); quit(1); return
 			if action in ["surprise", "drop"] and animal.visual._texture_for_expression() != animal.data.surprise_sprite:
 				printerr("FAIL surprise frame ", animal.data.id, " ", action); quit(1); return
+			if action == "landing" and animal.visual.scale.x <= 1.0: printerr("FAIL landing motion ", animal.data.id); quit(1); return
+			if action in ["drop", "merge"] and animal.visual.scale.x >= 1.0: printerr("FAIL action motion ", animal.data.id, " ", action); quit(1); return
 			if not is_equal_approx(animal.circle.shape.radius, animal.data.radius) or not is_equal_approx(animal.mass, animal.data.body_mass) or animal.scale != Vector2.ONE or animal.circle.scale != Vector2.ONE:
 				printerr("FAIL physics invariance ", animal.data.id, " ", action); quit(1); return
 		print("PASS motion phase ", action, " 12/12 frames and shape/mass invariant")
@@ -53,6 +60,8 @@ func run() -> void:
 		printerr("FAIL cosmetic action changed score/merge"); quit(1); return
 	for animal in bodies: animal.queue_free()
 	for i in range(3): await process_frame
+	var scheduler := root.get_node_or_null("AnimalVisualScheduler")
+	if scheduler and not scheduler.visuals.is_empty(): printerr("FAIL freed visual scheduler callbacks"); quit(1); return
 	phase.text = "GOLDEN MERGE — physical elephant collision"
 	var a: Animal = game.create_animal(game.animals[11], Vector2(225, 700))
 	var b: Animal = game.create_animal(game.animals[11], Vector2(495, 700))
