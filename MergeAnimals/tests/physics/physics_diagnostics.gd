@@ -33,7 +33,7 @@ func run() -> void:
 		var max_floor := 0.0; var max_pair := 0.0; var escaped := 0
 		for frame in range(120 * 6):
 			await physics_frame
-			var bodies := game.pieces.get_children(); var any_escape := false
+			var bodies: Array = game.pieces.get_children(); var any_escape := false
 			for i in range(bodies.size()):
 				var a: Animal = bodies[i]
 				max_floor = maxf(max_floor, a.position.y + a.data.radius - game.floor_height)
