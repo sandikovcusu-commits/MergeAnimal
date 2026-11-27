@@ -11,5 +11,17 @@ try{
   IDBObjectStore.prototype.delete=function(k){this.transaction.__entry?.operations.push({type:'delete',store:this.name,key:String(k)});return deleteOriginal.call(this,k)};
  });page=await ctx.newPage();page.on('console',m=>events.push({type:'console:'+m.type(),text:m.text()}));page.on('pageerror',e=>events.push({type:'pageerror',text:String(e)}));await page.goto(base,{waitUntil:'domcontentloaded'});await page.waitForSelector('canvas');await sleep(14000);await page.mouse.click(180,300);await sleep(6000);let clicks=[];
  for(let i=0;i<6;i++){let t=await page.evaluate(()=>performance.now());clicks.push(t);await page.mouse.click(145+(i%3)*35,260);await sleep(4000)}await sleep(7000);
- const tx=await page.evaluate(()=>window.__idbTx);let complete=tx.filter(t=>t.outcome==='complete'&&t.operations.length),deltas=clicks.map(t=>{let x=complete.find(z=>z.start>=t);return x?{click:t,transaction_start:x.start,transaction_end:x.end,click_to_complete_ms:x.end-t,transaction_ms:x.end-x.start}:null});let result={browser:name,ua:await page.evaluate(()=>navigator.userAgent),clicks,transactions:tx,click_to_next_transaction:deltas,events};fs.writeFileSync(path.join(out,`${name}-idb-timing.json`),JSON.stringify(result,null,2));await page.screenshot({path:path.join(out,`${name}-idb-timing.png`)});console.log('IDB_TIMING',JSON.stringify({transactions:tx.length,completedWrites:complete.length,deltas,transactionMs:complete.map(x=>x.end-x.start)}));if(!complete.length)throw Error('no completed readwrite transactions observed');
+ // The production tracker must not report a nonexistent revision as saved.
+ await page.waitForFunction(() => window.__wildGardenCheckpoint && Object.values(window.__wildGardenCheckpoint.records).some(r=>r.state==='verified'),null,{timeout:20000});
+ const trackerCheck=await page.evaluate(async()=>{
+  const tracker=window.__wildGardenCheckpoint;
+  const key='/userfs/__qa_missing_checkpoint__';
+  tracker.track(key,'not a real committed entry');
+  await new Promise(r=>setTimeout(r,500));
+  const state=tracker.records[key]?.state;
+  delete tracker.records[key];
+  return {missingRevisionState:state, trackedPaths:Object.keys(tracker.records), status:tracker.status()};
+ });
+ if(trackerCheck.missingRevisionState!=='pending') throw Error('nonexistent revision was not pending: '+JSON.stringify(trackerCheck));
+ const tx=await page.evaluate(()=>window.__idbTx);let complete=tx.filter(t=>t.outcome==='complete'&&t.operations.length),deltas=clicks.map(t=>{let x=complete.find(z=>z.start>=t);return x?{click:t,transaction_start:x.start,transaction_end:x.end,click_to_complete_ms:x.end-t,transaction_ms:x.end-x.start}:null});let result={browser:name,ua:await page.evaluate(()=>navigator.userAgent),clicks,trackerCheck,transactions:tx,click_to_next_transaction:deltas,events};fs.writeFileSync(path.join(out,`${name}-idb-timing.json`),JSON.stringify(result,null,2));await page.screenshot({path:path.join(out,`${name}-idb-timing.png`)});console.log('IDB_TIMING',JSON.stringify({transactions:tx.length,completedWrites:complete.length,deltas,transactionMs:complete.map(x=>x.end-x.start)}));if(!complete.length)throw Error('no completed readwrite transactions observed');
 }catch(e){console.error('IDB_ERROR',e.stack||e);process.exitCode=1}finally{await ctx?.close();await browser?.close()}
