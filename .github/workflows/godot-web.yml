@@ -194,14 +194,14 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
-          elif [ "$UI_MODE" = merge-verification ] || [ "$UI_MODE" = placement-a3 ]; then
+          elif [ "$UI_MODE" = merge-verification ] || [ "$UI_MODE" = placement-a3 ] || [ "$UI_MODE" = confirm-a3-baseline ] || [ "$UI_MODE" = confirm-a3-fixed ]; then
             cp -a MergeAnimals /tmp/verify-project
             cp MergeAnimals/tests/web/MergeVerificationProbe.gd /tmp/verify-project/scripts/MergeVerificationProbe.gd
             sed -i '/^\[autoload\]/a MergeVerificationProbe="*res://scripts/MergeVerificationProbe.gd"' /tmp/verify-project/project.godot
             mkdir -p /tmp/web-test/verify-qa
             "$GODOT" --headless --path /tmp/verify-project --editor --quit >> /tmp/web-qa/verify-export.log 2>&1
             "$GODOT" --headless --path /tmp/verify-project --export-release 'Web (single-threaded)' /tmp/web-test/verify-qa/index.html >> /tmp/web-qa/verify-export.log 2>&1
-            URL=http://127.0.0.1:8765/verify-qa/; if [ "$UI_MODE" = placement-a3 ]; then TEST=placement-a3.mjs; else TEST=merge-verification.mjs; fi
+            URL=http://127.0.0.1:8765/verify-qa/; if [ "$UI_MODE" = placement-a3 ]; then TEST=placement-a3.mjs; elif [[ "$UI_MODE" = confirm-a3-* ]]; then TEST=confirmation-a3.mjs; else TEST=merge-verification.mjs; fi
           elif [ "$UI_MODE" = quality-matrix ] || [ "$UI_MODE" = gameover-investigation ] || [ "$UI_MODE" = natural-observe ] || [ "$UI_MODE" = natural-long ] || [ "$UI_MODE" = merge-deadlock ]; then
             # Test-only probe build; production export above is untouched.
             cp -a MergeAnimals /tmp/quality-project
