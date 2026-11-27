@@ -55,6 +55,7 @@ jobs:
           XDG_DATA_HOME=/tmp/day62-runtime-user run_test 'day62 collection integration' --fixed-fps 60 --script res://tests/integration/day62_collection.gd
           run_test 'day5 tutorial collision' --script res://tests/integration/day5_tutorial.gd
           run_test 'day5 effects' --script res://tests/integration/day5_effects.gd
+          run_test 'day803 performance regression' --script res://tests/integration/day803_performance.gd
           run_test 'day5 GUI input' --script res://tests/integration/day5_input.gd
           run_test 'day5 UI interaction' --script res://tests/integration/day5_ui.gd
           run_test 'day4.1 UI assets' --script res://tests/integration/day41_ui_assets.gd
