@@ -10,7 +10,9 @@ with p.open('rb') as f:
         name=f.read(length).rstrip(b'\0').decode('utf-8')
         offset,size=struct.unpack('<QQ',f.read(16)); checksum=f.read(16); entry_flags=struct.unpack('<I',f.read(4))[0]
         assert not entry_flags&1, 'encrypted entry';entries[name]=(offset,size,checksum)
-    forbidden=['tests/','art_source/','art_reports/','concepts/','.github/','probe.gdc','mock','benchmark_', 'asset_manifest.json','.mp4','.webm','.csv','.md']
+    forbidden=['tests/','art_source/','art_reports/','concepts/','docs/qa/','.github/','probe.gdc','mock','benchmark_', 'asset_manifest.json','.mp4','.webm','.csv','.md',
+               '.godot/imported/chromium-corrected-gameover.png-', '.godot/imported/chromium-natural-gameover.png-', '.godot/imported/chromium-old-invalid-gameover.png-',
+               '.godot/imported/firefox-corrected-gameover.png-', '.godot/imported/firefox-natural-gameover.png-', '.godot/imported/firefox-old-invalid-gameover.png-']
     bad=[name for name in entries if any(x in name.lower() for x in forbidden)]
     baseline=json.loads((pathlib.Path(__file__).resolve().parents[2]/'docs/asset_audit/baseline_pck_ctex_sha256.json').read_text())['texture_sha256']
     animals={n for n in entries if n.startswith('.godot/imported/normal.png-') and n.endswith('.ctex')}
