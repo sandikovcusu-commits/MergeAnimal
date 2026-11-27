@@ -6,7 +6,7 @@
 <ellipse cx="200" cy="164" rx="91" ry="41" fill="#ffffff" opacity=".12" transform="rotate(-16 200 164)"/>
 <ellipse cx="173" cy="231" rx="51" ry="60" transform="rotate(-17 173 231)" fill="#4a5658"/><ellipse cx="339" cy="231" rx="51" ry="60" transform="rotate(17 339 231)" fill="#4a5658"/>
 <ellipse cx="256" cy="318" rx="85" ry="62" fill="#fffdf3" opacity=".88"/>
-<g fill="#553e39"><ellipse cx="176" cy="234" rx="24" ry="33" fill="#fffaf0"/><ellipse cx="336" cy="234" rx="24" ry="33" fill="#fffaf0"/><path d="M160 235 Q179 248 198 235 M314 235 Q333 248 352 235" fill="none" stroke="#553e39" stroke-width="9" stroke-linecap="round"/><path d="M238 277 Q256 267 274 277 Q270 292 256 296 Q242 292 238 277Z"/><path d="M256 296 Q256 313 242 318 M256 296 Q256 313 270 318" fill="none" stroke="#553e39" stroke-width="7" stroke-linecap="round"/></g>
+<g fill="#553e39"><path d="M160 235 Q179 248 198 235 M314 235 Q333 248 352 235" fill="none" stroke="#fffaf0" stroke-width="9" stroke-linecap="round"/><path d="M238 277 Q256 267 274 277 Q270 292 256 296 Q242 292 238 277Z"/><path d="M256 296 Q256 313 242 318 M256 296 Q256 313 270 318" fill="none" stroke="#553e39" stroke-width="7" stroke-linecap="round"/></g>
 
 <path d="M148 383 Q256 420 364 383" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".16"/>
 </svg>

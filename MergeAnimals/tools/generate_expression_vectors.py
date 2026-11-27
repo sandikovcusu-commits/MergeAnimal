@@ -20,6 +20,11 @@ for directory in sorted(p for p in root.iterdir() if p.is_dir()):
     for name, eyes in eye_variants.items():
         result = normal.replace(open_eyes, eyes)
         if name != 'surprise': result = result.replace(highlights, '')
+        # Panda's dark mask needs a light closed lid; remove its white sclera
+        # so a closed eye does not look like an open white circle.
+        if directory.name == 'panda' and name in ('blink', 'happy'):
+            result = result.replace('<ellipse cx="176" cy="234" rx="24" ry="33" fill="#fffaf0"/><ellipse cx="336" cy="234" rx="24" ry="33" fill="#fffaf0"/>', '')
+            result = result.replace(eyes, eyes.replace('#553e39', '#fffaf0'))
         if name == 'happy':
             if mouth in result:
                 result = result.replace(mouth, '<path d="M236 310 Q256 338 276 310" fill="none" stroke="#553e39" stroke-width="8" stroke-linecap="round"/>')

@@ -2129,7 +2129,7 @@
     },
     {
       "file": "art_source/vector_animals/panda/blink.svg",
-      "sha256": "fd9027f0e04754158b908531a2df998d7f5191377d9ca594245e6510353efdc5",
+      "sha256": "110e2afdcf21dc66c57d0e940c4c9c1e4f5a89c4e45f13291f87bd7b43265704",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
@@ -2145,7 +2145,7 @@
     },
     {
       "file": "assets/animals/panda/blink.png",
-      "sha256": "e922d4691878696e30a62d0091f389c83043b59b1949b7409d813803504e73b4",
+      "sha256": "963581c50363db7fe9a28a93c22108cb9b270060bccc3dc761d1675df7b9dc53",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
@@ -2161,7 +2161,7 @@
     },
     {
       "file": "art_source/vector_animals/panda/happy.svg",
-      "sha256": "acca8c8d6c5cd5602b6fbda014d988eb913fe121c7b4ac561bf074cbafe65455",
+      "sha256": "e73ee19c4383c3380cf91b776a2242c5d45507efbdaf5742280b6056c6e96fbe",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
@@ -2177,7 +2177,7 @@
     },
     {
       "file": "assets/animals/panda/happy.png",
-      "sha256": "947fbed9512718e330234d96abc3f12d31eba5a5f71e48f90d9ffe7e8904a6cc",
+      "sha256": "cad98a3459f6523cf945c99af2747f68bf5b909a509b9c01bc7768547441903c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",

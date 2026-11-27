@@ -24,6 +24,9 @@ on:
       perf_process:
         description: 'Measure Linux browser process-tree CPU/RSS'
         default: 'false'
+      perf_compare_v0904:
+        description: 'On same runner, benchmark current then unchanged V0.9.0.4 baseline'
+        default: 'false'
       perf_variant:
         description: 'Physics benchmark only: baseline or predictive-bounds'
         default: 'baseline'
@@ -98,6 +101,7 @@ jobs:
           UI_LOCALE: ${{ inputs.ui_locale }}
           PERF_BASELINE: ${{ inputs.perf_baseline }}
           PERF_PROCESS: ${{ inputs.perf_process }}
+          PERF_COMPARE_V0904: ${{ inputs.perf_compare_v0904 }}
           PERF_VARIANT: ${{ inputs.perf_variant }}
           PERF_TICKS: ${{ inputs.perf_ticks }}
           PERF_SECONDS: ${{ inputs.perf_seconds }}
@@ -228,6 +232,23 @@ jobs:
             URL=http://127.0.0.1:8765/audio-qa/; TEST=audio-web.mjs
           elif [ "$UI_MODE" = none ]; then TEST=powerup-persistence.mjs; else TEST=ui-responsive.mjs; fi
           WEB_URL="$URL" WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node "MergeAnimals/tests/web/$TEST" 2>&1 | tee /tmp/web-qa/browser.log
+          if [ "$UI_MODE" = perf ] && [ "$PERF_COMPARE_V0904" = true ]; then
+            cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/after-metrics.json
+            # Identical probe and browser harness, sequential on this exact runner.
+            git fetch --depth=1 origin 5a50de4
+            mkdir -p /tmp/visual-baseline
+            git archive 5a50de4 MergeAnimals | tar -x -C /tmp/visual-baseline
+            cp MergeAnimals/tests/performance/PerfProbe.gd /tmp/visual-baseline/MergeAnimals/scripts/PerfProbe.gd
+            sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/visual-baseline/MergeAnimals/project.godot
+            mkdir -p /tmp/web-test/visual-baseline
+            "$GODOT" --headless --path /tmp/visual-baseline/MergeAnimals --editor --quit >> /tmp/web-qa/baseline-export.log 2>&1
+            "$GODOT" --headless --path /tmp/visual-baseline/MergeAnimals --export-release 'Web (single-threaded)' /tmp/web-test/visual-baseline/index.html >> /tmp/web-qa/baseline-export.log 2>&1
+            kill $SERVER; wait $SERVER 2>/dev/null || true
+            WEB_ROOT=/tmp/web-test/visual-baseline python3 MergeAnimals/tests/performance/serve.py >/tmp/web-qa/baseline-server.log 2>&1 & SERVER=$!
+            for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/baseline-server.log; exit 1; fi; sleep 1; done
+            WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee /tmp/web-qa/baseline-browser.log
+            cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/before-metrics.json
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
