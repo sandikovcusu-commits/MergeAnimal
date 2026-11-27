@@ -96,6 +96,18 @@ func dispatch(cmd: Dictionary) -> void:
 			var middle: Vector2 = (a.position+b.position)*0.5
 			var point: Variant = game.find_merge_position(middle, game.animals[1].radius, a, b)
 			rows.append({"scenario":"dense_danger" if base_y < 500.0 else "dense_bottom", "x":middle.x,"y":middle.y,"result_x":point.x if point is Vector2 else -1.0,"result_y":point.y if point is Vector2 else -1.0,"distance":point.distance_to(middle) if point is Vector2 else -1.0,"before_danger":middle.y-game.animals[0].radius < game.danger_height,"after_danger":point.y-game.animals[1].radius < game.danger_height if point is Vector2 else false})
+		# Adversarial upper pile, touching spacing: source above danger line,
+		# lower candidate below it. This measures geometry, not full Game Over.
+		for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+		var danger_a: Animal; var danger_b: Animal
+		for row in range(4):
+			for col in range(7):
+				var body: Animal = game.create_animal(game.animals[0],Vector2(252+col*36,344+row*36)); body.freeze = true
+				if row == 1 and col == 2: danger_a = body
+				if row == 1 and col == 3: danger_b = body
+		var danger_mid: Vector2 = (danger_a.position+danger_b.position)*0.5
+		var danger_point: Variant = game.find_merge_position(danger_mid,game.animals[1].radius,danger_a,danger_b)
+		rows.append({"scenario":"danger_crossing","x":danger_mid.x,"y":danger_mid.y,"result_x":danger_point.x if danger_point is Vector2 else -1.0,"result_y":danger_point.y if danger_point is Vector2 else -1.0,"distance":danger_point.distance_to(danger_mid) if danger_point is Vector2 else -1.0,"before_danger":danger_mid.y-game.animals[0].radius < game.danger_height,"after_danger":danger_point.y-game.animals[1].radius < game.danger_height if danger_point is Vector2 else false})
 		for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
 		var a: Animal = game.create_animal(game.animals[0], Vector2(109,1076)); a.freeze = true
 		var b: Animal = game.create_animal(game.animals[0], Vector2(145,1076)); b.freeze = true
@@ -147,6 +159,11 @@ func dispatch(cmd: Dictionary) -> void:
 	var result: Variant = null
 	if op == "reserve": result = game.merge_manager.request_merge(first,second)
 	elif op == "save": result = game.save_session()
+	elif op == "score_427":
+		game.score = 427; game.best_score = 427; game.progression.best_score = 427
+		result = game.save_session()
+	elif op == "score_587":
+		game.score = 587; game.best_score = 587; game.progression.best_score = 587
 	elif op == "commit": game.merge_manager._commit_pending()
 	elif op == "pause" or op == "resume": game._toggle_pause()
 	elif op == "undo":
