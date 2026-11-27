@@ -19,7 +19,7 @@ func run() -> void:
 		body.visual.blink_left = 0.0
 		correct = correct and body.visual._texture_for_expression() == data.sprite
 		body.visual.next_blink = 0.0
-		body.visual._process(0.01)
+		body.visual.advance_visual(0.01)
 		correct = correct and body.visual.blink_left > 0 and body.visual._texture_for_expression() == data.blink_sprite
 		body.visual.animate_action("merge")
 		correct = correct and body.visual._texture_for_expression() == data.happy_sprite

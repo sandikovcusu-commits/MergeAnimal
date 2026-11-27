@@ -250,6 +250,8 @@ jobs:
               PERF_REF=5a50de4d3b22118fc8044f973a6c2aeee620e7e0
             elif [ "$PERF_REFERENCE" = pre-ui-optimization ]; then
               PERF_REF=51e35b0e8b96f788f60f35354e886447a2b448a8
+            elif [ "$PERF_REFERENCE" = pre-visual-scheduler ]; then
+              PERF_REF=3bd61aa75a6e528929ca75bf6363d9355f9b1a0d
             else
               echo 'Invalid paired benchmark reference'; exit 1
             fi

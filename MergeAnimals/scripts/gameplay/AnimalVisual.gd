@@ -1,3 +1,4 @@
+class_name AnimalCosmetic
 extends Node2D
 # Cosmetic animation only. Physics body and collision shape never change size.
 static var warned_missing: Dictionary = {}
@@ -28,9 +29,16 @@ func _ready() -> void:
 	# global setting on every rendered frame when Reduced Effects is enabled.
 	if get_parent() is Animal and audio_manager:
 		audio_manager.reduced_effects_changed.connect(_on_reduced_effects_changed)
-	set_process(get_parent() is Animal and not reduced)
+	set_process(false)
+	_update_scheduler()
 
-func _process(delta: float) -> void:
+func _update_scheduler() -> void:
+	if get_parent() is Animal and not reduced:
+		AnimalVisualScheduler.register_visual(self)
+	else:
+		AnimalVisualScheduler.unregister_visual(self)
+
+func advance_visual(delta: float) -> void:
 	if reduced: return # also safe for explicit/manual calls while processing is disabled
 	idle_phase += delta * 1.5
 	var was_blinking := blink_left > 0.0
@@ -54,7 +62,7 @@ func _on_reduced_effects_changed(value: bool) -> void:
 		blink_left = 0.0
 		expression = AnimalExpression.NORMAL
 		queue_redraw()
-	set_process(not reduced and get_parent() is Animal)
+	_update_scheduler()
 
 func animate_action(kind: String) -> void:
 	if reduced: return
@@ -70,6 +78,7 @@ func _end_action() -> void:
 	expression = AnimalExpression.NORMAL
 
 func _exit_tree() -> void:
+	AnimalVisualScheduler.unregister_visual(self)
 	if action_tween and action_tween.is_running(): action_tween.kill()
 	action_tween = null
 
