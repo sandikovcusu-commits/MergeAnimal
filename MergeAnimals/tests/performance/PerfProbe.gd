@@ -8,6 +8,10 @@ var sample := 0.0
 var counters := {}
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	var ticks: Variant = JavaScriptBridge.eval("window.__physicsBenchTicks || 0")
+	if typeof(ticks) in [TYPE_INT, TYPE_FLOAT] and int(ticks) in [60, 90, 120]:
+		Engine.physics_ticks_per_second = int(ticks)
+	JavaScriptBridge.eval("window.__physicsBenchEffectiveTicks=" + str(Engine.physics_ticks_per_second))
 func _process(delta: float) -> void:
 	var game = get_tree().current_scene
 	if game and scene_name != game.name:

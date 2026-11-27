@@ -24,6 +24,9 @@ on:
       perf_process:
         description: 'Measure Linux browser process-tree CPU/RSS'
         default: 'false'
+      perf_ticks:
+        description: 'Test-only physics tick rate: 60, 90 or 120'
+        default: '120'
       perf_seconds:
         description: 'Benchmark seconds per repetition'
         default: '60'
@@ -92,6 +95,7 @@ jobs:
           UI_LOCALE: ${{ inputs.ui_locale }}
           PERF_BASELINE: ${{ inputs.perf_baseline }}
           PERF_PROCESS: ${{ inputs.perf_process }}
+          PERF_TICKS: ${{ inputs.perf_ticks }}
           PERF_SECONDS: ${{ inputs.perf_seconds }}
           PERF_REPEATS: ${{ inputs.perf_repeats }}
           PERF_THROTTLE: ${{ inputs.perf_throttle }}
@@ -135,7 +139,7 @@ jobs:
             for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/perf-server.log; exit 1; fi; sleep 1; done
             curl -sf -o /dev/null http://127.0.0.1:8765/
             URL=http://127.0.0.1:8765/; TEST=benchmark.mjs
-            export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE PERF_PROCESS
+            export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE PERF_PROCESS PERF_TICKS
           elif [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
             if [ "$UI_MODE" = reward-perf ] && [ "$PERF_BASELINE" = true ]; then
               git fetch --depth=1 origin 32d50e50d87c5903287fe2b823ac0239fe2c2405
@@ -161,6 +165,14 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
+          elif [ "$UI_MODE" = physics-capture ]; then
+            cp -a MergeAnimals /tmp/physics-capture-project
+            cp MergeAnimals/tests/web/PhysicsCapture.gd /tmp/physics-capture-project/scripts/PhysicsCapture.gd
+            sed -i '/^\[autoload\]/a PhysicsCapture="*res://scripts/PhysicsCapture.gd"' /tmp/physics-capture-project/project.godot
+            mkdir -p /tmp/web-test/physics-capture
+            "$GODOT" --headless --path /tmp/physics-capture-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/physics-capture-project --export-release 'Web (single-threaded)' /tmp/web-test/physics-capture/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/physics-capture/; TEST=physics-capture.mjs
           elif [ "$UI_MODE" = save-integrity ]; then
             # Generate genuine prior-version save files with the historical
             # project and its own existing write-phase test. Old assets stay
