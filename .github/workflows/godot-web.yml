@@ -235,9 +235,9 @@ jobs:
           if [ "$UI_MODE" = perf ] && [ "$PERF_COMPARE_V0904" = true ]; then
             cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/after-metrics.json
             # Identical probe and browser harness, sequential on this exact runner.
-            git fetch --depth=1 origin 5a50de4
+            git fetch --depth=1 origin 5a50de4d3b22118fc8044f973a6c2aeee620e7e0
             mkdir -p /tmp/visual-baseline
-            git archive 5a50de4 MergeAnimals | tar -x -C /tmp/visual-baseline
+            git archive 5a50de4d3b22118fc8044f973a6c2aeee620e7e0 MergeAnimals | tar -x -C /tmp/visual-baseline
             cp MergeAnimals/tests/performance/PerfProbe.gd /tmp/visual-baseline/MergeAnimals/scripts/PerfProbe.gd
             sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/visual-baseline/MergeAnimals/project.godot
             mkdir -p /tmp/web-test/visual-baseline
