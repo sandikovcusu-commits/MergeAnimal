@@ -19,3 +19,5 @@ Tested code `58a04ee` in Godot 4.7.2 Web export, GitHub Ubuntu runners, headed P
 All 12 native/commercial workflow jobs on `58a04ee` returned success, including the session, Undo, Remove, Rescue, Challenge, Achievement, Theme, Collection, render, Game Feel and runtime suites. Their workflow conclusions do not assert complete human acceptance or Web durability. CI timing evidence ZIPs and browser logs are kept in `artifacts/v0902/`; they are local test evidence, not public-release artifacts. Browser output and detailed checks are inside the linked runs/evidence.
 
 **Acceptance remains incomplete.** In particular, the immediate-close Chromium trial demonstrates the final Undo can be lost; read-back does not guard unwritten actions. No claim is made for abrupt process/power failure, storage eviction or concurrent tabs.
+
+Earlier QA history is preserved in `docs/archive/WEB_QA_REPORT_V0.8.3.md`.
