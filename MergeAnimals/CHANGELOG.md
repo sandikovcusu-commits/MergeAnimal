@@ -1,3 +1,11 @@
+# V0.9.1-A.3 — partial private hotfix
+
+- `6e78d87`: radius-derived bounded closest-sampled placement; no-space per-pair cancellation/cache; Danger Line crossing guard and offset timer inheritance. Automatic persistent-contact retry remains open.
+- `0dedf46`: per-request readback deadline/watchdog, bounded read-only confirmation retry and bounded guarded local terminal-write retry. Original natural Chromium event remains unproven/open.
+- QA evidence/checkpoint tests; no acceptance or commercial clearance claimed.
+
+---
+
 # V0.9.1-A.2 — verification only, NOT ACCEPTED
 
 - Added browser QA stress, physical contact, pending lifecycle and previous-trace reconstruction tests; A.1 production merge/save code remains unchanged.

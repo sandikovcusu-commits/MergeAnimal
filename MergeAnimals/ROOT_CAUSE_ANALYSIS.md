@@ -1,3 +1,11 @@
+# V0.9.1-A.3 — root-cause boundaries
+
+Controlled evidence demonstrates old 96px placement search exhaustion and an A.2 120px danger-line crossing. The old natural locked board was not captured exactly; the 168px reconstruction remains approximate. A.3 geometric cancellation addresses those fixtures but no automatic continuous-contact retry is implemented; liveness/gameplay remains open. See MERGE_PLACEMENT_REPORT.md.
+
+Controlled 16s IDB lock in Firefox shows an older pending timer can make a later exact terminal write unconfirmed, but cannot establish why natural Chromium 46077100528 was unconfirmed. Per-request watchdog/read-only retry is mitigation, not proof of original cause. See SAVE_CONFIRMATION_REPORT.md.
+
+---
+
 # V0.9.1-A.2 — trace comparison and limits
 
 Input sequence is known (`130,245,360,475,590,130,360,590`, repeated, 1700 ms interval), but the old run did not record its starting random seed. Its final IndexedDB checkpoint does preserve RNG state and an earlier board. Firefox trace [46071244975](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46071244975) first sampled pending at input 65: rabbit→cat and cat→dog; live and checkpoint score both 552. The two cat positions in checkpoint differ by only 0.562 and 1.032 px from sampled locked-pair positions. Rebuilt the 34-body checkpoint with those two cats moved to their logged positions (`tests/fixtures/v091_trace_firefox_approx.json`). The other bodies were not captured at exactly that moment and may have moved; pair matching by proximity and UID cannot prove exact identity. This is **approximate**, not an exact replay of the original natural collision. Checkpoint RNG state is not the initial seed, and replaying it cannot reconstruct past inputs/physics.

@@ -1,3 +1,11 @@
+# V0.9.1-A.3 — NOT ACCEPTED; commercial BLOCKED
+
+- Placement cancellation can miss retry when touching pair remains in contact and another blocker moves. 12/60 attempted pairs cancelled in each browser's frozen stress; natural play impact remains unknown.
+- Original natural save-confirmation failure remains OPEN; controlled Firefox reproduction is not proof of that cause. Fault retry, lifecycle and 3×/browser natural end-to-end acceptance remain incomplete.
+- Danger mixed/below and Game Over race matrix incomplete. Sudden-close, eviction, cross-file atomicity, real Android, mobile performance, human visual/audio/play and rights are unverified. No public release or distribution.
+
+---
+
 # V0.9.1-A.2 — NOT ACCEPTED, supersedes earlier summary
 
 - `V091-A2-001` P1 verification: synthetic 4×7 pile caused committed result to jump 120 px from above to below Danger Line. Full natural false-rescue outcome not established; teleport/balance/support-timer and real play consequences unverified. Review before conditional acceptance.
