@@ -16,12 +16,20 @@ func run() -> void:
 	var body = game.create_animal(game.animals[0], Vector2(360, 800))
 	body.freeze = true
 	await process_frame
-	check(body.visual.is_processing(), "animal idle animation processes when effects enabled")
+	var scheduler = root.get_node_or_null("AnimalVisualScheduler")
+	var active: bool = scheduler.visuals.has(body.visual) if scheduler else body.visual.is_processing()
+	var phase: float = body.visual.idle_phase
+	for i in range(3): await process_frame
+	check(active and body.visual.idle_phase > phase, "animal idle animation advances when effects enabled")
 	body.visual.animate_action("drop")
 	audio.reduced_effects = true
-	check(not body.visual.is_processing() and body.visual.scale == Vector2.ONE, "reducing effects stops idle processing and cancels action tween")
+	active = scheduler.visuals.has(body.visual) if scheduler else body.visual.is_processing()
+	check(not active and body.visual.scale == Vector2.ONE, "reducing effects stops idle updates and cancels action tween")
 	audio.reduced_effects = false
-	check(body.visual.is_processing(), "enabling effects resumes idle animation")
+	active = scheduler.visuals.has(body.visual) if scheduler else body.visual.is_processing()
+	phase = body.visual.idle_phase
+	for i in range(3): await process_frame
+	check(active and body.visual.idle_phase > phase, "enabling effects resumes idle animation")
 	var small = load("res://resources/animals/mouse.tres")
 	var middle = load("res://resources/animals/rabbit.tres")
 	var large = load("res://resources/animals/elephant.tres")
