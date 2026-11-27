@@ -137,6 +137,19 @@ func dispatch(cmd: Dictionary) -> void:
 		var retry: bool = game.merge_manager.request_merge(first,second)
 		game.merge_manager._commit_pending()
 		finish(int(cmd.id), {"no_point":no_point,"reserved":reserved,"after":after,"saved":saved,"dropped":dropped,"loop_pending":loop_pending,"retry":retry,"final":metrics(game)}); return
+	if op == "mixed_cancel":
+		var game = await fresh(false)
+		game.merge_manager.set_physics_process(false); pair(game)
+		for y in [680,820,960]:
+			for x in [220,360,500]:
+				var blocker: Animal = game.create_animal(game.animals[11],Vector2(x,y)); blocker.freeze = true
+		var c: Animal = game.create_animal(game.animals[0],Vector2(342,350)); c.freeze = true
+		var d: Animal = game.create_animal(game.animals[0],Vector2(378,350)); d.freeze = true
+		get_tree().paused = true
+		var aok: bool = game.merge_manager.request_merge(first,second)
+		var bok: bool = game.merge_manager.request_merge(c,d)
+		game.merge_manager._commit_pending()
+		finish(int(cmd.id), {"both_reserved":aok and bok,"first_unlocked":not first.merge_locked and not second.merge_locked,"count":game.pieces.get_child_count(),"score":game.score,"merges":game.merge_manager.merge_count,"pending":game.merge_manager.pending.size()}); return
 	if op == "physical":
 		var game = await fresh(false)
 		game.create_animal(game.animals[1], Vector2(360,1071))
@@ -152,7 +165,23 @@ func dispatch(cmd: Dictionary) -> void:
 		for i in range(600):
 			await get_tree().physics_frame
 			if game.merge_manager.merge_count >= 1: break
-		finish(int(cmd.id), {"chain":chain,"golden":{"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}}); return
+		var golden := {"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}
+		game = await fresh(false)
+		for point in [Vector2(220,1076),Vector2(220,900),Vector2(500,1076),Vector2(500,900)]:
+			game.create_animal(game.animals[0], point)
+		for i in range(600):
+			await get_tree().physics_frame
+			if game.merge_manager.merge_count >= 2: break
+		var simultaneous := {"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}
+		game = await fresh(false)
+		for point in [Vector2(342,1076),Vector2(378,1076),Vector2(360,900)]:
+			game.create_animal(game.animals[0], point)
+		for i in range(600):
+			await get_tree().physics_frame
+			if game.merge_manager.merge_count >= 1: break
+		for i in range(30): await get_tree().physics_frame
+		var triple := {"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}
+		finish(int(cmd.id), {"chain":chain,"golden":golden,"simultaneous":simultaneous,"triple":triple}); return
 	var game = get_tree().current_scene
 	if not game or not game.has_method("save_session"):
 		finish(int(cmd.id), {"error":"game unavailable"}); return
