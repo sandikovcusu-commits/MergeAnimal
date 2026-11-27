@@ -1,3 +1,13 @@
+# V0.8.3 — açıq performans və platforma riskləri
+
+- 25 MB sıxılmamış Web export hədəfi qarşılanmır: 43.11 MB; ZIP/şərti gzip transfer daha kiçikdir. WASM eyni Godot template ölçüsündə qalır. Real mobil 30 FPS və desktop 60 FPS təsdiqlənməyib; software-render/CPU throttling fiziki Android deyil və runner dəyişkənliyi böyükdür.
+- Mouse/hamster/rabbit 256 px importu source 512 px-i qoruyur, lakin yüksək-DPI Collection böyütməsində potensial detal itkisi var; tam insan keyfiyyət müqayisəsi yoxdur. GPU RAM və audio processing CPU ölçülməyib.
+- IndexedDB son sync asinxrondur; Firefox immediate-close əvvəlki save-i yenidən bərpa etdi. Transaction complete müşahidəsi OS durability/Godot acknowledgment deyil; V0.9.0-da təhlükəsiz flush-ack/saving status araşdırılmalıdır. Cross-tab, power loss və eviction zəmanəti yoxdur.
+- 120 Hz 100 botda maksimum 9.190 px nüfuz davam edir; sıfır overlap/escape bütün ssenarilər üçün sübut deyil. 90 Hz və fiziki cihaz ölçülməyib.
+- CrazyGames real platforma preview və reklam gəliri BLOCKED; Basic entitlement avtomatik təyin edilmir, full-launch preset opt-in-dir. Platform mute polling, tələb olunan settings-change listener əvəzinə işləyir. Real adblock extension, lifecycle, fiziki touch və human audio/visual review yoxlanmayıb. Heyvan sprite kommersiya hüquqları təsdiqlənməyib.
+
+---
+
 # V0.8.2.1 — açıq risklər
 
 - Real CrazyGames preview, real ad/revenue və Basic Launch/full-launch entitlement **BLOCKED**; rewarded preset yalnız full-launch təsdiqindən sonra seçilməlidir, avtomatik entitlement aşkarlanmır. Script blocking real AdBlock extension testi deyil.

@@ -1,3 +1,11 @@
+# V0.8.3 — Web performance optimization
+
+- Üç kiçik heyvanın importu 256², orijinal PNG-lər dəyişmədən saxlanır; artıq istifadə olunmayan export resursları və benchmark translation artifaktları çıxarılır.
+- Spawn-clear shape/query reuse, dəyişməz Undo UI setterlərinin qarşısı və Reduced Effects üçün idle-animation polling əvəzinə settings siqnalı. Fizika tezliyi, radiuslar, gameplay və reklam növləri dəyişdirilməyib.
+- 60 s × 3 interval browser benchmarkları, gzip/PCK auditi, CPU/RSS və IndexedDB müşahidələri, 100-seed fizik müqayisəsi və seçilmiş regressiyalar. Cihaz/runner, platforma, vizual və durability məhdudiyyətləri hesabatlarda açıqdır.
+
+---
+
 # V0.8.2.1 — CrazyGames Rewarded Rescue
 
 - Full-launch üçün ayrıca opt-in rewarded preset; standart və Basic konfiqurasiyası reklamsızdır.
