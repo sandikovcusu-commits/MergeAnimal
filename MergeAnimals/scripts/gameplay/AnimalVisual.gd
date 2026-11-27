@@ -18,25 +18,34 @@ var next_blink := 0.0
 var action_tween: Tween
 var reduced := false
 var audio_manager: Node
+var visual_scheduler: Node
 
 func _ready() -> void:
 	idle_phase = randf_range(0.0, TAU)
 	next_blink = randf_range(3.0, 8.0)
 	blink_duration = randf_range(0.12, 0.18)
 	audio_manager = get_node_or_null("/root/AudioManager")
+	visual_scheduler = get_node_or_null("/root/AnimalVisualScheduler")
 	if audio_manager: reduced = audio_manager.reduced_effects
 	# Previews stay static. Bodies subscribe once, instead of polling the
 	# global setting on every rendered frame when Reduced Effects is enabled.
 	if get_parent() is Animal and audio_manager:
 		audio_manager.reduced_effects_changed.connect(_on_reduced_effects_changed)
-	set_process(false)
 	_update_scheduler()
 
 func _update_scheduler() -> void:
-	if get_parent() is Animal and not reduced:
-		AnimalVisualScheduler.register_visual(self)
+	var active := get_parent() is Animal and not reduced
+	if is_instance_valid(visual_scheduler):
+		set_process(false)
+		if active: visual_scheduler.register_visual(self)
+		else: visual_scheduler.unregister_visual(self)
 	else:
-		AnimalVisualScheduler.unregister_visual(self)
+		# Custom SceneTree scripts can preload scenes before project autoloads
+		# exist. Preserve animation in those fixtures instead of failing to load.
+		set_process(active)
+
+func _process(delta: float) -> void:
+	advance_visual(delta)
 
 func advance_visual(delta: float) -> void:
 	if reduced: return # also safe for explicit/manual calls while processing is disabled
@@ -78,7 +87,7 @@ func _end_action() -> void:
 	expression = AnimalExpression.NORMAL
 
 func _exit_tree() -> void:
-	AnimalVisualScheduler.unregister_visual(self)
+	if is_instance_valid(visual_scheduler): visual_scheduler.unregister_visual(self)
 	if action_tween and action_tween.is_running(): action_tween.kill()
 	action_tween = null
 
