@@ -38,11 +38,13 @@ async function matrix(){
  await page.setViewportSize({width:720,height:1280});await sleep(2000);await tap(360,600);await sleep(3500);await tap(565,520);await sleep(1000);
  for(let [w,h] of viewports){await page.setViewportSize({width:w,height:h});await sleep(2500);await shot(`${w}x${h}-game`)}
 }
+// The styled popup adds a top content margin; item centers are now 848+23*i
+// in the 720x1280 logical canvas. Persisted-locale checks remain mandatory.
 async function localeTest(){
  const locale=process.env.UI_LOCALE||'en', locales=['en','az','tr','ru'];if(!locales.includes(locale))throw Error('unsupported locale');
  await tap(360,1123);await sleep(1500);await tap(360,805);await sleep(700);await shot('language-options');
- if(locale==='en'){await tap(160,856);await sleep(1800);await tap(360,805);await sleep(500)}
- await tap(160,833+23*locales.indexOf(locale));await sleep(4500);await shot('selected-language');
+ if(locale==='en'){await tap(160,871);await sleep(1800);await tap(360,805);await sleep(500)}
+ await tap(160,848+23*locales.indexOf(locale));await sleep(4500);await shot('selected-language');
  const saved=await page.evaluate(async()=>{for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let result=await new Promise((res,rej)=>{let r=db.transaction(n).objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res(null);if(String(c.key).endsWith('/wild_garden_settings.json'))return res(JSON.parse(JSON.parse(new TextDecoder().decode(c.value.contents)).payload));c.continue()};r.onerror=()=>rej(r.error)});if(result)return result}db.close()}return null});
  console.log('LOCALE_STATE',JSON.stringify(saved));check(saved?.language===locale,`settings persisted requested locale ${locale}`);if(saved?.language!==locale)throw Error('locale selection failed');
  await tap(360,965);await sleep(1200);
@@ -58,7 +60,7 @@ async function localeTest(){
 }
 // Explicit isolated IDB fixture: cosmetic unlocks only, never claim natural unlock.
 async function themeTest(){
- await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,856);await sleep(4000);
+ await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,871);await sleep(4000);
  await context.close();
  const profile=path.join(out,`${browser}-${mode}-profile`);
  context=await engine.launchPersistentContext(profile,{headless:false,viewport:{width:720,height:1280},args:flags,firefoxUserPrefs:{'webgl.force-enabled':true,'webgl.disabled':false}});
@@ -68,7 +70,7 @@ async function themeTest(){
  check(!!fixture,'isolated cosmetic unlock fixture installed');if(!fixture)throw Error('fixture target missing');console.log('THEME_FIXTURE',fixture,JSON.stringify(data));await context.close();await launch(false);
  // Select the requested locale through Settings after preparing the fixture.
  const locale=process.env.UI_LOCALE||'en',locales=['en','az','tr','ru'];if(!locales.includes(locale))throw Error('unsupported locale');
- await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,833+23*locales.indexOf(locale));await sleep(2500);await shot('theme-language');await tap(360,965);await sleep(1000);
+ await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,848+23*locales.indexOf(locale));await sleep(2500);await shot('theme-language');await tap(360,965);await sleep(1000);
  for(const [theme,y] of [['sunset',580],['snow',860],['forest',300]]){
   await tap(360,978);await sleep(1600);await tap(420,y);await sleep(3500);await shot(`${theme}-selected`);
   const selected=await page.evaluate(async()=>{for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let result=await new Promise((res,rej)=>{let r=db.transaction(n).objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res(null);if(String(c.key).endsWith('/wild_garden_themes.json'))return res(JSON.parse(JSON.parse(new TextDecoder().decode(c.value.contents)).payload));c.continue()};r.onerror=()=>rej(r.error)});if(result)return result}db.close()}return null});
@@ -168,7 +170,7 @@ async function navigationTest(touch=false){
 }
 async function tutorialLocaleTest(){
  const locale=process.env.UI_LOCALE||'en',locales=['en','az','tr','ru'];if(!locales.includes(locale))throw Error('unsupported locale');
- await tap(360,1123);await sleep(1500);await tap(360,805);await sleep(600);await tap(160,833+23*locales.indexOf(locale));await sleep(4000);await tap(360,965);await sleep(1500);
+ await tap(360,1123);await sleep(1500);await tap(360,805);await sleep(600);await tap(160,848+23*locales.indexOf(locale));await sleep(4000);await tap(360,965);await sleep(1500);
  await tap(360,600);await sleep(4000);await shot('tutorial');
  for(const [w,h] of [[360,640],[393,873],[540,1170],[720,1280],[1366,768],[1920,1080]]){await page.setViewportSize({width:w,height:h});await sleep(600);await page.screenshot({path:path.join(out,`${browser}-${locale}-tutorial-${w}x${h}.png`)})}
  await page.setViewportSize({width:720,height:1280});await sleep(900);await tap(565,520);await sleep(1000);await tap(260,700);await sleep(6500);
@@ -176,12 +178,12 @@ async function tutorialLocaleTest(){
 }
 // Unlock prerequisite challenges in an isolated profile, not an organic playthrough.
 async function outcomesTest(){
- await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,856);await sleep(4000);await context.close();
+ await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(500);await tap(160,871);await sleep(4000);await context.close();
  const profile=path.join(out,`${browser}-${mode}-profile`);context=await engine.launchPersistentContext(profile,{headless:false,viewport:{width:720,height:1280},args:flags,firefoxUserPrefs:{'webgl.force-enabled':true,'webgl.disabled':false}});page=context.pages()[0]||await context.newPage();await page.route('**/__test_storage__',r=>r.fulfill({status:200,contentType:'text/html',body:'<!doctype html><title>challenge fixture</title>'}));await page.goto(new URL('__test_storage__',base).href);
  const data={version:2,entries:Array.from({length:20},(_,i)=>({completed:i<10,best:0,attempts:0,best_time:-1}))},payload=JSON.stringify(data),encoded=JSON.stringify({version:1,payload,checksum:crypto.createHash('sha256').update(payload).digest('hex')});
  let fixture=await page.evaluate(async encoded=>{for(const info of await indexedDB.databases()){let db=await new Promise((res,rej)=>{let r=indexedDB.open(info.name);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});for(const n of db.objectStoreNames){let found=await new Promise((res,rej)=>{let r=db.transaction(n).objectStore(n).openCursor();r.onsuccess=()=>{let c=r.result;if(!c)return res(null);if(String(c.key).endsWith('/wild_garden_settings.json'))return res({key:String(c.key),value:c.value});c.continue()};r.onerror=()=>rej(r.error)});if(!found)continue;let key=found.key.replace('wild_garden_settings.json','wild_garden_challenges.json');found.value.contents=new TextEncoder().encode(encoded);found.value.timestamp=new Date();await new Promise((res,rej)=>{let tx=db.transaction(n,'readwrite');tx.objectStore(n).put(found.value,key);tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close();return key}db.close()}return null},encoded);
  check(!!fixture,'isolated prerequisite completion fixture installed');if(!fixture)throw Error('fixture missing');console.log('CHALLENGE_FIXTURE',JSON.stringify(data));await context.close();await launch(false);
- await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(400);await tap(160,833);await sleep(2000);await tap(360,965);await sleep(1000);
+ await tap(360,1123);await sleep(1000);await tap(360,805);await sleep(400);await tap(160,848);await sleep(2000);await tap(360,965);await sleep(1000);
  await tap(360,1045);await sleep(1400);await page.mouse.move(350,750);await page.mouse.wheel(0,100);await sleep(1600);await shot('selection-scroll-seven');
  async function clickWord(label,filename){const f=path.join(out,`${browser}-${mode}-${filename}.png`);let tsv=execFileSync('tesseract',[f,'stdout','--psm','11','tsv'],{encoding:'utf8',stdio:['ignore','pipe','ignore']});let rows=tsv.trim().split('\n').slice(1).map(x=>x.split('\t'));let r=rows.find(x=>x[11]?.toLowerCase()===label.toLowerCase());if(!r)throw Error(`OCR word ${label} not found in ${filename}`);await page.mouse.click(Number(r[6])+Number(r[8])/2,Number(r[7])+Number(r[9])/2)}
  await clickWord('Quick','selection-scroll-seven');await sleep(4000);await shot('challenge-seven-start');
