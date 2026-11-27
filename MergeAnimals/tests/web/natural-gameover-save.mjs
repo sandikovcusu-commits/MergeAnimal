@@ -15,7 +15,11 @@ try{
  console.log(`NATURAL_SETTINGS browser=${name} cap=${cap} x_pattern=130,245,360,475,590,130,360,590 input_delay_ms=1700 seed=runtime_random`);
  for(let i=0;i<cap;i++){
   let x=[130,245,360,475,590,130,360,590][i%8];await page.mouse.click(x,700);await sleep(1700);
-  if(i%5===4){s=await snapshot();console.log('NATURAL_PROGRESS',JSON.stringify({input:i+1,spawn:s?.spawn_count,merges:s?.merge_count,score:s?.score,pending:s?.game_over_pending,generation:s?.generation,passive:await passive()}));
+  // Observe state before sending the next normal input, to avoid clicking a
+  // Game Over action and accidentally starting a new session between samples.
+  const live=process.env.UI_MODE==='natural-long'?await passive():null;
+  if(live?.live?.game_state===2){found=true;console.log('NATURAL_TERMINAL',JSON.stringify({input:i+1,passive:live}));break;}
+  if(i%5===4){s=await snapshot();console.log('NATURAL_PROGRESS',JSON.stringify({input:i+1,spawn:s?.spawn_count,merges:s?.merge_count,score:s?.score,pending:s?.game_over_pending,generation:s?.generation,passive:live||await passive()}));
    if(s?.game_over_pending)found=true;
    if(!found){ocr=await shot('latest');if(/game\s*over/i.test(ocr))found=true}
    if(found)break;
