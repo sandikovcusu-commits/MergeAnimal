@@ -47,9 +47,7 @@ func run() -> void:
 	await frames(5)
 	var game = current_scene
 	check(game != menu and game.has_method("_toggle_pause") and game.is_playing(), "Play transitions to live game")
-	var score_surface: Control = game.get_node("HUD/ScoreSurface")
-	var next_surface: Control = game.get_node("HUD/NextSurface")
-	check(score_surface.mouse_filter == Control.MOUSE_FILTER_IGNORE and next_surface.mouse_filter == Control.MOUSE_FILTER_IGNORE and score_surface.get_index() < game.score_label.get_index() and next_surface.get_index() < game.next_label.get_index(), "HUD surfaces are behind labels and ignore input")
+	check(game.hud_surface != null and not game.get_node("HUD").has_node("ScoreSurface") and not game.get_node("HUD").has_node("NextSurface"), "HUD backdrop is a cached canvas decoration, not an input control")
 	check(game.tutorial_stage == 0 and game.current_data.id == game.next_data.id, "tutorial starts with matching pair")
 	var tutorial_panel: Control = game.get_node("HUD/Tutorial/Panel")
 	check(not tutorial_panel.get_global_rect().intersects(game.remove_button.get_global_rect()) and not tutorial_panel.get_global_rect().intersects(game.undo_button.get_global_rect()), "tutorial banner does not overlap power-up buttons")

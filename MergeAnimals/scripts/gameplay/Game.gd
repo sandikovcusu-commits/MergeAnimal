@@ -112,6 +112,8 @@ var ad_rescue_earned := false
 var reward_commit_pending := false
 var reward_request_id := 0
 var reward_transaction := ""
+# Cached visual decoration uses the existing canvas item, not GUI controls.
+var hud_surface: StyleBoxFlat
 # Spawn clearance is checked on physics ticks; reuse query resources instead
 # of allocating two engine objects for each check. Queries remain synchronous.
 var _spawn_query_shape := CircleShape2D.new()
@@ -133,7 +135,7 @@ func _ready() -> void:
 	effect_camera = Camera2D.new(); effect_camera.position = Vector2(360, 640); add_child(effect_camera)
 	visual_theme = ThemeStore.current_index()
 	$HUD.theme = ThemeStore.ui_theme()
-	_add_hud_surfaces()
+	hud_surface = GARDEN_DESIGN.surface(visual_theme, true)
 	reduced_effects = saved_settings.reduced_effects
 	pieces.process_mode = Node.PROCESS_MODE_PAUSABLE
 	merge_manager.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -1381,19 +1383,6 @@ func _update_preview() -> void:
 	current_preview.position = Vector2(aim_x, spawn_height)
 	queue_redraw()
 
-# Decorative, non-interactive surfaces sit behind the existing HUD controls.
-# They never cover the board, change touch hit targets or alter game state.
-func _add_hud_surfaces() -> void:
-	for spec in [["ScoreSurface", Rect2(80, 94, 260, 92)], ["NextSurface", Rect2(360, 100, 280, 88)]]:
-		var panel := Panel.new()
-		panel.name = spec[0]
-		panel.position = spec[1].position
-		panel.size = spec[1].size
-		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		panel.add_theme_stylebox_override("panel", GARDEN_DESIGN.surface(visual_theme, true))
-		$HUD.add_child(panel)
-		$HUD.move_child(panel, 0)
-
 func _update_hud() -> void:
 	current_preview.data = current_data
 	next_preview.data = next_data
@@ -1409,6 +1398,9 @@ func _update_hud() -> void:
 func _draw() -> void:
 	var theme_index := clampi(visual_theme, 0, 2)
 	draw_texture_rect(THEME_BACKGROUNDS[theme_index], Rect2(0, 0, 720, 1280), false)
+	# One shared decorative backdrop, behind HUD labels and outside the board.
+	# Canvas drawing cannot capture touch input and adds no scene nodes.
+	if hud_surface: draw_style_box(hud_surface, Rect2(80, 94, 560, 94))
 	# Visible walls and floor follow the inner faces of the collision shapes.
 	var board: Color = THEME_BOARDS[theme_index]
 	draw_rect(Rect2(left_bound, 280, right_bound - left_bound, floor_height - 280), THEME_INSIDE[theme_index])
