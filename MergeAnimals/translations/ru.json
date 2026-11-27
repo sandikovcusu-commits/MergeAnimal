@@ -45,5 +45,7 @@
   "CHECKPOINT_SAVED": "Точка сохранена",
   "CHECKPOINT_UNCONFIRMED": "Сохранение не подтверждено",
   "CHECKPOINT_FAILED": "Ошибка сохранения",
-  "CHECKPOINT_UNAVAILABLE": "Хранилище недоступно"
+  "CHECKPOINT_UNAVAILABLE": "Хранилище недоступно",
+  "CHECKPOINT_UNSAVED": "Несохранённые изменения",
+  "CHECKPOINT_DEFERRED": "Сохранение отложено"
 }

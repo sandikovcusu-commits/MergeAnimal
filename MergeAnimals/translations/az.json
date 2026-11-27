@@ -45,5 +45,7 @@
   "CHECKPOINT_SAVED": "Yaddaş nöqtəsi saxlandı",
   "CHECKPOINT_UNCONFIRMED": "Saxlama təsdiqlənməyib",
   "CHECKPOINT_FAILED": "Saxlama alınmadı",
-  "CHECKPOINT_UNAVAILABLE": "Yaddaş əlçatan deyil"
+  "CHECKPOINT_UNAVAILABLE": "Yaddaş əlçatan deyil",
+  "CHECKPOINT_UNSAVED": "Saxlanmamış dəyişikliklər",
+  "CHECKPOINT_DEFERRED": "Saxlama gözləyir"
 }

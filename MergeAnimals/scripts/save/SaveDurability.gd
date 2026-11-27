@@ -22,7 +22,7 @@ func _ready() -> void:
 	  tracker.track = (path, expected) => {
 	    const prev = tracker.records[path];
 	    const now = Date.now();
-	    const record = {id: ++tracker.next, state:'pending', since:
+	    const record = {id: ++tracker.next, state:'pending', expected, since:
 	      prev && prev.state === 'pending' ? prev.since : now};
 	    tracker.records[path] = record;
 	    const check = () => {
@@ -58,6 +58,13 @@ func _ready() -> void:
 	    setTimeout(check,0);
 	  };
 	  tracker.fail = path => { tracker.records[path] = {id: ++tracker.next, state:'failed', since:Date.now()}; };
+	  // Only the exact tracked envelope for this path may confirm a revision.
+	  tracker.statusFor = (path, expected) => {
+	    const record = tracker.records[path];
+	    if (!record) return 'unconfirmed';
+	    if (record.state === 'failed') return 'failed';
+	    return record.expected === expected ? record.state : 'unconfirmed';
+	  };
 	  tracker.status = () => {
 	    const entries = Object.values(tracker.records);
 	    if (!entries.length) return 'idle';
@@ -123,6 +130,14 @@ func failed(path: String) -> void:
 	var absolute := ProjectSettings.globalize_path(path)
 	if absolute.begins_with("/userfs/"):
 		JavaScriptBridge.eval("window.__wildGardenCheckpoint.fail(%s)" % JSON.stringify(absolute))
+
+func state_for(path: String, expected: String) -> String:
+	if not OS.has_feature("web"): return "native"
+	if not initialized or not available: return "unavailable"
+	if expected.is_empty(): return "unconfirmed"
+	var absolute := ProjectSettings.globalize_path(path)
+	var result: Variant = JavaScriptBridge.eval("window.__wildGardenCheckpoint ? window.__wildGardenCheckpoint.statusFor(%s,%s) : 'unconfirmed'" % [JSON.stringify(absolute), JSON.stringify(expected)])
+	return str(result) if result in ["pending", "verified", "unconfirmed", "failed"] else "unconfirmed"
 
 func state() -> String:
 	if not OS.has_feature("web"): return "native"

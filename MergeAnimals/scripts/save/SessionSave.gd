@@ -102,7 +102,8 @@ static func load_document() -> Dictionary:
 			best = envelope.data
 			source = entry[1]
 	if source != "":
-		return {"status": "ok" if source == "primary" else "recovered", "data": best}
+		var source_path := PATH if source == "primary" else PATH + ".bak" if source == "backup" else POWERUP_PATH
+		return {"status": "ok" if source == "primary" else "recovered", "data": best, "source_path": source_path}
 	return {"status": "missing" if first.status == "missing" and backup.status == "missing" and powerup.status == "missing" else "corrupt"}
 
 # Every new checkpoint has a strictly higher local generation. Single writer

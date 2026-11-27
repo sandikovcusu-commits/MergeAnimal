@@ -13,6 +13,7 @@ func _process(_delta: float) -> void:
 	if cmd.get("op") == "setup": call_deferred("setup", cmd)
 	elif cmd.get("op") in ["gameover", "gameover-invalid"]: call_deferred("gameover", cmd)
 	elif cmd.get("op") == "inspect": call_deferred("inspect", cmd)
+	elif str(cmd.get("op", "")).begins_with("deadlock_"): call_deferred("deadlock", cmd)
 func finish(id: int, data: Dictionary) -> void:
 	data["id"] = id
 	JavaScriptBridge.eval("window.__qualityReply=" + JSON.stringify(data))
@@ -75,3 +76,41 @@ func inspect(cmd: Dictionary) -> void:
 				pairs.append({"a":str(pair.a.data.id), "b":str(pair.b.data.id), "target":str(pair.target.id) if pair.target else "golden", "a_x":pair.a.position.x, "a_y":pair.a.position.y, "b_x":pair.b.position.x, "b_y":pair.b.position.y})
 		result["live"] = {"game_state":game.game_state, "spawn_state":game.spawn_state, "score":game.score, "spawn_count":game.spawn_count, "merges":game.merge_manager.merge_count, "paused":get_tree().paused, "achievement_blocked":game.achievement_blocked, "achievement_pending":game.achievement_pending.size(), "cooldown":game.cooldown_left, "drop_requested":game.drop_requested, "save_status":game.save_status, "save_message":game.get_node("HUD/SaveStatus").text, "save_visible":game.get_node("HUD/SaveStatus").visible, "play_seconds":game.progression.play_seconds, "pending_merges":pairs, "commit_scheduled":game.merge_manager.commit_scheduled, "snapshot_empty":snapshot.is_empty(), "snapshot_valid":SessionSave.valid(snapshot)}
 	finish(int(cmd.id), result)
+
+# Separate QA export only: synthetic, frozen board; normal production merge,
+# save and status implementations execute unmodified.
+func deadlock(cmd: Dictionary) -> void:
+	var op := str(cmd.op)
+	if op == "deadlock_setup":
+		get_tree().paused = false
+		get_tree().change_scene_to_file("res://scenes/game/Game.tscn")
+		for i in range(6): await get_tree().process_frame
+		var game = get_tree().current_scene
+		game.danger_monitor.set_physics_process(false)
+		game.merge_manager.set_physics_process(false)
+		for row in range(7):
+			for col in range(7):
+				var animal: Animal = game.create_animal(game.animals[0], Vector2(252 + col * 36, 800 + row * 36))
+				animal.freeze = true
+		get_tree().paused = true
+		var status: Error = game.save_session()
+		finish(int(cmd.id), {"saved":status, "bodies":game.pieces.get_child_count(), "details":game._checkpoint_details()})
+		return
+	var game = get_tree().current_scene
+	if not game or not game.has_method("save_session"):
+		finish(int(cmd.id), {"error":"game unavailable"}); return
+	var result: Variant = null
+	if op == "deadlock_mutate_powerup": game.remove_remaining = 0
+	elif op == "deadlock_save": result = game.save_session()
+	elif op == "deadlock_reserve":
+		var a: Animal = game.pieces.get_child(24); var b: Animal = game.pieces.get_child(25)
+		result = game.merge_manager.request_merge(a, b)
+	elif op == "deadlock_commit": game.merge_manager._commit_pending()
+	elif op == "deadlock_drop":
+		game._set_aim(360); game._attempt_drop()
+	elif op != "deadlock_details":
+		finish(int(cmd.id), {"error":"unknown operation"}); return
+	var positions := []
+	for body in game.pieces.get_children():
+		if body is Animal: positions.append({"id":str(body.data.id), "x":body.position.x, "y":body.position.y, "radius":body.data.radius, "locked":body.merge_locked})
+	finish(int(cmd.id), {"result":result, "details":game._checkpoint_details(), "pending":game.merge_manager.pending.size(), "score":game.score, "merges":game.merge_manager.merge_count, "spawns":game.spawn_count, "body_count":game.pieces.get_child_count(), "bodies":positions})

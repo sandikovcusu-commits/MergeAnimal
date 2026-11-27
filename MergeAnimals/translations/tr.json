@@ -45,5 +45,7 @@
   "CHECKPOINT_SAVED": "Kayıt noktası kaydedildi",
   "CHECKPOINT_UNCONFIRMED": "Kayıt doğrulanmadı",
   "CHECKPOINT_FAILED": "Kayıt başarısız",
-  "CHECKPOINT_UNAVAILABLE": "Depolama kullanılamıyor"
+  "CHECKPOINT_UNAVAILABLE": "Depolama kullanılamıyor",
+  "CHECKPOINT_UNSAVED": "Kaydedilmemiş değişiklikler",
+  "CHECKPOINT_DEFERRED": "Kayıt ertelendi"
 }

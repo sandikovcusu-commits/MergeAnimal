@@ -45,5 +45,7 @@
   "CHECKPOINT_SAVED": "Checkpoint saved",
   "CHECKPOINT_UNCONFIRMED": "Save not confirmed",
   "CHECKPOINT_FAILED": "Save failed",
-  "CHECKPOINT_UNAVAILABLE": "Storage unavailable"
+  "CHECKPOINT_UNAVAILABLE": "Storage unavailable",
+  "CHECKPOINT_UNSAVED": "Unsaved changes",
+  "CHECKPOINT_DEFERRED": "Save deferred"
 }

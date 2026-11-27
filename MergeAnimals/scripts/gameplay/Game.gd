@@ -268,26 +268,78 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 
 var checkpoint_status_elapsed := 0.0
+# Content-addressed session revisions, not IndexedDB sequence numbers. A
+# revision covers the whole snapshot (including board and power-up state),
+# excluding only continuously advancing play_seconds and storage generation.
+var checkpoint_requested_revision := ""
+var checkpoint_written_revision := ""
+var checkpoint_verified_revision := ""
+var checkpoint_verified_score := -1
+
+func _revision(snapshot: Dictionary) -> String:
+	if snapshot.is_empty(): return ""
+	var content := snapshot.duplicate(true)
+	content.generation = 0
+	if content.get("progression") is Dictionary: content.progression.play_seconds = 0
+	# Godot JSON parses numeric values as floats; normalize both live and
+	# persisted snapshots before hashing to avoid int/float representation drift.
+	return JSON.stringify(JSON.parse_string(JSON.stringify(content))).sha256_text()
+
+func _write_session_snapshot(snapshot: Dictionary, powerup: bool = false) -> Error:
+	checkpoint_requested_revision = _revision(snapshot)
+	return SessionSave.write_snapshot(snapshot, powerup)
+
+# Only an exact IDB read-back for the selected source envelope can verify its
+# revision. An older verified checkpoint is not the current unsaved board.
+func _checkpoint_details() -> Dictionary:
+	var observer := get_node_or_null("/root/SaveDurability")
+	var overall: String = observer.state() if observer else "unavailable"
+	var live := _session_snapshot(true, true)
+	var current := _revision(live)
+	var doc := SessionSave.load_document()
+	var written := ""
+	var verified := "unconfirmed"
+	var generation := -1
+	if doc.status in ["ok", "recovered"] and doc.data.get("active") == true:
+		written = _revision(doc.data)
+		generation = int(doc.data.get("generation", -1))
+		var path: String = doc.get("source_path", "")
+		if observer and not path.is_empty(): verified = observer.state_for(path, FileAccess.get_file_as_string(path))
+		if verified == "verified":
+			checkpoint_verified_revision = written
+			checkpoint_verified_score = int(doc.data.get("score", -1))
+	checkpoint_written_revision = written
+	var busy: bool = drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled or live.is_empty()
+	var status := "unconfirmed"
+	if overall in ["failed", "unavailable"]: status = overall
+	elif busy: status = "deferred"
+	elif current.is_empty() or written != current: status = "unsaved"
+	elif verified == "pending" or overall == "pending": status = "pending"
+	elif verified == "verified" and overall == "verified": status = "verified"
+	else: status = "unconfirmed"
+	return {"status":status, "current_revision":current, "requested_revision":checkpoint_requested_revision, "written_revision":written, "verified_revision":checkpoint_verified_revision, "written_generation":generation, "score":score, "verified_score":checkpoint_verified_score, "readback":verified}
+
 func _process(delta: float) -> void:
 	if not persist_best or not OS.has_feature("web"): return
 	checkpoint_status_elapsed += delta
 	if checkpoint_status_elapsed < 0.25: return
 	checkpoint_status_elapsed = 0.0
-	var observer := get_node_or_null("/root/SaveDurability")
-	var status: String = observer.state() if observer else "unconfirmed"
+	var status: String = _checkpoint_details().status
 	var label: Label = $HUD/CheckpointStatus
-	label.visible = status != "idle"
+	label.visible = true
 	match status:
+		"deferred": label.text = tr("CHECKPOINT_DEFERRED")
+		"unsaved": label.text = tr("CHECKPOINT_UNSAVED")
 		"pending": label.text = tr("CHECKPOINT_SAVING")
 		"verified": label.text = tr("CHECKPOINT_SAVED")
 		"unconfirmed": label.text = tr("CHECKPOINT_UNCONFIRMED")
 		"failed": label.text = tr("CHECKPOINT_FAILED")
 		"unavailable": label.text = tr("CHECKPOINT_UNAVAILABLE")
 
-func _session_snapshot(include_undo: bool = true) -> Dictionary:
+func _session_snapshot(include_undo: bool = true, allow_locked: bool = false) -> Dictionary:
 	var bodies: Array = []
 	for animal in pieces.get_children():
-		if not animal is Animal or animal.is_queued_for_deletion() or animal.merge_locked:
+		if not animal is Animal or animal.is_queued_for_deletion() or (animal.merge_locked and not allow_locked):
 			return {}
 		bodies.append({"uid": animal.save_uid, "id": str(animal.data.id), "x": animal.position.x, "y": animal.position.y, "rotation": animal.rotation, "vx": animal.linear_velocity.x, "vy": animal.linear_velocity.y, "angular_velocity": animal.angular_velocity, "sleeping": animal.sleeping, "eligible": animal.progression_eligible, "danger": float(danger_monitor.timers.get(animal.instance_uid, 0.0))})
 	return {"session_version": 3, "generation": 0, "undo_remaining": undo_remaining, "undo_snapshot": undo_snapshot.duplicate(true) if include_undo else {}, "next_body_uid": next_body_uid, "rescue_remaining": rescue_remaining, "session_id": session_id, "ad_rescue_earned": ad_rescue_earned, "game_over_pending": game_state == GameState.GAME_OVER and not rescue_finalized, "active": true, "score": score, "best_score": best_score, "best_at_start": best_at_start, "spawn_count": spawn_count, "merge_count": merge_manager.merge_count, "combo_count": combo_count, "combo_left": combo_left, "combo_events": combo_events, "max_combo": max_combo, "highest_level": highest_level, "current": str(current_data.id), "next": str(next_data.id), "rng_state": str(rng.state), "aim_x": aim_x, "cooldown_left": cooldown_left, "tutorial_stage": tutorial_stage, "bodies": bodies, "progression": progression.duplicate(true), "tainted": session_tainted, "score_untrusted": score_untrusted, "remove_remaining": remove_remaining}
@@ -299,7 +351,7 @@ func save_session() -> Error:
 	if not SessionSave.can_write(): return ERR_UNAVAILABLE
 	var snapshot := _session_snapshot()
 	if not SessionSave.valid(snapshot): return ERR_INVALID_DATA
-	save_status = SessionSave.write_snapshot(snapshot)
+	save_status = _write_session_snapshot(snapshot)
 	return save_status
 
 func _autosave_safe() -> void:
@@ -444,7 +496,7 @@ func _commit_undo() -> void:
 				old_progress.animals[id].date = progression.animals[id].date
 		old_progress.highest_animal = maxi(int(old_progress.highest_animal), int(progression.highest_animal))
 		old_progress.play_seconds = progression.play_seconds
-		result = OK if not persist_best else SessionSave.write_snapshot(candidate, true)
+		result = OK if not persist_best else _write_session_snapshot(candidate, true)
 	if result != OK:
 		save_status = result
 		$HUD/SaveStatus.text = tr("SAVE_FAILED")
@@ -571,7 +623,7 @@ func _commit_remove(body: Animal) -> void:
 	snapshot.undo_snapshot = {} # Removing an animal invalidates the old drop boundary.
 	var result: Error = OK
 	if persist_best:
-		result = SessionSave.write_snapshot(snapshot, true)
+		result = _write_session_snapshot(snapshot, true)
 	if result != OK:
 		save_status = result
 		$HUD/SaveStatus.text = tr("SAVE_FAILED")
@@ -1014,7 +1066,7 @@ func _checkpoint_game_over() -> void:
 	gameover_checkpoint_pending = false
 	if game_state != GameState.GAME_OVER or rescue_finalized: return
 	var snapshot := _session_snapshot()
-	save_status = SessionSave.write_snapshot(snapshot, true) if not snapshot.is_empty() else ERR_BUSY
+	save_status = _write_session_snapshot(snapshot, true) if not snapshot.is_empty() else ERR_BUSY
 	if save_status != OK:
 		rescue_message.text = tr("SAVE_FAILED")
 	_update_rescue_ui()
@@ -1145,7 +1197,7 @@ func _commit_ad_reward() -> void:
 		return
 	snapshot.ad_rescue_earned = true
 	snapshot.rescue_remaining = 1
-	var result := SessionSave.write_snapshot(snapshot, true)
+	var result := _write_session_snapshot(snapshot, true)
 	if result != OK:
 		save_status = result
 		rescue_message.text = tr("AD_SAVE_RETRY")
@@ -1221,7 +1273,7 @@ func _commit_rescue() -> void:
 	snapshot.cooldown_left = maxf(0.25, float(snapshot.cooldown_left))
 	if not SessionSave.valid(snapshot):
 		_rescue_failed("RESCUE_FAILED"); return
-	var result: Error = SessionSave.write_snapshot(snapshot, true) if persist_best else OK
+	var result: Error = _write_session_snapshot(snapshot, true) if persist_best else OK
 	if result != OK:
 		save_status = result
 		_rescue_failed("SAVE_FAILED"); return
