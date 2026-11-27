@@ -19,5 +19,18 @@ replace='''func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			speed_in_board.y = maxf(0.0, gap / state.step)
 			state.linear_velocity = board.global_transform.basis_xform(speed_in_board)
 	supported = false'''
+if len(sys.argv) > 2 and sys.argv[2] == 'bounds':
+    replacement='''		var wall_top: float = 280.0
+		var wall_bottom: float = 1110.0
+		if position_in_board.y + data.radius >= wall_top and position_in_board.y - data.radius <= wall_bottom:
+			var gap_left: float = position_in_board.x - data.radius - float(board.left_bound)
+			var gap_right: float = float(board.right_bound) - data.radius - position_in_board.x
+			if gap_left >= 0.0 and speed_in_board.x < 0.0 and -speed_in_board.x * state.step > gap_left:
+				speed_in_board.x = -gap_left / state.step
+			if gap_right >= 0.0 and speed_in_board.x > 0.0 and speed_in_board.x * state.step > gap_right:
+				speed_in_board.x = gap_right / state.step
+			state.linear_velocity = board.global_transform.basis_xform(speed_in_board)
+'''
+    replace=replace.replace('\tsupported = false',replacement+'\tsupported = false')
 if s.count(needle)!=1: raise SystemExit('unexpected Animal.gd')
 p.write_text(s.replace(needle,replace))
