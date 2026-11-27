@@ -65,4 +65,8 @@ func gameover(cmd: Dictionary) -> void:
 
 func inspect(cmd: Dictionary) -> void:
 	var doc := SessionSave.load_document()
-	finish(int(cmd.id), {"document":doc, "observer":get_node("/root/SaveDurability").state(), "can_write":SessionSave.can_write()})
+	var result := {"document":doc, "observer":get_node("/root/SaveDurability").state(), "can_write":SessionSave.can_write()}
+	var game = get_tree().current_scene
+	if game and game.has_method("save_session"):
+		result["live"] = {"game_state":game.game_state, "spawn_state":game.spawn_state, "score":game.score, "spawn_count":game.spawn_count, "merges":game.merge_manager.merge_count, "paused":get_tree().paused, "achievement_blocked":game.achievement_blocked, "achievement_pending":game.achievement_pending.size(), "cooldown":game.cooldown_left, "drop_requested":game.drop_requested, "save_status":game.save_status, "play_seconds":game.progression.play_seconds}
+	finish(int(cmd.id), result)

@@ -194,7 +194,7 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
-          elif [ "$UI_MODE" = quality-matrix ] || [ "$UI_MODE" = gameover-investigation ]; then
+          elif [ "$UI_MODE" = quality-matrix ] || [ "$UI_MODE" = gameover-investigation ] || [ "$UI_MODE" = natural-observe ]; then
             # Test-only probe build; production export above is untouched.
             cp -a MergeAnimals /tmp/quality-project
             cp MergeAnimals/tests/web/QualityMatrixProbe.gd /tmp/quality-project/scripts/QualityMatrixProbe.gd
@@ -203,7 +203,7 @@ jobs:
             "$GODOT" --headless --path /tmp/quality-project --editor --quit >> /tmp/web-qa/quality-export.log 2>&1
             "$GODOT" --headless --path /tmp/quality-project --export-release 'Web (single-threaded)' /tmp/web-test/quality-qa/index.html >> /tmp/web-qa/quality-export.log 2>&1
             URL=http://127.0.0.1:8765/quality-qa/
-            if [ "$UI_MODE" = gameover-investigation ]; then TEST=gameover-save-investigation.mjs; else TEST=quality-matrix.mjs; fi
+            if [ "$UI_MODE" = gameover-investigation ]; then TEST=gameover-save-investigation.mjs; elif [ "$UI_MODE" = natural-observe ]; then TEST=natural-gameover-save.mjs; else TEST=quality-matrix.mjs; fi
           elif [ "$UI_MODE" = natural-gameover ]; then
             # Unmodified production export, real browser inputs, no board fixture.
             TEST=natural-gameover-save.mjs
