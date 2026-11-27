@@ -142,6 +142,18 @@ func dispatch(cmd: Dictionary) -> void:
 		var retry: bool = game.merge_manager.request_merge(first,second)
 		game.merge_manager._commit_pending()
 		finish(int(cmd.id), {"no_point":no_point,"reserved":reserved,"after":after,"saved":saved,"dropped":dropped,"loop_pending":loop_pending,"retry":retry,"final":metrics(game)}); return
+	if op == "consecutive":
+		var game = await fresh(true)
+		game.merge_manager.set_physics_process(false); get_tree().paused = true
+		var bodies: Array[Animal] = []
+		for x in [200,236,484,520]:
+			var body: Animal = game.create_animal(game.animals[0], Vector2(x,800)); body.freeze = true; bodies.append(body)
+		var r1: bool = game.merge_manager.request_merge(bodies[0],bodies[1]); game.merge_manager._commit_pending()
+		var s1: Error = game.save_session()
+		var r2: bool = game.merge_manager.request_merge(bodies[2],bodies[3]); game.merge_manager._commit_pending()
+		var s2: Error = game.save_session()
+		var data := metrics(game); data.r1 = r1; data.r2 = r2; data.s1 = s1; data.s2 = s2
+		finish(int(cmd.id),data); return
 	if op == "mixed_cancel":
 		var game = await fresh(false)
 		game.merge_manager.set_physics_process(false); pair(game)
