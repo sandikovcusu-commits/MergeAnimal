@@ -192,6 +192,7 @@ func _finish(success: bool) -> void:
 	$HUD/Overlay/MainMenuButton.text = tr("CH_SELECT_BUTTON")
 	overlay_title.text = "%s\n%s\n%s: %d\n%s: %d:%02d" % [tr("CH_SUCCESS") if success else tr("CH_FAILED"), tr(challenge.definition.title_key), tr("FINAL_SCORE"), score, tr("CH_TIME"), int(challenge.elapsed) / 60, int(challenge.elapsed) % 60]
 	overlay.visible = true
+	_layout_result_overlay()
 	_animate_overlay()
 	_persist_result()
 	queue_redraw()

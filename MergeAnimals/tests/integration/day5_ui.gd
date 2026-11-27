@@ -79,8 +79,17 @@ func run() -> void:
 	game = current_scene
 	check(not paused and game.tutorial_stage == 0 and game.current_data.id == game.next_data.id, "replay tutorial restarts with matching pair")
 	game.get_node("HUD/Tutorial/Skip").pressed.emit(); await frames()
+	game.score = 124; game.best_at_start = 0; game.max_combo = 3
 	game._on_game_over()
 	await frames()
+	for locale in ["en", "az", "tr", "ru"]:
+		TranslationServer.set_locale(locale)
+		game._show_game_over()
+		await frames()
+		var title_bottom: float = game.overlay_title.position.y + game.overlay_title.get_line_count() * game.overlay_title.get_line_height()
+		var action: Control = game.get_node("HUD/Overlay/RestartButton")
+		check(title_bottom + 10 <= action.position.y and game.rescue_message.position.y + game.rescue_message.size.y <= game.overlay.size.y, "localized result text and actions fit without overlap: " + locale)
+	TranslationServer.set_locale(old_settings.language)
 	check(paused and game.game_state == game.GameState.GAME_OVER and not game.resume_button.visible, "game over freezes and cannot resume")
 	game.get_node("HUD/Overlay/RestartButton").pressed.emit()
 	await frames(5)

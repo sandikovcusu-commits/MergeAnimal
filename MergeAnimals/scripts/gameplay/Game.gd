@@ -974,6 +974,7 @@ func _show_game_over() -> void:
 	rescue_message.text = ""
 	rescue_message.visible = true
 	overlay.visible = true
+	_layout_result_overlay()
 	_animate_overlay()
 	get_tree().paused = true
 	_update_rescue_ui()
@@ -981,6 +982,25 @@ func _show_game_over() -> void:
 		overlay_title.modulate = Color("ffd96c")
 		create_tween().tween_property(overlay_title, "modulate", Color.WHITE, 0.8)
 	queue_redraw()
+
+# Fit result text before placing actions. Long localized lines and the record
+# line must not paint beneath a button. Pause uses its original layout.
+func _layout_result_overlay() -> void:
+	overlay_title.position.y = 20
+	overlay_title.add_theme_font_size_override("font_size", 20)
+	var text_bottom: float = overlay_title.position.y + overlay_title.get_line_count() * overlay_title.get_line_height()
+	var action_y: float = maxf(180.0, text_bottom + 14.0)
+	$HUD/Overlay/RestartButton.position.y = action_y
+	rescue_button.position.y = action_y + 75
+	$HUD/Overlay/MainMenuButton.position.y = action_y + 150
+	rescue_message.position.y = action_y + 215
+	# Challenge result reuses the middle action slot.
+	for name in ["NextChallenge", "RetryResultSave"]:
+		var button := overlay.get_node_or_null(name) as Control
+		if button: button.position.y = action_y + 75
+	var height: float = maxf(500.0, action_y + 310.0)
+	overlay.position.y = 760.0 - height * 0.5
+	overlay.size.y = height
 
 func _animate_overlay() -> void:
 	if reduced_effects:
@@ -1257,6 +1277,10 @@ func _toggle_pause(report_gameplay: bool = true) -> void:
 		game_state = GameState.PAUSED
 		rescue_button.visible = false
 		rescue_message.visible = false
+		overlay.position.y = 510
+		overlay.size.y = 500
+		overlay_title.position.y = 40
+		overlay_title.add_theme_font_size_override("font_size", 24)
 		$HUD/Overlay/RestartButton.position.y = 245
 		$HUD/Overlay/RestartButton.text = tr("RESTART")
 		$HUD/Overlay/MainMenuButton.position.y = 385
