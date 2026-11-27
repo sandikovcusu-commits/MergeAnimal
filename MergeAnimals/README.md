@@ -1,3 +1,5 @@
+> **V0.9.0.1 in progress:** Replacement vector animal assets and rights audit are under review. Commercial release remains blocked; runtime/export verification is pending. See `COMMERCIAL_RIGHTS_REPORT.md`.
+
 > **V0.7.0 development:** Procedural animation, original synthesized audio, central audio settings and SVG logo are included. First input starts audio. Separate eye/expression art and human audio/device acceptance remain incomplete; commercial sprite release is blocked. See `ANIMATION_REPORT.md`, `AUDIO_REPORT.md`, `PERFORMANCE_REPORT.md`, `ASSET_LICENSES.md`, `QA_REPORT.md`, and `KNOWN_ISSUES.md`.
 
 > **V0.6.5 development:** Themes, four-language Achievement text and Achievement save checkpoint/retry are available. Commercial release remains blocked and cross-file atomicity is not guaranteed. See `THEME_REPORT.md`, `LOCALIZATION_REPORT.md`, `SAVE_SYSTEM_REPORT.md`, `QA_REPORT.md`, and `KNOWN_ISSUES.md`.
