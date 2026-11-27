@@ -18,6 +18,9 @@ on:
         description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute, sdk-production, reward-demo, reward-mock, reward-basic, reward-blocked, reward-production"
         default: 'none'
         required: true
+      perf_baseline:
+        description: 'Use 32d50e5 baseline runtime for reward-perf'
+        default: 'false'
       perf_seconds:
         description: 'Benchmark seconds per repetition'
         default: '60'
@@ -84,6 +87,7 @@ jobs:
           UI_MODE: ${{ inputs.ui_mode }}
           UI_BROWSER: ${{ inputs.ui_browser }}
           UI_LOCALE: ${{ inputs.ui_locale }}
+          PERF_BASELINE: ${{ inputs.perf_baseline }}
           PERF_SECONDS: ${{ inputs.perf_seconds }}
           PERF_REPEATS: ${{ inputs.perf_repeats }}
           PERF_THROTTLE: ${{ inputs.perf_throttle }}
@@ -122,8 +126,13 @@ jobs:
             URL=http://127.0.0.1:8765/; TEST=benchmark.mjs
             export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE
           elif [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
-            cp -a MergeAnimals /tmp/reward-qa-project
-            cp /tmp/reward-qa-project/tests/web/RewardProbe.gd /tmp/reward-qa-project/scripts/ads/RewardProbe.gd
+            if [ "$UI_MODE" = reward-perf ] && [ "$PERF_BASELINE" = true ]; then
+              mkdir -p /tmp/perf-old; git archive 32d50e5 MergeAnimals | tar -x -C /tmp/perf-old
+              cp -a /tmp/perf-old/MergeAnimals /tmp/reward-qa-project
+            else
+              cp -a MergeAnimals /tmp/reward-qa-project
+            fi
+            cp MergeAnimals/tests/web/RewardProbe.gd /tmp/reward-qa-project/scripts/ads/RewardProbe.gd
             sed -i '/^\[autoload\]/a RewardProbe="*res://scripts/ads/RewardProbe.gd"' /tmp/reward-qa-project/project.godot
             mkdir -p /tmp/web-test/reward-qa
             "$GODOT" --headless --path /tmp/reward-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
