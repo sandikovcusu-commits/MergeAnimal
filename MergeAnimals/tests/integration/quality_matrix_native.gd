@@ -34,8 +34,8 @@ func run() -> void:
 	var font := title.get_theme_font("font")
 	var glyphs_ok := true
 	for character in title.text:
-		if character != "\n" and not font.has_char(character): glyphs_ok = false
-	var fits := text_bottom + 10 <= action.position.y and game.rescue_message.position.y + game.rescue_message.size.y <= game.overlay.size.y
+		if character != "\n" and not font.has_char(character.unicode_at(0)): glyphs_ok = false
+	var fits: bool = text_bottom + 10 <= action.position.y and game.rescue_message.position.y + game.rescue_message.size.y <= game.overlay.size.y
 	var scale_factor := minf(float(dimensions.x) / 720.0, float(dimensions.y) / 1280.0)
 	print("MATRIX_GEOMETRY ", JSON.stringify({"locale":locale,"theme":theme,"size":str(dimensions),"title_bottom":text_bottom,"action_y":action.position.y,"fits":fits,"glyphs":glyphs_ok,"pause_target_px":game.pause_button.size * scale_factor,"restart_target_px":action.size * scale_factor}))
 	if not fits or not glyphs_ok: printerr("FAIL result geometry or font glyph"); quit(1); return

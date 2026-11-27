@@ -47,7 +47,7 @@ func gameover(cmd: Dictionary) -> void:
 	var button: Control = game.get_node("HUD/Overlay/RestartButton")
 	var font := title.get_theme_font("font"); var glyphs_ok := true
 	for character in title.text:
-		if character != "\n" and not font.has_char(character): glyphs_ok = false
+		if character != "\n" and not font.has_char(character.unicode_at(0)): glyphs_ok = false
 	var text_bottom: float = title.position.y + title.get_line_count() * title.get_line_height()
-	var fits := text_bottom + 10 <= button.position.y and game.rescue_message.position.y + game.rescue_message.size.y <= game.overlay.size.y
+	var fits: bool = text_bottom + 10 <= button.position.y and game.rescue_message.position.y + game.rescue_message.size.y <= game.overlay.size.y
 	finish(int(cmd.id), {"locale":TranslationServer.get_locale(), "theme":game.visual_theme, "game_over":game.overlay.visible, "title_bottom":text_bottom, "action_y":button.position.y, "fits":fits, "glyphs":glyphs_ok, "action_width":button.size.x, "action_height":button.size.y})
