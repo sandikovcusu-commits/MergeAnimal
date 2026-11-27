@@ -182,6 +182,9 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
+          elif [ "$UI_MODE" = visual-showcase ]; then
+            # Production Web export; capture automated mouse gameplay, no debug probe.
+            TEST=visual-showcase.mjs
           elif [ "$UI_MODE" = physics-capture ]; then
             cp -a MergeAnimals /tmp/physics-capture-project
             cp MergeAnimals/tests/web/PhysicsCapture.gd /tmp/physics-capture-project/scripts/PhysicsCapture.gd
