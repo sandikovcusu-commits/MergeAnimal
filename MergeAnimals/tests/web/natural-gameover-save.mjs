@@ -1,4 +1,5 @@
-// Standard production export: real mouse input, no Godot probe, no saved-board edits.
+// Real mouse input, no saved-board edits. natural-gameover uses production export;
+// natural-observe uses the separately instrumented passive QA export.
 // Automated gameplay, not human play. Stops only on visible Game Over or cap.
 import {chromium,firefox} from 'playwright';import fs from 'node:fs';import path from 'node:path';import {execFileSync} from 'node:child_process';
 const name=process.env.UI_BROWSER||'chromium', url=process.env.WEB_URL, out=process.env.WEB_QA_DIR||'/tmp/web-qa';

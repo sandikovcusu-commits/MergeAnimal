@@ -1,3 +1,11 @@
+# V0.9.1 — əlavələr (checkpoint PARTIAL)
+
+- `V091-001`: V0.9.0.4 matrisi Game Over `Save failed` etibarsız fixture score/best snapshot səbəbidir; fixture düzəldildi və hər iki browserdə köhnə/yeni sınaq keçdi. Bu, bütün natural Game Over axınının qəbul edildiyi demək deyil.
+- `V091-002` P1 araşdırılır: hər iki browserdə eyni locked pending merge cütləri uzun müddət qalır, oyun vaxtı irəliləyərkən yeni drop və save snapshot bloklanır. Əvvəlki Firefox run-da canlı 587, checkpoint 427, observer verified idi; observer yalnız son yazını təsdiqləyir. Məlumat itkisi riski var, həmin run-da refresh itkisi ölçülməyib. Minimal reproduksiya və təhlükəsiz düzəliş açıqdır. `SAVE_FAILED_INVESTIGATION.md`.
+- Touch target, 9.190 px penetration, təsdiqlənməmiş IndexedDB əməliyyatlarının qəfil bağlanma riski, real Android/human/audio QA və INCONCLUSIVE performance açıqdır. Kommersiya istifadə/paylanma BLOCKED.
+
+---
+
 # V0.9.0.4 — açıq risklər, son yeniləmə
 
 - Sintetik Web Game Over en/forest/360 capture `Save failed` göstərir; fixture-dən və ya normal axından qaynaqlandığı müəyyənləşdirilməyib. Normal persistent gameplay-də təkrar yarat və səbəbi araşdır (V0.9.1); production defect kimi təsdiq olunmayıb.

@@ -1,3 +1,11 @@
+# V0.9.1-A — qismən QA checkpoint
+
+- Web Game Over matrix fixture-də score/best invariantı düzəldildi; əvvəlki və düzəldilmiş halın iki browserdə read-back regressiyası əlavə edildi. Production save kodu və save statusu dəyişdirilməyib.
+- Save integrity/reward mock regresiyası, 100 seed × 2 fizika bot çalışdırılıb; təbii Web Game Over cəhdləri uğursuzdur və açıq araşdırmadır.
+- V0.9.1 full-game QA, touch, bütün Challenge/Achievement, performance və yekun qəbul tamamlanmayıb; kommersiya BLOCKED.
+
+---
+
 # V0.9.0.4 — quality gate yeniləməsi
 
 - Native/Web Gameplay və Game Over üçün 192 CI screenshot və məhdud fixture geometry/glyph matrisi; 12 heyvan moving animation və elephant golden collision testləri əlavə edildi.
