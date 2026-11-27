@@ -127,7 +127,8 @@ jobs:
             export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE
           elif [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
             if [ "$UI_MODE" = reward-perf ] && [ "$PERF_BASELINE" = true ]; then
-              mkdir -p /tmp/perf-old; git archive 32d50e5 MergeAnimals | tar -x -C /tmp/perf-old
+              git fetch --depth=1 origin 32d50e50d87c5903287fe2b823ac0239fe2c2405
+              mkdir -p /tmp/perf-old; git archive 32d50e50d87c5903287fe2b823ac0239fe2c2405 MergeAnimals | tar -x -C /tmp/perf-old
               cp -a /tmp/perf-old/MergeAnimals /tmp/reward-qa-project
             else
               cp -a MergeAnimals /tmp/reward-qa-project
