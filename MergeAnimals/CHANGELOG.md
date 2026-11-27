@@ -1,6 +1,7 @@
 # V0.9.1-A — qismən QA checkpoint
 
 - Web Game Over matrix fixture-də score/best invariantı düzəldildi; əvvəlki və düzəldilmiş halın iki browserdə read-back regressiyası əlavə edildi. Production save kodu və save statusu dəyişdirilməyib.
+- QA screenshot-larının Web PCK-yə daxil olması dayandırıldı; export auditi genişləndirildi.
 - Save integrity/reward mock regresiyası, 100 seed × 2 fizika bot çalışdırılıb; təbii Web Game Over cəhdləri uğursuzdur və açıq araşdırmadır.
 - V0.9.1 full-game QA, touch, bütün Challenge/Achievement, performance və yekun qəbul tamamlanmayıb; kommersiya BLOCKED.
 

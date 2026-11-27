@@ -7,3 +7,5 @@ Baza: `481c8885ab3d91b5dfe39838e494f1f016a900fe`, branch `arena/2b071717-mergean
 ## İcra vəziyyəti
 
 A hissəsi: fixture səbəbi və düzəliş `SAVE_FAILED_INVESTIGATION.md`; Chromium/Firefox save regression və reward mock tamam, natural Game Over açıq. B hissəsi: 100 seed × 2 tick bot işlədilib, full gameplay/12-animal matrisi açıq. C, D və E tamam deyil. Həqiqi texniki qəbul elan edilmir.
+
+CI build yoxlamasında QA şəkillərinin PCK-yə daxil olduğu aşkar edildi; `docs/qa/.gdignore` və genişləndirilmiş PCK audit ilə düzəldildi. Köhnə PCK yeni auditdə rədd edilir; `4bc9d31` [46072622286](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46072622286) təmiz PCK audit və Chromium Game Over fixture 11/11, [46072625454](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46072625454) native runtime success. P1 pending-merge problemi həll olunmayıb, A checkpoint tam qəbul deyil.
