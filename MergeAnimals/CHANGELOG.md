@@ -222,3 +222,10 @@
 ## V0.8.1.2 — Web UI / touch davamı
 - Tutorial paneli Undo/Remove və spawn preview üzərindən ayrıldı; uzun tərcümələr sətirə bölünür.
 - Faktiki Web Continue, Restart, Pause, Tutorial, touch x-mövqeyi və dörd dildə tutorial viewport sınaqları əlavə edildi. Tam vizual/real-device qəbul hələ açıqdır.
+
+## V0.9.0.4 — final acceptance işi, partial checkpoint
+- Settings, Theme Selection, Pause, Game Over/Rescue, Tutorial və Challenge outcome mövcud shared visual tokenlərə uyğunlaşdırıldı (`95bf1d9`).
+- Game Over screenshot-da müşahidə olunan mətn/düymə toqquşması üçün dinamik result layout və dörd dil yoxlaması əlavə edildi (`3dadc19`); tam vizual qəbul hələ verilməyib.
+- Yalnız CI test fixture-lərində eyni-runner component isolation və mobil Pause OCR ölçüsü üzərində iş başladı (`1a19fa4`, `451210d`). Physics/gameplay balansı dəyişdirilmədi; commercial BLOCKED, freeze NOT FROZEN.
+- Settings dil popup və checked-hover label kontrastı screenshot əsasında düzəldildi (`bcd4e2a`, `49a9d6d`); bunların ingiliscə Chromium fixture görüntüləri nəzərdən keçirildi.
+- Golden effect source manifest hash uyğunsuzluğu düzəldildi və 176 manifest faylı üçün yeni hash guard əlavə edildi (`e83492f`); hüquq təsdiqi deyil.

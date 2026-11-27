@@ -1,4 +1,6 @@
-# V0.9.0.4 — davam checkpoint-i, final qəbul deyil
+# V0.9.0.4 — əvvəlki 4bc8f262 checkpoint-i, tarixi qeyd
+
+**Sonrakı iş və cari status üçün `VISUAL_ACCEPTANCE_REPORT.md` və `DESIGN_FREEZE.md`-yə baxın.** Aşağıdakı qalan işlər həmin checkpoint vaxtının vəziyyətidir; ayrıca runtime rig hazırda tələb edilmir.
 
 Cari vizual kod `3783810`; `45b9ded` və `6cf89fd` əlavə test/evidence workflow dəyişiklikləridir. 12 mövcud heyvana növ detalları və redaktə olunan mənbə qrupları, tək kosmetik scheduler, collision-suz golden echo, Collection/Statistics/Challenges/Achievements səthləri əlavə edilib. `e034511`-dən sonrakı menu, HUD, theme və merge effektləri qorunub; fizika parametrləri/balans qəsdən dəyişdirilməyib. Reproducibility və hüquq qeydləri `ASSET_MANIFEST.json` və `ASSET_LICENSES.md`-dədir; **kommersiya BLOCKED**.
 

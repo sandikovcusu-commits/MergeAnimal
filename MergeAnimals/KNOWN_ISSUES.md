@@ -218,3 +218,8 @@ Web A sınaq matrisi natamamdır; real cihaz, audio dinləmə, power-up istifad�
 - 40-body A/B/A ilk A orta FPS −5.9%, təkrar A +0.6%: səbəb və orijinal bazaya qarşı hədəfin əldə olunması sübut olunmayıb; texture memory ölçülə bilməyib. `PERFORMANCE_REPORT.md`.
 - 120 Hz-də əvvəldən ölçülmüş maksimum 9.190 px boundary penetration açıqdır; VFX bu problemi həll etmir. Web IndexedDB sync və dərhal bağlama riski davam edir.
 - Real Android, insan playtesti/audio və bütün dil × mövzu × ekran × viewport matrisi yoxlanmayıb. Kommersiya BLOCKED; provayder şərtləri və yazılı icazə yoxlanmayıb.
+
+## Son vizual acceptance checkpoint (qəbul deyil)
+- `95bf1d9` Settings/Theme və modal polish-u tətbiq edir. Açıq OptionButton və Mute checked/hover mətnində görünən kontrast problemləri `bcd4e2a` və `49a9d6d` ilə düzəldilib; 720×1280 Chromium screenshots baxılıb. Reduced toggle və bütün dil/mövzuların kontrastı hələ ayrıca yoxlanmayıb. Native Game Over screenshot-da mətn/düymə overlap müşahidə edilib; `3dadc19` dinamik yerləşdirmə düzəlişi əlavə edir; 360×640 ingilis rekord fixture görüntüsü baxılıb və dörd dil həndəsə assertion-u keçib. Digər mətnlər/mövzular üçün vizual stress lazımdır.
+- [46060606196](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46060606196) Chromium touch navigation 28/29, Pause OCR fail; faktiki screenshot modalı göstərir. OCR ölçüsü düzəldilib və [46061146601](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46061146601) 29/29 keçib; əvvəlki fail silinmir.
+- Dizayn freeze, tam matris, 12×bütün motion keyfiyyəti, komponent performans izolasiyasının qəti şərhi və müstəqil insan/real-cihaz audio testi açıqdır. Physics 9.190 px, IndexedDB dərhal bağlanma və kommersiya BLOCKED dəyişməyib.

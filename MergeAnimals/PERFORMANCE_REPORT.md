@@ -83,3 +83,22 @@ Bu bölmə əvvəlki tarixi ölçüləri əvəz etmir. Eyni GitHub runner daxili
 İlk A-da >5% fərq, təkrarda isə əks nəticə var. Səbəb/tətbiqin performansı bərpa etdiyi sübut olunmayıb; cold start/order, VM və 60 Hz cap təsir edə bilər. Texture switching, Tween allocation və browser overhead burada ayrıca təcrid olunmayıb; texture-memory monitor 0 qaytarır və etibarlı ölçü deyil. Eyni seed/fixture, renderer, browser və viewport daxilində müqayisə edilsə də hardware cihaz testi, normal/reduced alternating, daha uzun warm-up və əvvəlki baza ilə yeni final artın müqayisəsi açıqdır. Bu benchmark sonradan əlavə edilmiş golden echo-nu ölçmür.
 
 `3783810` standart Web export: açılmamış Web faylları 42,082,820 byte, PCK 2,233,292, WASM 39,514,754; əvvəlki bazadan hər ikisi +730,364 byte (PCK +48.6%, ümumi +1.77%), WASM dəyişməyib. Zip ölçüsü/müştəri şəbəkə transferi başqa anlayışdır. 120 Hz physics dəyişdirilməyib; 9.190 px sərhəd nüfuzu qalır.
+
+## Son acceptance component isolation — nəticələr və məhdudiyyətlər
+
+`1a19fa4` test-only probe-da eyni Chromium runner/viewport və sabit fixture seed üçün normal, blink deaktiv, əvvəlki **layihə-müəllifli** `e034511` mouse teksturası (QA-only, 256 px), scheduler əvəzinə per-node process, reduced, sintetik golden effect load və təkrar normal mərhələləri hazırlayır. Bu, scheduler tamamilə söndürülmüş oyun deyil; per-node callback alternatividir. Köhnə texture workload tək mouse və blink off ilə məhduddur, bütün 12 növ deyil. Golden mərhələsi periodik vizual effekt trigger-dir, natural collision/score deyil. Hər mərhələdə 3×15 s ardıcıl intervallar ayrıca müstəqil təkrar sayılmır. Run-lar [10: 46060750969](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46060750969), [20: 46060754044](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46060754044), [40: 46060757337](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46060757337) success; ayrı body sayları ayrı runner-lərdir. Əvvəlki −5.9%/+0.6% uyğunsuzluğu bu sınaqla həll edilmiş sayılmır. Texture memory monitoru etibarlı deyildi. Production 120 Hz dəyişdirilməyib.
+
+
+Hər hüceyrə üç 15 s interval üzrə orta FPS / orta 1% low FPS / median-of-medians ms / median-of-P95 ms; intervalın bütün xam nəticələri `docs/visual/v0904/acceptance-checkpoint/performance/`-dədir. Normal A, variantlar, normal təkrar ardıcıl olmaqla hər body sayında eyni runner-da, Chromium SwiftShader, 360×640, seed 71204; autosave/danger və merge fixture-də deaktivdir.
+
+| Fixture | 10 body | 20 body | 40 body |
+|---|---|---|---|
+| normal A | 54.94 / 29.94 / 16.7 / 16.8 | 53.72 / 28.95 / 16.7 / 33.3 | 54.83 / 29.93 / 16.7 / 33.3 |
+| blink off | 58.43 / 29.97 / 16.7 / 16.8 | 55.76 / 29.94 / 16.7 / 33.3 | 56.23 / 29.94 / 16.7 / 33.3 |
+| əvvəlki müəllifli mouse + blink off | 58.74 / 29.96 / 16.7 / 16.8 | 55.90 / 29.94 / 16.7 / 33.3 | 57.09 / 29.94 / 16.7 / 16.8 |
+| per-node callback | 58.65 / 29.95 / 16.7 / 16.8 | 55.43 / 29.94 / 16.7 / 33.3 | 56.01 / 29.93 / 16.7 / 33.3 |
+| reduced effects | 58.36 / 29.94 / 16.7 / 16.8 | 55.85 / 29.94 / 16.7 / 33.3 | 56.41 / 29.93 / 16.7 / 33.3 |
+| sintetik golden VFX | 56.43 / 29.94 / 16.7 / 33.3 | 54.50 / 29.94 / 16.7 / 33.3 | 54.72 / 29.93 / 16.7 / 33.3 |
+| normal A təkrar | 59.05 / 31.21 / 16.7 / 16.8 | 55.63 / 29.94 / 16.7 / 33.3 | 56.27 / 29.93 / 16.7 / 33.3 |
+
+İlk normal interval 10/20/40 üçün 48.07/50.01/53.21 FPS, digər intervallar daha yüksəkdir; ardıcıllıq və isinmə qarışıqlığı var. VSync və software renderer kvantlaşması səbəbindən rəqəmlər fərdi komponentin dəqiq xərci və ya kritik regressiyanın olmadığının sübutu deyil. Golden fixture-də müşahidə olunan maksimum 5 eyni vaxtlı effekt var; real merge və bütün təbii yüklər təmsil olunmur. Əvvəlki/indiki tekstura müqayisəsi yalnız mouse və blink-off olmaqla məhduddur. **Ümumi performans nəticəsi INCONCLUSIVE**, real Android/desktop GPU, 12 heyvan və daha uzun təkrarlamalar tələb olunur.
