@@ -10,7 +10,12 @@ var players: Array[AudioStreamPlayer] = []
 var music: AudioStreamPlayer
 var music_theme := ""
 var unlocked_audio := false
-var reduced_effects := false
+signal reduced_effects_changed(value: bool)
+var reduced_effects := false:
+	set(value):
+		if reduced_effects == value: return
+		reduced_effects = value
+		reduced_effects_changed.emit(value)
 var impact_elapsed := 1.0
 var last_scene: Node
 var accepted_events: Dictionary = {}

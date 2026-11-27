@@ -24,18 +24,13 @@ func _ready() -> void:
 	blink_duration = randf_range(0.12, 0.18)
 	audio_manager = get_node_or_null("/root/AudioManager")
 	if audio_manager: reduced = audio_manager.reduced_effects
-	# Previews are static; only real Animal bodies animate.
-	set_process(get_parent() is Animal)
+	# Previews stay static. Bodies subscribe once, instead of polling the
+	# global setting on every rendered frame when Reduced Effects is enabled.
+	if get_parent() is Animal and audio_manager:
+		audio_manager.reduced_effects_changed.connect(_on_reduced_effects_changed)
+	set_process(get_parent() is Animal and not reduced)
 
 func _process(delta: float) -> void:
-	var now_reduced: bool = audio_manager.reduced_effects if is_instance_valid(audio_manager) else reduced
-	if now_reduced:
-		if not reduced:
-			if action_tween and action_tween.is_running(): action_tween.kill()
-			scale = Vector2.ONE; expression = AnimalExpression.NORMAL
-		reduced = true
-		return
-	reduced = false
 	idle_phase += delta * 1.5
 	next_blink -= delta
 	if next_blink <= 0.0:
@@ -49,6 +44,14 @@ func _process(delta: float) -> void:
 		var blink := sin(PI * (1.0 - blink_left / blink_duration)) * 0.045 if blink_left > 0.0 else 0.0
 		var breathe := sin(idle_phase) * 0.012
 		scale = Vector2(1.0 + breathe + blink, 1.0 - breathe - blink)
+
+func _on_reduced_effects_changed(value: bool) -> void:
+	reduced = value
+	if reduced:
+		if action_tween and action_tween.is_running(): action_tween.kill()
+		scale = Vector2.ONE
+		expression = AnimalExpression.NORMAL
+	set_process(not reduced and get_parent() is Animal)
 
 func animate_action(kind: String) -> void:
 	if reduced: return

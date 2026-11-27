@@ -111,6 +111,10 @@ var ad_rescue_earned := false
 var reward_commit_pending := false
 var reward_request_id := 0
 var reward_transaction := ""
+# Spawn clearance is checked on physics ticks; reuse query resources instead
+# of allocating two engine objects for each check. Queries remain synchronous.
+var _spawn_query_shape := CircleShape2D.new()
+var _spawn_query := PhysicsShapeQueryParameters2D.new()
 
 func _ready() -> void:
 	session_id = Crypto.new().generate_random_bytes(16).hex_encode()
@@ -382,11 +386,10 @@ func _setup_undo_ui() -> void:
 
 func _update_undo_ui() -> void:
 	if not is_instance_valid(undo_button): return
-	undo_button.disabled = undo_processing or undo_remaining <= 0 or undo_snapshot.is_empty() or not is_playing() or remove_selecting or remove_committing or drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled
-	if undo_processing: undo_button.text = tr("UNDO_PROCESSING")
-	elif undo_remaining <= 0: undo_button.text = tr("UNDO_USED")
-	elif undo_snapshot.is_empty(): undo_button.text = tr("UNDO_EMPTY")
-	else: undo_button.text = tr("UNDO_AVAILABLE")
+	var should_disable: bool = undo_processing or undo_remaining <= 0 or undo_snapshot.is_empty() or not is_playing() or remove_selecting or remove_committing or drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled
+	if undo_button.disabled != should_disable: undo_button.disabled = should_disable
+	var text := tr("UNDO_PROCESSING") if undo_processing else tr("UNDO_USED") if undo_remaining <= 0 else tr("UNDO_EMPTY") if undo_snapshot.is_empty() else tr("UNDO_AVAILABLE")
+	if undo_button.text != text: undo_button.text = text
 
 func _request_undo() -> void:
 	if not is_playing() or get_tree().paused or undo_remaining <= 0 or undo_snapshot.is_empty() or remove_selecting or remove_committing or drop_requested: return
@@ -675,14 +678,14 @@ func drop_animal() -> bool:
 	return true
 
 func _spawn_clear(data: AnimalData, x: float) -> bool:
-	var circle := CircleShape2D.new()
-	circle.radius = data.radius + 1.0
-	var query := PhysicsShapeQueryParameters2D.new()
-	query.shape = circle
-	query.transform = Transform2D(0.0, Vector2(x, spawn_height))
-	query.collision_mask = 1
-	query.collide_with_bodies = true
-	return get_world_2d().direct_space_state.intersect_shape(query, 1).is_empty()
+	var radius := data.radius + 1.0
+	if _spawn_query_shape.radius != radius: _spawn_query_shape.radius = radius
+	if _spawn_query.shape != _spawn_query_shape:
+		_spawn_query.shape = _spawn_query_shape
+		_spawn_query.collision_mask = 1
+		_spawn_query.collide_with_bodies = true
+	_spawn_query.transform = Transform2D(0.0, Vector2(x, spawn_height))
+	return get_world_2d().direct_space_state.intersect_shape(_spawn_query, 1).is_empty()
 
 func _attempt_drop() -> void:
 	if not merge_manager.pending.is_empty() or merge_manager.commit_scheduled or not _spawn_clear(current_data, aim_x):
