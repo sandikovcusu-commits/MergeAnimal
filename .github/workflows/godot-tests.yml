@@ -16,6 +16,10 @@ on:
       merge_probe:
         description: 'Dense merge fixture expectation: none, baseline or fixed'
         default: 'none'
+      merge_stress:
+        description: Run synthetic 100 seed merge stress at 10, 20 and 40 bodies
+        type: boolean
+        default: false
 permissions:
   contents: write
   checks: write
@@ -88,6 +92,9 @@ jobs:
           if [[ "${{ inputs.merge_probe }}" == 'baseline' || "${{ inputs.merge_probe }}" == 'fixed' ]]; then
             mkdir -p /tmp/merge-probe-user
             MERGE_EXPECT='${{ inputs.merge_probe }}' XDG_DATA_HOME=/tmp/merge-probe-user run_test 'dense merge deadlock fixture' --fixed-fps 60 --script res://tests/integration/merge_deadlock_fixture.gd
+          fi
+          if [[ "${{ inputs.merge_stress }}" == 'true' ]]; then
+            run_test 'merge stress 100 seeds' --fixed-fps 60 --script res://tests/integration/merge_stress.gd
           fi
           cat /tmp/godot-test-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL([ :]|$)' /tmp/godot-test-log.txt; then status=1; fi
