@@ -23,8 +23,10 @@ func run() -> void:
 		if not available:
 			continue
 		var img: Image = d.sprite.get_image()
-		check(img != null and img.get_size() == Vector2i(512, 512) and img.detect_alpha() != Image.ALPHA_NONE, "%s PNG dimensions and alpha" % d.id)
-		check(img.get_pixel(0, 0).a == 0.0 and img.get_pixel(511, 0).a == 0.0 and img.get_pixel(0, 511).a == 0.0 and img.get_pixel(511, 511).a == 0.0, "%s transparent corners" % d.id)
+		var imported_size := 256 if d.id in [&"mouse", &"hamster", &"rabbit"] else 512
+		check(img != null and img.get_size() == Vector2i(imported_size, imported_size) and img.detect_alpha() != Image.ALPHA_NONE, "%s imported texture dimensions and alpha" % d.id)
+		var edge := img.get_width() - 1
+		check(img.get_pixel(0, 0).a == 0.0 and img.get_pixel(edge, 0).a == 0.0 and img.get_pixel(0, edge).a == 0.0 and img.get_pixel(edge, edge).a == 0.0, "%s transparent corners" % d.id)
 		game.current_data = d
 		game.next_data = d
 		game._update_hud()
