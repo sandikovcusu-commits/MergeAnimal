@@ -1,3 +1,16 @@
+# V0.9.0.4 — açıq risklər, son yeniləmə
+
+- Sintetik Web Game Over en/forest/360 capture `Save failed` göstərir; fixture-dən və ya normal axından qaynaqlandığı müəyyənləşdirilməyib. Normal persistent gameplay-də təkrar yarat və səbəbi araşdır (V0.9.1); production defect kimi təsdiq olunmayıb.
+- Mobil Pause ~29 px və Game Over action ~34 px hündürlük, xırda mətn; 44 px tövsiyəsindən kiçik, real cihazda usability/accessibility yoxlanmayıb (V0.9.1).
+- 120 Hz-də 9.190 px penetration; zero observed full escape zəmanət deyil. Fizika parametrləri dəyişdirilməyib.
+- IndexedDB sudden-close son əməliyyatları itirə bilər; cross-file atomicity və real quota/permission təsdiqlənməyib.
+- Web performansı INCONCLUSIVE; real Android və mobil FPS yoxdur (V0.9.2). İnsan oyun/səs/vizual qəbulu yoxdur; bütün screenshot hüceyrələri müstəqil yoxlanmayıb, kontrast ölçülməyib.
+- Aktiv Arena hesab şərtləri və yazılı distribusiya/reklam hüquqları yoxlanmayıb: **commercial use/distribution BLOCKED**, paketlər yalnız private test.
+
+---
+
+## Əvvəlki checkpoint (tarixi; yuxarıdakı yeniləmə üstünlük təşkil edir)
+
 # V0.9.0.4 — checkpoint açıq risklər
 
 - Tam character/UI/theme/VFX redesign, modul rig, video və insan/device QA tamamlanmayıb.

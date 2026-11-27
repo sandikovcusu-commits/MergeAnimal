@@ -1,3 +1,13 @@
+# V0.9.0.4 yekun regression yeniləməsi
+
+Production bazis `3aaa4e727f20a4363ec44ef03da0696122c01444`; ondan sonrakı dəyişikliklər yalnız CI/test fixture və sənəddir, oyun kodu deyil. 11 native/audit workflow və səkkiz Web baseline workflow success; ölçü, əlaqə və emulyasiya limitləri aşağıda qalır. Chromium: screens 16/16, touch navigation 29/29, Web Audio 47/47, rewarded basic 6/6, mock 68/68. Firefox: screens 16/16, Web Audio 47/47; audio real tab-switch müşahidə olunmayıb, Firefox audio recording boşdur; insan eşitmə testi deyil. Powerup combined Chromium+Firefox 66/66 [46065182081](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46065182081); immediate-close testində Firefox əvvəlki save-ə dönür, data itkisi riski açıq qalır. Native əsas ekranlar, Collection, Challenges, Achievements, Settings, Tutorial, Pause, Game Over, normal/golden merge, Continue, Undo, Remove, Rescue, Reduced Effects üçün mövcud fixture/regression nəticələri aşağıdadır; bunlar tam insan gameplay və cihaz qəbulu deyil.
+
+Dörd c8 locale/theme run stale popup tap koordinatlarına görə failed olmuşdu; test-only koordinatlar yeniləndi, persisted-language assertion saxlanıldı. `c4ecde2` Chromium locale AZ/EN/TR/RU [46066280445](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46066280445), [46066285145](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46066285145), [46066288461](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46066288461), [46066292977](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46066292977) hər biri 3/3; theme [46066297433](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46066297433) 5/5; outcomes [46066300475](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46066300475) 4/4. Bunlar hər dil/tema/viewport üzrə bütün ekranların vizual qəbulu deyil. Sınaq matrix-in sintetik Game Over nümunəsində `Save failed` görünür; normal axında doğrulanmalı, son nəticə kimi gizlədilməməlidir.
+
+---
+
+## Əvvəlki checkpoint (tarixi; yuxarıdakı yeniləmə üstünlük təşkil edir)
+
 # V0.9.0.4 — davamın regression sübutu, natamam
 
 | Sınaq | Kod/fixture | Faktiki nəticə və sərhəd |

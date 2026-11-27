@@ -1,3 +1,15 @@
+# V0.9.0.4 — yekun keyfiyyət qapısı: PARTIAL, insan qəbulu AÇIQ
+
+`VISUAL_TEST_MATRIX.csv` hər 192 hüceyrəni və faktiki baxış statusunu göstərir. Native X11 software render [46065717515](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46065717515) (`c8e9217`): 96 screenshot; Web Chromium software [46066399606](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46066399606) (`de4f0f0`): 96 screenshot. 2 ekran × 4 dil × 3 tema × 4 ölçü; real Godot render, lakin board və Game Over sintetik fixture-dir. Avtomat seçilmiş overlay həndəsəsi və title glyph-lərini yoxlayır, bütün elementlərin clipping/overlap, kontrast və oxunaqlılığını yoxlamır; gameplay üçün əsasən setup/capture-dir. Browser run-da qeydə alınan page/console/request xətası yoxdur. CI screenshots müstəqil insan qəbulu deyil.
+
+Agent bütün native 360×640 gameplay və Game Over (24 hüceyrə), həmçinin əvvəlki Web 360×640 Game Over/gameplay kontakt vərəqlərini yoxladı; yenilənmiş Web matrix-də en/forest gameplay və Game Over nümunəsinə baxdı. Başqa cari hüceyrələr agent tərəfindən ayrıca baxılmayıb. 360 hündürlükdə Pause təxminən 29 px, nəticə action təxminən 34 px: 44 px mobil hədəfdən kiçik, mətn xırdadır; accessibility PASS deyil. Yenilənmiş nümunə Game Over-də **Save failed** mesajı görünür: fixture sintetik skor/vəziyyət yaratdığı üçün səbəb və normal oyunda təkrarlanması müəyyən deyil; normal axında ayrıca araşdırılmalıdır. Əvvəlki Web `c8e9217` gameplay-də aşağı save indikatoru evolution guide üstündə idi; `persist_best=false` fixture anomaliyası düzəldildi və yenilənmiş en/forest görüntüsündə həmin aşağı overlay görünmür; bütün yeni şəkillərə baxış iddia edilmir.
+
+Digər ekranlar riskə görə: əvvəlki İngilis Settings popup/Mute, Pause və Tutorial görüntülərinə baxılıb; Chromium/Firefox screens, locale, theme, outcomes və touch avtomatları çalışıb (bax `REGRESSION_REPORT.md`). Bütün dillərdə/temalarda, focus, kontrast və hər viewport-da ayrıca ekran qəbulu aparılmayıb. İnsan visual/art/play/audio, real mobil test, kontrast ölçüsü və əhatəli manual yoxlama yoxdur. AAA və tam məhsul qəbulu VERİLMİR.
+
+---
+
+## Əvvəlki checkpoint (tarixi; yuxarıdakı yeniləmə üstünlük təşkil edir)
+
 # V0.9.0.4 — vizual qəbul: HƏLƏ BAĞLANMAYIB
 
 Bu private-testing checkpoint `4bc8f262525168455c29a1dad7e4e04e0a9aeb71` üzərində davamdır, final qəbul və ya kommersiya buraxılışı deyil. `95bf1d9` mövcud GardenDesign tokenlərini Settings, Theme Selection, Pause, Game Over/Rescue, Tutorial və Challenge nəticələrinə tətbiq edir; oyun mexanikası, balans, fizika və save qaydaları məqsədli dəyişdirilməyib. 12 heyvanın `docs/visual/v0904/continuation/characters/` müqayisələri software-render edilmiş Godot fixture-ləridir; əvvəl/sonra və üz kadrları həqiqi insan oyunu deyil. Üç tema və golden collision fixture eyni qovluqdadır. SVG mənbələri `art_source/vector_animals/`, mənşə və hash-lər `ASSET_MANIFEST.json` və `ASSET_LICENSES.md`-dədir.

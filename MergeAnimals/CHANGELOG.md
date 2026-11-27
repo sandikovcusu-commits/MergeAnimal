@@ -1,3 +1,13 @@
+# V0.9.0.4 — quality gate yeniləməsi
+
+- Native/Web Gameplay və Game Over üçün 192 CI screenshot və məhdud fixture geometry/glyph matrisi; 12 heyvan moving animation və elephant golden collision testləri əlavə edildi.
+- Stale Web locale test koordinatları düzəldildi; fixture-in save-indicator anomaliyası düzəldildi. Production gameplay, save, fizika və scheduler bu mərhələdə dəyişməyib.
+- Texniki bazis freeze; vizual/manual/device/performance və hüquqi qəbul açıq. Commercial BLOCKED.
+
+---
+
+## Əvvəlki checkpoint (tarixi; yuxarıdakı yeniləmə üstünlük təşkil edir)
+
 # V0.9.0.4 — visual checkpoint (incomplete)
 
 ## V0.9.0.4 — davam checkpoint (final deyil)

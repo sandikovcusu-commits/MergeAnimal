@@ -1,3 +1,11 @@
+# V0.9.0.4 — hərəkətli render testinin yeniləməsi
+
+[46065903599](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46065903599) `50f27e3`: actual Godot software render və moving MP4; bütün 12-də idle və məcburi blink, happy/surprise/drop/landing/merge hərəkətləri 12/12 fixture yoxlaması, body shape/mass invariant və freed scheduler callback yoxlaması keçib. Golden real collision yalnız elephant üçün 1000 score və 1 merge yoxlanıb; bütün 12 heyvan üçün golden collision sübutu deyil. Fixture simulyasiyası və avtomat yoxlaması insan animation quality approval, bütün input, uzunmüddətli stress və fiziki cihaz testi deyil. Evidence ZIP SHA256 `8066997bf9a3eeeed7e750209b2f68d0221404b6a32b71e2baa1ebe557bd6831`. Shared scheduler və fizika dəyişdirilməyib.
+
+---
+
+## Əvvəlki checkpoint (tarixi; yuxarıdakı yeniləmə üstünlük təşkil edir)
+
 # V0.9.0.4 — animation checkpoint
 
 `AnimalVisual.gd`: təsadüfi fazalı nəfəsalma qalıb; bütün-sprite blink squash əvəzinə təsadüfi 3–8 s interval və 0.12–0.18 s qapalı göz frame seçimi var. Merge/Happy və Drop/Surprise xüsusi üz kadrını seçir; landing normal üzü istifadə edir. Action tween mövcud miqyasdan 70 ms easing ilə hədəfə keçir və 220 ms-də geri qayıdır. Köhnə tween yenisi başlamazdan öldürülür, node exit-də öldürülür; Reduced Effects tween və blink-i sıfırlayır və process-i dayandırır. Fiziki body/shape scale dəyişmir.

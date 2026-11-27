@@ -1,3 +1,11 @@
+# V0.9.0.4 performans qərarı — INCONCLUSIVE
+
+Əvvəlki 10/20/40 nəticələr aşağıda saxlanılır. Software Chromium ardıcıl isolation mean normal 54.94/53.72/54.83, təkrar normal 59.05/55.63/56.27 FPS; no-blink 58.43/55.76/56.23, old-texture 58.74/55.90/57.09, per-node 58.65/55.43/56.01, reduced 58.36/55.85/56.41, golden 56.43/54.50/54.72. Soyuq start, VSync və ardıcıllıq qarışır; old-texture tətbiqi/redraw təsdiqlənməyib. Səbəb və optimallaşma iddiası çıxarmaq olmaz. Real mobil FPS V0.9.2; təkrar sintetik ölçmə qapını bağlamır.
+
+---
+
+## Əvvəlki checkpoint (tarixi; yuxarıdakı yeniləmə üstünlük təşkil edir)
+
 # V0.8.3 — Web performans hesabatı
 
 Baza `32d50e5`; ilkin əsas ölçmələr runtime dəyişmədən `b8a1905` test harness ilə alındı. Sonrakı daha sərt chain/effect, reward və CPU sınaqlarında köhnə runtime həmin commit-dən ayrıca CI-də export edildi (yəni sonradan təkrar ölçülmüş baseline); son runtime `e439471`-dən etibarən dəyişməyib. Xam hər təkrar, run ID, browser və göstəricilər `docs/performance/BENCHMARK_BEFORE.csv` / `BENCHMARK_AFTER.csv`-dədir; `WEB_OPTIMIZATION_REPORT.md` export və asset auditini göstərir.
