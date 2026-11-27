@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """Package committed project and an uninstrumented CI export; TEST ONLY, not rights clearance.
-Usage: python tools/package_commercial_test.py COMMIT CI_WEB_EVIDENCE.zip OUTPUT_DIR
+Usage: python tools/package_commercial_test.py COMMIT CI_WEB_EVIDENCE.zip OUTPUT_DIR [VERSION]
 Build clean source, Web test ZIP and a release-assets directory. Then run
 ../tests/commercial/audit_packages.py with these outputs and the V0.8.3 PCK.
 """
 import io, pathlib, subprocess, sys, tarfile, zipfile, shutil
-if len(sys.argv)!=4: raise SystemExit(__doc__)
-commit,evidence,out=sys.argv[1:]; out=pathlib.Path(out).resolve();out.mkdir(parents=True,exist_ok=True)
+if len(sys.argv) not in (4,5): raise SystemExit(__doc__)
+commit,evidence,out=sys.argv[1:4]; version=sys.argv[4] if len(sys.argv)==5 else '0.9.0.1.1'
+if not all(c.isdigit() or c=='.' for c in version): raise SystemExit('invalid version')
+ out=pathlib.Path(out).resolve();out.mkdir(parents=True,exist_ok=True)
 project=pathlib.Path(__file__).resolve().parents[1]
 repo=project.parent
 archive=subprocess.check_output(['git','archive',commit,'MergeAnimals'],cwd=repo)
 assets=out/'release-assets';shutil.rmtree(assets,ignore_errors=True);assets.mkdir()
-source=out/'MergeAnimals-V0.9.0.1.1-Godot.zip'; web=out/'MergeAnimals-V0.9.0.1.1-Web-Test.zip'
+source=out/f'MergeAnimals-V{version}-Godot.zip'; web=out/f'MergeAnimals-V{version}-Web-Test.zip'
 committed={}
 with tarfile.open(fileobj=io.BytesIO(archive),mode='r:') as tar, zipfile.ZipFile(source,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
  for m in tar:
@@ -36,7 +38,7 @@ with zipfile.ZipFile(evidence) as original, zipfile.ZipFile(web,'w',zipfile.ZIP_
  for name,content in sorted(committed.items()):
   if name.startswith(prefix) and name.endswith('.txt'):z.writestr('notices/'+name[len(prefix):],content)
  for notice in ('THIRD_PARTY_NOTICES.md','COMMERCIAL_RIGHTS_REPORT.md','LICENSE_EVIDENCE.md'):z.writestr('notices/'+notice,committed['MergeAnimals/'+notice])
- z.writestr('notices/TEST_ONLY.txt','V0.9.0.1.1 TEST ONLY — COMMERCIAL RELEASE BLOCKED. No ads in this standard Web export. Applicable Arena output rights and written consent are not established. See LICENSE_EVIDENCE.md and COMMERCIAL_RIGHTS_REPORT.md.\n')
+ z.writestr('notices/TEST_ONLY.txt',f'V{version} TEST ONLY — COMMERCIAL RELEASE BLOCKED. No ads in this standard Web export. Applicable Arena output rights and written consent are not established. See LICENSE_EVIDENCE.md and COMMERCIAL_RIGHTS_REPORT.md.\n')
 (assets/'notices').mkdir()
 for name,content in committed.items():
  prefix='MergeAnimals/third_party_notices/'

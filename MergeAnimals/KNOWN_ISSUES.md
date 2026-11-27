@@ -1,3 +1,11 @@
+# V0.9.0.2 — open save-integrity issues
+
+- Web checkpoint read-back is not a flush barrier. Autosave, uncommitted rewards, abrupt termination, cross-file writes, multiple tabs, eviction and permission failures can still lose or roll back data. The indicator covers only the last written session/power-up checkpoint, not all state or unwritten actions.
+- Browser failure, migration and rapid-write coverage is incomplete; see `WEB_QA_REPORT.md`. V0.9.0.2 acceptance remains WIP. No 100% crash/power-loss persistence claim.
+- Commercial rights remain **BLOCKED**. Arena account/Agent Mode terms and written permission covering distribution and ads have not been established; see `LICENSE_EVIDENCE.md`. No public release or monetization.
+
+---
+
 # V0.9.0.1.1 — commercial verification blockers
 
 - Arena 2026-02-23 Terms §5(i) restricts selling, distributing, hosting or commercially exploiting Output; account-specific Agent Mode supplemental terms and written consent covering this project's intended distribution and ads have not been verified. User steps are in `LICENSE_EVIDENCE.md`. Project output remains BLOCKED.

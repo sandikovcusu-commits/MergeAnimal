@@ -1,3 +1,11 @@
+# V0.9.0.2 — save investigation (WIP, private test only)
+
+- Added read-only IndexedDB read-back of exact Classic session and power-up checkpoint bytes with pending/verified/unconfirmed HUD status; no concurrent sync call and no game mechanics or asset changes.
+- Added a Web probe for a verified checkpoint and a nonexistent revision; researched Godot 4.7.2 deferred sync and documented outstanding gaps. This does not guarantee last-action or reward durability.
+- Commercial rights remain BLOCKED; V0.9.0.2 acceptance is incomplete.
+
+---
+
 # V0.9.0.1.1 — commercial evidence and clean test packages
 
 - Audited public Arena Terms §§1, 3.2–3.5 and 5; ownership language does not remove the unresolved commercial-use restrictions. Added user steps and primary evidence; status remains BLOCKED.
