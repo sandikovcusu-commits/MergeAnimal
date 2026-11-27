@@ -161,6 +161,11 @@ jobs:
           /usr/bin/time -v -o /tmp/physics-results/time.txt env BOT_SESSIONS=100 BOT_TICKS="$TICK" "$GODOT" --headless --fixed-fps 60 --path /tmp/physics/MergeAnimals --script res://tests/physics/bot_sessions.gd > /tmp/physics-results/bots.log 2>&1
           grep '^BOT_' /tmp/physics-results/bots.log > /tmp/physics-results/bot-output.txt
           grep -q "BOT_COMPLETE sessions=100 ticks=$TICK" /tmp/physics-results/bot-output.txt
+          if [ "$TICK" = 120 ]; then
+            cp MergeAnimals/tests/physics/physics_diagnostics.gd /tmp/physics/MergeAnimals/tests/physics/physics_diagnostics.gd
+            "$GODOT" --headless --fixed-fps 60 --path /tmp/physics/MergeAnimals --script res://tests/physics/physics_diagnostics.gd > /tmp/physics-results/diagnostics.log 2>&1
+            grep -q '^PHYSICS_DIAGNOSTICS complete' /tmp/physics-results/diagnostics.log
+          fi
           python3 - <<'PY'
           import csv,os,pathlib
           p=pathlib.Path('/tmp/physics-results/bot-output.txt')
