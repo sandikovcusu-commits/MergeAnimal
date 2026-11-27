@@ -1,0 +1,204 @@
+{
+  "browser": "chromium",
+  "scenario": "40",
+  "duration": 15,
+  "repetitions": 3,
+  "throttle": 1,
+  "cold_ms": 1129,
+  "warm_ms": 1010,
+  "info": {
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "cores": 4,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "deviceMemory": 8,
+    "menuReadyMs": 1081.5,
+    "resources": [
+      {
+        "name": "index.png",
+        "duration": 1.599999999976717,
+        "transferSize": 21743,
+        "encodedBodySize": 21443,
+        "decodedBodySize": 21443
+      },
+      {
+        "name": "index.js",
+        "duration": 2.5,
+        "transferSize": 68771,
+        "encodedBodySize": 68471,
+        "decodedBodySize": 279815
+      },
+      {
+        "name": "index.wasm",
+        "duration": 199.89999999996508,
+        "transferSize": 10055058,
+        "encodedBodySize": 10054758,
+        "decodedBodySize": 39514754
+      },
+      {
+        "name": "index.pck",
+        "duration": 246.20000000001164,
+        "transferSize": 2016419,
+        "encodedBodySize": 2016119,
+        "decodedBodySize": 2158920
+      },
+      {
+        "name": "index.icon.png",
+        "duration": 84.79999999998836,
+        "transferSize": 6000,
+        "encodedBodySize": 5700,
+        "decodedBodySize": 5700
+      }
+    ],
+    "heap": 103900587,
+    "physicsTicks": 120,
+    "warmResources": [
+      {
+        "name": "index.png",
+        "transferSize": 0,
+        "encodedBodySize": 21443,
+        "decodedBodySize": 21443
+      },
+      {
+        "name": "index.js",
+        "transferSize": 0,
+        "encodedBodySize": 68471,
+        "decodedBodySize": 279815
+      },
+      {
+        "name": "index.wasm",
+        "transferSize": 10055058,
+        "encodedBodySize": 10054758,
+        "decodedBodySize": 39514754
+      },
+      {
+        "name": "index.pck",
+        "transferSize": 0,
+        "encodedBodySize": 2016119,
+        "decodedBodySize": 2158920
+      },
+      {
+        "name": "index.icon.png",
+        "transferSize": 0,
+        "encodedBodySize": 5700,
+        "decodedBodySize": 5700
+      }
+    ],
+    "reducedEffects": false
+  },
+  "runs": [
+    {
+      "process_cpu_pct": 353.7436305315747,
+      "process_rss_mib": 1400.24072265625,
+      "run": 1,
+      "seconds": 15,
+      "frames": 860,
+      "avg_fps": 57.27186153528545,
+      "low_1pct_fps": 29.94011976047774,
+      "median_ms": 16.69999999999891,
+      "p95_ms": 16.80000000000291,
+      "physics_ms": 0.4642857142857144,
+      "process_ms": 6.057142857142858,
+      "draw_calls": 66,
+      "nodes": 195,
+      "objects": 1935.9285714285713,
+      "static_bytes": 0,
+      "heap_bytes": 63946507,
+      "body_min": 40,
+      "body_max": 40,
+      "merges": 0,
+      "highest_level_max": 1,
+      "effects_max": 0,
+      "audio_latency_ms": 88.4399116039276
+    },
+    {
+      "process_cpu_pct": 347.97098536211564,
+      "process_rss_mib": 1367.05810546875,
+      "run": 2,
+      "seconds": 15,
+      "frames": 844,
+      "avg_fps": 56.20671283963772,
+      "low_1pct_fps": 29.94011976047774,
+      "median_ms": 16.69999999999709,
+      "p95_ms": 33.299999999995634,
+      "physics_ms": 0.5066666666666668,
+      "process_ms": 5.613333333333333,
+      "draw_calls": 64.6,
+      "nodes": 195,
+      "objects": 1936,
+      "static_bytes": 0,
+      "heap_bytes": 60617963,
+      "body_min": 40,
+      "body_max": 40,
+      "merges": 0,
+      "highest_level_max": 1,
+      "effects_max": 0,
+      "audio_latency_ms": 88.4399116039276
+    },
+    {
+      "process_cpu_pct": 353.13875615148703,
+      "process_rss_mib": 1361.30126953125,
+      "run": 3,
+      "seconds": 15,
+      "frames": 871,
+      "avg_fps": 58.00440860143446,
+      "low_1pct_fps": 29.94011976047774,
+      "median_ms": 16.69999999999709,
+      "p95_ms": 16.80000000000291,
+      "physics_ms": 0.4333333333333334,
+      "process_ms": 5.613333333333333,
+      "draw_calls": 64.46666666666667,
+      "nodes": 195,
+      "objects": 1936,
+      "static_bytes": 0,
+      "heap_bytes": 61317297,
+      "body_min": 40,
+      "body_max": 40,
+      "merges": 0,
+      "highest_level_max": 1,
+      "effects_max": 0,
+      "audio_latency_ms": 88.4399116039276
+    }
+  ],
+  "events": [
+    {
+      "type": "console:log",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "type": "console:log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "type": "console:log",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x278c02b68000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x278c02b68000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x278c02b68000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "console:log",
+      "text": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org"
+    },
+    {
+      "type": "console:log",
+      "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+    },
+    {
+      "type": "console:log",
+      "text": "Build configuration: Emscripten 4.0.20, single-threaded, no GDExtension support."
+    },
+    {
+      "type": "console:warning",
+      "text": "[.WebGL-0x278c039eb400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    }
+  ]
+}

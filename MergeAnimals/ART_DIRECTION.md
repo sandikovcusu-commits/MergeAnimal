@@ -11,3 +11,7 @@ Premium stylized 2D casual puzzle: round, legible silhouettes, warm and approach
 - Spacing target: consistent 8-unit multiples and mobile-friendly tap targets; existing screens have not all been migrated to a shared token system. Minimize blur, particles and motion when Reduced Effects is enabled.
 
 Source-of-truth and provenance: `ASSET_MANIFEST.json`, `ASSET_LICENSES.md`, `tools/generate_animal_vectors.py` and `tools/generate_expression_vectors.py`. Agent-authored vector modifications, no external image-generation service; applicable provider terms remain unknown and commercial use is BLOCKED. Human art direction review is still needed.
+
+## Incremental scenery and UI follow-up
+
+At `eff07cd`, edited project-local SVGs implement forest foliage and rounded trees, Safari acacias and grass, and snowy mountain caps and conifers; all remain quiet behind gameplay. `GardenDesign.gd` supplies menu surface/button tokens and `Game.gd` draws a passive cached HUD backdrop; other screens are not fully migrated. Screenshots in `docs/visual/v0904/after-latest/` are real Chromium software captures, not art mockups. Later light Play icon improves contrast in `menu-current.png`; theme captures predate that change. Human art review is still required.

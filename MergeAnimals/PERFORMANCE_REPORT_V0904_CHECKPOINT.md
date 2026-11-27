@@ -23,3 +23,16 @@ Current build measured first, then `5a50de4` baseline on the same runner; each c
 | 40 | 45.63, 45.77, 45.88 | 34.90, 45.57, 46.14 | −7.8% | 62 → 64.0–64.3 |
 
 The 40-body mean exceeds the 5% investigation threshold; first after repetition accounts for most of the difference, but the reason is not established. Intermittent extra draw calls are consistent with separate expression textures interrupting batching, but this is a hypothesis, not a causal measurement. Investigate alternating order, longer warm-up and an atlas/layer approach before claiming acceptance. 40-body p95 was 33.4 ms in all repeats; after median 33.3/16.7/16.7 ms. Cold-start after/before 10: 1492/1475 ms, 20: 1150/1168 ms, 40: 1537/1554 ms; these are software-runner observations, not user device launch times.
+
+## Follow-up ABA, 40-body UI optimization (not full acceptance)
+
+[46054023036](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46054023036) compared `efcc873` (cached canvas HUD backdrop) to **pre-optimization UI `51e35b0`**, not the original V0.9.0.4 baseline. Same runner, Chromium SwiftShader, 360×640, 120 Hz, fixed 40-body no-merge fixture, 3 × 15 s per phase; A=new, B=old, A=new again, followed by reduced effects. Raw individual JSON and reference SHA: `docs/visual/v0904/performance/hud-aba/`.
+
+| Phase | FPS repetitions | Mean FPS | p95 ms | Draw calls | Nodes |
+|---|---|---:|---|---|---:|
+| A new | 46.83, 54.68, 54.68 | 52.06 | 33.4, 33.3, 33.3 | 64.43, 64.20, 65.53 | 195 |
+| B old | 54.55, 55.74, 56.48 | 55.59 | 33.3, 33.3, 33.3 | 65.93, 65.33, 66.00 | 197 |
+| A new repeat | 57.27, 56.21, 58.00 | 57.16 | 16.8, 33.3, 16.8 | 66.00, 64.60, 64.47 | 195 |
+| New reduced | 58.74, 58.87, 58.80 | 58.80 | 16.8, 16.8, 16.8 | 63, 63, 63 | 195 |
+
+The first A mean is 6.3% below B, but second A is 2.8% above B; order and environment vary substantially. These values do **not** establish a fix, root cause, or absence of regression relative to the original baseline. Reduced was run last, without normal/reduced alternation, and the fixed no-merge scene does not exercise merge bursts. At `0062bc4`, a separate 40-body ABA run [46053479668](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46053479668) showed UI A 59.94, baseline B 60.00, repeat A 59.91 and reduced 59.94 mean FPS, near the 60 Hz cap; again no general guarantee. Node and draw-call counts are observed test-scene values, not particle or texture-memory measurements. Subsequent scenery and effect changes have not been included in matched benchmarks.
