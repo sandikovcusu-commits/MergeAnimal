@@ -51,7 +51,7 @@ func run() -> void:
 		label("Static test fixture. Not gameplay or physical collision proof.", Vector2(30, 1050), 19)
 		await create_timer(0.2).timeout
 		await RenderingServer.frame_post_draw
-		var destination := OS.get_environment("CAPTURE_DIR") + "/" + id + "-before-after.png"
+		var destination: String = OS.get_environment("CAPTURE_DIR") + "/" + id + "-before-after.png"
 		code = OS.execute("import", ["-window", windows[0], destination])
 		var capture := Image.new()
 		if code != 0 or capture.load(destination) != OK or capture.get_size() != Vector2i(720, 1280):
