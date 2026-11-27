@@ -76,7 +76,7 @@ func _build() -> void:
 	DESIGN.menu_button(back, ThemeStore.current_index()); column.add_child(back); back.pressed.connect(_close)
 
 func _style_check(toggle: CheckBox) -> void:
-	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
 		toggle.add_theme_color_override(state, DESIGN.INK)
 
 # Preview a single touch/drag, commit only on valid release. A browser
