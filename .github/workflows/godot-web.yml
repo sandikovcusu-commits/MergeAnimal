@@ -140,6 +140,8 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
+          elif [ "$UI_MODE" = save-timing ]; then
+            TEST=save-timing.mjs
           elif [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ] || [ "$UI_MODE" = reward-production ]; then
             TEST=audio-production.mjs
           elif [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ]; then
