@@ -18,6 +18,15 @@ on:
         description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute, sdk-production, reward-demo, reward-mock, reward-basic, reward-blocked, reward-production"
         default: 'none'
         required: true
+      perf_seconds:
+        description: 'Benchmark seconds per repetition'
+        default: '60'
+      perf_repeats:
+        description: 'Benchmark repetitions'
+        default: '3'
+      perf_throttle:
+        description: 'Chromium CPU throttle factor'
+        default: '1'
       ui_locale:
         description: 'UI locale: en, az, tr, ru'
         default: 'en'
@@ -75,6 +84,9 @@ jobs:
           UI_MODE: ${{ inputs.ui_mode }}
           UI_BROWSER: ${{ inputs.ui_browser }}
           UI_LOCALE: ${{ inputs.ui_locale }}
+          PERF_SECONDS: ${{ inputs.perf_seconds }}
+          PERF_REPEATS: ${{ inputs.perf_repeats }}
+          PERF_THROTTLE: ${{ inputs.perf_throttle }}
         run: |
           set -e -o pipefail
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
@@ -95,7 +107,18 @@ jobs:
             pactl load-module module-null-sink sink_name=qa_audio >/dev/null
             pactl set-default-sink qa_audio
           fi
-          if [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
+          if [ "$UI_MODE" = perf ]; then
+            cp -a MergeAnimals /tmp/perf-qa-project
+            cp /tmp/perf-qa-project/tests/performance/PerfProbe.gd /tmp/perf-qa-project/scripts/PerfProbe.gd
+            sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/perf-qa-project/project.godot
+            mkdir -p /tmp/web-test/perf-qa
+            "$GODOT" --headless --path /tmp/perf-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/perf-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/perf-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            kill $SERVER; wait $SERVER 2>/dev/null || true
+            WEB_ROOT=/tmp/web-test/perf-qa python3 MergeAnimals/tests/performance/serve.py >/tmp/web-qa/perf-server.log 2>&1 & SERVER=$!
+            URL=http://127.0.0.1:8765/; TEST=benchmark.mjs
+            export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE
+          elif [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
             cp -a MergeAnimals /tmp/reward-qa-project
             cp /tmp/reward-qa-project/tests/web/RewardProbe.gd /tmp/reward-qa-project/scripts/ads/RewardProbe.gd
             sed -i '/^\[autoload\]/a RewardProbe="*res://scripts/ads/RewardProbe.gd"' /tmp/reward-qa-project/project.godot
@@ -145,6 +168,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          UI_MODE: ${{ inputs.ui_mode }}
         run: |
           set -e -o pipefail
           python3 - <<'PY' 2>&1 | tee /tmp/transport.log
@@ -152,7 +176,7 @@ jobs:
           archive=pathlib.Path('/tmp/web-evidence.zip')
           with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
               for root, prefix in [(pathlib.Path('/tmp/web-test'),'web'),(pathlib.Path('/tmp/web-qa'),'qa')]:
-                  if root.exists():
+                  if root.exists() and not (prefix == 'web' and os.environ.get('UI_MODE') == 'perf'):
                       for f in sorted(root.rglob('*')):
                           if f.is_file() and (prefix == 'web' or (f.parent == root and f.name != 'install.log')):
                               z.write(f, str(pathlib.Path(prefix)/f.relative_to(root)))
