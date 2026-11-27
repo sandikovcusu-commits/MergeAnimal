@@ -74,6 +74,7 @@ func inspect(cmd: Dictionary) -> void:
 		for pair in game.merge_manager.pending:
 			if is_instance_valid(pair.a) and is_instance_valid(pair.b):
 				pairs.append({"a":str(pair.a.data.id), "b":str(pair.b.data.id), "target":str(pair.target.id) if pair.target else "golden", "a_x":pair.a.position.x, "a_y":pair.a.position.y, "b_x":pair.b.position.x, "b_y":pair.b.position.y})
+		result["checkpoint_details"] = game._checkpoint_details()
 		result["live"] = {"game_state":game.game_state, "spawn_state":game.spawn_state, "score":game.score, "spawn_count":game.spawn_count, "merges":game.merge_manager.merge_count, "paused":get_tree().paused, "achievement_blocked":game.achievement_blocked, "achievement_pending":game.achievement_pending.size(), "cooldown":game.cooldown_left, "drop_requested":game.drop_requested, "save_status":game.save_status, "save_message":game.get_node("HUD/SaveStatus").text, "save_visible":game.get_node("HUD/SaveStatus").visible, "play_seconds":game.progression.play_seconds, "pending_merges":pairs, "commit_scheduled":game.merge_manager.commit_scheduled, "snapshot_empty":snapshot.is_empty(), "snapshot_valid":SessionSave.valid(snapshot)}
 	finish(int(cmd.id), result)
 
