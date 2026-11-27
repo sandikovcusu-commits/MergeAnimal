@@ -2,6 +2,9 @@ extends Control
 const FOREST := preload("res://assets/backgrounds/forest_garden.svg")
 const THEME := preload("res://assets/ui/themes/forest.tres")
 const IDS := Progression.IDS
+# Keep locked artwork visibly muted without crushing the face to near-black.
+# The lock icon and label still communicate undiscovered state.
+const LOCKED_ART_TINT := Color(0.43, 0.48, 0.43, 0.92)
 var progress: Dictionary
 var cards: Array[Button] = []
 var detail: PanelContainer
@@ -35,7 +38,7 @@ func _build() -> void:
 		var card := Button.new(); card.name = "AnimalCard%d" % (i + 1); card.custom_minimum_size = Vector2(190, 340); card.size_flags_horizontal = Control.SIZE_EXPAND_FILL; grid.add_child(card); cards.append(card)
 		var column := VBoxContainer.new(); column.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); column.offset_left = 5; column.offset_right = -5; column.offset_top = 5; column.offset_bottom = -5; column.mouse_filter = Control.MOUSE_FILTER_IGNORE; card.add_child(column)
 		var art := TextureRect.new(); art.name = "Sprite"; art.custom_minimum_size = Vector2(100, 86); art.texture = data.sprite; art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		if not unlocked: art.modulate = Color(0.12, 0.16, 0.13, 0.92)
+		if not unlocked: art.modulate = LOCKED_ART_TINT
 		column.add_child(art)
 		for line in ["%s · %s %d" % [tr(data.translation_key), tr("LEVEL"), i + 1], tr("UNLOCKED") if unlocked else tr("LOCKED"), "%s: %d" % [tr("CREATED"), int(entry.count)], str(entry.date).substr(0, 10) if unlocked else tr("UNDISCOVERED"), tr("ANIMAL_DESC_" + IDS[i].to_upper()) if unlocked else _unlock_hint(i)]:
 			var label := Label.new(); label.text = line; label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER; label.add_theme_font_size_override("font_size", 18); label.add_theme_color_override("font_color", Color("203a28")); label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART; label.mouse_filter = Control.MOUSE_FILTER_IGNORE; column.add_child(label)
@@ -62,7 +65,7 @@ func _show_detail(index: int) -> void:
 	var entry: Dictionary = progress.animals[IDS[index]]
 	var unlocked := not str(entry.date).is_empty()
 	detail_image.texture = data.sprite
-	detail_image.modulate = Color.WHITE if unlocked else Color(0.12, 0.16, 0.13, 0.92)
+	detail_image.modulate = Color.WHITE if unlocked else LOCKED_ART_TINT
 	detail_label.text = "%s\n%s %d · %s\n%s: %d\n%s: %s\n\n%s" % [tr(data.translation_key), tr("LEVEL"), index + 1, tr("UNLOCKED") if unlocked else tr("LOCKED"), tr("CREATED"), int(entry.count), tr("FIRST_FOUND"), entry.date if unlocked else "—", tr("ANIMAL_DESC_" + IDS[index].to_upper()) if unlocked else _unlock_hint(index)]
 	detail.visible = true
 
