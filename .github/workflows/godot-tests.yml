@@ -135,7 +135,10 @@ jobs:
       fail-fast: false
       matrix:
         tick: [60, 90, 120]
-        mode: [baseline, shape-ccd]
+        mode: [baseline, shape-ccd, predictive-floor]
+        exclude:
+          - {tick: 60, mode: predictive-floor}
+          - {tick: 90, mode: predictive-floor}
     steps:
       - uses: actions/checkout@v4
       - name: Install Godot 4.7.2
@@ -152,6 +155,7 @@ jobs:
           mkdir -p /tmp/physics /tmp/physics-results
           git archive b79dd4d0fe00ecd1a1215bc70db6266fa4cbab4e MergeAnimals | tar -x -C /tmp/physics
           if [ "$MODE" = shape-ccd ]; then sed -i 's/^continuous_cd = 1$/continuous_cd = 2/' /tmp/physics/MergeAnimals/scenes/animals/Animal.tscn; fi
+          if [ "$MODE" = predictive-floor ]; then python3 MergeAnimals/tests/physics/apply_floor_guard.py /tmp/physics/MergeAnimals; fi
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
           "$GODOT" --headless --path /tmp/physics/MergeAnimals --editor --quit > /tmp/physics-results/import.log 2>&1
           /usr/bin/time -v -o /tmp/physics-results/time.txt env BOT_SESSIONS=100 BOT_TICKS="$TICK" "$GODOT" --headless --fixed-fps 60 --path /tmp/physics/MergeAnimals --script res://tests/physics/bot_sessions.gd > /tmp/physics-results/bots.log 2>&1
