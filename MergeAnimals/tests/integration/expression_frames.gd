@@ -25,7 +25,7 @@ func run() -> void:
 		correct = correct and body.visual._texture_for_expression() == data.happy_sprite
 		body.visual.animate_action("drop")
 		correct = correct and body.visual._texture_for_expression() == data.surprise_sprite
-		correct = correct and shape.radius == radius and body.mass == data.body_mass
+		correct = correct and is_equal_approx(shape.radius, radius) and is_equal_approx(body.mass, data.body_mass)
 		body.visual._on_reduced_effects_changed(true)
 		correct = correct and body.visual.expression == 0 and body.visual.blink_left == 0.0 and body.visual.scale == Vector2.ONE and body.visual._texture_for_expression() == data.sprite
 		if not correct: failures += 1
