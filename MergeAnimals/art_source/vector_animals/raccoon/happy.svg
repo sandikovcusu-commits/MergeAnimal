@@ -1,12 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
 <defs><radialGradient id="fur" cx=".35" cy=".25" r=".8"><stop stop-color="#c7c8c8"/><stop offset="1" stop-color="#8a939a"/></radialGradient></defs>
-<g stroke="#553e39" stroke-width="8" stroke-linejoin="round"><g fill="#8a939a"><path d="M104 158 L120 79 Q126 55 151 75 L211 135Z"/><path d="M408 158 L392 79 Q386 55 361 75 L301 135Z"/></g></g>
-<g fill="#e9b4ad" opacity=".8"><path d="M123 142 L133 91 L179 132Z"/><path d="M389 142 L379 91 L333 132Z"/></g>
-<circle cx="256" cy="272" r="230" fill="url(#fur)" stroke="#553e39" stroke-width="8"/>
+<g id="ears" stroke="#553e39" stroke-width="8" stroke-linejoin="round"><g fill="#8a939a"><path d="M104 158 L120 79 Q126 55 151 75 L211 135Z"/><path d="M408 158 L392 79 Q386 55 361 75 L301 135Z"/></g></g>
+<g id="inner-ears" fill="#e9b4ad" opacity=".8"><path d="M123 142 L133 91 L179 132Z"/><path d="M389 142 L379 91 L333 132Z"/></g>
+<g id="body"><circle cx="256" cy="272" r="230" fill="url(#fur)" stroke="#553e39" stroke-width="8"/>
+<path d="M125 359 Q151 438 256 456 Q361 438 387 359" fill="none" stroke="#8a939a" stroke-width="17" stroke-linecap="round" opacity=".22"/>
 <ellipse cx="200" cy="164" rx="91" ry="41" fill="#ffffff" opacity=".12" transform="rotate(-16 200 164)"/>
-<path d="M105 216 Q154 180 208 208 Q208 271 160 281 Q115 277 105 216Z M407 216 Q358 180 304 208 Q304 271 352 281 Q397 277 407 216Z" fill="#71808a"/>
-<ellipse cx="256" cy="318" rx="85" ry="62" fill="#f1e7dc" opacity=".88"/>
-<g fill="#553e39"><path d="M159 240 Q179 215 199 240 M313 240 Q333 215 353 240" fill="none" stroke="#553e39" stroke-width="10" stroke-linecap="round"/><path d="M238 277 Q256 267 274 277 Q270 292 256 296 Q242 292 238 277Z"/><path d="M236 310 Q256 338 276 310" fill="none" stroke="#553e39" stroke-width="8" stroke-linecap="round"/></g>
-
+<ellipse cx="161" cy="186" rx="21" ry="10" fill="#fff9e8" opacity=".13" transform="rotate(-22 161 186)"/>
+</g>
+<g id="species-markings"><path d="M105 216 Q154 180 208 208 Q208 271 160 281 Q115 277 105 216Z M407 216 Q358 180 304 208 Q304 271 352 281 Q397 277 407 216Z" fill="#71808a"/></g>
+<g id="muzzle"><ellipse cx="256" cy="318" rx="85" ry="62" fill="#f1e7dc" opacity=".88"/>
+<path d="M202 340 Q256 370 310 340" fill="none" stroke="#8a939a" stroke-width="5" stroke-linecap="round" opacity=".18"/></g>
+<g id="face-details" fill="none" stroke="#553e39" stroke-width="5" stroke-linecap="round" opacity=".43"><path d="M115 286 Q134 300 151 301 M397 286 Q378 300 361 301"/><path d="M229 155 Q256 145 283 155"/></g>
+<g id="eyes-and-mouth" fill="#553e39"><path d="M159 240 Q179 215 199 240 M313 240 Q333 215 353 240" fill="none" stroke="#553e39" stroke-width="10" stroke-linecap="round"/><path d="M238 277 Q256 267 274 277 Q270 292 256 296 Q242 292 238 277Z"/><path d="M236 310 Q256 338 276 310" fill="none" stroke="#553e39" stroke-width="8" stroke-linecap="round"/></g>
+<g id="eye-highlights"></g>
 <path d="M148 383 Q256 420 364 383" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".16"/>
 </svg>

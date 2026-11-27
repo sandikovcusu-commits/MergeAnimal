@@ -66,6 +66,23 @@ MARKS = {
  'lion': '<path d="M196 128 Q256 96 316 128" fill="none" stroke="#d49743" stroke-width="12" stroke-linecap="round"/>',
  'elephant': '<ellipse cx="154" cy="268" rx="28" ry="16" fill="#ebb7ba" opacity=".45"/><ellipse cx="358" cy="268" rx="28" ry="16" fill="#ebb7ba" opacity=".45"/>',
 }
+# Species-specific facial and fur details. All paths stay well within the
+# collision disk; these are visual artwork, not collision geometry.
+DETAILS = {
+ 'mouse': '<path d="M113 294 L157 301 M114 314 L158 313 M355 301 L399 294 M354 313 L398 314"/><circle cx="256" cy="175" r="5" fill="#ad93a2" stroke="none"/>',
+ 'hamster': '<path d="M112 286 Q130 296 146 296 M400 286 Q382 296 366 296"/><path d="M231 163 Q256 150 281 163"/>',
+ 'rabbit': '<path d="M107 299 L151 305 M108 318 L151 317 M361 305 L405 299 M361 317 L404 318"/><path d="M232 168 Q256 157 280 168"/>',
+ 'cat': '<path d="M110 290 L151 301 M106 311 L151 312 M361 301 L402 290 M361 312 L406 311"/>',
+ 'dog': '<path d="M117 316 Q130 327 147 329 M395 316 Q382 327 365 329"/><circle cx="229" cy="327" r="4" fill="#ad8067" stroke="none"/><circle cx="283" cy="327" r="4" fill="#ad8067" stroke="none"/>',
+ 'fox': '<path d="M102 305 Q120 319 142 319 M410 305 Q392 319 370 319"/><path d="M226 157 Q256 138 286 157"/>',
+ 'raccoon': '<path d="M115 286 Q134 300 151 301 M397 286 Q378 300 361 301"/><path d="M229 155 Q256 145 283 155"/>',
+ 'koala': '<path d="M104 297 Q121 309 141 309 M408 297 Q391 309 371 309"/><path d="M229 157 Q256 144 283 157"/>',
+ 'panda': '<ellipse cx="132" cy="291" rx="20" ry="10" fill="#e9b6ad" opacity=".55" stroke="none"/><ellipse cx="380" cy="291" rx="20" ry="10" fill="#e9b6ad" opacity=".55" stroke="none"/>',
+ 'bear': '<path d="M119 310 Q133 320 147 321 M393 310 Q379 320 365 321"/><path d="M230 162 Q256 151 282 162"/>',
+ 'lion': '<path d="M125 293 Q145 303 159 302 M387 293 Q367 303 353 302"/><path d="M220 152 Q256 137 292 152"/>',
+ 'elephant': '<path d="M132 307 Q146 316 160 315 M380 307 Q366 316 352 315"/><path d="M228 159 Q256 149 284 159"/>',
+}
+
 def generate(name, colors):
     hi, shade, ear, muzzle, mark = colors
     width = 256 if name in ('mouse','hamster','rabbit') else 512
@@ -74,6 +91,10 @@ def generate(name, colors):
     mane = '<circle cx="256" cy="256" r="246" fill="#b96d38" stroke="#553e39" stroke-width="8"/><circle cx="256" cy="256" r="234" fill="#d89142" stroke="#e3a450" stroke-width="8" stroke-dasharray="13 14"/>' if name == 'lion' else ''
     head_r = 183 if name == 'lion' else 210 if name in ('rabbit', 'dog', 'elephant') else 230
     head_y = 260 if name == 'lion' else 292 if name in ('rabbit', 'dog', 'elephant') else 272
+    shadow_x = round(head_r * 0.57)
+    shadow_y = round(head_y + head_r * 0.38)
+    shadow_bottom = round(head_y + head_r * 0.80)
+    shadow_control_y = round(head_y + head_r * 0.72)
     eyes = ('<ellipse cx="176" cy="234" rx="24" ry="33" fill="#fffaf0"/><ellipse cx="336" cy="234" rx="24" ry="33" fill="#fffaf0"/>' if name == 'panda' else '')
     eyes += '<ellipse cx="179" cy="234" rx="18" ry="24"/><ellipse cx="333" cy="234" rx="18" ry="24"/>'
     nose = '<ellipse cx="256" cy="277" rx="23" ry="31" fill="#5b6a70"/><path d="M256 304 Q256 329 270 328" fill="none" stroke="#553e39" stroke-width="7" stroke-linecap="round"/>' if name == 'koala' else '<path d="M238 277 Q256 267 274 277 Q270 292 256 296 Q242 292 238 277Z"/><path d="M256 296 Q256 313 242 318 M256 296 Q256 313 270 318" fill="none" stroke="#553e39" stroke-width="7" stroke-linecap="round"/>'
@@ -81,14 +102,19 @@ def generate(name, colors):
         nose = '<path d="M233 268 Q224 299 230 342 Q234 370 257 370 Q281 369 288 352 L280 337 Q274 346 263 345 Q264 304 278 272Z" fill="#a9c4ca" stroke="#553e39" stroke-width="7"/><path d="M241 330 Q253 334 265 330 M241 344 Q251 348 263 345" fill="none" stroke="#789da7" stroke-width="5" stroke-linecap="round"/>'
     svg=f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{width}" viewBox="0 0 512 512">
 <defs><radialGradient id="fur" cx=".35" cy=".25" r=".8"><stop stop-color="{hi}"/><stop offset="1" stop-color="{shade}"/></radialGradient></defs>
-<g stroke="{OUTLINE}" stroke-width="8" stroke-linejoin="round">{mane}<g fill="{ear_fill}">{EARS[name]}</g></g>
-<g fill="{ear}" opacity=".8">{INNER[name]}</g>
-<circle cx="256" cy="{head_y}" r="{head_r}" fill="url(#fur)" stroke="{OUTLINE}" stroke-width="8"/>
+<g id="ears" stroke="{OUTLINE}" stroke-width="8" stroke-linejoin="round">{mane}<g fill="{ear_fill}">{EARS[name]}</g></g>
+<g id="inner-ears" fill="{ear}" opacity=".8">{INNER[name]}</g>
+<g id="body"><circle cx="256" cy="{head_y}" r="{head_r}" fill="url(#fur)" stroke="{OUTLINE}" stroke-width="8"/>
+<path d="M{256-shadow_x} {shadow_y} Q{256-round(shadow_x*.8)} {shadow_control_y} 256 {shadow_bottom} Q{256+round(shadow_x*.8)} {shadow_control_y} {256+shadow_x} {shadow_y}" fill="none" stroke="{shade}" stroke-width="17" stroke-linecap="round" opacity=".22"/>
 <ellipse cx="200" cy="164" rx="91" ry="41" fill="#ffffff" opacity=".12" transform="rotate(-16 200 164)"/>
-{MARKS[name]}
-<ellipse cx="256" cy="318" rx="85" ry="62" fill="{muzzle}" opacity=".88"/>
-<g fill="{OUTLINE}">{eyes}{nose}</g>
-<g fill="#fff"><circle cx="173" cy="226" r="6"/><circle cx="327" cy="226" r="6"/></g>
+<ellipse cx="161" cy="186" rx="21" ry="10" fill="#fff9e8" opacity=".13" transform="rotate(-22 161 186)"/>
+</g>
+<g id="species-markings">{MARKS[name]}</g>
+<g id="muzzle"><ellipse cx="256" cy="318" rx="85" ry="62" fill="{muzzle}" opacity=".88"/>
+<path d="M202 340 Q256 370 310 340" fill="none" stroke="{shade}" stroke-width="5" stroke-linecap="round" opacity=".18"/></g>
+<g id="face-details" fill="none" stroke="{OUTLINE}" stroke-width="5" stroke-linecap="round" opacity=".43">{DETAILS[name]}</g>
+<g id="eyes-and-mouth" fill="{OUTLINE}">{eyes}{nose}</g>
+<g id="eye-highlights"><g fill="#fff"><circle cx="173" cy="226" r="6"/><circle cx="327" cy="226" r="6"/></g></g>
 <path d="M148 383 Q256 420 364 383" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".16"/>
 </svg>'''
     path=ROOT/name/'normal.svg'; path.parent.mkdir(parents=True,exist_ok=True); path.write_text(svg+'\n', encoding='utf8')

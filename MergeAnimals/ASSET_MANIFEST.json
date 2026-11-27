@@ -5,7 +5,7 @@
   "assets": [
     {
       "file": "assets/animals/bear/normal.png",
-      "sha256": "cd81640066d78acf98b25492d6b32227b360e19ab08232c65cd94d4644da4c77",
+      "sha256": "91067edbabc848218e5ce2b9df8efcfd829803b49163592dbae21c56505a6cf8",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -14,11 +14,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/bear/normal.svg"
     },
     {
       "file": "assets/animals/cat/normal.png",
-      "sha256": "5fc5de65ec3293bbd358b4ad374c1d5fd49b21d729ce6081467f5082bb051919",
+      "sha256": "28a1dfeb3599446e650c01733701d5568d4834e27b78efe2bc98c066c8a0d6d8",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -27,11 +30,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/cat/normal.svg"
     },
     {
       "file": "assets/animals/dog/normal.png",
-      "sha256": "1b97dbb86a4fea4555014acebf886a7acb7c5b21b77f05f3a9b7dde37a88f521",
+      "sha256": "b1f404c74b7365b86f1c7da8342bf70805bbf53e0af1c72c629a8e27b5efe5e9",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -40,11 +46,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/dog/normal.svg"
     },
     {
       "file": "assets/animals/elephant/normal.png",
-      "sha256": "d633328ab4e15e6d6a9440db4f6b879432f77669955fa511b61d06e22efa053d",
+      "sha256": "b5ece5d1eb7ddd0632e0d94d01cfd387f1f8e8bff5f08e286cb8291fd812279d",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -53,11 +62,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/elephant/normal.svg"
     },
     {
       "file": "assets/animals/fox/normal.png",
-      "sha256": "ba9f17d4fc340698c65bf026e82150e61fc46d1b89c1a8dbfb6413ccebe6a0af",
+      "sha256": "e55ffa54886ea3372171ec9e4312d0675a1bc2e69a62e70e312c29801a354c3a",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -66,11 +78,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/fox/normal.svg"
     },
     {
       "file": "assets/animals/hamster/normal.png",
-      "sha256": "c03e797e0d24bd35b30c5e547ba2e26b19fd0bfa040809aaa901bbba51193c98",
+      "sha256": "967621a4b50a48c66cc2b337605a6086daea6d59e9f2471f8778b8462a4d5328",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -79,11 +94,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/hamster/normal.svg"
     },
     {
       "file": "assets/animals/koala/normal.png",
-      "sha256": "707555f4385e38121f53482f39867c7fd2f97b66f3a4d94308fd2f572b9d9feb",
+      "sha256": "23377e1bf499faa1cdf4160f56615f710ae4df63ead004d220e14810ea33b460",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -92,11 +110,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/koala/normal.svg"
     },
     {
       "file": "assets/animals/lion/normal.png",
-      "sha256": "4cc26a9331b2f4d2bfa971011e4ff6c732a90b2ae7ec2fc588ce82dda8030a19",
+      "sha256": "1db136123f359d98ba9cefdca4d3a9452467295d58a0f970fbf875819ec95f2a",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -105,11 +126,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/lion/normal.svg"
     },
     {
       "file": "assets/animals/mouse/normal.png",
-      "sha256": "bcf5b1b01df071ec9f78728299af9bb3b7fab146b5c46081593db32b7d13203d",
+      "sha256": "de9e720cf69317f60357ddd985180b2808fb751316ccdc778e6618a287e65724",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -118,11 +142,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/mouse/normal.svg"
     },
     {
       "file": "assets/animals/panda/normal.png",
-      "sha256": "9707d0273eab006f13583d03e451dc402edbd844ff9364f00150538545629683",
+      "sha256": "c30afb1d37f67ca67755aa39baba17c654c5ca2756fe06c79191bc291fa02efc",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -131,11 +158,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/panda/normal.svg"
     },
     {
       "file": "assets/animals/rabbit/normal.png",
-      "sha256": "c78dfefd3d9202b7489e509f25c3465cf1aeac7dec204457d6cac6783c52b57a",
+      "sha256": "c90a1b42010df7abfe1576c84647c4fc3bd7c8e2497f49b401a5bb2fc3a182a4",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -144,11 +174,14 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/rabbit/normal.svg"
     },
     {
       "file": "assets/animals/raccoon/normal.png",
-      "sha256": "26acda9d3541f7b63729f6ffe2d220a482cd37b2ef6f2b5612d4e16c696a5350",
+      "sha256": "a19747978bcfc393762a7047509ed679f90baa0b52dfbdd40b8be5d8af0a22f0",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -157,7 +190,10 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
+      "source_file": "art_source/vector_animals/raccoon/normal.svg"
     },
     {
       "file": "assets/audio/music/forest.wav",
@@ -854,7 +890,7 @@
     },
     {
       "file": "art_source/vector_animals/bear/normal.svg",
-      "sha256": "71a43b9b3704cd9ceac431d8c8904faff2d916ff717b6ed7b7db42440ecdd56c",
+      "sha256": "28ef8bae469dee77327bdb997c0015eaa37e9f8b028246628f4eb68a5104d42b",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -863,11 +899,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/cat/normal.svg",
-      "sha256": "a39e784b8b9114e4a91210e6fec626b4a0a4228f117a9de316f1fbb53c796fd3",
+      "sha256": "7e6ff59c5ba7bcfba881aff82b07023bac2ba56a500cfe53f69294957efb020d",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -876,11 +914,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/dog/normal.svg",
-      "sha256": "9491b65237e285eff61a6e2342ac58884af6614c59efc66192b1e5b02d7811c5",
+      "sha256": "9c5f03303c6839e74be7ff5fd0e9f357f51c8b051537239dd2664a2b04f2b7ae",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -889,11 +929,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/elephant/normal.svg",
-      "sha256": "e33534d254fc784d40e7ecb7f79a6762af191f1871f9da02dbfccec6d41a4354",
+      "sha256": "a629d26bc10f444784b076171283af07ae60a790aaa92a7608d041d6c79b2c4c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -902,11 +944,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/fox/normal.svg",
-      "sha256": "a970671ca54eac58f91627d701e3d0bfd236284be744deee8eee29baf9108047",
+      "sha256": "1b850650af411577fd294519e4174027d67ef3d4919c546fd2319983cc5476f5",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -915,11 +959,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/hamster/normal.svg",
-      "sha256": "ba6b20250e647fe22950e6fe6918b533b86b2da978a8cde23aa49668b78a36ae",
+      "sha256": "60786d2ea0998690b87d85c2bf8667cade54b7edbb1ad1d5ffdedbea2fef00e3",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -928,11 +974,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/koala/normal.svg",
-      "sha256": "c24a49cf07ffa887447f9b6ca180b5212440c26e638615830c09b6f790586e93",
+      "sha256": "2a306107caa0b302a240ddaf63453ccb83605cc93578733ee3e5d384a72fdc37",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -941,11 +989,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/lion/normal.svg",
-      "sha256": "726ec7c8948e4797fe689c10d5c965dfc6168b6b62b723feeac450a5f4fa5dd0",
+      "sha256": "d089f45e1a355d559640bd4e147462be2de19e413e6b7d942a93ddad313b0611",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -954,11 +1004,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/mouse/normal.svg",
-      "sha256": "394ab813ab2a3b9b14b5a668fa8cabcc89f990f8418594c85c998862d41705b7",
+      "sha256": "696d575ba06d8b7d7ff343a3247cecdf0c285229b32ee605934d2ef6cd219a1c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -967,11 +1019,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/panda/normal.svg",
-      "sha256": "e57bd2e4e8e057fe1c6d937bbec4a2d546bec3b524c5efd856387b8b8d2a6940",
+      "sha256": "e8223747bb11029dc919ba5dcb8c439f0a7f44cad4b2f6765cdb4d8a8ad2874f",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -980,11 +1034,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/rabbit/normal.svg",
-      "sha256": "5b2670324e2cecf336ed60619cebb1da55b9c3d0b0802267d55cf3d44b994184",
+      "sha256": "44db6a061cb5e86b02077dbc1deda80db6722ac343cd29dcafe41eda7d771a68",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -993,11 +1049,13 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "art_source/vector_animals/raccoon/normal.svg",
-      "sha256": "4285071a5d7671304ea7582825a67de5f7518975b0640593aa3c4306b5a43062",
+      "sha256": "346e30e36534855855b24567813e3238f9f57001fb057ef1165c577c4bf96eb2",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG code; @resvg/resvg-js 2.6.2 rasterizer; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "license": "Agent-generated project asset; applicable commercial grant not established",
@@ -1006,7 +1064,9 @@
       "attribution": "UNKNOWN: applicable AI provider / supplemental terms not established",
       "modification_and_distribution": "NOT VERIFIED: applicable Arena permission and third-party rights review required",
       "evidence": "tools/generate_animal_vectors.py; tools/render_animal_vectors.cjs; tests/commercial/audit_vectors.py; LICENSE_EVIDENCE.md",
-      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved"
+      "generation_date": "UNKNOWN: prior report says 2026-11-25; Git commit 4e9ac3a records 2026-11-27T08:21:54Z; clock discrepancy unresolved",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service.",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2."
     },
     {
       "file": "addons/crazygames/CrazyGames.gd",
@@ -1274,11 +1334,11 @@
     },
     {
       "file": "art_source/vector_animals/bear/blink.svg",
-      "sha256": "f69c8ee53479bff44114829128bfe04bab9ad6d65eb76cc0b32e73082523bd84",
+      "sha256": "6e4228bca69f44bd89494da45a425ec2b1c8fad06b137245a646bdf8d0651993",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/bear/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1286,15 +1346,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/bear/blink.png",
-      "sha256": "d30436946f35291a09eb65beaf66cb629b6b84ed066cfa134a05bd26fed167d0",
+      "sha256": "7fa5f8cae46e755ca9459a592e0a5af4ef4f8a82e7adccb152039b9b17f14a49",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/bear/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1302,15 +1363,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/bear/happy.svg",
-      "sha256": "6d53254325d15241c455540e9815f98f1cf9a1e514bdadb4f9e9b5fd877a61f3",
+      "sha256": "b99d7f8bc831b8e8474f0c7d173181bd4fa882f2b63bd1026a246b1b7fc1624d",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/bear/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1318,15 +1380,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/bear/happy.png",
-      "sha256": "f1198b5d953bdf075f41353d9bc91b1fff76ae31cabd589f3f7c24a2b7fbd713",
+      "sha256": "1343ee75d6d618f4b05b331a2700e65ffbc84439831105f51c0288da80010b86",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/bear/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1334,15 +1397,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/bear/surprise.svg",
-      "sha256": "44ec54e608922c8a477fa443df0f08b538e3e07456ba8fbfb81ab062728e00c9",
+      "sha256": "4afc53b336fe2c4ff18452374fb9ba982fb7d4355f71087232f56e445ad8493a",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/bear/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1350,15 +1414,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/bear/surprise.png",
-      "sha256": "42ebb1d1806e5b63702cf8ded0343d362fb296307c12fb3437f47ea0a5f89975",
+      "sha256": "ed4d983be7a1d9e5b9e86b0f4dbe733a2c7339175dd78a3756481eca2a6c1ea0",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/bear/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1366,15 +1431,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/cat/blink.svg",
-      "sha256": "c2974e16e29a8671335fe608084916d37f5bc572a3ce3dc11c36a394f3da6814",
+      "sha256": "0a0d0306d63a2812511dcd86d98bd320ca6fa6c5f03c1865cc13a9e7304b32ed",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/cat/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1382,15 +1448,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/cat/blink.png",
-      "sha256": "fa9f47592946322dc3941babef8d52308a42c69a36f0ea12d1f5452908aa1494",
+      "sha256": "cbbadceff3d7213937c0ecb519367ab335fa3e885fe3a9423296bdce3efee680",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/cat/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1398,15 +1465,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/cat/happy.svg",
-      "sha256": "b656ca4506a5b4df2317e0d426887f60aa824fdec097c279723930180ce257ca",
+      "sha256": "b93aa398cbcc50b660c004247c9efa0ff98b613fd809fa04cc47fc98a49c803f",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/cat/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1414,15 +1482,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/cat/happy.png",
-      "sha256": "05607beaac266b3371e9cf5f74c4dbf1d490ad539378b8a3b147f5b8d64e053e",
+      "sha256": "a35b440025f9682ec17041f0b1ccbacd585fe78a17bf71bf9f4df25d7d0150d3",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/cat/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1430,15 +1499,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/cat/surprise.svg",
-      "sha256": "85313e895f6071a9a381ffb470156d0e90691a924b66af01138f017cee3c8f3d",
+      "sha256": "f1c97c9451415fb7ddbee634b7bc92a9445ea41d1c744108692b77dd3bc666b7",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/cat/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1446,15 +1516,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/cat/surprise.png",
-      "sha256": "853d2d65be8de71bd586c743736f4cfeef6b8d1a2ebf3e5658df900ef693f55d",
+      "sha256": "6f663a7f8cbbbafd3122901976b1bba973ca01d65e15f5cec5fe78c54287fc45",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/cat/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1462,15 +1533,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/dog/blink.svg",
-      "sha256": "a93c4dfcc87bd0c1952e5a2af7d6d0a0c0e235da176537b0ea47cb050af77550",
+      "sha256": "840207a67666204fa3769e5aa6a6471c6bb3c85b0986b597d7b7ca305c456194",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/dog/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1478,15 +1550,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/dog/blink.png",
-      "sha256": "917f4f919ed1fff3291739a17eb8142817d81605e5f79f5edc19f4eddd11432a",
+      "sha256": "0319f1ea1cd8490ed1c1994b8cea7a8c50f2c72e66af31149062178fd25f650b",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/dog/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1494,15 +1567,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/dog/happy.svg",
-      "sha256": "5fcc364e99a7239f7f2776c0dcde07827c559f5dd605d630c935f6997d40ad54",
+      "sha256": "f80f1e74a139ec63001746696eb4ccd0fb6950c89a1299146031aad218fab53d",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/dog/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1510,15 +1584,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/dog/happy.png",
-      "sha256": "abc890efa4ac96bdfd51bfaf78b03eefbeffc32b2893a9d2932e8dadce321b18",
+      "sha256": "6f06ca6fe10644cc3d3ba3b514d894017c27df7eefab03798b40a7a80e016929",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/dog/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1526,15 +1601,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/dog/surprise.svg",
-      "sha256": "a0477ddb1169962dc4d7a21370bdcb5bb65b4be3d185fe8859800c6ea202432c",
+      "sha256": "fb43de75c687fe635f5cf289d870ea38b7974445dcb7008f1eb6499e95866192",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/dog/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1542,15 +1618,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/dog/surprise.png",
-      "sha256": "5c5fa4cd14aa8fbcf409cd3fc8cca98d1b7556a793d427458fdff5ec04f1ed58",
+      "sha256": "40d7276f8ecaa226585e69d090dae6067c16eaccecaee02f60439011978d9584",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/dog/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1558,15 +1635,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/elephant/blink.svg",
-      "sha256": "a56c79ec08307cdb1423518becb304b4787b7cb6502eedb3bbd41a4b33a15794",
+      "sha256": "fd547581fa80276b57128bc8240a6bb2accd6292b9dac32b2f02f66562838f95",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/elephant/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1574,15 +1652,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/elephant/blink.png",
-      "sha256": "ea6ca52b9dc4f043bea806f5d6132f4d621417719f1c74e680ba891001299d07",
+      "sha256": "381f36a7e53777d2435c46696d0ccf202eba1f8cd7d5f8f3fca0f075a30eee82",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/elephant/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1590,15 +1669,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/elephant/happy.svg",
-      "sha256": "2dc5680b099a9d87d647ba177bf21d8ff056f1368765cbf07d9b0f3d84e25184",
+      "sha256": "8f7ed694ab0f05950d35bc65d77a95cbe5e6f501c949ab9e8d4d0493562e5b93",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/elephant/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1606,15 +1686,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/elephant/happy.png",
-      "sha256": "39507c990208e751ee71af6ec62ce792ef8facf9d1cf287de2f30e87f963785b",
+      "sha256": "562c7886a8de1926daa8521f98f033a35dbc9fe2ae733ad72bd432e4ce2452e5",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/elephant/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1622,15 +1703,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/elephant/surprise.svg",
-      "sha256": "fa457b506968a5dbd0626cfa2faf8ec397e0da04a766882c39089702639d923c",
+      "sha256": "8ad7b34d2074860f400fe4510c5a7529fc74344b696ff0ac752d3fdb4069b1f8",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/elephant/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1638,15 +1720,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/elephant/surprise.png",
-      "sha256": "49e1b75e97c67d4dc6653afc3f43cfca0b968f5532ecdd9c2e3832a3aabdccbb",
+      "sha256": "b5d9bbbea800a13f932e5c5a3f51e03d231d29866ba52faf8f54cac22ea122cf",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/elephant/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1654,15 +1737,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/fox/blink.svg",
-      "sha256": "2561a058566d80a68f02451f8985a0842e29e6fe25be80d70b3d14003f42a595",
+      "sha256": "19265bfe1cf615c9349a41b524cb448bce5bc4ce5c783b0c736252d9d0ec1076",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/fox/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1670,15 +1754,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/fox/blink.png",
-      "sha256": "8930154087029f343b5a85a53b6ff12266364edc461b67aabaee09a4527c80ed",
+      "sha256": "c7f4fff15fc8ec6462def3dd32daebfe48f53c475cb71dfc0d571442d26e8ca8",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/fox/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1686,15 +1771,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/fox/happy.svg",
-      "sha256": "137e9a999d0e7ca0864d34b0bc203aa7df07673408c5c73d2a428a9b210c5d16",
+      "sha256": "f716821b8b423f50383de8d9127024b7b017cf5b5b9e15c7b4735a5b4ac07b1a",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/fox/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1702,15 +1788,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/fox/happy.png",
-      "sha256": "92b28ba977ad434d53fe767ebb33dd9c667243e251c15e4c4e78dfa36f780cf6",
+      "sha256": "01727153818628557926657d6ff83fdbf95e74276909f92d7e528c9d0c9312e0",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/fox/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1718,15 +1805,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/fox/surprise.svg",
-      "sha256": "0c9a60b7f4ac115f3b4be5b1cdb54c54e7ad1b94bfdd6447f1908504fc672155",
+      "sha256": "66f452d2ee75d6d7fcaa2155297cb25d1bb09227a1d404eaa22c1ca6214146b5",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/fox/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1734,15 +1822,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/fox/surprise.png",
-      "sha256": "16c07c2d3d0f71c32f6b96afe4849d8b147212f906e56743c9fc9f54fb6bff2b",
+      "sha256": "5720b4a5054ae3bc1003c042fff5c1e31e7bc2e57f2a5bd80fed7872930dfc5f",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/fox/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1750,15 +1839,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/hamster/blink.svg",
-      "sha256": "0858af1d093c00c5dadd1d14ccc18cf6d0145e06a09d05ef88c016772d0f7703",
+      "sha256": "3da72a31fa0806f223f5d1fb9dfb6d6d5f0b2dd76781644549d4905e69b84f84",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/hamster/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1766,15 +1856,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/hamster/blink.png",
-      "sha256": "9f059ddd03d53158171051724b36c8a35a4a9585ec79721c203070ac38a4783b",
+      "sha256": "2c0f26f868eee67d2bcc9d32941d78bfb5535909980629d5fba5e277df3db500",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/hamster/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1782,15 +1873,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/hamster/happy.svg",
-      "sha256": "d5972f30382d3d51bc2c9bebf44d496e8542e65817e5945d2aec48d8df19cb17",
+      "sha256": "9285406515c9834fe78ec806db24c81f6a92943625d4310edce140741ed695e6",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/hamster/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1798,15 +1890,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/hamster/happy.png",
-      "sha256": "4041ea2b40c922feb27da41cad81d65b99489d396d697e1edc8a110e2b5e9b81",
+      "sha256": "b1214f8a43f8344844886b9c9500e9b9a158432e492e7b5cc84f5a0c8fd775f0",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/hamster/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1814,15 +1907,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/hamster/surprise.svg",
-      "sha256": "f8bf3d9be71f1308ea3bd7649952251e63396d93289f73aedd859212bb9119b4",
+      "sha256": "48449373d8426e34efa8e223250757770e2df4b2e63768f5a14ee5c3959e312b",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/hamster/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1830,15 +1924,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/hamster/surprise.png",
-      "sha256": "a66c7a5ede4427d4f9783b468f6029b7e7fbec782f6678a34717951a6261eaac",
+      "sha256": "384fbaf37c8be8158ed8875f593fc1d74ad35fdbab3fd86067b1a01c4a6fae71",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/hamster/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1846,15 +1941,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/koala/blink.svg",
-      "sha256": "8554d923f17f69f44d7a7a714f3e2f71f0a84e34058b5934626db11a061cb22f",
+      "sha256": "50b5b6088b27db476997771fe54d0156924e535fb34e97b555af216c7babf036",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/koala/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1862,15 +1958,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/koala/blink.png",
-      "sha256": "1919e697e98aa5e4d73d522e8e21aed98e810ff36a36f24f5c3b7afa5bb72ccd",
+      "sha256": "d5355bcf12b5c7673c980af65aee42015e3f56322e87e0ae28256739b158f493",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/koala/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1878,15 +1975,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/koala/happy.svg",
-      "sha256": "504858b530e9eaa9660cea54e9969f1a457068332e1699860975f1397ee3a675",
+      "sha256": "eef253087bd30c1a8b900762080f84df9bfa1aacd4a42bc4e6f5f0413480e67a",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/koala/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1894,15 +1992,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/koala/happy.png",
-      "sha256": "7b10ade93abd1a44b9aff075a1c7a44f40eb761784de34b93f11ad1fa41313e6",
+      "sha256": "20016e5433d8b1dd4f1a79e899bb770f398d0a2d8422fa9efd5444ffed3857ca",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/koala/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1910,15 +2009,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/koala/surprise.svg",
-      "sha256": "760573155a8fcd4469f8cf5949ac6439aa794adceed5953a15b0868b05a87db1",
+      "sha256": "f5b3464952c1c26a6a51e632ae2ef31e93ff9e51b69c2dbc9acbb05745a5181b",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/koala/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1926,15 +2026,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/koala/surprise.png",
-      "sha256": "0a9d1dc60965738a4071755830220d722ce584c188f7e21d31c4e6f70528409f",
+      "sha256": "fbe163a9522df326211de86cf72e8ccca689df236729a5cd140d8d09269b7884",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/koala/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1942,15 +2043,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/lion/blink.svg",
-      "sha256": "931878c6fe81577d2e1de4d8e6fe32a76d76c9958810f5fbfafcafda2f71452d",
+      "sha256": "758d47a79b7dab898b53c356555c437ce12f4146b0ee3a3312f1a4fe23217aa1",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/lion/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1958,15 +2060,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/lion/blink.png",
-      "sha256": "9ef53f8aef76432d839ebb3f1295f4452ae4ad876888b5b1a9ca2ad8c824824a",
+      "sha256": "85b341c7587778cb60596c5400c30e9ddf4da850c608df0d0610f2d876ad525e",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/lion/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1974,15 +2077,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/lion/happy.svg",
-      "sha256": "856eb3aca5d6e5040d2cc564f35e7b0f6496a789669699177c20c3878a6b5dd0",
+      "sha256": "de7cd242c3afeda94ef72ff5a20ed22c8cd264d41975ab7d88455daa9dc01a4a",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/lion/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -1990,15 +2094,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/lion/happy.png",
-      "sha256": "7e2ac945b520182f5520e8706eca631e6c22df3b3238dd0f1635021cdc284272",
+      "sha256": "2814526d438261570f7dcf26015f23f6cd3a97a125e5758adf0dab16f950360c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/lion/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2006,15 +2111,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/lion/surprise.svg",
-      "sha256": "e284a58209386e0a2553e800b6dae8098ae7f6999fb645ad680c0573b4eb6b8a",
+      "sha256": "0347dba70a091db1ddc7ecb8cfc0f208f909e9fbb7513cb7c120144a743d9479",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/lion/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2022,15 +2128,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/lion/surprise.png",
-      "sha256": "c32bfac278066f657ec1cd97520745f14dd31cbf15b497ed11a2275cb27f53b7",
+      "sha256": "f403dc447139e63111fa425e9741f6a7325d7028fe63bdc5775b7f1cd9c80b06",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/lion/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2038,15 +2145,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/mouse/blink.svg",
-      "sha256": "3d0f010bc2663fd563eb7f313aac3de5c3a9df02609abe8d5c57eb04e27b353d",
+      "sha256": "1e29bb7f052febe01a6506625ce084946d1c32810942fe19e0fecac90202f07f",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/mouse/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2054,15 +2162,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/mouse/blink.png",
-      "sha256": "3d913adf0244174c6e5fee831e32dff01c3dbf3262aebb85b864b44104af8d38",
+      "sha256": "658b5222251477286add4174317ed333852099c6995d056ab197056f9b98eda7",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/mouse/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2070,15 +2179,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/mouse/happy.svg",
-      "sha256": "dfe68fce3c69411ebe7120b5071304d4fea05085da01d9be9cf1d4b5ad4b893b",
+      "sha256": "4a7a42f8f6d492275b2786a8a6074aab4f813ed31d59b5b0d8c77d8925a8c63c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/mouse/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2086,15 +2196,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/mouse/happy.png",
-      "sha256": "5c270a1189ee4dd8a1b0f56f4dec2333f31145c9891dd90177e4291d4550628b",
+      "sha256": "7d7b99664f4282994d68e19476e595cda0227314fca913bef0eb106e83c75d2e",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/mouse/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2102,15 +2213,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/mouse/surprise.svg",
-      "sha256": "de7a1b1cf29dd1dfaf6f71d2de9751cb67504b224dff5475520d3a2b232c65bd",
+      "sha256": "b982962935c9c6acf3f16c0853304dfe406bf9267e040ebc089d37e3b36264e6",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/mouse/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2118,15 +2230,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/mouse/surprise.png",
-      "sha256": "8f8b4ab67529be9d5d9a0a7f9db8bf47ecdadf0904db4631854fdb7b8fa34602",
+      "sha256": "26d6375eca4fc8e8f6d26fb44317301af70ec9c89f00a0b19211aa2b3b4abe6c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/mouse/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2134,15 +2247,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/panda/blink.svg",
-      "sha256": "110e2afdcf21dc66c57d0e940c4c9c1e4f5a89c4e45f13291f87bd7b43265704",
+      "sha256": "d759ae1ea10d536752b5f62f2674e01d368a7adeca413f4c46a423205b47c3c5",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2150,15 +2264,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/panda/blink.png",
-      "sha256": "963581c50363db7fe9a28a93c22108cb9b270060bccc3dc761d1675df7b9dc53",
+      "sha256": "9117e2b81322f79423c07d4a6ee74c193c3da92402a4e3b39ecdb3a8244db420",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2166,15 +2281,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/panda/happy.svg",
-      "sha256": "e73ee19c4383c3380cf91b776a2242c5d45507efbdaf5742280b6056c6e96fbe",
+      "sha256": "3ed82f6594dcfe9095c6ab1d6f1fa71cfb7faabe395be4ad76a9c06676ba2159",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2182,15 +2298,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/panda/happy.png",
-      "sha256": "cad98a3459f6523cf945c99af2747f68bf5b909a509b9c01bc7768547441903c",
+      "sha256": "9237d562e8e534c9c96341342d4f16a06469d1d4e493ca2d9d3b60395a50160c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2198,15 +2315,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/panda/surprise.svg",
-      "sha256": "34ea8d900b52fde9cac2202b62c0b47d47f2e8086d72caf5e8341026b7d3411f",
+      "sha256": "32bcbb0b91e95737ea11bb02d83c03bc9bbd74d3b32a81695ef2092cda2b162c",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2214,15 +2332,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/panda/surprise.png",
-      "sha256": "96617adccb4d4c6ffbc3bce101840849ae2fad1d948474e1cfff29ab2eae921d",
+      "sha256": "70c4c192971149272b3a0c41f5128919badaaebd8b3175534362389119f89997",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/panda/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2230,15 +2349,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/rabbit/blink.svg",
-      "sha256": "546a98c7cbe025ebc81e5fda0ac468cd403a15bb9493d51096e07d38efd4c688",
+      "sha256": "e2c9bb9e618ebdc8884eb1d062dbfdb5eaf4ebc110f78870707c68679ee59e94",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/rabbit/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2246,15 +2366,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/rabbit/blink.png",
-      "sha256": "c744079521a200f0b2eac702a4cf4a2d6a163bbf9d4813c0971bed8c23aba479",
+      "sha256": "9df37aa3c89dc5a71ae0f2d6bad000ff62d6fd445509dbdddb2d63d74025de8e",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/rabbit/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2262,15 +2383,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/rabbit/happy.svg",
-      "sha256": "382b7e2bbf8377861dd5023d288f1bde217287f4091982a8ea4f80507dd9e5aa",
+      "sha256": "5f550c015704272c13be5e16f44126887c4582e1fa21ea6e659368d33d741a76",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/rabbit/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2278,15 +2400,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/rabbit/happy.png",
-      "sha256": "10148c4cbae4b86d86ce47af5df62b59f3337e4002de7de4863fb162e04c20fb",
+      "sha256": "81228feca22d4933aafac243e7af004870bf599cb69fef9875bfa10692ce79e2",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/rabbit/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2294,15 +2417,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/rabbit/surprise.svg",
-      "sha256": "2fe0d6818ae7ce0b8f5c7c43bdd0402bb4a05ad5525daf61a08629e1a3481028",
+      "sha256": "f047ef2383e2cc87a5056ea7c64aed15b64959129c93e753643d356ddd7f3250",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/rabbit/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2310,15 +2434,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/rabbit/surprise.png",
-      "sha256": "723eb29d9ebc9d76ef69f7840ea59d5b55149cccf2c0be548dbd68a93eddc3d8",
+      "sha256": "e81c5cd7fa1bc20a29dcb94866e27ff245595e2769c9f3a59be28e5a4cc26164",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/rabbit/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2326,15 +2451,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/raccoon/blink.svg",
-      "sha256": "1a4c0d7d4409e7c9956b63ec8e74b14e51cfdd8aba08a75b067ddc124fc008e7",
+      "sha256": "28b1b62d0246141e53fea2c050ab5fa5a254a2de7c1cad4c2b18df8010c3e739",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/raccoon/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2342,15 +2468,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/raccoon/blink.png",
-      "sha256": "2000e83fe5f90321a2827e910e1ad6e38158437f5bb841423861c2a78139f2e3",
+      "sha256": "59215c3d03606eb7e7c47a3564ad51428664a7bf3658948eeac391eace7b0a11",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/raccoon/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2358,15 +2485,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/raccoon/happy.svg",
-      "sha256": "f026adab46707f9f5b5d5682128d49c5166fbc55263ab4219549641419bc01e3",
+      "sha256": "bc917ad3ef45e019d5e8bbb13076216ad1fc2b15327b91cf59c6eea4649f4e29",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/raccoon/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2374,15 +2502,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/raccoon/happy.png",
-      "sha256": "ffacb763f685d20d63c32048f6037d1129b702357bde3ef4142698594912ef76",
+      "sha256": "36574b79c1286466097f7d8081dd5e1f1a347bc7b087182d0bba0cdb44dfb142",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/raccoon/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2390,15 +2519,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "art_source/vector_animals/raccoon/surprise.svg",
-      "sha256": "827f34c29c4c246eb55a6897a0d1e55ad30a50acd40c8b2ce3a5394a8b7d6d85",
+      "sha256": "9bfcc1b58b7e8610a7f7f4370a4afe6ceac625bab25fa12eca12e011eaf624b1",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/raccoon/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2406,15 +2536,16 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/animals/raccoon/surprise.png",
-      "sha256": "936821d0aa5882a2005ad6061c1274e22953a4f95ab30cf294d7eb1c15a937fc",
+      "sha256": "dc408f48a15125071d3fdaf3e7147423b326cf670f690e4386001c2cb0d93e05",
       "creator_or_generator": "Arena Agent Mode authored deterministic SVG transformation; @resvg/resvg-js 2.6.2 for PNG; model/provider UNKNOWN",
       "source_url": "https://help.arena.ai/articles/5629909088-terms-of-use",
       "source_file": "art_source/vector_animals/raccoon/normal.svg",
-      "generation_method": "programmatic vector geometry edit; 256px rasterization for PNG; no external image generation service",
+      "generation_method": "Deterministic authored SVG geometry via tools/generate_animal_vectors.py and generate_expression_vectors.py; PNGs rasterized with @resvg/resvg-js 2.6.2.",
       "prompt": "User V0.9.0.4: true eye-only blink; happy and surprise expressions in existing unified character style",
       "license": "Agent-generated private project asset; applicable commercial grant not established",
       "status": "BLOCKED",
@@ -2422,7 +2553,8 @@
       "attribution": "UNKNOWN provider / supplemental terms",
       "modification_and_distribution": "NOT VERIFIED; applicable permission required",
       "evidence": "tools/generate_expression_vectors.py; tools/render_expression_vectors.cjs; LICENSE_EVIDENCE.md",
-      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)"
+      "generation_date": "2026-11-25 (session date; runner clock discrepancy not resolved)",
+      "modification_note": "V0.9.0.4 follow-up: project-authored SVG layer grouping and facial/fur detailing; expression variants regenerated. No external imagery or image-generation service."
     },
     {
       "file": "assets/ui/icons/play_light.svg",
