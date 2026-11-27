@@ -4,6 +4,7 @@ const FOREST := preload("res://assets/backgrounds/forest_garden.svg")
 const THEME := preload("res://assets/ui/themes/forest.tres")
 const SETTINGS := preload("res://scenes/ui/SettingsPanel.tscn")
 const GAME := "res://scenes/game/Game.tscn"
+const DESIGN := preload("res://scripts/ui/GardenDesign.gd")
 const DECOR := [preload("res://assets/animals/mouse/normal.png"), preload("res://assets/animals/cat/normal.png"), preload("res://assets/animals/elephant/normal.png")]
 var play_button: Button
 var settings_button: Button
@@ -22,6 +23,7 @@ func _ready() -> void:
 func _build() -> void:
 	var card := PanelContainer.new()
 	card.offset_left = 105; card.offset_right = 615; card.offset_top = 530; card.offset_bottom = 1200
+	card.add_theme_stylebox_override("panel", DESIGN.surface(ThemeStore.current_index()))
 	add_child(card)
 	if not bool(SettingsStore.load_values().reduced_effects):
 		card.modulate.a = 0.0
@@ -46,7 +48,7 @@ func _build() -> void:
 	challenges.pressed.connect(func(): get_tree().change_scene_to_file("res://scenes/ui/ChallengeSelection.tscn"))
 	settings_button = _button("Settings", "SETTINGS", "settings", 70); list.add_child(settings_button); settings_button.pressed.connect(_settings)
 	best_label = Label.new(); best_label.name = "Best"; best_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	best_label.add_theme_font_size_override("font_size", 27); best_label.add_theme_color_override("font_color", Color("f3ecd7")); list.add_child(best_label)
+	best_label.add_theme_font_size_override("font_size", 24); best_label.add_theme_color_override("font_color", DESIGN.INK); list.add_child(best_label)
 	_refresh_best()
 	if bool(get_tree().get_meta("continue_error", false)):
 		get_tree().remove_meta("continue_error")
@@ -58,6 +60,7 @@ func _button(node_name: String, key: String, icon: String, height: float) -> But
 	button.icon = load("res://assets/ui/icons/%s.svg" % icon)
 	button.custom_minimum_size.y = height; button.add_theme_font_size_override("font_size", 27)
 	button.expand_icon = true; button.add_theme_constant_override("icon_max_width", 44)
+	DESIGN.menu_button(button, ThemeStore.current_index(), node_name == "Play")
 	return button
 
 func _refresh_best() -> void:

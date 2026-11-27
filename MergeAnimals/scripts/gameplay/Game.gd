@@ -21,6 +21,7 @@ enum GameState { PLAYING, PAUSED, GAME_OVER }
 @export var debug_enabled: bool = false
 @export var persist_best: bool = true
 @export_enum("Forest Garden", "Sunset Safari", "Snowy Valley") var visual_theme: int = 0
+const GARDEN_DESIGN := preload("res://scripts/ui/GardenDesign.gd")
 const THEME_BACKGROUNDS = [preload("res://assets/backgrounds/forest_garden.svg"), preload("res://assets/backgrounds/sunset_safari.svg"), preload("res://assets/backgrounds/snowy_valley.svg")]
 const THEME_BOARDS = [Color("a67850"), Color("b3825e"), Color("78999d")]
 const THEME_INSIDE = [Color("f7ebcf"), Color("f9ead5"), Color("ebf1ea")]
@@ -132,6 +133,7 @@ func _ready() -> void:
 	effect_camera = Camera2D.new(); effect_camera.position = Vector2(360, 640); add_child(effect_camera)
 	visual_theme = ThemeStore.current_index()
 	$HUD.theme = ThemeStore.ui_theme()
+	_add_hud_surfaces()
 	reduced_effects = saved_settings.reduced_effects
 	pieces.process_mode = Node.PROCESS_MODE_PAUSABLE
 	merge_manager.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -1378,6 +1380,19 @@ func _update_preview() -> void:
 	current_preview.visible = is_playing() and _can_aim()
 	current_preview.position = Vector2(aim_x, spawn_height)
 	queue_redraw()
+
+# Decorative, non-interactive surfaces sit behind the existing HUD controls.
+# They never cover the board, change touch hit targets or alter game state.
+func _add_hud_surfaces() -> void:
+	for spec in [["ScoreSurface", Rect2(80, 94, 260, 92)], ["NextSurface", Rect2(360, 100, 280, 88)]]:
+		var panel := Panel.new()
+		panel.name = spec[0]
+		panel.position = spec[1].position
+		panel.size = spec[1].size
+		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.add_theme_stylebox_override("panel", GARDEN_DESIGN.surface(visual_theme, true))
+		$HUD.add_child(panel)
+		$HUD.move_child(panel, 0)
 
 func _update_hud() -> void:
 	current_preview.data = current_data
