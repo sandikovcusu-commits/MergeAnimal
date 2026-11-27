@@ -29,7 +29,8 @@ func setup(cmd: Dictionary) -> void:
 	var game = get_tree().current_scene
 	if not game or not game.has_method("create_animal"):
 		finish(int(cmd.id), {"error":"game scene not ready"}); return
-	game.persist_best = false
+	# Preserve normal Web status/overlay behavior in the isolated browser profile.
+	# Only fixture bodies and danger monitoring are synthetic.
 	game.danger_monitor.set_physics_process(false)
 	var positions := [Vector2(373,1064), Vector2(606,798), Vector2(143,535), Vector2(421,1017), Vector2(136,796), Vector2(579,1026), Vector2(552,715), Vector2(382,786), Vector2(502,901), Vector2(453,587), Vector2(251,647), Vector2(237,949)]
 	for index in range(12):
