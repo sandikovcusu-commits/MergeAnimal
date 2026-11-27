@@ -16,6 +16,10 @@ on:
       merge_probe:
         description: 'Dense merge fixture expectation: none, baseline or fixed'
         default: 'none'
+      trace_compare:
+        description: Compare approximate old Firefox trace against exact baseline scripts
+        type: boolean
+        default: false
       merge_stress:
         description: Run synthetic 100 seed merge stress at 10, 20 and 40 bodies
         type: boolean
@@ -95,6 +99,17 @@ jobs:
           fi
           if [[ "${{ inputs.merge_stress }}" == 'true' ]]; then
             run_test 'merge stress 100 seeds' --fixed-fps 60 --script res://tests/integration/merge_stress.gd
+          fi
+          if [[ "${{ inputs.trace_compare }}" == 'true' ]]; then
+            TRACE_EXPECT=fixed run_test 'Firefox trace approximate fixed' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd
+            git fetch --depth=1 origin 5285aa036331a12ebf97f5c78024ceaf2a5f1d0a
+            cp -a MergeAnimals /tmp/old-trace-project
+            git show 5285aa036331a12ebf97f5c78024ceaf2a5f1d0a:MergeAnimals/scripts/gameplay/Game.gd > /tmp/old-trace-project/scripts/gameplay/Game.gd
+            git show 5285aa036331a12ebf97f5c78024ceaf2a5f1d0a:MergeAnimals/scripts/managers/MergeManager.gd > /tmp/old-trace-project/scripts/managers/MergeManager.gd
+            echo '===== Firefox trace approximate baseline =====' | tee -a /tmp/godot-test-log.txt
+            TRACE_EXPECT=baseline timeout 120 "$GODOT" --headless --path /tmp/old-trace-project --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd >> /tmp/godot-test-log.txt 2>&1
+            code=$?; echo "exit=$code" | tee -a /tmp/godot-test-log.txt
+            if [ "$code" -ne 0 ]; then status=1; fi
           fi
           cat /tmp/godot-test-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL([ :]|$)' /tmp/godot-test-log.txt; then status=1; fi
