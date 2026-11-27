@@ -113,8 +113,14 @@ jobs:
             pactl set-default-sink qa_audio
           fi
           if [ "$UI_MODE" = perf ]; then
-            cp -a MergeAnimals /tmp/perf-qa-project
-            cp /tmp/perf-qa-project/tests/performance/PerfProbe.gd /tmp/perf-qa-project/scripts/PerfProbe.gd
+            if [ "$PERF_BASELINE" = true ]; then
+              git fetch --depth=1 origin 32d50e50d87c5903287fe2b823ac0239fe2c2405
+              mkdir -p /tmp/perf-old; git archive 32d50e50d87c5903287fe2b823ac0239fe2c2405 MergeAnimals | tar -x -C /tmp/perf-old
+              cp -a /tmp/perf-old/MergeAnimals /tmp/perf-qa-project
+            else
+              cp -a MergeAnimals /tmp/perf-qa-project
+            fi
+            cp MergeAnimals/tests/performance/PerfProbe.gd /tmp/perf-qa-project/scripts/PerfProbe.gd
             sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/perf-qa-project/project.godot
             mkdir -p /tmp/web-test/perf-qa
             "$GODOT" --headless --path /tmp/perf-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1

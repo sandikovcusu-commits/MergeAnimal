@@ -22,8 +22,13 @@ func _process(delta: float) -> void:
 				setup(game, str(cmd.get("mode", "")))
 			JavaScriptBridge.eval("window.__perfAck=" + str(last_id))
 	if not game or not game.has_method("create_animal"): return
+	if mode == "chain":
+		for animal in game.pieces.get_children():
+			if animal.data.level == 2 and not animal.merge_locked:
+				animal.gravity_scale = 0.0
+				animal.linear_velocity = Vector2(90 if animal.position.x < 350 else -90, 0)
 	elapsed += delta
-	if mode in ["collision", "chain", "golden", "effects", "reduced"] and elapsed >= (0.2 if mode in ["effects", "reduced"] else 3.0):
+	if mode in ["collision", "chain", "golden", "effects", "reduced"] and elapsed >= (0.05 if mode in ["effects", "reduced"] else 4.0 if mode == "chain" else 3.0):
 		elapsed = 0.0
 		if mode == "collision":
 			for animal in game.pieces.get_children():
@@ -37,7 +42,7 @@ func _process(delta: float) -> void:
 	sample += delta
 	if sample >= 1.0:
 		sample = 0.0
-		var monitor := {"physics_s":Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS), "process_s":Performance.get_monitor(Performance.TIME_PROCESS), "draw_calls":Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), "static_bytes":Performance.get_monitor(Performance.MEMORY_STATIC), "objects":Performance.get_monitor(Performance.OBJECT_COUNT), "nodes":Performance.get_monitor(Performance.OBJECT_NODE_COUNT), "bodies":game.pieces.get_child_count(), "merges":game.merge_manager.merge_count, "effects":get_tree().get_nodes_in_group("visual_effects").size(), "audio_latency_s":Performance.get_monitor(Performance.AUDIO_OUTPUT_LATENCY)}
+		var monitor := {"physics_s":Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS), "process_s":Performance.get_monitor(Performance.TIME_PROCESS), "draw_calls":Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), "static_bytes":Performance.get_monitor(Performance.MEMORY_STATIC), "objects":Performance.get_monitor(Performance.OBJECT_COUNT), "nodes":Performance.get_monitor(Performance.OBJECT_NODE_COUNT), "bodies":game.pieces.get_child_count(), "merges":game.merge_manager.merge_count, "highest_level":game.highest_level, "effects":get_tree().get_nodes_in_group("visual_effects").size(), "audio_latency_s":Performance.get_monitor(Performance.AUDIO_OUTPUT_LATENCY)}
 		JavaScriptBridge.eval("window.__perfMon && window.__perfMon.push(" + JSON.stringify(monitor) + ")")
 func setup(game, scenario: String) -> void:
 	mode = scenario
@@ -56,6 +61,13 @@ func setup(game, scenario: String) -> void:
 		get_node("/root/AudioManager").reduced_effects = true
 func make_merges(game, scenario: String) -> void:
 	if not is_instance_valid(game): return
+	if scenario == "chain":
+		var first = game.create_animal(game.animals[0], Vector2(250, 700))
+		var second = game.create_animal(game.animals[0], Vector2(278, 700))
+		var next = game.create_animal(game.animals[1], Vector2(420, 700))
+		first.gravity_scale = 0.0; second.gravity_scale = 0.0; next.gravity_scale = 0.0
+		game.merge_manager.request_merge(first, second) # deterministic initial pair; next-level collision is physical
+		return
 	var index: int = game.animals.size() - 1 if scenario == "golden" else 0
 	var n := 2 if scenario == "golden" else 4
 	for i in range(n):
