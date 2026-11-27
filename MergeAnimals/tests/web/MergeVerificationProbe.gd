@@ -107,7 +107,12 @@ func dispatch(cmd: Dictionary) -> void:
 				if row == 1 and col == 3: danger_b = body
 		var danger_mid: Vector2 = (danger_a.position+danger_b.position)*0.5
 		var danger_point: Variant = game.find_merge_position(danger_mid,game.animals[1].radius,danger_a,danger_b)
-		rows.append({"scenario":"danger_crossing","x":danger_mid.x,"y":danger_mid.y,"result_x":danger_point.x if danger_point is Vector2 else -1.0,"result_y":danger_point.y if danger_point is Vector2 else -1.0,"distance":danger_point.distance_to(danger_mid) if danger_point is Vector2 else -1.0,"before_danger":danger_mid.y-game.animals[0].radius < game.danger_height,"after_danger":danger_point.y-game.animals[1].radius < game.danger_height if danger_point is Vector2 else false})
+		var danger_reserved: bool = game.merge_manager.request_merge(danger_a,danger_b)
+		game.merge_manager._commit_pending()
+		var result_body: Animal
+		for body in game.pieces.get_children():
+			if body.data.id == &"hamster": result_body = body
+		rows.append({"scenario":"danger_crossing","x":danger_mid.x,"y":danger_mid.y,"result_x":danger_point.x if danger_point is Vector2 else -1.0,"result_y":danger_point.y if danger_point is Vector2 else -1.0,"distance":danger_point.distance_to(danger_mid) if danger_point is Vector2 else -1.0,"before_danger":danger_mid.y-game.animals[0].radius < game.danger_height,"after_danger":danger_point.y-game.animals[1].radius < game.danger_height if danger_point is Vector2 else false,"reserved":danger_reserved,"committed":result_body != null and result_body.position.distance_to(danger_point) < 0.1,"merges":game.merge_manager.merge_count,"score":game.score})
 		for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
 		var a: Animal = game.create_animal(game.animals[0], Vector2(109,1076)); a.freeze = true
 		var b: Animal = game.create_animal(game.animals[0], Vector2(145,1076)); b.freeze = true
