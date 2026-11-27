@@ -50,6 +50,23 @@ func _ready() -> void:
 	_update_challenge_hud()
 	_update_hud()
 
+func _result_save_message() -> String:
+	if not result_saved: return tr("CH_SAVE_FAILED")
+	if not OS.has_feature("web"): return tr("CH_RESULT_SAVED")
+	var observer := get_node_or_null("/root/SaveDurability")
+	var status: String = observer.state() if observer else "unavailable"
+	match status:
+		"verified": return tr("CH_RESULT_SAVED")
+		"pending": return tr("CHECKPOINT_SAVING")
+		"failed": return tr("CHECKPOINT_FAILED")
+		"unavailable": return tr("CHECKPOINT_UNAVAILABLE")
+		_: return tr("CHECKPOINT_UNCONFIRMED")
+
+func _process(delta: float) -> void:
+	super._process(delta)
+	if result_finished and not achievement_blocked and is_instance_valid(rescue_message):
+		rescue_message.text = _result_save_message()
+
 func _physics_process(delta: float) -> void:
 	if challenge == null: return
 	if is_playing() and not get_tree().paused:
@@ -131,7 +148,7 @@ func _achievement_recovered() -> void:
 		next_button.visible = result_saved and result_success and challenge_id < ChallengeManager.DEFINITIONS.size()
 		$HUD/Overlay/RestartButton.disabled = not result_saved
 		$HUD/Overlay/MainMenuButton.disabled = not result_saved
-		rescue_message.text = tr("CH_RESULT_SAVED") if result_saved else tr("CH_SAVE_FAILED")
+		rescue_message.text = _result_save_message()
 
 func _update_hud() -> void:
 	super._update_hud()
@@ -190,7 +207,7 @@ func _persist_result() -> void:
 	next_button.visible = result_saved and result_success and not achievement_blocked and challenge_id < ChallengeManager.DEFINITIONS.size()
 	$HUD/Overlay/RestartButton.disabled = not result_saved or achievement_blocked
 	$HUD/Overlay/MainMenuButton.disabled = not result_saved or achievement_blocked
-	rescue_message.text = tr("ACH_SAVE_WAIT") if achievement_blocked else (tr("CH_RESULT_SAVED") if result_saved else tr("CH_SAVE_FAILED"))
+	rescue_message.text = tr("ACH_SAVE_WAIT") if achievement_blocked else (_result_save_message())
 
 func _next_challenge() -> void:
 	if achievement_blocked: return

@@ -162,6 +162,26 @@ jobs:
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
           elif [ "$UI_MODE" = save-integrity ]; then
+            # Generate genuine prior-version save files with the historical
+            # project and its own existing write-phase test. Old assets stay
+            # outside all deliverable packages.
+            for pair in v0.6.1:ae7d0ec3185575e0ba834714b8a82f90c925cdee v0.7.0:63f21273fe252824ca552257931ec2aa780a7d4c; do
+              OLD_VERSION="${pair%%:*}"; OLD_COMMIT="${pair#*:}"
+              git fetch --no-tags --depth=1 origin "$OLD_COMMIT"
+              mkdir -p "/tmp/old-$OLD_VERSION" "/tmp/old-user-$OLD_VERSION"
+              git archive "$OLD_COMMIT" MergeAnimals | tar -x -C "/tmp/old-$OLD_VERSION"
+              XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" "$GODOT" --headless --path "/tmp/old-$OLD_VERSION/MergeAnimals" --editor --quit >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1
+              SESSION_PHASE=write XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" timeout 600 "$GODOT" --headless --fixed-fps 60 --path "/tmp/old-$OLD_VERSION/MergeAnimals" --script res://tests/integration/day61_session_process.gd >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1
+              python3 - "$OLD_VERSION" "$OLD_COMMIT" <<'PYFIX'
+          import json,pathlib,sys
+          version,commit=sys.argv[1:]
+          root=pathlib.Path('/tmp/old-user-'+version)
+          paths=[p for p in root.rglob('wild_garden_*') if p.is_file() and not p.name.endswith(('.tmp','.bak.tmp'))]
+          files={p.name:p.read_text() for p in paths}
+          if 'wild_garden_session.json' not in files: raise RuntimeError('historical session missing '+str(root))
+          pathlib.Path('MergeAnimals/tests/web/fixtures/'+version+'-captured.json').write_text(json.dumps({'source':'historical Godot '+commit+' write-phase','files':files},indent=2))
+          PYFIX
+            done
             # Isolated probe build; the standard export above remains unmodified.
             cp -a MergeAnimals /tmp/save-qa-project
             cp MergeAnimals/tests/web/SaveIntegrityProbe.gd /tmp/save-qa-project/scripts/save/SaveIntegrityProbe.gd

@@ -35,6 +35,23 @@ func _process(_delta: float) -> void:
 		var d := SaveManager.save_progress(ach, AchievementManager.CHECKPOINT_PATH, false)
 		var e := SaveManager.save_progress(ach, AchievementManager.PATH)
 		result = [a,b,c,d,e]
+	elif op == "seed_capture":
+		var files: Variant = cmd.get("files", {})
+		var written := []
+		if files is Dictionary:
+			for filename in files:
+				if not str(filename).begins_with("wild_garden_") or "/" in str(filename): continue
+				var f := FileAccess.open("user://" + str(filename), FileAccess.WRITE)
+				if f: f.store_string(str(files[filename])); f.close(); written.append(filename)
+		result = written
+	elif op == "continue":
+		get_tree().set_meta("continue_requested", true)
+		result = get_tree().change_scene_to_file("res://scenes/game/Game.tscn") == OK
+	elif op == "save_live":
+		var game := get_tree().current_scene
+		if game and game.has_method("save_session"):
+			get_tree().paused = true
+			result = game.save_session()
 	elif op == "local_failure":
 		var dir := ProjectSettings.globalize_path(SettingsStore.PATH + ".tmp")
 		DirAccess.make_dir_absolute(dir)
