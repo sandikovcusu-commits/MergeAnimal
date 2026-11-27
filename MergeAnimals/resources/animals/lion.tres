@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="AnimalData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="AnimalData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="1"]
 
 [ext_resource type="Texture2D" path="res://assets/animals/lion/normal.png" id="normal_texture"]
+
+[ext_resource type="Texture2D" path="res://assets/animals/lion/blink.png" id="blink_texture"]
+[ext_resource type="Texture2D" path="res://assets/animals/lion/happy.png" id="happy_texture"]
+[ext_resource type="Texture2D" path="res://assets/animals/lion/surprise.png" id="surprise_texture"]
 
 [resource]
 script = ExtResource("1")
@@ -21,5 +25,8 @@ next_evolution_id = &"elephant"
 golden_terminal = false
 merge_score = 220
 sprite = ExtResource("normal_texture")
+blink_sprite = ExtResource("blink_texture")
+happy_sprite = ExtResource("happy_texture")
+surprise_sprite = ExtResource("surprise_texture")
 placeholder_color = Color(0.843137, 0.682353, 0.407843, 1)
 unlock_id = &"lion"
