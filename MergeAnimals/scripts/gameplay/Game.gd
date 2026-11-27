@@ -262,6 +262,21 @@ func _physics_process(delta: float) -> void:
 	if debug_outlines or remove_selecting:
 		queue_redraw()
 
+var checkpoint_status_elapsed := 0.0
+func _process(delta: float) -> void:
+	if not persist_best or not OS.has_feature("web"): return
+	checkpoint_status_elapsed += delta
+	if checkpoint_status_elapsed < 0.25: return
+	checkpoint_status_elapsed = 0.0
+	var observer := get_node_or_null("/root/SaveDurability")
+	var status: String = observer.state() if observer else "unconfirmed"
+	var label: Label = $HUD/CheckpointStatus
+	label.visible = status != "idle"
+	match status:
+		"pending": label.text = tr("CHECKPOINT_SAVING")
+		"verified": label.text = tr("CHECKPOINT_SAVED")
+		"unconfirmed": label.text = tr("CHECKPOINT_UNCONFIRMED")
+
 func _session_snapshot(include_undo: bool = true) -> Dictionary:
 	var bodies: Array = []
 	for animal in pieces.get_children():

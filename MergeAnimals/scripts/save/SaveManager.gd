@@ -84,6 +84,12 @@ static func save_progress(data: Dictionary, path: String = DEFAULT_PATH, backup_
 	error = DirAccess.rename_absolute(ProjectSettings.globalize_path(tmp), base)
 	if error != OK:
 		DirAccess.remove_absolute(ProjectSettings.globalize_path(tmp))
+	elif OS.has_feature("web"):
+		# A successful rename is only a MEMFS write. The observer reads the
+		# exact final entry back from IndexedDB; it never writes the database.
+		var tree := Engine.get_main_loop() as SceneTree
+		var observer := tree.root.get_node_or_null("SaveDurability") if tree else null
+		if observer: observer.track(path, JSON.stringify(envelope))
 	return error
 
 ## Read-only migration seed. Legacy files remain authoritative until integration.

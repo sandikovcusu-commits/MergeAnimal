@@ -40,5 +40,8 @@
   "AD_RETRY_SAVE": "Kaydı tekrarla",
   "AD_SAVE_RETRY": "Ödül kazanıldı. Çıkmadan önce kaydı tekrarla.",
   "AD_REWARDED": "Ek Kurtarma kazanıldı!",
-  "AD_UNAVAILABLE": "Reklam kullanılamıyor. Onsuz devam edebilirsin."
+  "AD_UNAVAILABLE": "Reklam kullanılamıyor. Onsuz devam edebilirsin.",
+  "CHECKPOINT_SAVING": "Kayıt noktası kaydediliyor…",
+  "CHECKPOINT_SAVED": "Kayıt noktası kaydedildi",
+  "CHECKPOINT_UNCONFIRMED": "Kayıt doğrulanmadı"
 }

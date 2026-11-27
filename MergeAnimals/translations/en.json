@@ -40,5 +40,8 @@
   "AD_RETRY_SAVE": "Retry save",
   "AD_SAVE_RETRY": "Reward earned. Retry saving before leaving.",
   "AD_REWARDED": "Extra Rescue earned!",
-  "AD_UNAVAILABLE": "Ad unavailable. You can continue without it."
+  "AD_UNAVAILABLE": "Ad unavailable. You can continue without it.",
+  "CHECKPOINT_SAVING": "Saving checkpoint…",
+  "CHECKPOINT_SAVED": "Checkpoint saved",
+  "CHECKPOINT_UNCONFIRMED": "Save not confirmed"
 }

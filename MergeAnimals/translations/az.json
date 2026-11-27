@@ -40,5 +40,8 @@
   "AD_RETRY_SAVE": "Yenidən saxla",
   "AD_SAVE_RETRY": "Mükafat qazandın. Çıxmazdan əvvəl yenidən saxla.",
   "AD_REWARDED": "Əlavə Xilas qazandın!",
-  "AD_UNAVAILABLE": "Reklam əlçatan deyil. Onsuz davam edə bilərsən."
+  "AD_UNAVAILABLE": "Reklam əlçatan deyil. Onsuz davam edə bilərsən.",
+  "CHECKPOINT_SAVING": "Oyun saxlanır…",
+  "CHECKPOINT_SAVED": "Yaddaş nöqtəsi saxlandı",
+  "CHECKPOINT_UNCONFIRMED": "Saxlama təsdiqlənməyib"
 }
