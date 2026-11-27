@@ -4,7 +4,7 @@ on:
     branches: ['arena/2b071717-mergeanimal']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   checks: write
 jobs:
   render:
@@ -42,6 +42,40 @@ jobs:
           ' 2>&1 | tee -a /tmp/render-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL' /tmp/render-log.txt; then exit 1; fi
           ls -l "$CAPTURE_DIR"
+      - name: Native before-after character fixture
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/character-renders
+          BASELINE_DIR: /tmp/character-baseline
+        run: |
+          set -e -o pipefail
+          mkdir -p "$CAPTURE_DIR" "$BASELINE_DIR"
+          git fetch --no-tags --depth=1 origin e034511e234f6b6314e81dbeaa8ca7dd02df0ced
+          for name in mouse hamster rabbit cat dog fox raccoon koala panda bear lion elephant; do
+            git show e034511e234f6b6314e81dbeaa8ca7dd02df0ced:MergeAnimals/assets/animals/$name/normal.png > "$BASELINE_DIR/$name.png"
+          done
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          xvfb-run -a -s '-screen 0 1920x1920x24' "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution 720x1280 --script res://tests/integration/render_character_comparison.gd 2>&1 | tee /tmp/character-log.txt
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/character-log.txt; then exit 1; fi
+          test "$(find "$CAPTURE_DIR" -name '*.png' | wc -l)" -eq 12
+      - name: Transport character evidence
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, os, pathlib, subprocess, zipfile
+          archive=pathlib.Path('/tmp/character-evidence.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for f in sorted(pathlib.Path('/tmp/character-renders').glob('*.png')): z.write(f,f.name)
+              log=pathlib.Path('/tmp/character-log.txt')
+              if log.exists(): z.write(log,'character-log.txt')
+          payload=pathlib.Path('/tmp/character-blob.json')
+          payload.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          sha=subprocess.check_output(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(payload),'--jq','.sha'],text=True).strip()
+          print(f'::notice::CHARACTER_EVIDENCE blob_sha={sha} sha256={hashlib.sha256(archive.read_bytes()).hexdigest()} bytes={archive.stat().st_size}')
+          PY
       - name: Upload renders
         if: always()
         uses: actions/upload-artifact@v4
