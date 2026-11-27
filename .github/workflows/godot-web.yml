@@ -194,6 +194,14 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
+          elif [ "$UI_MODE" = merge-verification ]; then
+            cp -a MergeAnimals /tmp/verify-project
+            cp MergeAnimals/tests/web/MergeVerificationProbe.gd /tmp/verify-project/scripts/MergeVerificationProbe.gd
+            sed -i '/^\[autoload\]/a MergeVerificationProbe="*res://scripts/MergeVerificationProbe.gd"' /tmp/verify-project/project.godot
+            mkdir -p /tmp/web-test/verify-qa
+            "$GODOT" --headless --path /tmp/verify-project --editor --quit >> /tmp/web-qa/verify-export.log 2>&1
+            "$GODOT" --headless --path /tmp/verify-project --export-release 'Web (single-threaded)' /tmp/web-test/verify-qa/index.html >> /tmp/web-qa/verify-export.log 2>&1
+            URL=http://127.0.0.1:8765/verify-qa/; TEST=merge-verification.mjs
           elif [ "$UI_MODE" = quality-matrix ] || [ "$UI_MODE" = gameover-investigation ] || [ "$UI_MODE" = natural-observe ] || [ "$UI_MODE" = natural-long ] || [ "$UI_MODE" = merge-deadlock ]; then
             # Test-only probe build; production export above is untouched.
             cp -a MergeAnimals /tmp/quality-project
