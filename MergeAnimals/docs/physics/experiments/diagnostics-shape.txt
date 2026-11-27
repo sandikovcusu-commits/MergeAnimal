@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DROP_CSV level,id,radius,mass,friction,bounce,max_floor_px,max_speed,first_contact_s,final_gap_px,final_speed,sleeping
+DROP_CSV 1,mouse,18.0,0.80,0.50,0.10,4.1903,1144.77,1.242,-0.0983,0.0000,true
+DROP_CSV 2,hamster,23.0,1.10,0.50,0.10,9.1903,1144.77,1.233,-0.2422,0.0000,true
+DROP_CSV 3,rabbit,29.0,1.40,0.50,0.10,5.6505,1137.55,1.233,-0.2450,0.0000,true
+DROP_CSV 4,cat,35.0,1.80,0.50,0.10,2.1709,1130.33,1.225,-0.0253,0.0000,true
+DROP_CSV 5,dog,42.0,2.30,0.50,0.10,9.1709,1130.33,1.217,-0.2853,0.0000,true
+DROP_CSV 6,fox,50.0,2.90,0.50,0.10,7.7515,1123.09,1.217,-0.0204,0.0000,true
+DROP_CSV 7,raccoon,59.0,3.60,0.50,0.10,7.3923,1115.86,1.208,-0.1147,0.0000,true
+DROP_CSV 8,koala,69.0,4.50,0.50,0.10,8.0935,1108.62,1.200,-0.2198,0.0000,true
+DROP_CSV 9,panda,80.0,5.50,0.50,0.10,0.6770,1094.11,1.183,-0.2593,0.0000,true
+DROP_CSV 10,bear,93.0,6.70,0.50,0.10,4.5594,1086.85,1.175,-0.2735,0.0000,true
+DROP_CSV 11,lion,108.0,8.10,0.50,0.10,1.5058,1072.31,1.158,-0.2138,0.0000,true
+DROP_CSV 12,elephant,125.0,9.80,0.50,0.10,0.6946,1057.75,1.142,-0.2439,0.0000,true
+PILE_CSV bodies,max_floor_px,max_pair_penetration_px,full_escape_frames,final_count,merges
+PILE_CSV 10,5.3265,6.5328,0,10,0
+PILE_CSV 20,7.3705,7.8806,0,20,0
+PILE_CSV 40,6.1742,8.6805,0,40,0
+PHYSICS_DIAGNOSTICS complete

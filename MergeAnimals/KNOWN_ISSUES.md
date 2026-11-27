@@ -1,3 +1,11 @@
+# V0.9.0.3 — physics açıq risklər
+
+- Production 120 Hz boundary penetration 100 seed-də 9.190 px; 1–2 px hədəfi ödənməyib. Sıx pile pair penetration 8.681 px, təcrübi düzəlişlər production deyil.
+- Əsl cihazda feel, sıx böyük/kiçik yığın, künc, uzun pending merge və bütün 12 heyvanın oyun-içi animasiyası hələ tam qiymətləndirilməyib. Ətraflı `PHYSICS_AUDIT_REPORT.md`.
+- Kommersiya hüquqları BLOCKED.
+
+---
+
 # V0.9.0.2.1 — açıq risklər
 
 - Ayrı save faylları üçün cross-file atomiklik və multi-tab lock yoxdur. Yalnız son yazılmış müşahidə edilmiş bytes təsdiqlənir; yazılmamış action, bütün backup-lar və legacy `.cfg` əhatə olunmur. Firefox-un bir abort-injection təkrarında yeni yazı 50 s ərzində təsdiqlənmədi; sonrakı təkrar keçdi.

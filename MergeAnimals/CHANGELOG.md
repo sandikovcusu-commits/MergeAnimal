@@ -1,3 +1,10 @@
+# V0.9.0.3 — physics investigation (private, incomplete)
+
+- 100-seed native müqayisə, 12 drop və 10/20/40 pile fixture-ları, test-only CCD/bounds eksperimentləri və Web FPS benchmarkları əlavə edildi.
+- 12 statik collision overlay və instrumentli natural click debug görüntüsü əlavə edildi. Production fizika və sprite dəyişməyib; 1–2 px hədəfi ödənmir.
+
+---
+
 # V0.9.0.2.1 — save integrity private test
 
 - Əsas session ilə yanaşı settings/audio/language, theme, challenge və achievement save faylları üçün exact IDB read-back müşahidəsi; lokal xəta və əlçatmaz storage göstəriciləri, Challenge üçün vaxtından əvvəl «Saved» düzəlişi.
