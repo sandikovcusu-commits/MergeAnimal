@@ -21,6 +21,9 @@ on:
       perf_baseline:
         description: 'Use 32d50e5 baseline runtime for reward-perf'
         default: 'false'
+      perf_process:
+        description: 'Measure Linux browser process-tree CPU/RSS'
+        default: 'false'
       perf_seconds:
         description: 'Benchmark seconds per repetition'
         default: '60'
@@ -88,6 +91,7 @@ jobs:
           UI_BROWSER: ${{ inputs.ui_browser }}
           UI_LOCALE: ${{ inputs.ui_locale }}
           PERF_BASELINE: ${{ inputs.perf_baseline }}
+          PERF_PROCESS: ${{ inputs.perf_process }}
           PERF_SECONDS: ${{ inputs.perf_seconds }}
           PERF_REPEATS: ${{ inputs.perf_repeats }}
           PERF_THROTTLE: ${{ inputs.perf_throttle }}
@@ -131,7 +135,7 @@ jobs:
             for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/perf-server.log; exit 1; fi; sleep 1; done
             curl -sf -o /dev/null http://127.0.0.1:8765/
             URL=http://127.0.0.1:8765/; TEST=benchmark.mjs
-            export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE
+            export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE PERF_PROCESS
           elif [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
             if [ "$UI_MODE" = reward-perf ] && [ "$PERF_BASELINE" = true ]; then
               git fetch --depth=1 origin 32d50e50d87c5903287fe2b823ac0239fe2c2405
