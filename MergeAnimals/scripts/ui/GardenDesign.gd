@@ -35,7 +35,7 @@ static func menu_button(button: Button, index: int, primary: bool = false) -> vo
 	button.add_theme_stylebox_override("pressed", _box(base.darkened(0.12), border, 14))
 	button.add_theme_stylebox_override("disabled", _box(Color("e1e0d5"), Color("b3b7a5"), 14))
 	var text_color := Color("fff9e9") if primary else INK
-	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+	for state in ["font_color", "font_hover_color", "font_pressed_color", "font_hover_pressed_color", "font_focus_color"]:
 		button.add_theme_color_override(state, text_color)
 	button.add_theme_color_override("font_disabled_color", Color("747a70"))
 

@@ -14,7 +14,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 try {
  await page.goto(url,{waitUntil:'domcontentloaded',timeout:120000});await page.waitForSelector('canvas',{timeout:120000});await sleep(16000);
  await page.mouse.click(360,1123);await sleep(3500);await page.screenshot({path:path.join(out,'modal-showcase-settings.png')});
- await page.mouse.click(150,605);await sleep(1800);await page.mouse.click(150,605);await sleep(1400);
+ await page.mouse.click(150,605);await sleep(1800);await page.screenshot({path:path.join(out,'modal-showcase-mute-on.png')});await page.mouse.click(150,605);await sleep(1400);await page.screenshot({path:path.join(out,'modal-showcase-mute-off.png')});
  await page.mouse.click(360,805);await sleep(2500);await page.screenshot({path:path.join(out,'modal-showcase-language-popup.png')});
  await page.keyboard.press('Escape');await sleep(800);await page.mouse.click(360,965);await sleep(2500);
  await page.mouse.click(360,600);await sleep(6000);await page.mouse.click(565,520);await sleep(1200);

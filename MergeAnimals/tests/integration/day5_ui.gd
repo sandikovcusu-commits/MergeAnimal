@@ -26,6 +26,7 @@ func run() -> void:
 	check(is_instance_valid(menu.settings_panel), "menu opens settings")
 	var settings = menu.settings_panel
 	check(settings.get_node("SettingsCard").has_theme_stylebox_override("panel") and settings.find_child("Back", true, false).has_theme_stylebox_override("normal"), "settings uses shared panel and button styles")
+	check(settings.language_select.has_theme_color_override("font_hover_pressed_color") and settings.language_select.get_popup().has_theme_stylebox_override("panel") and settings.language_select.get_popup().has_theme_color_override("font_color"), "settings language button and popup use readable shared colors")
 	settings.sliders.master.value = 0.4
 	settings.language_select.select(1); settings.language_select.item_selected.emit(1)
 	await frames()
