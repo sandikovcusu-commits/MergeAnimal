@@ -5,12 +5,16 @@ on:
       - 'arena/2b071717-mergeanimal'
   workflow_dispatch:
     inputs:
+      physics_compare:
+        description: Run six matched 100-seed CCD comparison jobs
+        type: boolean
+        default: false
       full_bots:
         description: Run 100 sessions at each tick rate (slow)
         type: boolean
         default: false
 permissions:
-  contents: read
+  contents: write
   checks: write
 jobs:
   godot:
@@ -122,3 +126,62 @@ jobs:
             /tmp/godot-test-log.txt
             /tmp/godot-acceptance-log.txt
           if-no-files-found: warn
+
+  physics_compare:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.physics_compare }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        tick: [60, 90, 120]
+        mode: [baseline, shape-ccd]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot 4.7.2
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+      - name: Run same automated 100-seed baseline and experiment
+        env:
+          TICK: ${{ matrix.tick }}
+          MODE: ${{ matrix.mode }}
+        run: |
+          set -e -o pipefail
+          git fetch --no-tags --depth=1 origin b79dd4d0fe00ecd1a1215bc70db6266fa4cbab4e
+          mkdir -p /tmp/physics /tmp/physics-results
+          git archive b79dd4d0fe00ecd1a1215bc70db6266fa4cbab4e MergeAnimals | tar -x -C /tmp/physics
+          if [ "$MODE" = shape-ccd ]; then sed -i 's/^continuous_cd = 1$/continuous_cd = 2/' /tmp/physics/MergeAnimals/scenes/animals/Animal.tscn; fi
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$GODOT" --headless --path /tmp/physics/MergeAnimals --editor --quit > /tmp/physics-results/import.log 2>&1
+          /usr/bin/time -v -o /tmp/physics-results/time.txt env BOT_SESSIONS=100 BOT_TICKS="$TICK" "$GODOT" --headless --fixed-fps 60 --path /tmp/physics/MergeAnimals --script res://tests/physics/bot_sessions.gd > /tmp/physics-results/bots.log 2>&1
+          grep '^BOT_' /tmp/physics-results/bots.log > /tmp/physics-results/bot-output.txt
+          grep -q "BOT_COMPLETE sessions=100 ticks=$TICK" /tmp/physics-results/bot-output.txt
+          python3 - <<'PY'
+          import csv,os,pathlib
+          p=pathlib.Path('/tmp/physics-results/bot-output.txt')
+          rows=[x[len('BOT_CSV '):] for x in p.read_text().splitlines() if x.startswith('BOT_CSV ')]
+          assert len(rows)==101,len(rows)
+          with open('/tmp/physics-results/results.csv','w') as f:f.write('\n'.join(rows)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: physics-${{ matrix.mode }}-${{ matrix.tick }}
+          path: /tmp/physics-results
+      - name: Preserve logs as Git blob and checks annotation
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import base64,hashlib,json,os,pathlib,subprocess,zipfile
+          p=pathlib.Path('/tmp/physics-evidence.zip')
+          with zipfile.ZipFile(p,'w',zipfile.ZIP_DEFLATED) as z:
+            for f in pathlib.Path('/tmp/physics-results').glob('*'):
+              if f.is_file():z.write(f,f.name)
+          j=pathlib.Path('/tmp/blob.json');j.write_text(json.dumps({'content':base64.b64encode(p.read_bytes()).decode(),'encoding':'base64'}))
+          sha=subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(j),'--jq','.sha'],check=True,capture_output=True,text=True).stdout.strip()
+          print('::notice::PHYSICS_EVIDENCE blob_sha=%s sha256=%s bytes=%s'%(sha,hashlib.sha256(p.read_bytes()).hexdigest(),p.stat().st_size))
+          PY
