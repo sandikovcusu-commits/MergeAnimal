@@ -1,3 +1,13 @@
+# V0.9.1-A.2 — save revision regression
+
+Chromium [46078992480](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46078992480) and Firefox [46078995167](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46078995167), QA-injected frozen fixture, 33/33 test checks each. These include current/requested/written/read-back-verified content revisions; a deliberately created 427-point verified checkpoint followed by a 587-point live state reports **unsaved**, never verified; pending reports deferred, refuses snapshot, and after merge the safe checkpoint is verified; injected observer `fail()` reports failed rather than Saved. Injection is not a real quota, disk or OS failure. Both also refresh while a pair is pending and observe the previous verified two-body/score-zero checkpoint, not the unsaved pending state. A.1 save integrity suite 52/52 each and A.1 held-IDB transaction checks remain historical results on identical production code.
+
+Natural Chromium [46077100528](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46077100528) reached Game Over at input 225 with live and IDB checkpoint score 3499, 67 bodies, generation 786; GUI reported **Save not confirmed**, aggregate observer remained unconfirmed for the 60-second wait and the test failed. The logged snapshot was read from IndexedDB, but current-versus-selected path verification and subsequent reload were not exercised because the original harness stopped at the wait. It is not proof of loss or of a misleading Saved label. Cause of the unconfirmed aggregate is undiagnosed; repeated writes/polling and other tracked files are possible, not established causes. A separate Chromium natural run [46078823863](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46078823863) reached Game Over at input 210 and verified checkpoint score 3404, generation 717, then reloaded matching session/generation and Continue showed Game Over (5/5). A separate Firefox natural attempt [46079789253](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/46079789253) reached Game Over at input 243, verified score 4296 and generation 708, and retained session/generation on refresh and Continue (5/5). The earlier Chromium timeout remains unresolved; successful retries do not establish reliability.
+
+IDB read-back confirms the exact observed file contents at a point in time, not cross-file atomicity, guaranteed storage, or safety against sudden tab/browser/device close or eviction. This session does not claim a 100% sudden-close guarantee.
+
+---
+
 # Save integrity — V0.9.1-A.1 PARTIAL
 
 ## Current vs checkpoint

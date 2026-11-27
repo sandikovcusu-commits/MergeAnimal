@@ -1,3 +1,13 @@
+# V0.9.1-A.2 — NOT ACCEPTED, supersedes earlier summary
+
+- `V091-A2-001` P1 verification: synthetic 4×7 pile caused committed result to jump 120 px from above to below Danger Line. Full natural false-rescue outcome not established; teleport/balance/support-timer and real play consequences unverified. Review before conditional acceptance.
+- `V091-A2-002` P1 verification: natural Chromium Game Over reached after 225 inputs, correct score in read-back but aggregate observer remained unconfirmed beyond 60 seconds. No measured data loss; root condition and natural reload unverified.
+- Exact natural old deadlock geometry/seed unknown; approximate reconstructed Firefox cat pair supports but does not prove 96px cause. Continuous contact requeue, browser large multi-seed real-physics and all possible pending transitions remain incomplete.
+- Godot 4.7.2 editor import intermittently crashed in CI before Web export (signal 11 around CSV import); successful reruns are listed individually. Root cause not established.
+- Sudden-close durability, atomicity, real Android, human visual/play/audio and mobile performance remain unverified; physics penetration remains known. Commercial use/distribution BLOCKED.
+
+---
+
 # V0.9.1-A.1 — PARTIAL, supersedes older status
 
 - `V091-A1-001`: controlled 96px deadlock mechanism reproduced and mitigated; original natural locked-pair geometry not proven, so P1 acceptance stays open. 192px fallback can relocate a result away from the contact and no-space cancellation may not retry until a fresh contact. Human gameplay evaluation needed.

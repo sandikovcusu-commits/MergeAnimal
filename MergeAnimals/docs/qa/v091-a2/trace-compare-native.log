@@ -1,0 +1,995 @@
+% ] ^[[90m^[[1m_update_scan_actions^[[22m | challenge_failed.wav^[[39m^[[0m
+[  56% ] ^[[90m^[[1m_update_scan_actions^[[22m | challenge_success.wav^[[39m^[[0m
+[  57% ] ^[[90m^[[1m_update_scan_actions^[[22m | combo.wav^[[39m^[[0m
+[  58% ] ^[[90m^[[1m_update_scan_actions^[[22m | danger_warning.wav^[[39m^[[0m
+[  59% ] ^[[90m^[[1m_update_scan_actions^[[22m | game_over.wav^[[39m^[[0m
+[  60% ] ^[[90m^[[1m_update_scan_actions^[[22m | golden_merge.wav^[[39m^[[0m
+[  61% ] ^[[90m^[[1m_update_scan_actions^[[22m | large_merge.wav^[[39m^[[0m
+[  62% ] ^[[90m^[[1m_update_scan_actions^[[22m | medium_merge.wav^[[39m^[[0m
+[  63% ] ^[[90m^[[1m_update_scan_actions^[[22m | menu_back.wav^[[39m^[[0m
+[  64% ] ^[[90m^[[1m_update_scan_actions^[[22m | remove.wav^[[39m^[[0m
+[  65% ] ^[[90m^[[1m_update_scan_actions^[[22m | rescue.wav^[[39m^[[0m
+[  66% ] ^[[90m^[[1m_update_scan_actions^[[22m | small_merge.wav^[[39m^[[0m
+[  67% ] ^[[90m^[[1m_update_scan_actions^[[22m | soft_landing.wav^[[39m^[[0m
+[  68% ] ^[[90m^[[1m_update_scan_actions^[[22m | theme_unlocked.wav^[[39m^[[0m
+[  69% ] ^[[90m^[[1m_update_scan_actions^[[22m | undo.wav^[[39m^[[0m
+[  70% ] ^[[90m^[[1m_update_scan_actions^[[22m | forest_garden.svg^[[39m^[[0m
+[  71% ] ^[[90m^[[1m_update_scan_actions^[[22m | snowy_valley.svg^[[39m^[[0m
+[  72% ] ^[[90m^[[1m_update_scan_actions^[[22m | sunset_safari.svg^[[39m^[[0m
+[  73% ] ^[[90m^[[1m_update_scan_actions^[[22m | DejaVuSans.ttf^[[39m^[[0m
+[  74% ] ^[[90m^[[1m_update_scan_actions^[[22m | back.svg^[[39m^[[0m
+[  75% ] ^[[90m^[[1m_update_scan_actions^[[22m | challenge.svg^[[39m^[[0m
+[  76% ] ^[[90m^[[1m_update_scan_actions^[[22m | check.svg^[[39m^[[0m
+[  77% ] ^[[90m^[[1m_update_scan_actions^[[22m | close.svg^[[39m^[[0m
+[  78% ] ^[[90m^[[1m_update_scan_actions^[[22m | collection.svg^[[39m^[[0m
+[  79% ] ^[[90m^[[1m_update_scan_actions^[[22m | home.svg^[[39m^[[0m
+[  80% ] ^[[90m^[[1m_update_scan_actions^[[22m | lock.svg^[[39m^[[0m
+[  81% ] ^[[90m^[[1m_update_scan_actions^[[22m | music.svg^[[39m^[[0m
+[  82% ] ^[[90m^[[1m_update_scan_actions^[[22m | mute.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1m_update_scan_actions^[[22m | pause.svg^[[39m^[[0m
+[  84% ] ^[[90m^[[1m_update_scan_actions^[[22m | play.svg^[[39m^[[0m
+[  85% ] ^[[90m^[[1m_update_scan_actions^[[22m | play_light.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1m_update_scan_actions^[[22m | remove.svg^[[39m^[[0m
+[  87% ] ^[[90m^[[1m_update_scan_actions^[[22m | rescue.svg^[[39m^[[0m
+[  88% ] ^[[90m^[[1m_update_scan_actions^[[22m | restart.svg^[[39m^[[0m
+[  89% ] ^[[90m^[[1m_update_scan_actions^[[22m | reward.svg^[[39m^[[0m
+[  90% ] ^[[90m^[[1m_update_scan_actions^[[22m | settings.svg^[[39m^[[0m
+[  91% ] ^[[90m^[[1m_update_scan_actions^[[22m | sound.svg^[[39m^[[0m
+[  92% ] ^[[90m^[[1m_update_scan_actions^[[22m | star.svg^[[39m^[[0m
+[  93% ] ^[[90m^[[1m_update_scan_actions^[[22m | trophy.svg^[[39m^[[0m
+[  94% ] ^[[90m^[[1m_update_scan_actions^[[22m | undo.svg^[[39m^[[0m
+[  95% ] ^[[90m^[[1m_update_scan_actions^[[22m | wild_garden.svg^[[39m^[[0m
+[  96% ] ^[[90m^[[1m_update_scan_actions^[[22m | BUG_TRACKER.csv^[[39m^[[0m
+[  97% ] ^[[90m^[[1m_update_scan_actions^[[22m | MERGE_STRESS_TEST.csv^[[39m^[[0m
+[  98% ] ^[[90m^[[1m_update_scan_actions^[[22m | VISUAL_TEST_MATRIX.csv^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1m_update_scan_actions^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (100 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   1% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   3% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   4% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   6% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   7% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   9% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  10% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  12% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  14% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  15% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  17% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  18% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  20% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  21% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  23% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  24% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  26% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  28% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  29% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  31% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  32% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  34% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  35% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  37% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  39% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  40% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  42% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  43% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  45% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  46% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  48% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  49% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  51% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  53% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  54% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  56% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  57% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  59% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  60% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  62% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  64% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  65% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  67% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  68% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  70% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  71% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  73% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  74% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  76% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  78% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  79% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  81% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  82% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  84% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  85% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  87% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  89% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  90% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  92% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  93% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  95% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  96% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  97% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  98% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing pre-reimport operations...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | VISUAL_TEST_MATRIX.csv^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | MERGE_STRESS_TEST.csv^[[39m^[[0m
+[   1% ] ^[[90m^[[1mreimport^[[22m | BUG_TRACKER.csv^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | DejaVuSans.ttf^[[39m^[[0m
+[   3% ] ^[[90m^[[1mreimport^[[22m | VISUAL_TEST_MATRIX.csv^[[39m^[[0m
+[   4% ] ^[[90m^[[1mreimport^[[22m | MERGE_STRESS_TEST.csv^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | BUG_TRACKER.csv^[[39m^[[0m
+[   6% ] ^[[90m^[[1mreimport^[[22m | DejaVuSans.ttf^[[39m^[[0m
+[   7% ] ^[[90m^[[1mreimport^[[22m | close.svg^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | check.svg^[[39m^[[0m
+[   9% ] ^[[90m^[[1mreimport^[[22m | challenge.svg^[[39m^[[0m
+[  10% ] ^[[90m^[[1mreimport^[[22m | back.svg^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | sunset_safari.svg^[[39m^[[0m
+[  12% ] ^[[90m^[[1mreimport^[[22m | snowy_valley.svg^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | forest_garden.svg^[[39m^[[0m
+[  14% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  15% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  17% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  18% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  20% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  21% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  23% ] ^[[90m^[[1mreimport^[[22m | wild_garden.svg^[[39m^[[0m
+[  24% ] ^[[90m^[[1mreimport^[[22m | undo.svg^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | trophy.svg^[[39m^[[0m
+[  26% ] ^[[90m^[[1mreimport^[[22m | star.svg^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | sound.svg^[[39m^[[0m
+[  28% ] ^[[90m^[[1mreimport^[[22m | settings.svg^[[39m^[[0m
+[  29% ] ^[[90m^[[1mreimport^[[22m | reward.svg^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | restart.svg^[[39m^[[0m
+[  31% ] ^[[90m^[[1mreimport^[[22m | rescue.svg^[[39m^[[0m
+[  32% ] ^[[90m^[[1mreimport^[[22m | remove.svg^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | play_light.svg^[[39m^[[0m
+[  34% ] ^[[90m^[[1mreimport^[[22m | play.svg^[[39m^[[0m
+[  35% ] ^[[90m^[[1mreimport^[[22m | pause.svg^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | mute.svg^[[39m^[[0m
+[  37% ] ^[[90m^[[1mreimport^[[22m | music.svg^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | lock.svg^[[39m^[[0m
+[  39% ] ^[[90m^[[1mreimport^[[22m | home.svg^[[39m^[[0m
+[  40% ] ^[[90m^[[1mreimport^[[22m | collection.svg^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  42% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  43% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  45% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  46% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  48% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  49% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  51% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  53% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  54% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  56% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  57% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  59% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  60% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  62% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  64% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  65% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  67% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  68% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  70% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  71% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  73% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  74% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  76% ] ^[[90m^[[1mreimport^[[22m | VISUAL_TEST_MATRIX.csv^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | MERGE_STRESS_TEST.csv^[[39m^[[0m
+[  78% ] ^[[90m^[[1mreimport^[[22m | BUG_TRACKER.csv^[[39m^[[0m
+[  79% ] ^[[90m^[[1mreimport^[[22m | DejaVuSans.ttf^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | close.svg^[[39m^[[0m
+[  81% ] ^[[90m^[[1mreimport^[[22m | check.svg^[[39m^[[0m
+[  82% ] ^[[90m^[[1mreimport^[[22m | challenge.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | back.svg^[[39m^[[0m
+[  84% ] ^[[90m^[[1mreimport^[[22m | sunset_safari.svg^[[39m^[[0m
+[  85% ] ^[[90m^[[1mreimport^[[22m | snowy_valley.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | forest_garden.svg^[[39m^[[0m
+[  87% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  89% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  90% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  92% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  93% ] ^[[90m^[[1mreimport^[[22m | happy.png^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | blink.png^[[39m^[[0m
+[  95% ] ^[[90m^[[1mreimport^[[22m | surprise.png^[[39m^[[0m
+[  96% ] ^[[90m^[[1mreimport^[[22m | wild_garden.svg^[[39m^[[0m
+[  97% ] ^[[90m^[[1mreimport^[[22m | undo.svg^[[39m^[[0m
+[  98% ] ^[[90m^[[1mreimport^[[22m | trophy.svg^[[39m^[[0m
+[  99% ] ^[[90m^[[1mreimport^[[22m | Finalizing Asset Import...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (100 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing post-reimport operations...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Started Loading editor (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading editor layout...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading docks...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mloading_editor_layout^[[22m
+^[[0m
+exit=0
+===== integration =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: mouse pair accepted
+PASS 2: duplicate contact locked level 1
+PASS 3: level 1 produces next level
+PASS 4: level 1 score counted once
+PASS 5: hamster pair accepted
+PASS 6: duplicate contact locked level 2
+PASS 7: level 2 produces next level
+PASS 8: level 2 score counted once
+PASS 9: rabbit pair accepted
+PASS 10: duplicate contact locked level 3
+PASS 11: level 3 produces next level
+PASS 12: level 3 score counted once
+PASS 13: cat pair accepted
+PASS 14: duplicate contact locked level 4
+PASS 15: level 4 produces next level
+PASS 16: level 4 score counted once
+PASS 17: different levels do not merge
+PASS 18: first of three reserves
+PASS 19: three-way contact cannot reuse animal
+PASS 20: three-way result keeps third and other-level body
+PASS 21: four bodies reserve two legal pairs
+PASS 22: four bodies produce two hamsters and two scores
+PASS 23: result bodies can chain
+PASS 24: chain creates rabbit and correct score
+PASS 25: wall/floor pair accepted
+PASS 26: merge corrected away from left wall
+PASS 27: merge corrected above floor
+PASS 28: left aim clamp
+PASS 29: right aim clamp
+PASS 30: drop request accepted
+PASS 31: duplicate request rejected
+PASS 32: one physical body spawned
+PASS 33: queue advances exactly once
+PASS 34: cooldown active
+PASS 35: cooldown rejects another request
+PASS 36: preview hidden in cooldown
+PASS 37: preview data matches queue
+PASS 38: canceled touch does not drop
+PASS 39: emulated mouse ignored
+PASS 40: blocked spawn does not change queue or add a body
+PASS 41: blocking body not deleted
+PASS 42: falling unsupported body ignored
+PASS 43: supported danger starts grace period
+PASS 44: danger timer resets on loss of support
+PASS 45: persistent danger ends and pauses game
+PASS 46: game over blocks drop
+PASS 47: pause stops tree
+PASS 48: pause blocks drop
+PASS 49: resume unpauses tree
+Checks: 49; failures: 0
+exit=0
+===== character expression frames =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mouse expression frames, collision invariants and reduced reset: PASS
+hamster expression frames, collision invariants and reduced reset: PASS
+rabbit expression frames, collision invariants and reduced reset: PASS
+cat expression frames, collision invariants and reduced reset: PASS
+dog expression frames, collision invariants and reduced reset: PASS
+fox expression frames, collision invariants and reduced reset: PASS
+raccoon expression frames, collision invariants and reduced reset: PASS
+koala expression frames, collision invariants and reduced reset: PASS
+panda expression frames, collision invariants and reduced reset: PASS
+bear expression frames, collision invariants and reduced reset: PASS
+lion expression frames, collision invariants and reduced reset: PASS
+elephant expression frames, collision invariants and reduced reset: PASS
+EXPRESSION_FRAMES total=12 failures=0
+exit=0
+===== visual scheduler lifecycle =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: animal registered exactly once
+PASS: one shared ticker; individual callback disabled
+PASS: shared ticker advances cosmetic phase
+PASS: pause freezes cosmetics
+PASS: reduced mode unregisters and resets
+PASS: restoring normal effects re-registers
+PASS: freeing body unregisters scheduler reference
+VISUAL_SCHEDULER checks=7 failures=0
+exit=0
+===== day6 save primitive =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Day6 experimental save checks=217 failures=0
+exit=0
+===== day63 reward gateway =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: unknown reward rejected
+PASS: request alone grants nothing
+PASS: only one pending request
+PASS: unrelated callback ignored
+PASS: failed callback does not earn reward
+PASS: duplicate callback ignored
+PASS: distinct remove request accepts successful callback
+PASS: success reports only the matching request
+PASS: old callback cannot resolve a new request
+PASS: rescue callback reported once
+Reward gateway checks: 10; failures: 0
+exit=0
+===== day61 session write process =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: new game started
+PASS: 20 animals dropped via gameplay
+PASS: real contact merge awards score
+PASS: game paused before process exit
+PASS: persist first snapshot
+PASS: persist matching backup snapshot
+PASS: saved session readable
+DAY61_SAVED drops=20 merges=11 score=152 bodies=9 rng=1474054863062599966
+DAY61 phase=write checks=7 failures=0
+exit=0
+===== day61 session read process =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: prior process fixture present
+PASS: prior saved snapshot valid
+PASS: Continue enabled in new process
+PASS: new game requests confirmation before replacing save
+PASS: prompt alone does not overwrite save
+PASS: Continue button opens gameplay
+PASS: drop and merge counters restored without duplicates
+PASS: score and best restored without duplicate award
+PASS: combo restored
+PASS: collection statistics restored across processes
+PASS: discovery dates and animal counts restored across processes
+PASS: current next and exact RNG state restored
+PASS: future RNG sequence matches previous process
+PASS: exact body count restored
+PASS: body 0 id, position and rotation
+PASS: body 0 linear and angular velocity
+PASS: body 1 id, position and rotation
+PASS: body 1 linear and angular velocity
+PASS: body 2 id, position and rotation
+PASS: body 2 linear and angular velocity
+PASS: body 3 id, position and rotation
+PASS: body 3 linear and angular velocity
+PASS: body 4 id, position and rotation
+PASS: body 4 linear and angular velocity
+PASS: body 5 id, position and rotation
+PASS: body 5 linear and angular velocity
+PASS: body 6 id, position and rotation
+PASS: body 6 linear and angular velocity
+PASS: body 7 id, position and rotation
+PASS: body 7 linear and angular velocity
+PASS: body 8 id, position and rotation
+PASS: body 8 linear and angular velocity
+PASS: corrupt primary recovers backup
+PASS: duplicate body identity rejected
+PASS: unknown animal rejected
+PASS: Continue enabled for recovered backup
+PASS: Continue actually restores corrupted primary from backup
+PASS: backup Continue restores statistics without duplicate discoveries
+PASS: continue after recovery writes valid primary
+PASS: continued gameplay accepts a further real drop
+PASS: pending merge fixture reserved
+PASS: save refused during pending merge
+PASS: pending save did not change durable data
+PASS: game over saves pending continue
+PASS: finalized game over invalidates continue
+PASS: corrupt tombstone cannot resurrect old game
+DAY61_RESTORED score=152 bodies=12 drops=21
+PASS: new game confirmation fixture
+PASS: new game dialog appears
+PASS: confirmed new game starts a fresh board
+PASS: confirmed new game clears previous session
+PASS: future schema fixture
+PASS: future session schema recognized
+PASS: future session schema cannot be overwritten
+PASS: future session remains intact
+DAY61 phase=read checks=54 failures=0
+exit=0
+===== day62 collection integration =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: write legacy session fixture
+PASS: V0.6.1 session remains readable
+PASS: legacy migration preserves best without invented animals
+PASS: legacy settings preserved
+PASS: legacy Continue restores session and best
+PASS: legacy session migrates without fake discovery
+PASS: legacy unknown-provenance collision cannot fake discovery or record
+PASS: legacy game remains saveable when uncertain merge score exceeds best
+PASS: new genuine drops still progress after uncertain legacy merge
+PASS: new game counted once, collection starts empty
+PASS: active gameplay time increases
+PASS: first real drop counted
+PASS: first mouse unlocked once
+PASS: discovery date and nonblocking notification
+PASS: repeat drop increments count, not discovery
+PASS: real collision unlocks hamster and counts merge
+PASS: duplicate discovery prevented, date stable
+PASS: legacy best retained and actual max combo recorded
+PASS: notifications queued and input-transparent
+PASS: debug spawn and subsequent collisions cannot progress collection or merge stats
+PASS: debug score cannot become lifetime best
+PASS: tainted session remains saveable without altering best
+PASS: restart starts another game without completion
+PASS: restart preserves collection
+PASS: paused gameplay time stops
+PASS: collection and statistics saved with session
+PASS: save/load includes collection
+PASS: pause navigates to main menu
+PASS: main menu time not counted
+PASS: collection has 12 cards in three-column grid
+PASS: collection cards share styled interaction states
+PASS: unlocked and locked cards render appropriate state
+PASS: card text fits and descriptions translate for en
+PASS: card text fits and descriptions translate for az
+PASS: card text fits and descriptions translate for tr
+PASS: card text fits and descriptions translate for ru
+PASS: collection grid scrolls to later animals
+PASS: animal detail opens with persisted count
+PASS: detail closes
+PASS: statistics screen reads actual saved values
+PASS: statistics shows all 11 totals and 12 animal counts in styled rows
+PASS: Continue does not double-count game or events
+PASS: create matching backup for recovery
+PASS: corrupt session recovers collection and statistics
+PASS: real golden collision counted once
+PASS: golden gameplay updates best and preserves maximum combo
+PASS: golden merge preserves existing Elephant discovery
+PASS: pending game over is recoverable without completion
+PASS: finalization counts completion once
+PASS: game-over reentry does not duplicate completion
+PASS: golden collection persists after game over
+PASS: all corrupt copies are not overwritten
+PASS: unrecoverable data is not presented as empty collection
+PASS: future progression fixture written
+PASS: future progression schema is protected
+DAY62 collection and statistics checks=55 failures=0
+exit=0
+===== day5 tutorial collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: tutorial starts with matching pair
+PASS: real screen drag advances aim instruction
+PASS: release actually drops first piece and advances tutorial
+PASS: second matching animal was actually dropped
+PASS: real physics collision advances merge and danger instruction
+Day5 tutorial checks=5 failures=0
+exit=0
+===== day5 effects =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: sparkle animates without physics
+PASS: soft_burst animates without physics
+PASS: golden_glow animates without physics
+PASS: leaves animates without physics
+PASS: score_star animates without physics
+PASS: combo_shine animates without physics
+PASS: golden_echo animates without physics
+PASS: forest has keyboard focus style
+PASS: earth has keyboard focus style
+PASS: sunset has keyboard focus style
+PASS: snow has keyboard focus style
+PASS: gold has keyboard focus style
+PASS: berry has keyboard focus style
+PASS: sky has keyboard focus style
+PASS: cream has keyboard focus style
+PASS: reduced effects emits only one low-cost burst
+PASS: reduced burst omits decorative second ring
+PASS: regular merge emits layered effects
+PASS: golden echo uses existing happy artwork without physics children
+PASS: reduced golden merge emits no ghost or shake
+PASS: effects self-remove after playback
+Day5 effects checks=21 failures=0
+exit=0
+===== day803 performance regression =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: animal idle animation advances when effects enabled
+PASS: reducing effects stops idle updates and cancels action tween
+PASS: enabling effects resumes idle animation
+PASS: selected small sprites are imported at 256; larger sprites remain 512
+PASS: spawn query reuses objects and updates radius
+PASS: cached spawn query detects occupied and clear positions
+PERFORMANCE_REGRESSION checks=6 failures=0
+exit=0
+===== day5 GUI input =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: mouse click opens Settings through viewport GUI dispatch
+PASS: mouse click Back closes Settings
+PASS: mouse click Play transitions to game
+PASS: touch Skip is consumed without dropping a piece
+PASS: simulated touch opens Pause
+PASS: keyboard focus reaches Resume
+PASS: keyboard accept activates focused Resume
+Day5 GUI dispatch: checks=7 failures=0
+exit=0
+===== day5 UI interaction =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: main menu exposes working Play
+PASS: menu primary button exposes distinct visual states
+PASS: collection and challenge selection enabled
+PASS: menu opens settings
+PASS: settings uses shared panel and button styles
+PASS: settings language button and popup use readable shared colors
+PASS: checked and hovered settings toggles retain readable text
+PASS: volume change persisted
+PASS: Azerbaijani translation applied
+PASS: audio bus infrastructure exists
+PASS: language 0 translates and persists
+PASS: language 1 translates and persists
+PASS: language 2 translates and persists
+PASS: language 3 translates and persists
+PASS: settings back closes modal
+PASS: Play transitions to live game
+PASS: HUD backdrop is a cached canvas decoration, not an input control
+PASS: tutorial starts with matching pair
+PASS: tutorial banner does not overlap power-up buttons
+PASS: tutorial banner does not obscure spawn preview
+PASS: tutorial skip persists completion
+PASS: pause cancels an uncommitted drop
+PASS: pause freezes game and shows overlay
+PASS: pause/game-over/rescue controls use shared styles
+PASS: settings opens while paused
+PASS: settings card is centered above gameplay overlay
+PASS: settings back preserves pause
+PASS: resume restores gameplay
+PASS: replay tutorial restarts with matching pair
+PASS: localized result text and actions fit without overlap: en
+PASS: localized result text and actions fit without overlap: az
+PASS: localized result text and actions fit without overlap: tr
+PASS: localized result text and actions fit without overlap: ru
+PASS: game over freezes and cannot resume
+PASS: game-over restart resets scene
+PASS: pause to main menu unpauses tree
+Day5 UI integration: checks=36 failures=0
+exit=0
+===== day4.1 UI assets =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: icon play imports
+PASS: icon pause imports
+PASS: icon restart imports
+PASS: icon settings imports
+PASS: icon home imports
+PASS: icon collection imports
+PASS: icon challenge imports
+PASS: icon sound imports
+PASS: icon music imports
+PASS: icon mute imports
+PASS: icon undo imports
+PASS: icon remove imports
+PASS: icon rescue imports
+PASS: icon trophy imports
+PASS: icon star imports
+PASS: icon lock imports
+PASS: icon check imports
+PASS: icon close imports
+PASS: icon back imports
+PASS: icon reward imports
+PASS: forest normal style
+PASS: forest hover style
+PASS: forest pressed style
+PASS: forest disabled style
+PASS: earth normal style
+PASS: earth hover style
+PASS: earth pressed style
+PASS: earth disabled style
+PASS: sunset normal style
+PASS: sunset hover style
+PASS: sunset pressed style
+PASS: sunset disabled style
+PASS: snow normal style
+PASS: snow hover style
+PASS: snow pressed style
+PASS: snow disabled style
+PASS: gold normal style
+PASS: gold hover style
+PASS: gold pressed style
+PASS: gold disabled style
+PASS: berry normal style
+PASS: berry hover style
+PASS: berry pressed style
+PASS: berry disabled style
+PASS: sky normal style
+PASS: sky hover style
+PASS: sky pressed style
+PASS: sky disabled style
+PASS: cream normal style
+PASS: cream hover style
+PASS: cream pressed style
+PASS: cream disabled style
+PASS: HUD has native theme
+Day4.1 UI checks: 53; failures: 0
+exit=0
+===== day4 assets =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: mouse expected present/missing status
+PASS 2: mouse imported texture dimensions and alpha
+PASS 3: mouse transparent corners
+PASS 4: mouse preview and next use same texture
+PASS 5: mouse body texture and collision radius
+PASS 6: hamster expected present/missing status
+PASS 7: hamster imported texture dimensions and alpha
+PASS 8: hamster transparent corners
+PASS 9: hamster preview and next use same texture
+PASS 10: hamster body texture and collision radius
+PASS 11: rabbit expected present/missing status
+PASS 12: rabbit imported texture dimensions and alpha
+PASS 13: rabbit transparent corners
+PASS 14: rabbit preview and next use same texture
+PASS 15: rabbit body texture and collision radius
+PASS 16: cat expected present/missing status
+PASS 17: cat imported texture dimensions and alpha
+PASS 18: cat transparent corners
+PASS 19: cat preview and next use same texture
+PASS 20: cat body texture and collision radius
+PASS 21: dog expected present/missing status
+PASS 22: dog imported texture dimensions and alpha
+PASS 23: dog transparent corners
+PASS 24: dog preview and next use same texture
+PASS 25: dog body texture and collision radius
+PASS 26: fox expected present/missing status
+PASS 27: fox imported texture dimensions and alpha
+PASS 28: fox transparent corners
+PASS 29: fox preview and next use same texture
+PASS 30: fox body texture and collision radius
+PASS 31: raccoon expected present/missing status
+PASS 32: raccoon imported texture dimensions and alpha
+PASS 33: raccoon transparent corners
+PASS 34: raccoon preview and next use same texture
+PASS 35: raccoon body texture and collision radius
+PASS 36: koala expected present/missing status
+PASS 37: koala imported texture dimensions and alpha
+PASS 38: koala transparent corners
+PASS 39: koala preview and next use same texture
+PASS 40: koala body texture and collision radius
+PASS 41: panda expected present/missing status
+PASS 42: panda imported texture dimensions and alpha
+PASS 43: panda transparent corners
+PASS 44: panda preview and next use same texture
+PASS 45: panda body texture and collision radius
+PASS 46: bear expected present/missing status
+PASS 47: bear imported texture dimensions and alpha
+PASS 48: bear transparent corners
+PASS 49: bear preview and next use same texture
+PASS 50: bear body texture and collision radius
+PASS 51: lion expected present/missing status
+PASS 52: lion imported texture dimensions and alpha
+PASS 53: lion transparent corners
+PASS 54: lion preview and next use same texture
+PASS 55: lion body texture and collision radius
+PASS 56: elephant expected present/missing status
+PASS 57: elephant imported texture dimensions and alpha
+PASS 58: elephant transparent corners
+PASS 59: elephant preview and next use same texture
+PASS 60: elephant body texture and collision radius
+PASS 61: three theme backgrounds are configured
+PASS 62: theme 0 can be selected
+PASS 63: theme 1 can be selected
+PASS 64: theme 2 can be selected
+Day4 DEV asset checks: 64; failures: 0; normal sprites=12; happy/surprise=not supplied
+exit=0
+===== day3 evolution =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: 12 configured AnimalData resources
+PASS 2: animal 1 identity radius score
+PASS 3: animal 2 identity radius score
+PASS 4: animal 3 identity radius score
+PASS 5: animal 4 identity radius score
+PASS 6: animal 5 identity radius score
+PASS 7: animal 6 identity radius score
+PASS 8: animal 7 identity radius score
+PASS 9: animal 8 identity radius score
+PASS 10: animal 9 identity radius score
+PASS 11: animal 10 identity radius score
+PASS 12: animal 11 identity radius score
+PASS 13: animal 12 identity radius score
+PASS 14: evolution link 1
+PASS 15: evolution link 2
+PASS 16: evolution link 3
+PASS 17: evolution link 4
+PASS 18: evolution link 5
+PASS 19: evolution link 6
+PASS 20: evolution link 7
+PASS 21: evolution link 8
+PASS 22: evolution link 9
+PASS 23: evolution link 10
+PASS 24: evolution link 11
+PASS 25: elephant golden terminal
+PASS 26: two elephant diameters fit container
+Spawn distribution seed=13579 n=10000: [3012, 2511, 2058, 1479, 940, 0, 0, 0, 0, 0, 0, 0]
+PASS 27: spawn weight mouse within 2 percentage points
+PASS 28: spawn weight hamster within 2 percentage points
+PASS 29: spawn weight rabbit within 2 percentage points
+PASS 30: spawn weight cat within 2 percentage points
+PASS 31: spawn weight dog within 2 percentage points
+PASS 32: no high tier randomly spawns
+PASS 33: level 6+ cannot spawn even with nonzero weight
+PASS 34: spawn seed reproducible
+PASS 35: combo start 1x
+PASS 36: combo x2 1.25
+PASS 37: combo x3 1.5
+PASS 38: combo x4 1.75
+PASS 39: combo x5+ capped 2x
+PASS 40: combo timer pauses
+PASS 41: combo timeout resets and clears label
+PASS 42: post timeout returns to 1x
+PASS 43: game over resets combo
+PASS 44: real collision mouse -> hamster (score=4, count=1)
+PASS 45: real collision hamster -> rabbit (score=8, count=1)
+PASS 46: real collision rabbit -> cat (score=12, count=1)
+PASS 47: real collision cat -> dog (score=20, count=1)
+PASS 48: real collision dog -> fox (score=32, count=1)
+PASS 49: real collision fox -> raccoon (score=48, count=1)
+PASS 50: real collision raccoon -> koala (score=70, count=1)
+PASS 51: real collision koala -> panda (score=100, count=1)
+PASS 52: real collision panda -> bear (score=150, count=1)
+PASS 53: real collision bear -> lion (score=220, count=1)
+PASS 54: real collision lion -> elephant (score=500, count=1)
+PASS 55: real collision elephant -> gold (score=1000, count=0)
+PASS 56: golden duplicate protected; play continues
+PASS 57: gold pair reservation
+PASS 58: duplicate gold callback rejected
+PASS 59: custom gold resource awarded once
+PASS 60: new scene resets combo score guide
+PASS 61: guide records highest created animal
+Day3 checks: 61; failures: 0
+exit=0
+===== natural collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Natural collision: bodies=1 score=4 merges=1 result=PASS
+exit=0
+===== input recovery =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: touch quick tap accepted at clear x after blocked cooldown
+PASS: touch creates exactly one drop
+PASS: mouse quick tap accepted at clear x after blocked cooldown
+PASS: mouse creates exactly one drop
+Input recovery failures: 0
+exit=0
+===== multitouch =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: second finger cannot drop or steal the active touch
+PASS: first finger release queues one drop
+PASS: release beyond right edge is clamped
+PASS: multi-touch sequence creates exactly one body
+Multi-touch failures: 0
+exit=0
+===== restart =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: scene restart clears bodies and score, resumes tree
+exit=0
+===== contact chain =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: actual contact chain mouse->hamster->rabbit; bodies=1 score=12 merges=2 pending=0
+exit=0
+===== wall matrix =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.911 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.964 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=64 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.00 max_px=0.360 overlap_frames=158 max_consecutive=158 fully_escaped=false stuck=false final_depth=0.300
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.50 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=14.4 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.288 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.090 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=2.293 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.400 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.264 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.294 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+FLOOR level=1 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=1 speed=700 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false
+FLOOR level=5 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=5 speed=700 max_px=9.958 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+FLOOR level=12 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=12 speed=700 max_px=5.283 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+NATURAL_DROP level=1 ticks=60 max_px=0.360 frames=165 max_consecutive=165 max_speed=1138.00 full_escape=false final_depth=0.250
+NATURAL_DROP level=1 ticks=120 max_px=4.190 frames=305 max_consecutive=303 max_speed=1144.77 full_escape=false final_depth=0.098
+NATURAL_DROP level=1 ticks=240 max_px=1.657 frames=608 max_consecutive=606 max_speed=1144.54 full_escape=false final_depth=0.089
+NATURAL_DROP level=4 ticks=60 max_px=16.678 frames=154 max_consecutive=152 max_speed=1138.00 full_escape=false final_depth=0.253
+NATURAL_DROP level=4 ticks=120 max_px=2.171 frames=306 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.025
+NATURAL_DROP level=4 ticks=240 max_px=4.395 frames=612 max_consecutive=610 max_speed=1133.71 full_escape=false final_depth=0.150
+NATURAL_DROP level=5 ticks=60 max_px=4.712 frames=153 max_consecutive=152 max_speed=1123.53 full_escape=false final_depth=0.300
+NATURAL_DROP level=5 ticks=120 max_px=9.171 frames=307 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.285
+NATURAL_DROP level=5 ticks=240 max_px=1.963 frames=614 max_consecutive=612 max_speed=1126.48 full_escape=false final_depth=0.103
+NATURAL_DROP level=12 ticks=60 max_px=14.259 frames=160 max_consecutive=158 max_speed=1065.45 full_escape=false final_depth=0.209
+NATURAL_DROP level=12 ticks=120 max_px=0.695 frames=317 max_consecutive=316 max_speed=1057.75 full_escape=false final_depth=0.244
+NATURAL_DROP level=12 ticks=240 max_px=2.787 frames=635 max_consecutive=633 max_speed=1061.17 full_escape=false final_depth=0.246
+Wall matrix cases=19 full_escape_or_stuck=0
+exit=0
+===== bot sessions 60Hz =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak
+BOT_WORST seed=30000 depth=16.678 level=4 x=466.139 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30000,random,74,53,8,1412,32,time_cap,90.02,0,16.678,5316,4312
+BOT_WORST seed=30001 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30001,same_target,74,57,8,1537,27,time_cap,90.02,0,16.678,5320,3084
+BOT_WORST seed=30002 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30002,lowest_stack,72,55,8,1211,29,time_cap,90.02,0,16.678,5320,4302
+BOT_WORST seed=30003 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30003,merge_priority,72,46,7,673,12,time_cap,90.02,0,16.678,5326,4225
+BOT_COMPLETE sessions=4 ticks=60 wall_seconds=3.794
+exit=0
+===== bot sessions 120Hz =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak
+BOT_WORST seed=30000 depth=9.190 level=2 x=167.992 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30000,random,75,48,8,1173,24,time_cap,90.00,0,9.190,10625,6876
+BOT_WORST seed=30001 depth=9.190 level=2 x=604.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30001,same_target,73,60,8,1570,30,time_cap,90.00,0,9.190,10626,2925
+BOT_WORST seed=30002 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30002,lowest_stack,74,45,7,898,22,time_cap,90.00,0,9.190,10626,8898
+BOT_WORST seed=30003 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30003,merge_priority,71,52,7,863,21,time_cap,90.00,0,9.190,10625,6888
+BOT_COMPLETE sessions=4 ticks=120 wall_seconds=6.975
+exit=0
+===== wall collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+INFO: CCD mode=1 ticks=60 left_gap=-0.664 right_gap=-6.636 floor_gap=-0.506 landed=true full_escape=false center_in_wall=false
+PASS: no full escape or trapped center; overlap measurement is not a zero-penetration pass
+exit=0
+===== real gameplay =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: pause stops actual rigid body movement
+PASS: resume continues actual rigid body movement
+Real overflow: bodies=48 supported=48 peak_time=2.008 game_state=GAME_OVER
+PASS: stable physical pile triggers game over
+PASS: real game over blocks spawn
+Real gameplay failures: 0
+exit=0
+===== 100 drops =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+100-drop fixture: requests=100 spawned=100 result=PASS
+exit=0
+===== stress =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+count=100 actual=100 fps=145.0 physics_seconds=0.000635 static_bytes=68905737 escaped=0 merge_count=0 pending=0
+count=150 actual=150 fps=145.0 physics_seconds=0.001057 static_bytes=70208985 escaped=0 merge_count=0 pending=0
+count=200 actual=200 fps=145.0 physics_seconds=0.001288 static_bytes=71584961 escaped=0 merge_count=0 pending=0
+exit=0
+===== dense merge deadlock fixture =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS safe distant slot exists beyond old search
+PASS touching pair reserves
+PASS duplicate pair cannot reserve
+PASS fallback finds safe slot beyond old search
+PASS single pending merge committed with one score
+PASS 49 original bodies become 48 without extra loss
+PASS replacement has no overlap with other body
+PASS post-merge snapshot is valid and saves
+PASS new drop works after resolved reservation
+PASS full bounded search proves no candidate in synthetic blocker fixture
+PASS no-space pair reserved
+PASS only failed no-space reservation cancelled
+PASS cancellation preserves both animals and grants no score
+PASS cancelled pair leaves a valid safe snapshot
+PASS pair can reserve again on a new request
+PASS freed reference cancels reservation and unlocks survivor
+MERGE_DEADLOCK_FIXTURE mode=fixed checks=16 failures=0
+exit=0
+===== Firefox trace approximate fixed =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRACE_RECONSTRUCTION mode=fixed result=PASS pair_offsets=0.562,1.032 point=(482.2869, 743.5702) distance=168.000 pending=0 merges=1 score=20 bodies=33
+exit=0
+===== Firefox trace approximate baseline =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRACE_RECONSTRUCTION mode=baseline result=PASS pair_offsets=0.562,1.032 point=<null> distance=-1.000 pending=1 merges=0 score=0 bodies=34
+exit=0
+
+===== SEPARATE RELEASE ACCEPTANCE (not DEV regression) =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: mouse normal sprite
+PASS: mouse happy sprite
+PASS: mouse surprise sprite
+PASS: hamster normal sprite
+PASS: hamster happy sprite
+PASS: hamster surprise sprite
+PASS: rabbit normal sprite
+PASS: rabbit happy sprite
+PASS: rabbit surprise sprite
+PASS: cat normal sprite
+PASS: cat happy sprite
+PASS: cat surprise sprite
+PASS: dog normal sprite
+PASS: dog happy sprite
+PASS: dog surprise sprite
+PASS: fox normal sprite
+PASS: fox happy sprite
+PASS: fox surprise sprite
+PASS: raccoon normal sprite
+PASS: raccoon happy sprite
+PASS: raccoon surprise sprite
+PASS: koala normal sprite
+PASS: koala happy sprite
+PASS: koala surprise sprite
+PASS: panda normal sprite
+PASS: panda happy sprite
+PASS: panda surprise sprite
+PASS: bear normal sprite
+PASS: bear happy sprite
+PASS: bear surprise sprite
+PASS: lion normal sprite
+PASS: lion happy sprite
+PASS: lion surprise sprite
+PASS: elephant normal sprite
+PASS: elephant happy sprite
+PASS: elephant surprise sprite
+RELEASE BLOCKED: model/vendor and applicable commercial terms are not verified.
+Acceptance missing or blocked: 1

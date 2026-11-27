@@ -1,3 +1,11 @@
+# V0.9.1-A.2 — verification only, NOT ACCEPTED
+
+- Added browser QA stress, physical contact, pending lifecycle and previous-trace reconstruction tests; A.1 production merge/save code remains unchanged.
+- Measured 120 px committed Danger Line crossing in synthetic board and 168 px on approximate Firefox trace. Potential gameplay/balance risk remains open.
+- Natural Chromium reached Game Over but checkpoint observer stayed unconfirmed; further investigation required. Commercial status BLOCKED.
+
+---
+
 # V0.9.1-A.1 — pending merge / save PARTIAL
 
 - Added bounded safe-placement fallback and per-pair safe cancellation; schedule checkpoint after drained merge queue. No physics rate or game content changes.
