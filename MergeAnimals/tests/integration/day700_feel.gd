@@ -67,12 +67,18 @@ func run() -> void:
 		body.freeze = true
 		var radius: float = body.circle.shape.radius
 		intervals[snappedf(body.visual.next_blink, 0.001)] = true
+		# V0.9.0.4 eases *towards* each pose instead of snapping immediately.
+		# Sample during its 70 ms approach; still assert the actual direction and
+		# that the rigid body and collision never scale.
 		body.visual.animate_action("drop")
-		check(body.visual.scale != Vector2.ONE and body.circle.shape.radius == radius and body.scale == Vector2.ONE, "tier %d drop motion is visual-only" % (tier + 1))
+		await frames(4)
+		check(body.visual.scale.x < 1.0 and body.visual.scale.y > 1.0 and body.circle.shape.radius == radius and body.scale == Vector2.ONE, "tier %d drop motion is visual-only" % (tier + 1))
 		body.visual.animate_action("landing")
-		check(body.visual.scale.x > 1 and body.circle.shape.radius == radius, "tier %d landing squash is visual-only" % (tier + 1))
+		await frames(4)
+		check(body.visual.scale.x > 1.0 and body.circle.shape.radius == radius and body.scale == Vector2.ONE, "tier %d landing squash is visual-only" % (tier + 1))
 		body.visual.animate_action("merge")
-		check(body.visual.scale.x < 1 and body.circle.shape.radius == radius, "tier %d merge appearance is visual-only" % (tier + 1))
+		await frames(4)
+		check(body.visual.scale.x < 1.0 and body.circle.shape.radius == radius and body.scale == Vector2.ONE, "tier %d merge appearance is visual-only" % (tier + 1))
 		body.visual.next_blink = 0; body.visual._process(0.01)
 		check(body.visual.blink_left > 0 and body.visual.blink_duration >= 0.12 and body.visual.blink_duration <= 0.18 and body.visual.next_blink >= 3 and body.visual.next_blink <= 8, "tier %d staggered blink timing" % (tier + 1))
 		body.queue_free()
