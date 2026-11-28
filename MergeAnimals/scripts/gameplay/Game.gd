@@ -272,6 +272,9 @@ var checkpoint_status_elapsed := 0.0
 # revision covers the whole snapshot (including board and power-up state),
 # excluding only continuously advancing play_seconds and storage generation.
 var checkpoint_requested_revision := ""
+# True when the latest checkpoint commit also wrote the power-up record; only
+# then is that file part of the required set for the aggregate status.
+var checkpoint_requires_powerup := false
 var checkpoint_written_revision := ""
 var checkpoint_verified_revision := ""
 var checkpoint_verified_score := -1
@@ -287,6 +290,7 @@ func _revision(snapshot: Dictionary) -> String:
 
 func _write_session_snapshot(snapshot: Dictionary, powerup: bool = false) -> Error:
 	checkpoint_requested_revision = _revision(snapshot)
+	checkpoint_requires_powerup = powerup
 	return SessionSave.write_snapshot(snapshot, powerup)
 
 # Only an exact IDB read-back for the selected source envelope can verify its
@@ -294,10 +298,13 @@ func _write_session_snapshot(snapshot: Dictionary, powerup: bool = false) -> Err
 func _checkpoint_details() -> Dictionary:
 	var observer := get_node_or_null("/root/SaveDurability")
 	var overall: String = observer.state() if observer else "unavailable"
-	# The session checkpoint commit is the primary plus its power-up commit
-	# record. Unrelated tracked files must not block this status; a pending
-	# power-up record for the current commit still keeps it pending.
-	var scoped: String = observer.state_for_files([SessionSave.PATH, SessionSave.POWERUP_PATH]) if observer else "unavailable"
+	# Aggregate only the files this checkpoint commit actually wrote: the
+	# session primary, plus the power-up record when the commit included it.
+	# Unrelated files must not block the status, and a pending power-up record
+	# for the same commit must keep it pending.
+	var required: Array = [SessionSave.PATH]
+	if checkpoint_requires_powerup: required.append(SessionSave.POWERUP_PATH)
+	var scoped: String = observer.state_for_files(required) if observer else "unavailable"
 	var live := _session_snapshot(true, true)
 	var current := _revision(live)
 	var doc := SessionSave.load_document()
@@ -325,9 +332,9 @@ func _checkpoint_details() -> Dictionary:
 	elif busy: status = "deferred"
 	elif current.is_empty() or written != current: status = "unsaved"
 	elif verified == "pending" or scoped == "pending": status = "pending"
-	elif verified == "verified" and scoped in ["verified", "idle"]: status = "verified"
+	elif verified == "verified" and scoped == "verified" and (not checkpoint_requires_powerup or (powerup_status == "verified" and powerup_generation >= 0)): status = "verified"
 	else: status = "unconfirmed"
-	return {"status":status, "current_revision":current, "requested_revision":checkpoint_requested_revision, "written_revision":written, "verified_revision":checkpoint_verified_revision, "written_generation":generation, "score":score, "verified_score":checkpoint_verified_score, "readback":verified, "aggregate":overall, "scoped":scoped, "powerup_status":powerup_status, "powerup_generation":powerup_generation}
+	return {"status":status, "current_revision":current, "requested_revision":checkpoint_requested_revision, "written_revision":written, "verified_revision":checkpoint_verified_revision, "written_generation":generation, "score":score, "verified_score":checkpoint_verified_score, "readback":verified, "aggregate":overall, "scoped":scoped, "powerup_status":powerup_status, "powerup_generation":powerup_generation, "requires_powerup":checkpoint_requires_powerup}
 
 func _process(delta: float) -> void:
 	if not persist_best or not OS.has_feature("web"): return

@@ -104,8 +104,11 @@ func _ready() -> void:
 	  // session checkpoint status, and a stale record for a required file
 	  // still blocks it until its own latest write verifies.
 	  tracker.statusForFiles = (paths) => {
-	    const entries = paths.map(p => tracker.records[p]).filter(Boolean);
-	    if (!entries.length) return 'idle';
+	    // A required file with no tracked record is unconfirmed, never silently
+	    // satisfied: an untracked file cannot confirm the current commit.
+	    if (!paths.length) return 'idle';
+	    const entries = paths.map(p => tracker.records[p]);
+	    if (entries.some(x => !x)) return 'unconfirmed';
 	    if (entries.some(x => x.state === 'failed')) return 'failed';
 	    if (entries.some(x => x.state === 'unconfirmed')) return 'unconfirmed';
 	    if (entries.some(x => x.state === 'pending')) return 'pending';

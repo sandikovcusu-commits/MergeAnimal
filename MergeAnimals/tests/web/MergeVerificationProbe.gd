@@ -315,6 +315,10 @@ func dispatch(cmd: Dictionary) -> void:
 	elif op == "score_587":
 		game.score = 587; game.best_score = 587; game.progression.best_score = 587
 	elif op == "commit": game.merge_manager._commit_pending()
+	# QA-only: exercise the real power-up checkpoint commit path (power-up
+	# record first, then the session primary) used by terminal/undo commits,
+	# without changing terminal game state.
+	elif op == "checkpoint_powerup": result = game._write_session_snapshot(game._session_snapshot(), true)
 	elif op == "pause" or op == "resume": game._toggle_pause()
 	elif op == "undo":
 		game.undo_snapshot = game._session_snapshot(true,true)
