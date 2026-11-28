@@ -3,6 +3,28 @@
 Scope: stabilise Classic gameplay only. No new content, no mechanics change, no
 animal ID/level change, A.4 fixes preserved as the regression baseline.
 
+- `V091-B3-001` P1 — FREE RESCUE CANNOT COMPLETE ON A DEEP NATURAL GAME OVER
+  (measured, report-only): on every natural terminal session observed
+  (native seeds 93023 / 93033 / 93043, run 46178136922) the free rescue was
+  refused with `Rescue failed: no safe clearing within the limit.` and the
+  budget stayed at 1. The cause is measured, not inferred: `RescuePlanner.plan()`
+  requires removing *every* body above the Danger Line and returns `{}` when
+  that mandatory set exceeds `rescue_max_remove` (10); a natural Game Over on a
+  deep board always exceeds it (13, 21 and 17 bodies above the line in the three
+  sessions). The refusal is a clean no-op — no body removed, no lock left, score
+  and checkpoint unchanged — so it does not corrupt anything, but the button
+  keeps offering a rescue that can never succeed. No fix was made because the
+  only fixes are a balance or design change, which B.3 forbids. A *successful*
+  natural free rescue is still unproven.
+- `V091-B3-002` P2 — the historical Chromium terminal-save incident
+  (run 46077100528: Game Over on input 225, checkpoint score 3499, observer
+  unconfirmed beyond 60 s) remains **UNPROVEN**. It is not shown as fixed and no
+  timeout was raised to hide it.
+- `V091-B3-003` P3 — B.3 browser validation (Chromium and Firefox: 3 natural
+  Game Overs each, terminal contract, save confirmation, refresh, full browser
+  close and reopen, Continue, natural free rescue) is **not complete** on the
+  current commit, so WP1's 9-session minimum is not met yet. Nothing in the
+  browser result set is claimed as passing until the runs exist.
 - `V091-B2-001` P2 — PENETRATION TARGET NOT MET (measured, explicit):
   9.190 px worst real drop (hamster level 2), 5.821 px worst dense case, 2.360 px
   on the small-animal compression board, 0 escapes in 600 dense cases and 180

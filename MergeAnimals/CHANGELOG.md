@@ -1,3 +1,41 @@
+# V0.9.1-B.3 — Natural gameplay, terminal save, refresh, restart, free rescue
+
+- New suites: `tests/integration/natural_b3.gd` (native) and
+  `tests/web/natural-b3.mjs` (Chromium/Firefox). Every board state comes from
+  real input events only; diagnostics are read-only.
+- Native result (run `46176130525`, Godot 4.7.2, physics 120 Hz): **3/3 actors
+  reach a natural Game Over**, 24 natural sessions total, all GAME_OVER, none on
+  the input cap. Matrix: seeds 93011/93012/93013 -> scores 2428/3016/3788 at
+  inputs 188/207/233.
+- Terminal contract holds after a natural Game Over (9/9 checks per actor,
+  including immunity to a deferred merge commit). B.1's recorded contract
+  (`request_merge()` may reserve, never mutate a terminal board) still holds.
+- Terminal save write: `written_revision == current_revision == requested_revision`
+  in 24/24 sessions, document score equals the live score, `game_over_pending`
+  set. Native reads `unconfirmed` because read-back confirmation is Web-only by
+  design; Web confirmation is reported separately.
+- Refresh-equivalent restore through the real Main Menu Continue button: PASS in
+  all three actors (state, session id, score, best, bodies, rescue budget, overlay).
+- Restart isolation: PASS 18/18 checks per actor — new session id, cleared board
+  and score, new checkpoint, best preserved, exactly one live board.
+- **Free rescue refused on every observed natural Game Over** (`V091-B3-001`):
+  the mandatory Danger Line removals (13/21/17 bodies) exceed
+  `rescue_max_remove` (10), so `RescuePlanner.plan()` returns `{}`. The refusal is
+  a clean no-op (no budget spent, no body removed, no lock). Not fixed: the only
+  fixes are balance/design changes that B.3 forbids. Report:
+  `NATURAL_RESCUE_REPORT.md`.
+- Three QA-harness defects found and fixed in the harness, never in product code:
+  unfiltered danger counting (`V091-B3-003`), terminal probes landing on the
+  result-overlay buttons (`V091-B3-002`), a stale board swallowing restart taps
+  plus a filtered run that reported green with zero checks (`V091-B3-004`).
+  Every one of those green/failed runs is documented as a harness defect.
+- **No product code changed in this phase** (`git diff --name-only 25fe05a..HEAD`
+  shows no `scripts/` or `scenes/` path), so B.1/B.2/A.4 suite results stand as
+  the regression baseline and are not re-attributed to B.3.
+- Status: CONDITIONAL acceptance. Browser (Chromium/Firefox) B.3 validation is
+  not complete on this commit; the historical Chromium confirmation incident
+  (`46077100528`) remains unproven. Commercial status BLOCKED, PR in DRAFT.
+
 # V0.9.1-B — Classic gameplay audit (IN PROGRESS)
 
 - `68f481a` B.1/B.2 suites: `state_machine_b1`, `animal_levels_b1`,
