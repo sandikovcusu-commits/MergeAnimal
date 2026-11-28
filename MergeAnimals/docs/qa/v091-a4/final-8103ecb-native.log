@@ -1,0 +1,1807 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (126 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AdModule[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | DataModule[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | GameModule[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | UserModule[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | CrazyBanner[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | Callbacks[39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | AchievementData[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | AchievementManager[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | FeelAudio[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ChallengeData[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | ChallengeManager[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | ChallengeStore[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | Animal[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | AnimalData[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | AnimalCosmetic[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | GoldenConfig[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | DangerMonitor[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | MergeManager[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | RescuePlanner[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | RewardRequestGateway[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | Progression[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | SaveManager[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | SessionSave[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | ThemeStore[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | CollectionNames[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | GardenDesign[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | SettingsStore[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | TouchScroll[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | UIStrings[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (100 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | forest.wav[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | snow.wav[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | sunset.wav[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | achievement_unlocked.wav[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | animal_collision.wav[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | animal_discovered.wav[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | animal_drop.wav[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | button_click.wav[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | challenge_failed.wav[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | challenge_success.wav[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | combo.wav[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | danger_warning.wav[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | game_over.wav[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | golden_merge.wav[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | large_merge.wav[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | medium_merge.wav[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | menu_back.wav[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | remove.wav[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | rescue.wav[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | small_merge.wav[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | soft_landing.wav[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | theme_unlocked.wav[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | undo.wav[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | forest_garden.svg[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | snowy_valley.svg[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | sunset_safari.svg[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | DejaVuSans.ttf[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | back.svg[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | challenge.svg[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | check.svg[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | close.svg[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | collection.svg[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | home.svg[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | lock.svg[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | music.svg[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | mute.svg[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | pause.svg[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | play.svg[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | play_light.svg[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | remove.svg[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | rescue.svg[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | restart.svg[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | reward.svg[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | settings.svg[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | sound.svg[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | star.svg[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | trophy.svg[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | undo.svg[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | wild_garden.svg[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | BUG_TRACKER.csv[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | MERGE_STRESS_TEST.csv[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (100 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   1% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   3% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   5% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   7% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   9% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  11% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  12% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  14% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  16% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  18% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  22% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  24% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  27% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  29% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  31% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  35% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  37% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  38% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  42% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  43% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  44% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  48% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  49% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  51% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  55% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  56% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  57% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  59% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  61% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  62% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  64% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  68% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  70% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  72% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  74% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  75% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  77% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  79% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  81% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  83% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  85% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  87% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  88% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  90% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  92% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  93% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  94% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  96% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  98% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[   0% ] [90m[1mreimport[22m | MERGE_STRESS_TEST.csv[39m[0m
+[   1% ] [90m[1mreimport[22m | BUG_TRACKER.csv[39m[0m
+[   2% ] [90m[1mreimport[22m | DejaVuSans.ttf[39m[0m
+[   3% ] [90m[1mreimport[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[   4% ] [90m[1mreimport[22m | MERGE_STRESS_TEST.csv[39m[0m
+[   5% ] [90m[1mreimport[22m | BUG_TRACKER.csv[39m[0m
+[   6% ] [90m[1mreimport[22m | DejaVuSans.ttf[39m[0m
+[   7% ] [90m[1mreimport[22m | close.svg[39m[0m
+[   8% ] [90m[1mreimport[22m | check.svg[39m[0m
+[   9% ] [90m[1mreimport[22m | challenge.svg[39m[0m
+[  10% ] [90m[1mreimport[22m | back.svg[39m[0m
+[  11% ] [90m[1mreimport[22m | sunset_safari.svg[39m[0m
+[  12% ] [90m[1mreimport[22m | snowy_valley.svg[39m[0m
+[  13% ] [90m[1mreimport[22m | forest_garden.svg[39m[0m
+[  14% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  15% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  16% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  17% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  18% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  19% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  20% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  21% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  22% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  23% ] [90m[1mreimport[22m | wild_garden.svg[39m[0m
+[  24% ] [90m[1mreimport[22m | undo.svg[39m[0m
+[  25% ] [90m[1mreimport[22m | trophy.svg[39m[0m
+[  26% ] [90m[1mreimport[22m | star.svg[39m[0m
+[  27% ] [90m[1mreimport[22m | sound.svg[39m[0m
+[  28% ] [90m[1mreimport[22m | settings.svg[39m[0m
+[  29% ] [90m[1mreimport[22m | reward.svg[39m[0m
+[  30% ] [90m[1mreimport[22m | restart.svg[39m[0m
+[  31% ] [90m[1mreimport[22m | rescue.svg[39m[0m
+[  32% ] [90m[1mreimport[22m | remove.svg[39m[0m
+[  33% ] [90m[1mreimport[22m | play_light.svg[39m[0m
+[  34% ] [90m[1mreimport[22m | play.svg[39m[0m
+[  35% ] [90m[1mreimport[22m | pause.svg[39m[0m
+[  36% ] [90m[1mreimport[22m | mute.svg[39m[0m
+[  37% ] [90m[1mreimport[22m | music.svg[39m[0m
+[  38% ] [90m[1mreimport[22m | lock.svg[39m[0m
+[  39% ] [90m[1mreimport[22m | home.svg[39m[0m
+[  40% ] [90m[1mreimport[22m | collection.svg[39m[0m
+[  41% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  42% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  43% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  44% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  45% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  46% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  47% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  48% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  49% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  50% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  51% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  52% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  53% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  54% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  55% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  56% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  57% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  58% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  59% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  60% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  61% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  62% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  63% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  64% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  65% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  66% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  67% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  68% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  69% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  70% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  71% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  72% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  73% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  74% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  75% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  76% ] [90m[1mreimport[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[  77% ] [90m[1mreimport[22m | MERGE_STRESS_TEST.csv[39m[0m
+[  78% ] [90m[1mreimport[22m | BUG_TRACKER.csv[39m[0m
+[  79% ] [90m[1mreimport[22m | DejaVuSans.ttf[39m[0m
+[  80% ] [90m[1mreimport[22m | close.svg[39m[0m
+[  81% ] [90m[1mreimport[22m | check.svg[39m[0m
+[  82% ] [90m[1mreimport[22m | challenge.svg[39m[0m
+[  83% ] [90m[1mreimport[22m | back.svg[39m[0m
+[  84% ] [90m[1mreimport[22m | sunset_safari.svg[39m[0m
+[  85% ] [90m[1mreimport[22m | snowy_valley.svg[39m[0m
+[  86% ] [90m[1mreimport[22m | forest_garden.svg[39m[0m
+[  87% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  88% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  89% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  90% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  91% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  92% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  93% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  94% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  95% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  96% ] [90m[1mreimport[22m | wild_garden.svg[39m[0m
+[  97% ] [90m[1mreimport[22m | undo.svg[39m[0m
+[  98% ] [90m[1mreimport[22m | trophy.svg[39m[0m
+[  99% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (100 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+===== integration =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: mouse pair accepted
+PASS 2: duplicate contact locked level 1
+PASS 3: level 1 produces next level
+PASS 4: level 1 score counted once
+PASS 5: hamster pair accepted
+PASS 6: duplicate contact locked level 2
+PASS 7: level 2 produces next level
+PASS 8: level 2 score counted once
+PASS 9: rabbit pair accepted
+PASS 10: duplicate contact locked level 3
+PASS 11: level 3 produces next level
+PASS 12: level 3 score counted once
+PASS 13: cat pair accepted
+PASS 14: duplicate contact locked level 4
+PASS 15: level 4 produces next level
+PASS 16: level 4 score counted once
+PASS 17: different levels do not merge
+PASS 18: first of three reserves
+PASS 19: three-way contact cannot reuse animal
+PASS 20: three-way result keeps third and other-level body
+PASS 21: four bodies reserve two legal pairs
+PASS 22: four bodies produce two hamsters and two scores
+PASS 23: result bodies can chain
+PASS 24: chain creates rabbit and correct score
+PASS 25: wall/floor pair accepted
+PASS 26: merge corrected away from left wall
+PASS 27: merge corrected above floor
+PASS 28: left aim clamp
+PASS 29: right aim clamp
+PASS 30: drop request accepted
+PASS 31: duplicate request rejected
+PASS 32: one physical body spawned
+PASS 33: queue advances exactly once
+PASS 34: cooldown active
+PASS 35: cooldown rejects another request
+PASS 36: preview hidden in cooldown
+PASS 37: preview data matches queue
+PASS 38: canceled touch does not drop
+PASS 39: emulated mouse ignored
+PASS 40: blocked spawn does not change queue or add a body
+PASS 41: blocking body not deleted
+PASS 42: falling unsupported body ignored
+PASS 43: supported danger starts grace period
+PASS 44: danger timer resets on loss of support
+PASS 45: persistent danger ends and pauses game
+PASS 46: game over blocks drop
+PASS 47: pause stops tree
+PASS 48: pause blocks drop
+PASS 49: resume unpauses tree
+Checks: 49; failures: 0
+exit=0
+===== character expression frames =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mouse expression frames, collision invariants and reduced reset: PASS
+hamster expression frames, collision invariants and reduced reset: PASS
+rabbit expression frames, collision invariants and reduced reset: PASS
+cat expression frames, collision invariants and reduced reset: PASS
+dog expression frames, collision invariants and reduced reset: PASS
+fox expression frames, collision invariants and reduced reset: PASS
+raccoon expression frames, collision invariants and reduced reset: PASS
+koala expression frames, collision invariants and reduced reset: PASS
+panda expression frames, collision invariants and reduced reset: PASS
+bear expression frames, collision invariants and reduced reset: PASS
+lion expression frames, collision invariants and reduced reset: PASS
+elephant expression frames, collision invariants and reduced reset: PASS
+EXPRESSION_FRAMES total=12 failures=0
+exit=0
+===== visual scheduler lifecycle =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: animal registered exactly once
+PASS: one shared ticker; individual callback disabled
+PASS: shared ticker advances cosmetic phase
+PASS: pause freezes cosmetics
+PASS: reduced mode unregisters and resets
+PASS: restoring normal effects re-registers
+PASS: freeing body unregisters scheduler reference
+VISUAL_SCHEDULER checks=7 failures=0
+exit=0
+===== day6 save primitive =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Day6 experimental save checks=217 failures=0
+exit=0
+===== day63 reward gateway =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: unknown reward rejected
+PASS: request alone grants nothing
+PASS: only one pending request
+PASS: unrelated callback ignored
+PASS: failed callback does not earn reward
+PASS: duplicate callback ignored
+PASS: distinct remove request accepts successful callback
+PASS: success reports only the matching request
+PASS: old callback cannot resolve a new request
+PASS: rescue callback reported once
+Reward gateway checks: 10; failures: 0
+exit=0
+===== day61 session write process =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: new game started
+PASS: 20 animals dropped via gameplay
+PASS: real contact merge awards score
+PASS: game paused before process exit
+PASS: persist first snapshot
+PASS: persist matching backup snapshot
+PASS: saved session readable
+DAY61_SAVED drops=20 merges=9 score=124 bodies=11 rng=1474054863062599966
+DAY61 phase=write checks=7 failures=0
+exit=0
+===== day61 session read process =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: prior process fixture present
+PASS: prior saved snapshot valid
+PASS: Continue enabled in new process
+PASS: new game requests confirmation before replacing save
+PASS: prompt alone does not overwrite save
+PASS: Continue button opens gameplay
+PASS: drop and merge counters restored without duplicates
+PASS: score and best restored without duplicate award
+PASS: combo restored
+PASS: collection statistics restored across processes
+PASS: discovery dates and animal counts restored across processes
+PASS: current next and exact RNG state restored
+PASS: future RNG sequence matches previous process
+PASS: exact body count restored
+PASS: body 0 id, position and rotation
+PASS: body 0 linear and angular velocity
+PASS: body 1 id, position and rotation
+PASS: body 1 linear and angular velocity
+PASS: body 2 id, position and rotation
+PASS: body 2 linear and angular velocity
+PASS: body 3 id, position and rotation
+PASS: body 3 linear and angular velocity
+PASS: body 4 id, position and rotation
+PASS: body 4 linear and angular velocity
+PASS: body 5 id, position and rotation
+PASS: body 5 linear and angular velocity
+PASS: body 6 id, position and rotation
+PASS: body 6 linear and angular velocity
+PASS: body 7 id, position and rotation
+PASS: body 7 linear and angular velocity
+PASS: body 8 id, position and rotation
+PASS: body 8 linear and angular velocity
+PASS: body 9 id, position and rotation
+PASS: body 9 linear and angular velocity
+PASS: body 10 id, position and rotation
+PASS: body 10 linear and angular velocity
+PASS: corrupt primary recovers backup
+PASS: duplicate body identity rejected
+PASS: unknown animal rejected
+PASS: Continue enabled for recovered backup
+PASS: Continue actually restores corrupted primary from backup
+PASS: backup Continue restores statistics without duplicate discoveries
+PASS: continue after recovery writes valid primary
+PASS: continued gameplay accepts a further real drop
+PASS: pending merge fixture reserved
+PASS: save refused during pending merge
+PASS: pending save did not change durable data
+PASS: game over saves pending continue
+PASS: finalized game over invalidates continue
+PASS: corrupt tombstone cannot resurrect old game
+DAY61_RESTORED score=134 bodies=13 drops=21
+PASS: new game confirmation fixture
+PASS: new game dialog appears
+PASS: confirmed new game starts a fresh board
+PASS: confirmed new game clears previous session
+PASS: future schema fixture
+PASS: future session schema recognized
+PASS: future session schema cannot be overwritten
+PASS: future session remains intact
+DAY61 phase=read checks=58 failures=0
+exit=0
+===== day62 collection integration =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: write legacy session fixture
+PASS: V0.6.1 session remains readable
+PASS: legacy migration preserves best without invented animals
+PASS: legacy settings preserved
+PASS: legacy Continue restores session and best
+PASS: legacy session migrates without fake discovery
+PASS: legacy unknown-provenance collision cannot fake discovery or record
+PASS: legacy game remains saveable when uncertain merge score exceeds best
+PASS: new genuine drops still progress after uncertain legacy merge
+PASS: new game counted once, collection starts empty
+PASS: active gameplay time increases
+PASS: first real drop counted
+PASS: first mouse unlocked once
+PASS: discovery date and nonblocking notification
+PASS: repeat drop increments count, not discovery
+PASS: real collision unlocks hamster and counts merge
+PASS: duplicate discovery prevented, date stable
+PASS: legacy best retained and actual max combo recorded
+PASS: notifications queued and input-transparent
+PASS: debug spawn and subsequent collisions cannot progress collection or merge stats
+PASS: debug score cannot become lifetime best
+PASS: tainted session remains saveable without altering best
+PASS: restart starts another game without completion
+PASS: restart preserves collection
+PASS: paused gameplay time stops
+PASS: collection and statistics saved with session
+PASS: save/load includes collection
+PASS: pause navigates to main menu
+PASS: main menu time not counted
+PASS: collection has 12 cards in three-column grid
+PASS: collection cards share styled interaction states
+PASS: unlocked and locked cards render appropriate state
+PASS: card text fits and descriptions translate for en
+PASS: card text fits and descriptions translate for az
+PASS: card text fits and descriptions translate for tr
+PASS: card text fits and descriptions translate for ru
+PASS: collection grid scrolls to later animals
+PASS: animal detail opens with persisted count
+PASS: detail closes
+PASS: statistics screen reads actual saved values
+PASS: statistics shows all 11 totals and 12 animal counts in styled rows
+PASS: Continue does not double-count game or events
+PASS: create matching backup for recovery
+PASS: corrupt session recovers collection and statistics
+PASS: real golden collision counted once
+PASS: golden gameplay updates best and preserves maximum combo
+PASS: golden merge preserves existing Elephant discovery
+PASS: pending game over is recoverable without completion
+PASS: finalization counts completion once
+PASS: game-over reentry does not duplicate completion
+PASS: golden collection persists after game over
+PASS: all corrupt copies are not overwritten
+PASS: unrecoverable data is not presented as empty collection
+PASS: future progression fixture written
+PASS: future progression schema is protected
+DAY62 collection and statistics checks=55 failures=0
+exit=0
+===== day5 tutorial collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: tutorial starts with matching pair
+PASS: real screen drag advances aim instruction
+PASS: release actually drops first piece and advances tutorial
+PASS: second matching animal was actually dropped
+PASS: real physics collision advances merge and danger instruction
+Day5 tutorial checks=5 failures=0
+exit=0
+===== day5 effects =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: sparkle animates without physics
+PASS: soft_burst animates without physics
+PASS: golden_glow animates without physics
+PASS: leaves animates without physics
+PASS: score_star animates without physics
+PASS: combo_shine animates without physics
+PASS: golden_echo animates without physics
+PASS: forest has keyboard focus style
+PASS: earth has keyboard focus style
+PASS: sunset has keyboard focus style
+PASS: snow has keyboard focus style
+PASS: gold has keyboard focus style
+PASS: berry has keyboard focus style
+PASS: sky has keyboard focus style
+PASS: cream has keyboard focus style
+PASS: reduced effects emits only one low-cost burst
+PASS: reduced burst omits decorative second ring
+PASS: regular merge emits layered effects
+PASS: golden echo uses existing happy artwork without physics children
+PASS: reduced golden merge emits no ghost or shake
+PASS: effects self-remove after playback
+Day5 effects checks=21 failures=0
+exit=0
+===== day803 performance regression =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: animal idle animation advances when effects enabled
+PASS: reducing effects stops idle updates and cancels action tween
+PASS: enabling effects resumes idle animation
+PASS: selected small sprites are imported at 256; larger sprites remain 512
+PASS: spawn query reuses objects and updates radius
+PASS: cached spawn query detects occupied and clear positions
+PERFORMANCE_REGRESSION checks=6 failures=0
+exit=0
+===== day5 GUI input =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: mouse click opens Settings through viewport GUI dispatch
+PASS: mouse click Back closes Settings
+PASS: mouse click Play transitions to game
+PASS: touch Skip is consumed without dropping a piece
+PASS: simulated touch opens Pause
+PASS: keyboard focus reaches Resume
+PASS: keyboard accept activates focused Resume
+Day5 GUI dispatch: checks=7 failures=0
+exit=0
+===== day5 UI interaction =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: main menu exposes working Play
+PASS: menu primary button exposes distinct visual states
+PASS: collection and challenge selection enabled
+PASS: menu opens settings
+PASS: settings uses shared panel and button styles
+PASS: settings language button and popup use readable shared colors
+PASS: checked and hovered settings toggles retain readable text
+PASS: volume change persisted
+PASS: Azerbaijani translation applied
+PASS: audio bus infrastructure exists
+PASS: language 0 translates and persists
+PASS: language 1 translates and persists
+PASS: language 2 translates and persists
+PASS: language 3 translates and persists
+PASS: settings back closes modal
+PASS: Play transitions to live game
+PASS: HUD backdrop is a cached canvas decoration, not an input control
+PASS: tutorial starts with matching pair
+PASS: tutorial banner does not overlap power-up buttons
+PASS: tutorial banner does not obscure spawn preview
+PASS: tutorial skip persists completion
+PASS: pause cancels an uncommitted drop
+PASS: pause freezes game and shows overlay
+PASS: pause/game-over/rescue controls use shared styles
+PASS: settings opens while paused
+PASS: settings card is centered above gameplay overlay
+PASS: settings back preserves pause
+PASS: resume restores gameplay
+PASS: replay tutorial restarts with matching pair
+PASS: localized result text and actions fit without overlap: en
+PASS: localized result text and actions fit without overlap: az
+PASS: localized result text and actions fit without overlap: tr
+PASS: localized result text and actions fit without overlap: ru
+PASS: game over freezes and cannot resume
+PASS: game-over restart resets scene
+PASS: pause to main menu unpauses tree
+Day5 UI integration: checks=36 failures=0
+exit=0
+===== day4.1 UI assets =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: icon play imports
+PASS: icon pause imports
+PASS: icon restart imports
+PASS: icon settings imports
+PASS: icon home imports
+PASS: icon collection imports
+PASS: icon challenge imports
+PASS: icon sound imports
+PASS: icon music imports
+PASS: icon mute imports
+PASS: icon undo imports
+PASS: icon remove imports
+PASS: icon rescue imports
+PASS: icon trophy imports
+PASS: icon star imports
+PASS: icon lock imports
+PASS: icon check imports
+PASS: icon close imports
+PASS: icon back imports
+PASS: icon reward imports
+PASS: forest normal style
+PASS: forest hover style
+PASS: forest pressed style
+PASS: forest disabled style
+PASS: earth normal style
+PASS: earth hover style
+PASS: earth pressed style
+PASS: earth disabled style
+PASS: sunset normal style
+PASS: sunset hover style
+PASS: sunset pressed style
+PASS: sunset disabled style
+PASS: snow normal style
+PASS: snow hover style
+PASS: snow pressed style
+PASS: snow disabled style
+PASS: gold normal style
+PASS: gold hover style
+PASS: gold pressed style
+PASS: gold disabled style
+PASS: berry normal style
+PASS: berry hover style
+PASS: berry pressed style
+PASS: berry disabled style
+PASS: sky normal style
+PASS: sky hover style
+PASS: sky pressed style
+PASS: sky disabled style
+PASS: cream normal style
+PASS: cream hover style
+PASS: cream pressed style
+PASS: cream disabled style
+PASS: HUD has native theme
+Day4.1 UI checks: 53; failures: 0
+exit=0
+===== day4 assets =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: mouse expected present/missing status
+PASS 2: mouse imported texture dimensions and alpha
+PASS 3: mouse transparent corners
+PASS 4: mouse preview and next use same texture
+PASS 5: mouse body texture and collision radius
+PASS 6: hamster expected present/missing status
+PASS 7: hamster imported texture dimensions and alpha
+PASS 8: hamster transparent corners
+PASS 9: hamster preview and next use same texture
+PASS 10: hamster body texture and collision radius
+PASS 11: rabbit expected present/missing status
+PASS 12: rabbit imported texture dimensions and alpha
+PASS 13: rabbit transparent corners
+PASS 14: rabbit preview and next use same texture
+PASS 15: rabbit body texture and collision radius
+PASS 16: cat expected present/missing status
+PASS 17: cat imported texture dimensions and alpha
+PASS 18: cat transparent corners
+PASS 19: cat preview and next use same texture
+PASS 20: cat body texture and collision radius
+PASS 21: dog expected present/missing status
+PASS 22: dog imported texture dimensions and alpha
+PASS 23: dog transparent corners
+PASS 24: dog preview and next use same texture
+PASS 25: dog body texture and collision radius
+PASS 26: fox expected present/missing status
+PASS 27: fox imported texture dimensions and alpha
+PASS 28: fox transparent corners
+PASS 29: fox preview and next use same texture
+PASS 30: fox body texture and collision radius
+PASS 31: raccoon expected present/missing status
+PASS 32: raccoon imported texture dimensions and alpha
+PASS 33: raccoon transparent corners
+PASS 34: raccoon preview and next use same texture
+PASS 35: raccoon body texture and collision radius
+PASS 36: koala expected present/missing status
+PASS 37: koala imported texture dimensions and alpha
+PASS 38: koala transparent corners
+PASS 39: koala preview and next use same texture
+PASS 40: koala body texture and collision radius
+PASS 41: panda expected present/missing status
+PASS 42: panda imported texture dimensions and alpha
+PASS 43: panda transparent corners
+PASS 44: panda preview and next use same texture
+PASS 45: panda body texture and collision radius
+PASS 46: bear expected present/missing status
+PASS 47: bear imported texture dimensions and alpha
+PASS 48: bear transparent corners
+PASS 49: bear preview and next use same texture
+PASS 50: bear body texture and collision radius
+PASS 51: lion expected present/missing status
+PASS 52: lion imported texture dimensions and alpha
+PASS 53: lion transparent corners
+PASS 54: lion preview and next use same texture
+PASS 55: lion body texture and collision radius
+PASS 56: elephant expected present/missing status
+PASS 57: elephant imported texture dimensions and alpha
+PASS 58: elephant transparent corners
+PASS 59: elephant preview and next use same texture
+PASS 60: elephant body texture and collision radius
+PASS 61: three theme backgrounds are configured
+PASS 62: theme 0 can be selected
+PASS 63: theme 1 can be selected
+PASS 64: theme 2 can be selected
+Day4 DEV asset checks: 64; failures: 0; normal sprites=12; happy/surprise=not supplied
+exit=0
+===== day3 evolution =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: 12 configured AnimalData resources
+PASS 2: animal 1 identity radius score
+PASS 3: animal 2 identity radius score
+PASS 4: animal 3 identity radius score
+PASS 5: animal 4 identity radius score
+PASS 6: animal 5 identity radius score
+PASS 7: animal 6 identity radius score
+PASS 8: animal 7 identity radius score
+PASS 9: animal 8 identity radius score
+PASS 10: animal 9 identity radius score
+PASS 11: animal 10 identity radius score
+PASS 12: animal 11 identity radius score
+PASS 13: animal 12 identity radius score
+PASS 14: evolution link 1
+PASS 15: evolution link 2
+PASS 16: evolution link 3
+PASS 17: evolution link 4
+PASS 18: evolution link 5
+PASS 19: evolution link 6
+PASS 20: evolution link 7
+PASS 21: evolution link 8
+PASS 22: evolution link 9
+PASS 23: evolution link 10
+PASS 24: evolution link 11
+PASS 25: elephant golden terminal
+PASS 26: two elephant diameters fit container
+Spawn distribution seed=13579 n=10000: [3012, 2511, 2058, 1479, 940, 0, 0, 0, 0, 0, 0, 0]
+PASS 27: spawn weight mouse within 2 percentage points
+PASS 28: spawn weight hamster within 2 percentage points
+PASS 29: spawn weight rabbit within 2 percentage points
+PASS 30: spawn weight cat within 2 percentage points
+PASS 31: spawn weight dog within 2 percentage points
+PASS 32: no high tier randomly spawns
+PASS 33: level 6+ cannot spawn even with nonzero weight
+PASS 34: spawn seed reproducible
+PASS 35: combo start 1x
+PASS 36: combo x2 1.25
+PASS 37: combo x3 1.5
+PASS 38: combo x4 1.75
+PASS 39: combo x5+ capped 2x
+PASS 40: combo timer pauses
+PASS 41: combo timeout resets and clears label
+PASS 42: post timeout returns to 1x
+PASS 43: game over resets combo
+PASS 44: real collision mouse -> hamster (score=4, count=1)
+PASS 45: real collision hamster -> rabbit (score=8, count=1)
+PASS 46: real collision rabbit -> cat (score=12, count=1)
+PASS 47: real collision cat -> dog (score=20, count=1)
+PASS 48: real collision dog -> fox (score=32, count=1)
+PASS 49: real collision fox -> raccoon (score=48, count=1)
+PASS 50: real collision raccoon -> koala (score=70, count=1)
+PASS 51: real collision koala -> panda (score=100, count=1)
+PASS 52: real collision panda -> bear (score=150, count=1)
+PASS 53: real collision bear -> lion (score=220, count=1)
+PASS 54: real collision lion -> elephant (score=500, count=1)
+PASS 55: real collision elephant -> gold (score=1000, count=0)
+PASS 56: golden duplicate protected; play continues
+PASS 57: gold pair reservation
+PASS 58: duplicate gold callback rejected
+PASS 59: custom gold resource awarded once
+PASS 60: new scene resets combo score guide
+PASS 61: guide records highest created animal
+Day3 checks: 61; failures: 0
+exit=0
+===== natural collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Natural collision: bodies=1 score=4 merges=1 result=PASS
+exit=0
+===== input recovery =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: touch quick tap accepted at clear x after blocked cooldown
+PASS: touch creates exactly one drop
+PASS: mouse quick tap accepted at clear x after blocked cooldown
+PASS: mouse creates exactly one drop
+Input recovery failures: 0
+exit=0
+===== multitouch =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: second finger cannot drop or steal the active touch
+PASS: first finger release queues one drop
+PASS: release beyond right edge is clamped
+PASS: multi-touch sequence creates exactly one body
+Multi-touch failures: 0
+exit=0
+===== restart =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: scene restart clears bodies and score, resumes tree
+exit=0
+===== contact chain =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: actual contact chain mouse->hamster->rabbit; bodies=1 score=12 merges=2 pending=0
+exit=0
+===== wall matrix =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.911 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.964 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=64 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.00 max_px=0.360 overlap_frames=158 max_consecutive=158 fully_escaped=false stuck=false final_depth=0.300
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.50 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=14.4 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.288 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.090 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=2.293 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.400 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.264 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.294 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+FLOOR level=1 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=1 speed=700 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false
+FLOOR level=5 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=5 speed=700 max_px=9.958 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+FLOOR level=12 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=12 speed=700 max_px=5.283 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+NATURAL_DROP level=1 ticks=60 max_px=0.360 frames=165 max_consecutive=165 max_speed=1138.00 full_escape=false final_depth=0.250
+NATURAL_DROP level=1 ticks=120 max_px=4.190 frames=305 max_consecutive=303 max_speed=1144.77 full_escape=false final_depth=0.098
+NATURAL_DROP level=1 ticks=240 max_px=1.657 frames=608 max_consecutive=606 max_speed=1144.54 full_escape=false final_depth=0.089
+NATURAL_DROP level=4 ticks=60 max_px=16.678 frames=154 max_consecutive=152 max_speed=1138.00 full_escape=false final_depth=0.253
+NATURAL_DROP level=4 ticks=120 max_px=2.171 frames=306 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.025
+NATURAL_DROP level=4 ticks=240 max_px=4.395 frames=612 max_consecutive=610 max_speed=1133.71 full_escape=false final_depth=0.150
+NATURAL_DROP level=5 ticks=60 max_px=4.712 frames=153 max_consecutive=152 max_speed=1123.53 full_escape=false final_depth=0.300
+NATURAL_DROP level=5 ticks=120 max_px=9.171 frames=307 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.285
+NATURAL_DROP level=5 ticks=240 max_px=1.963 frames=614 max_consecutive=612 max_speed=1126.48 full_escape=false final_depth=0.103
+NATURAL_DROP level=12 ticks=60 max_px=14.259 frames=160 max_consecutive=158 max_speed=1065.45 full_escape=false final_depth=0.209
+NATURAL_DROP level=12 ticks=120 max_px=0.695 frames=317 max_consecutive=316 max_speed=1057.75 full_escape=false final_depth=0.244
+NATURAL_DROP level=12 ticks=240 max_px=2.787 frames=635 max_consecutive=633 max_speed=1061.17 full_escape=false final_depth=0.246
+Wall matrix cases=19 full_escape_or_stuck=0
+exit=0
+===== bot sessions 60Hz =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak
+BOT_WORST seed=30000 depth=16.678 level=4 x=466.139 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30000,random,70,51,8,1151,25,time_cap,90.02,0,16.678,5316,2794
+BOT_WORST seed=30001 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30001,same_target,72,57,8,1428,22,time_cap,90.02,0,16.678,5320,2146
+BOT_WORST seed=30002 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30002,lowest_stack,72,37,7,680,18,time_cap,90.02,0,16.678,5320,4817
+BOT_WORST seed=30003 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30003,merge_priority,69,55,7,887,16,time_cap,90.02,0,16.678,5326,2028
+BOT_COMPLETE sessions=4 ticks=60 wall_seconds=6.466
+exit=0
+===== bot sessions 120Hz =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak
+BOT_WORST seed=30000 depth=9.190 level=2 x=167.992 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30000,random,72,41,7,869,20,time_cap,90.00,0,9.190,10625,8993
+BOT_WORST seed=30001 depth=5.651 level=3 x=122.000 y=1070.651 r=29.000 vel=(0.00,1137.55)
+BOT_CSV 30001,same_target,72,60,9,1636,21,time_cap,90.00,0,5.651,10626,5902
+BOT_WORST seed=30002 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30002,lowest_stack,71,43,8,934,21,time_cap,90.00,0,9.190,10626,10624
+BOT_WORST seed=30003 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30003,merge_priority,70,48,7,765,18,time_cap,90.00,0,9.190,10625,9179
+BOT_COMPLETE sessions=4 ticks=120 wall_seconds=12.543
+exit=0
+===== wall collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+INFO: CCD mode=1 ticks=60 left_gap=-0.664 right_gap=-6.636 floor_gap=-0.506 landed=true full_escape=false center_in_wall=false
+PASS: no full escape or trapped center; overlap measurement is not a zero-penetration pass
+exit=0
+===== real gameplay =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: pause stops actual rigid body movement
+PASS: resume continues actual rigid body movement
+Real overflow: bodies=48 supported=48 peak_time=2.008 game_state=GAME_OVER
+PASS: stable physical pile triggers game over
+PASS: real game over blocks spawn
+Real gameplay failures: 0
+exit=0
+===== 100 drops =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+100-drop fixture: requests=100 spawned=100 result=PASS
+exit=0
+===== stress =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+count=100 actual=100 fps=145.0 physics_seconds=0.000605 static_bytes=69113745 escaped=0 merge_count=0 pending=0
+count=150 actual=150 fps=145.0 physics_seconds=0.001005 static_bytes=70454393 escaped=0 merge_count=0 pending=0
+count=200 actual=200 fps=145.0 physics_seconds=0.001228 static_bytes=71867769 escaped=0 merge_count=0 pending=0
+exit=0
+===== merge stress 100 seeds =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MERGE_STRESS_CSV seed,bodies,reserved,queue_max,locks_max,pending_ms,blocked_drop_ms,save_delay_ms,merges,score,lost,duplicates,stop
+MERGE_STRESS_CSV 41000,10,2,2,4,0.775,0.775,0.775,2,8,0,0,ok
+MERGE_STRESS_CSV 41001,10,2,2,4,0.603,0.603,0.603,2,8,0,0,ok
+MERGE_STRESS_CSV 41002,10,2,2,4,0.605,0.605,0.605,2,8,0,0,ok
+MERGE_STRESS_CSV 41003,10,2,2,4,0.587,0.587,0.587,2,8,0,0,ok
+MERGE_STRESS_CSV 41004,10,2,2,4,0.533,0.533,0.533,2,8,0,0,ok
+MERGE_STRESS_CSV 41005,10,2,2,4,0.603,0.603,0.603,2,8,0,0,ok
+MERGE_STRESS_CSV 41006,10,2,2,4,0.597,0.597,0.597,2,8,0,0,ok
+MERGE_STRESS_CSV 41007,10,2,2,4,0.581,0.581,0.581,2,8,0,0,ok
+MERGE_STRESS_CSV 41008,10,2,2,4,0.532,0.532,0.532,2,8,0,0,ok
+MERGE_STRESS_CSV 41009,10,2,2,4,0.554,0.554,0.554,2,8,0,0,ok
+MERGE_STRESS_CSV 41010,10,2,2,4,0.558,0.558,0.558,2,8,0,0,ok
+MERGE_STRESS_CSV 41011,10,2,2,4,0.555,0.555,0.555,2,8,0,0,ok
+MERGE_STRESS_CSV 41012,10,2,2,4,0.543,0.543,0.543,2,8,0,0,ok
+MERGE_STRESS_CSV 41013,10,2,2,4,0.589,0.589,0.589,2,8,0,0,ok
+MERGE_STRESS_CSV 41014,10,2,2,4,0.667,0.667,0.667,2,8,0,0,ok
+MERGE_STRESS_CSV 41015,10,2,2,4,0.556,0.556,0.556,2,8,0,0,ok
+MERGE_STRESS_CSV 41016,10,2,2,4,0.563,0.563,0.563,2,8,0,0,ok
+MERGE_STRESS_CSV 41017,10,2,2,4,0.534,0.534,0.534,2,8,0,0,ok
+MERGE_STRESS_CSV 41018,10,2,2,4,0.553,0.553,0.553,2,8,0,0,ok
+MERGE_STRESS_CSV 41019,10,2,2,4,0.585,0.585,0.585,2,8,0,0,ok
+MERGE_STRESS_CSV 41020,10,2,2,4,0.555,0.555,0.555,2,8,0,0,ok
+MERGE_STRESS_CSV 41021,10,2,2,4,0.576,0.576,0.576,2,8,0,0,ok
+MERGE_STRESS_CSV 41022,10,2,2,4,0.612,0.612,0.612,2,8,0,0,ok
+MERGE_STRESS_CSV 41023,10,2,2,4,0.554,0.554,0.554,2,8,0,0,ok
+MERGE_STRESS_CSV 41024,10,2,2,4,0.548,0.548,0.548,2,8,0,0,ok
+MERGE_STRESS_CSV 41025,10,2,2,4,0.621,0.621,0.621,2,8,0,0,ok
+MERGE_STRESS_CSV 41026,10,2,2,4,0.584,0.584,0.584,2,8,0,0,ok
+MERGE_STRESS_CSV 41027,10,2,2,4,0.582,0.582,0.582,2,8,0,0,ok
+MERGE_STRESS_CSV 41028,10,2,2,4,0.567,0.567,0.567,2,8,0,0,ok
+MERGE_STRESS_CSV 41029,10,2,2,4,0.557,0.557,0.557,2,8,0,0,ok
+MERGE_STRESS_CSV 41030,10,2,2,4,0.541,0.541,0.541,2,8,0,0,ok
+MERGE_STRESS_CSV 41031,10,2,2,4,0.533,0.533,0.533,2,8,0,0,ok
+MERGE_STRESS_CSV 41032,10,2,2,4,0.562,0.562,0.562,2,8,0,0,ok
+MERGE_STRESS_CSV 41033,10,2,2,4,0.552,0.552,0.552,2,8,0,0,ok
+MERGE_STRESS_CSV 41034,10,2,2,4,0.563,0.563,0.563,2,8,0,0,ok
+MERGE_STRESS_CSV 41035,10,2,2,4,0.547,0.547,0.547,2,8,0,0,ok
+MERGE_STRESS_CSV 41036,10,2,2,4,0.554,0.554,0.554,2,8,0,0,ok
+MERGE_STRESS_CSV 41037,10,2,2,4,0.615,0.615,0.615,2,8,0,0,ok
+MERGE_STRESS_CSV 41038,10,2,2,4,0.643,0.643,0.643,2,8,0,0,ok
+MERGE_STRESS_CSV 41039,10,2,2,4,0.568,0.568,0.568,2,8,0,0,ok
+MERGE_STRESS_CSV 41040,10,2,2,4,0.583,0.583,0.583,2,8,0,0,ok
+MERGE_STRESS_CSV 41041,10,2,2,4,0.572,0.572,0.572,2,8,0,0,ok
+MERGE_STRESS_CSV 41042,10,2,2,4,0.550,0.550,0.550,2,8,0,0,ok
+MERGE_STRESS_CSV 41043,10,2,2,4,0.560,0.560,0.560,2,8,0,0,ok
+MERGE_STRESS_CSV 41044,10,2,2,4,0.565,0.565,0.565,2,8,0,0,ok
+MERGE_STRESS_CSV 41045,10,2,2,4,0.532,0.532,0.532,2,8,0,0,ok
+MERGE_STRESS_CSV 41046,10,2,2,4,0.534,0.534,0.534,2,8,0,0,ok
+MERGE_STRESS_CSV 41047,10,2,2,4,0.563,0.563,0.563,2,8,0,0,ok
+MERGE_STRESS_CSV 41048,10,2,2,4,0.598,0.598,0.598,2,8,0,0,ok
+MERGE_STRESS_CSV 41049,10,2,2,4,0.631,0.631,0.631,2,8,0,0,ok
+MERGE_STRESS_CSV 41050,10,2,2,4,0.573,0.573,0.573,2,8,0,0,ok
+MERGE_STRESS_CSV 41051,10,2,2,4,0.599,0.599,0.599,2,8,0,0,ok
+MERGE_STRESS_CSV 41052,10,2,2,4,0.589,0.589,0.589,2,8,0,0,ok
+MERGE_STRESS_CSV 41053,10,2,2,4,0.590,0.590,0.590,2,8,0,0,ok
+MERGE_STRESS_CSV 41054,10,2,2,4,0.600,0.600,0.600,2,8,0,0,ok
+MERGE_STRESS_CSV 41055,10,2,2,4,0.545,0.545,0.545,2,8,0,0,ok
+MERGE_STRESS_CSV 41056,10,2,2,4,0.571,0.571,0.571,2,8,0,0,ok
+MERGE_STRESS_CSV 41057,10,2,2,4,0.582,0.582,0.582,2,8,0,0,ok
+MERGE_STRESS_CSV 41058,10,2,2,4,0.545,0.545,0.545,2,8,0,0,ok
+MERGE_STRESS_CSV 41059,10,2,2,4,0.581,0.581,0.581,2,8,0,0,ok
+MERGE_STRESS_CSV 41060,10,2,2,4,0.569,0.569,0.569,2,8,0,0,ok
+MERGE_STRESS_CSV 41061,10,2,2,4,0.609,0.609,0.609,2,8,0,0,ok
+MERGE_STRESS_CSV 41062,10,2,2,4,0.571,0.571,0.571,2,8,0,0,ok
+MERGE_STRESS_CSV 41063,10,2,2,4,0.568,0.568,0.568,2,8,0,0,ok
+MERGE_STRESS_CSV 41064,10,2,2,4,0.540,0.540,0.540,2,8,0,0,ok
+MERGE_STRESS_CSV 41065,10,2,2,4,0.544,0.544,0.544,2,8,0,0,ok
+MERGE_STRESS_CSV 41066,10,2,2,4,0.553,0.553,0.553,2,8,0,0,ok
+MERGE_STRESS_CSV 41067,10,2,2,4,0.553,0.553,0.553,2,8,0,0,ok
+MERGE_STRESS_CSV 41068,10,2,2,4,0.585,0.585,0.585,2,8,0,0,ok
+MERGE_STRESS_CSV 41069,10,2,2,4,0.557,0.557,0.557,2,8,0,0,ok
+MERGE_STRESS_CSV 41070,10,2,2,4,0.560,0.560,0.560,2,8,0,0,ok
+MERGE_STRESS_CSV 41071,10,2,2,4,0.559,0.559,0.559,2,8,0,0,ok
+MERGE_STRESS_CSV 41072,10,2,2,4,0.597,0.597,0.597,2,8,0,0,ok
+MERGE_STRESS_CSV 41073,10,2,2,4,0.698,0.698,0.698,2,8,0,0,ok
+MERGE_STRESS_CSV 41074,10,2,2,4,0.584,0.584,0.584,2,8,0,0,ok
+MERGE_STRESS_CSV 41075,10,2,2,4,0.549,0.549,0.549,2,8,0,0,ok
+MERGE_STRESS_CSV 41076,10,2,2,4,0.569,0.569,0.569,2,8,0,0,ok
+MERGE_STRESS_CSV 41077,10,2,2,4,0.574,0.574,0.574,2,8,0,0,ok
+MERGE_STRESS_CSV 41078,10,2,2,4,0.598,0.598,0.598,2,8,0,0,ok
+MERGE_STRESS_CSV 41079,10,2,2,4,0.606,0.606,0.606,2,8,0,0,ok
+MERGE_STRESS_CSV 41080,10,2,2,4,0.573,0.573,0.573,2,8,0,0,ok
+MERGE_STRESS_CSV 41081,10,2,2,4,0.534,0.534,0.534,2,8,0,0,ok
+MERGE_STRESS_CSV 41082,10,2,2,4,0.595,0.595,0.595,2,8,0,0,ok
+MERGE_STRESS_CSV 41083,10,2,2,4,0.606,0.606,0.606,2,8,0,0,ok
+MERGE_STRESS_CSV 41084,10,2,2,4,0.609,0.609,0.609,2,8,0,0,ok
+MERGE_STRESS_CSV 41085,10,2,2,4,0.718,0.718,0.718,2,8,0,0,ok
+MERGE_STRESS_CSV 41086,10,2,2,4,0.614,0.614,0.614,2,8,0,0,ok
+MERGE_STRESS_CSV 41087,10,2,2,4,0.581,0.581,0.581,2,8,0,0,ok
+MERGE_STRESS_CSV 41088,10,2,2,4,0.553,0.553,0.553,2,8,0,0,ok
+MERGE_STRESS_CSV 41089,10,2,2,4,0.545,0.545,0.545,2,8,0,0,ok
+MERGE_STRESS_CSV 41090,10,2,2,4,0.604,0.604,0.604,2,8,0,0,ok
+MERGE_STRESS_CSV 41091,10,2,2,4,0.568,0.568,0.568,2,8,0,0,ok
+MERGE_STRESS_CSV 41092,10,2,2,4,0.539,0.539,0.539,2,8,0,0,ok
+MERGE_STRESS_CSV 41093,10,2,2,4,0.581,0.581,0.581,2,8,0,0,ok
+MERGE_STRESS_CSV 41094,10,2,2,4,0.560,0.560,0.560,2,8,0,0,ok
+MERGE_STRESS_CSV 41095,10,2,2,4,0.600,0.600,0.600,2,8,0,0,ok
+MERGE_STRESS_CSV 41096,10,2,2,4,0.677,0.677,0.677,2,8,0,0,ok
+MERGE_STRESS_CSV 41097,10,2,2,4,0.613,0.613,0.613,2,8,0,0,ok
+MERGE_STRESS_CSV 41098,10,2,2,4,0.575,0.575,0.575,2,8,0,0,ok
+MERGE_STRESS_CSV 41099,10,2,2,4,0.550,0.550,0.550,2,8,0,0,ok
+MERGE_STRESS_CSV 41000,20,2,2,4,0.700,0.700,0.700,2,8,0,0,ok
+MERGE_STRESS_CSV 41001,20,2,2,4,0.773,0.773,0.773,2,8,0,0,ok
+MERGE_STRESS_CSV 41002,20,2,2,4,0.696,0.696,0.696,2,8,0,0,ok
+MERGE_STRESS_CSV 41003,20,2,2,4,0.607,0.607,0.607,2,8,0,0,ok
+MERGE_STRESS_CSV 41004,20,2,2,4,0.617,0.617,0.617,2,8,0,0,ok
+MERGE_STRESS_CSV 41005,20,2,2,4,0.609,0.609,0.609,2,8,0,0,ok
+MERGE_STRESS_CSV 41006,20,2,2,4,0.734,0.734,0.734,2,8,0,0,ok
+MERGE_STRESS_CSV 41007,20,2,2,4,0.625,0.625,0.625,2,8,0,0,ok
+MERGE_STRESS_CSV 41008,20,2,2,4,0.694,0.694,0.694,1,4,0,0,ok
+MERGE_STRESS_CSV 41009,20,2,2,4,0.889,0.889,0.889,1,4,0,0,ok
+MERGE_STRESS_CSV 41010,20,2,2,4,0.648,0.648,0.648,1,4,0,0,ok
+MERGE_STRESS_CSV 41011,20,2,2,4,0.834,0.834,0.834,1,4,0,0,ok
+MERGE_STRESS_CSV 41012,20,2,2,4,0.697,0.697,0.697,2,8,0,0,ok
+MERGE_STRESS_CSV 41013,20,2,2,4,0.612,0.612,0.612,2,8,0,0,ok
+MERGE_STRESS_CSV 41014,20,2,2,4,1.136,1.136,1.136,2,8,0,0,ok
+MERGE_STRESS_CSV 41015,20,2,2,4,0.686,0.686,0.686,2,8,0,0,ok
+MERGE_STRESS_CSV 41016,20,2,2,4,0.681,0.681,0.681,2,8,0,0,ok
+MERGE_STRESS_CSV 41017,20,2,2,4,0.854,0.854,0.854,1,4,0,0,ok
+MERGE_STRESS_CSV 41018,20,2,2,4,0.608,0.608,0.608,2,8,0,0,ok
+MERGE_STRESS_CSV 41019,20,2,2,4,0.667,0.667,0.667,2,8,0,0,ok
+MERGE_STRESS_CSV 41020,20,2,2,4,0.629,0.629,0.629,2,8,0,0,ok
+MERGE_STRESS_CSV 41021,20,2,2,4,0.612,0.612,0.612,2,8,0,0,ok
+MERGE_STRESS_CSV 41022,20,2,2,4,0.670,0.670,0.670,2,8,0,0,ok
+MERGE_STRESS_CSV 41023,20,2,2,4,0.726,0.726,0.726,2,8,0,0,ok
+MERGE_STRESS_CSV 41024,20,2,2,4,0.847,0.847,0.847,1,4,0,0,ok
+MERGE_STRESS_CSV 41025,20,2,2,4,0.648,0.648,0.648,1,4,0,0,ok
+MERGE_STRESS_CSV 41026,20,2,2,4,0.685,0.685,0.685,2,8,0,0,ok
+MERGE_STRESS_CSV 41027,20,2,2,4,0.610,0.610,0.610,2,8,0,0,ok
+MERGE_STRESS_CSV 41028,20,2,2,4,0.836,0.836,0.836,1,4,0,0,ok
+MERGE_STRESS_CSV 41029,20,2,2,4,0.707,0.707,0.707,2,8,0,0,ok
+MERGE_STRESS_CSV 41030,20,2,2,4,0.670,0.670,0.670,1,4,0,0,ok
+MERGE_STRESS_CSV 41031,20,2,2,4,0.672,0.672,0.672,2,8,0,0,ok
+MERGE_STRESS_CSV 41032,20,2,2,4,0.698,0.698,0.698,2,8,0,0,ok
+MERGE_STRESS_CSV 41033,20,2,2,4,0.662,0.662,0.662,2,8,0,0,ok
+MERGE_STRESS_CSV 41034,20,2,2,4,0.843,0.843,0.843,1,4,0,0,ok
+MERGE_STRESS_CSV 41035,20,2,2,4,0.836,0.836,0.836,1,4,0,0,ok
+MERGE_STRESS_CSV 41036,20,2,2,4,0.714,0.714,0.714,2,8,0,0,ok
+MERGE_STRESS_CSV 41037,20,2,2,4,0.599,0.599,0.599,2,8,0,0,ok
+MERGE_STRESS_CSV 41038,20,2,2,4,0.852,0.852,0.852,1,4,0,0,ok
+MERGE_STRESS_CSV 41039,20,2,2,4,0.711,0.711,0.711,2,8,0,0,ok
+MERGE_STRESS_CSV 41040,20,2,2,4,0.679,0.679,0.679,2,8,0,0,ok
+MERGE_STRESS_CSV 41041,20,2,2,4,0.654,0.654,0.654,2,8,0,0,ok
+MERGE_STRESS_CSV 41042,20,2,2,4,0.679,0.679,0.679,2,8,0,0,ok
+MERGE_STRESS_CSV 41043,20,2,2,4,0.720,0.720,0.720,2,8,0,0,ok
+MERGE_STRESS_CSV 41044,20,2,2,4,0.842,0.842,0.842,2,8,0,0,ok
+MERGE_STRESS_CSV 41045,20,2,2,4,0.597,0.597,0.597,2,8,0,0,ok
+MERGE_STRESS_CSV 41046,20,2,2,4,0.628,0.628,0.628,2,8,0,0,ok
+MERGE_STRESS_CSV 41047,20,2,2,4,0.610,0.610,0.610,2,8,0,0,ok
+MERGE_STRESS_CSV 41048,20,2,2,4,0.679,0.679,0.679,2,8,0,0,ok
+MERGE_STRESS_CSV 41049,20,2,2,4,0.823,0.823,0.823,2,8,0,0,ok
+MERGE_STRESS_CSV 41050,20,2,2,4,0.645,0.645,0.645,1,4,0,0,ok
+MERGE_STRESS_CSV 41051,20,2,2,4,0.892,0.892,0.892,2,8,0,0,ok
+MERGE_STRESS_CSV 41052,20,2,2,4,0.743,0.743,0.743,2,8,0,0,ok
+MERGE_STRESS_CSV 41053,20,2,2,4,0.675,0.675,0.675,2,8,0,0,ok
+MERGE_STRESS_CSV 41054,20,2,2,4,0.738,0.738,0.738,2,8,0,0,ok
+MERGE_STRESS_CSV 41055,20,2,2,4,0.692,0.692,0.692,2,8,0,0,ok
+MERGE_STRESS_CSV 41056,20,2,2,4,0.712,0.712,0.712,2,8,0,0,ok
+MERGE_STRESS_CSV 41057,20,2,2,4,0.648,0.648,0.648,1,4,0,0,ok
+MERGE_STRESS_CSV 41058,20,2,2,4,0.596,0.596,0.596,2,8,0,0,ok
+MERGE_STRESS_CSV 41059,20,2,2,4,0.624,0.624,0.624,2,8,0,0,ok
+MERGE_STRESS_CSV 41060,20,2,2,4,0.695,0.695,0.695,2,8,0,0,ok
+MERGE_STRESS_CSV 41061,20,2,2,4,0.607,0.607,0.607,2,8,0,0,ok
+MERGE_STRESS_CSV 41062,20,2,2,4,0.672,0.672,0.672,2,8,0,0,ok
+MERGE_STRESS_CSV 41063,20,2,2,4,0.729,0.729,0.729,2,8,0,0,ok
+MERGE_STRESS_CSV 41064,20,2,2,4,0.897,0.897,0.897,2,8,0,0,ok
+MERGE_STRESS_CSV 41065,20,2,2,4,0.605,0.605,0.605,2,8,0,0,ok
+MERGE_STRESS_CSV 41066,20,2,2,4,0.672,0.672,0.672,2,8,0,0,ok
+MERGE_STRESS_CSV 41067,20,2,2,4,0.844,0.844,0.844,2,8,0,0,ok
+MERGE_STRESS_CSV 41068,20,2,2,4,0.594,0.594,0.594,2,8,0,0,ok
+MERGE_STRESS_CSV 41069,20,2,2,4,0.618,0.618,0.618,2,8,0,0,ok
+MERGE_STRESS_CSV 41070,20,2,2,4,0.710,0.710,0.710,2,8,0,0,ok
+MERGE_STRESS_CSV 41071,20,2,2,4,0.846,0.846,0.846,2,8,0,0,ok
+MERGE_STRESS_CSV 41072,20,2,2,4,0.655,0.655,0.655,2,8,0,0,ok
+MERGE_STRESS_CSV 41073,20,2,2,4,0.646,0.646,0.646,1,4,0,0,ok
+MERGE_STRESS_CSV 41074,20,2,2,4,0.624,0.624,0.624,2,8,0,0,ok
+MERGE_STRESS_CSV 41075,20,2,2,4,0.686,0.686,0.686,2,8,0,0,ok
+MERGE_STRESS_CSV 41076,20,2,2,4,0.663,0.663,0.663,2,8,0,0,ok
+MERGE_STRESS_CSV 41077,20,2,2,4,0.709,0.709,0.709,2,8,0,0,ok
+MERGE_STRESS_CSV 41078,20,2,2,4,0.609,0.609,0.609,2,8,0,0,ok
+MERGE_STRESS_CSV 41079,20,2,2,4,0.624,0.624,0.624,1,4,0,0,ok
+MERGE_STRESS_CSV 41080,20,2,2,4,0.716,0.716,0.716,2,8,0,0,ok
+MERGE_STRESS_CSV 41081,20,2,2,4,0.643,0.643,0.643,1,4,0,0,ok
+MERGE_STRESS_CSV 41082,20,2,2,4,0.678,0.678,0.678,2,8,0,0,ok
+MERGE_STRESS_CSV 41083,20,2,2,4,0.594,0.594,0.594,2,8,0,0,ok
+MERGE_STRESS_CSV 41084,20,2,2,4,0.642,0.642,0.642,1,4,0,0,ok
+MERGE_STRESS_CSV 41085,20,2,2,4,0.674,0.674,0.674,2,8,0,0,ok
+MERGE_STRESS_CSV 41086,20,2,2,4,0.614,0.614,0.614,2,8,0,0,ok
+MERGE_STRESS_CSV 41087,20,2,2,4,0.679,0.679,0.679,1,4,0,0,ok
+MERGE_STRESS_CSV 41088,20,2,2,4,0.644,0.644,0.644,2,8,0,0,ok
+MERGE_STRESS_CSV 41089,20,2,2,4,0.625,0.625,0.625,2,8,0,0,ok
+MERGE_STRESS_CSV 41090,20,2,2,4,0.681,0.681,0.681,2,8,0,0,ok
+MERGE_STRESS_CSV 41091,20,2,2,4,0.724,0.724,0.724,2,8,0,0,ok
+MERGE_STRESS_CSV 41092,20,2,2,4,0.620,0.620,0.620,2,8,0,0,ok
+MERGE_STRESS_CSV 41093,20,2,2,4,0.852,0.852,0.852,2,8,0,0,ok
+MERGE_STRESS_CSV 41094,20,2,2,4,0.856,0.856,0.856,2,8,0,0,ok
+MERGE_STRESS_CSV 41095,20,2,2,4,0.641,0.641,0.641,2,8,0,0,ok
+MERGE_STRESS_CSV 41096,20,2,2,4,0.716,0.716,0.716,2,8,0,0,ok
+MERGE_STRESS_CSV 41097,20,2,2,4,0.728,0.728,0.728,2,8,0,0,ok
+MERGE_STRESS_CSV 41098,20,2,2,4,0.678,0.678,0.678,1,4,0,0,ok
+MERGE_STRESS_CSV 41099,20,2,2,4,0.761,0.761,0.761,2,8,0,0,ok
+MERGE_STRESS_CSV 41000,40,2,2,4,1.341,1.341,1.341,2,8,0,0,ok
+MERGE_STRESS_CSV 41001,40,2,2,4,1.709,1.709,1.709,2,8,0,0,ok
+MERGE_STRESS_CSV 41002,40,2,2,4,0.749,0.749,0.749,2,8,0,0,ok
+MERGE_STRESS_CSV 41003,40,2,2,4,0.783,0.783,0.783,2,8,0,0,ok
+MERGE_STRESS_CSV 41004,40,2,2,4,1.870,1.870,1.870,1,4,0,0,ok
+MERGE_STRESS_CSV 41005,40,2,2,4,0.901,0.901,0.901,1,4,0,0,ok
+MERGE_STRESS_CSV 41006,40,2,2,4,0.731,0.731,0.731,2,8,0,0,ok
+MERGE_STRESS_CSV 41007,40,2,2,4,1.790,1.790,1.790,1,4,0,0,ok
+MERGE_STRESS_CSV 41008,40,2,2,4,1.198,1.198,1.198,0,0,0,0,ok
+MERGE_STRESS_CSV 41009,40,2,2,4,1.375,1.375,1.375,2,8,0,0,ok
+MERGE_STRESS_CSV 41010,40,2,2,4,1.278,1.278,1.278,1,4,0,0,ok
+MERGE_STRESS_CSV 41011,40,2,2,4,1.700,1.700,1.700,2,8,0,0,ok
+MERGE_STRESS_CSV 41012,40,2,2,4,1.844,1.844,1.844,1,4,0,0,ok
+MERGE_STRESS_CSV 41013,40,2,2,4,0.896,0.896,0.896,1,4,0,0,ok
+MERGE_STRESS_CSV 41014,40,2,2,4,0.776,0.776,0.776,0,0,0,0,ok
+MERGE_STRESS_CSV 41015,40,2,2,4,0.773,0.773,0.773,2,8,0,0,ok
+MERGE_STRESS_CSV 41016,40,2,2,4,2.032,2.032,2.032,1,4,0,0,ok
+MERGE_STRESS_CSV 41017,40,2,2,4,1.638,1.638,1.638,0,0,0,0,ok
+MERGE_STRESS_CSV 41018,40,2,2,4,0.790,0.790,0.790,2,8,0,0,ok
+MERGE_STRESS_CSV 41019,40,2,2,4,1.435,1.435,1.435,2,8,0,0,ok
+MERGE_STRESS_CSV 41020,40,2,2,4,1.322,1.322,1.322,1,4,0,0,ok
+MERGE_STRESS_CSV 41021,40,2,2,4,1.344,1.344,1.344,2,8,0,0,ok
+MERGE_STRESS_CSV 41022,40,2,2,4,1.883,1.883,1.883,1,4,0,0,ok
+MERGE_STRESS_CSV 41023,40,2,2,4,1.347,1.347,1.347,2,8,0,0,ok
+MERGE_STRESS_CSV 41024,40,2,2,4,0.688,0.688,0.688,2,8,0,0,ok
+MERGE_STRESS_CSV 41025,40,2,2,4,1.708,1.708,1.708,2,8,0,0,ok
+MERGE_STRESS_CSV 41026,40,2,2,4,1.765,1.765,1.765,1,4,0,0,ok
+MERGE_STRESS_CSV 41027,40,2,2,4,0.779,0.779,0.779,2,8,0,0,ok
+MERGE_STRESS_CSV 41028,40,2,2,4,0.932,0.932,0.932,2,8,0,0,ok
+MERGE_STRESS_CSV 41029,40,2,2,4,1.693,1.693,1.693,2,8,0,0,ok
+MERGE_STRESS_CSV 41030,40,2,2,4,0.743,0.743,0.743,2,8,0,0,ok
+MERGE_STRESS_CSV 41031,40,2,2,4,0.784,0.784,0.784,2,8,0,0,ok
+MERGE_STRESS_CSV 41032,40,2,2,4,0.905,0.905,0.905,1,4,0,0,ok
+MERGE_STRESS_CSV 41033,40,2,2,4,1.627,1.627,1.627,0,0,0,0,ok
+MERGE_STRESS_CSV 41034,40,2,2,4,1.045,1.045,1.045,1,4,0,0,ok
+MERGE_STRESS_CSV 41035,40,2,2,4,0.785,0.785,0.785,2,8,0,0,ok
+MERGE_STRESS_CSV 41036,40,2,2,4,0.764,0.764,0.764,2,8,0,0,ok
+MERGE_STRESS_CSV 41037,40,2,2,4,0.901,0.901,0.901,2,8,0,0,ok
+MERGE_STRESS_CSV 41038,40,2,2,4,0.724,0.724,0.724,2,8,0,0,ok
+MERGE_STRESS_CSV 41039,40,2,2,4,0.900,0.900,0.900,1,4,0,0,ok
+MERGE_STRESS_CSV 41040,40,2,2,4,0.743,0.743,0.743,2,8,0,0,ok
+MERGE_STRESS_CSV 41041,40,2,2,4,0.762,0.762,0.762,2,8,0,0,ok
+MERGE_STRESS_CSV 41042,40,2,2,4,0.883,0.883,0.883,1,4,0,0,ok
+MERGE_STRESS_CSV 41043,40,2,2,4,0.744,0.744,0.744,2,8,0,0,ok
+MERGE_STRESS_CSV 41044,40,2,2,4,0.777,0.777,0.777,0,0,0,0,ok
+MERGE_STRESS_CSV 41045,40,2,2,4,0.739,0.739,0.739,2,8,0,0,ok
+MERGE_STRESS_CSV 41046,40,2,2,4,0.953,0.953,0.953,1,4,0,0,ok
+MERGE_STRESS_CSV 41047,40,2,2,4,0.715,0.715,0.715,2,8,0,0,ok
+MERGE_STRESS_CSV 41048,40,2,2,4,0.712,0.712,0.712,2,8,0,0,ok
+MERGE_STRESS_CSV 41049,40,2,2,4,1.069,1.069,1.069,1,4,0,0,ok
+MERGE_STRESS_CSV 41050,40,2,2,4,1.727,1.727,1.727,1,4,0,0,ok
+MERGE_STRESS_CSV 41051,40,2,2,4,1.323,1.323,1.323,1,4,0,0,ok
+MERGE_STRESS_CSV 41052,40,2,2,4,0.910,0.910,0.910,2,8,0,0,ok
+MERGE_STRESS_CSV 41053,40,2,2,4,0.735,0.735,0.735,2,8,0,0,ok
+MERGE_STRESS_CSV 41054,40,2,2,4,0.906,0.906,0.906,1,4,0,0,ok
+MERGE_STRESS_CSV 41055,40,2,2,4,1.051,1.051,1.051,1,4,0,0,ok
+MERGE_STRESS_CSV 41056,40,2,2,4,1.482,1.482,1.482,2,8,0,0,ok
+MERGE_STRESS_CSV 41057,40,2,2,4,0.745,0.745,0.745,2,8,0,0,ok
+MERGE_STRESS_CSV 41058,40,2,2,4,1.328,1.328,1.328,2,8,0,0,ok
+MERGE_STRESS_CSV 41059,40,2,2,4,0.899,0.899,0.899,2,8,0,0,ok
+MERGE_STRESS_CSV 41060,40,2,2,4,0.694,0.694,0.694,2,8,0,0,ok
+MERGE_STRESS_CSV 41061,40,2,2,4,1.069,1.069,1.069,1,4,0,0,ok
+MERGE_STRESS_CSV 41062,40,2,2,4,1.309,1.309,1.309,1,4,0,0,ok
+MERGE_STRESS_CSV 41063,40,2,2,4,1.693,1.693,1.693,2,8,0,0,ok
+MERGE_STRESS_CSV 41064,40,2,2,4,0.713,0.713,0.713,2,8,0,0,ok
+MERGE_STRESS_CSV 41065,40,2,2,4,1.374,1.374,1.374,1,4,0,0,ok
+MERGE_STRESS_CSV 41066,40,2,2,4,1.644,1.644,1.644,0,0,0,0,ok
+MERGE_STRESS_CSV 41067,40,2,2,4,1.457,1.457,1.457,1,4,0,0,ok
+MERGE_STRESS_CSV 41068,40,2,2,4,0.790,0.790,0.790,0,0,0,0,ok
+MERGE_STRESS_CSV 41069,40,2,2,4,1.621,1.621,1.621,0,0,0,0,ok
+MERGE_STRESS_CSV 41070,40,2,2,4,0.788,0.788,0.788,0,0,0,0,ok
+MERGE_STRESS_CSV 41071,40,2,2,4,0.745,0.745,0.745,2,8,0,0,ok
+MERGE_STRESS_CSV 41072,40,2,2,4,0.698,0.698,0.698,2,8,0,0,ok
+MERGE_STRESS_CSV 41073,40,2,2,4,0.781,0.781,0.781,0,0,0,0,ok
+MERGE_STRESS_CSV 41074,40,2,2,4,0.761,0.761,0.761,2,8,0,0,ok
+MERGE_STRESS_CSV 41075,40,2,2,4,1.643,1.643,1.643,0,0,0,0,ok
+MERGE_STRESS_CSV 41076,40,2,2,4,1.458,1.458,1.458,1,4,0,0,ok
+MERGE_STRESS_CSV 41077,40,2,2,4,0.739,0.739,0.739,2,8,0,0,ok
+MERGE_STRESS_CSV 41078,40,2,2,4,1.835,1.835,1.835,1,4,0,0,ok
+MERGE_STRESS_CSV 41079,40,2,2,4,0.899,0.899,0.899,1,4,0,0,ok
+MERGE_STRESS_CSV 41080,40,2,2,4,1.613,1.613,1.613,0,0,0,0,ok
+MERGE_STRESS_CSV 41081,40,2,2,4,0.763,0.763,0.763,2,8,0,0,ok
+MERGE_STRESS_CSV 41082,40,2,2,4,0.682,0.682,0.682,2,8,0,0,ok
+MERGE_STRESS_CSV 41083,40,2,2,4,0.740,0.740,0.740,2,8,0,0,ok
+MERGE_STRESS_CSV 41084,40,2,2,4,1.192,1.192,1.192,0,0,0,0,ok
+MERGE_STRESS_CSV 41085,40,2,2,4,1.449,1.449,1.449,2,8,0,0,ok
+MERGE_STRESS_CSV 41086,40,2,2,4,1.466,1.466,1.466,1,4,0,0,ok
+MERGE_STRESS_CSV 41087,40,2,2,4,0.939,0.939,0.939,2,8,0,0,ok
+MERGE_STRESS_CSV 41088,40,2,2,4,1.058,1.058,1.058,1,4,0,0,ok
+MERGE_STRESS_CSV 41089,40,2,2,4,1.276,1.276,1.276,1,4,0,0,ok
+MERGE_STRESS_CSV 41090,40,2,2,4,0.909,0.909,0.909,2,8,0,0,ok
+MERGE_STRESS_CSV 41091,40,2,2,4,0.768,0.768,0.768,2,8,0,0,ok
+MERGE_STRESS_CSV 41092,40,2,2,4,0.788,0.788,0.788,0,0,0,0,ok
+MERGE_STRESS_CSV 41093,40,2,2,4,0.685,0.685,0.685,2,8,0,0,ok
+MERGE_STRESS_CSV 41094,40,2,2,4,0.732,0.732,0.732,2,8,0,0,ok
+MERGE_STRESS_CSV 41095,40,2,2,4,1.412,1.412,1.412,2,8,0,0,ok
+MERGE_STRESS_CSV 41096,40,2,2,4,1.320,1.320,1.320,2,8,0,0,ok
+MERGE_STRESS_CSV 41097,40,2,2,4,0.693,0.693,0.693,2,8,0,0,ok
+MERGE_STRESS_CSV 41098,40,2,2,4,1.442,1.442,1.442,1,4,0,0,ok
+MERGE_STRESS_CSV 41099,40,2,2,4,1.683,1.683,1.683,2,8,0,0,ok
+MERGE_STRESS_COMPLETE cases=300 seeds=100 failures=0
+exit=0
+===== terminal save retry a3 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS create controlled temporary write blocker
+PASS terminal write failure remains visible while retry pending
+PASS rescue disabled and failure message not hidden
+PASS bounded retry writes actual terminal checkpoint after obstruction cleared
+PASS free rescue preserved
+PASS second controlled write blocker created
+PASS second terminal failure schedules retry
+PASS stale retry does not overwrite finalized new session
+SAVE_RETRY_A3 checks=8 failures=0
+exit=0
+===== placement a3 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS mouse cap derived from result plus source radii and clearance
+PASS old 132px distant fixture rejects out-of-cap placement
+PASS dense pair reserves
+PASS dense cancellation preserves bodies and score
+PASS unchanged failed pair cannot continuously requeue
+PASS safe save after cancellation
+PASS drop after cancellation
+PASS changed relevant board permits retry
+PASS retry commits exactly once
+PASS old 120px danger crossing cannot occur
+PASS danger pair reserves
+PASS no-safe danger cancellation preserves bodies score and timer
+PASS local offset found within geometric bound and danger region
+PASS timed offset pair reserved
+PASS local offset inherits active danger timer
+PASS one integration grace retains inherited timer
+PASS supported near-expiry timer triggers game over
+PASS normal midpoint pair reserves
+PASS normal midpoint merge retains prior timer behavior
+PLACEMENT_A3 checks=19 failures=0
+exit=0
+===== Firefox trace approximate a3 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+TRACE_RECONSTRUCTION mode=a3 result=PASS pair_offsets=0.562,1.032 point=<null> distance=-1.000 pending=0 merges=0 score=0 bodies=34
+exit=0
+===== contact retry a4 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS dense pair reserves
+PASS no-safe cancellation preserves bodies and score
+PASS cancellation tracked without retry while geometry unchanged
+PASS static blocker produces no automatic retry
+PASS save not blocked after cancellation
+PASS blocker movement triggers automatic retry without explicit re-request
+PASS automatic retry reserved exactly once
+PASS retry merge awards score exactly once
+PASS no duplicate merge after automatic retry
+PASS drop not blocked after cancellation and retry
+PASS save snapshot valid after automatic retry
+PASS contact-break pair reserves
+PASS broken contact drops retry tracking without merge
+PASS deletion pair reserves
+PASS deleted body prunes retry tracking
+PASS pause pair reserves
+PASS no automatic retry while paused
+PASS automatic retry resumes after resume
+PASS game-over pair reserves above danger line
+PASS above-line danger cancel tracked without merge
+PASS danger overflow reaches game over
+PASS no automatic retry after game over
+PASS golden pair reserves
+PASS golden merge commits without retry tracking
+PASS clear pair reserves
+PASS cleared retry state produces no stale merge
+CONTACT_RETRY_A4 checks=26 failures=0
+exit=0
+===== merge stress a4 100 seeds =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+MERGE_STRESS_A4_CSV seed,bodies,reserved,cancelled,auto_attempts,auto_successes,merges,score,lost,duplicates,pending_max,ok
+MERGE_STRESS_A4_CSV 41000,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41001,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41002,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41003,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41004,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41005,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41006,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41007,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41008,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41009,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41010,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41011,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41012,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41013,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41014,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41015,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41016,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41017,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41018,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41019,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41020,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41021,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41022,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41023,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41024,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41025,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41026,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41027,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41028,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41029,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41030,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41031,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41032,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41033,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41034,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41035,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41036,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41037,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41038,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41039,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41040,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41041,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41042,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41043,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41044,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41045,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41046,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41047,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41048,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41049,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41050,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41051,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41052,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41053,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41054,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41055,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41056,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41057,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41058,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41059,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41060,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41061,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41062,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41063,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41064,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41065,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41066,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41067,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41068,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41069,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41070,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41071,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41072,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41073,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41074,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41075,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41076,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41077,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41078,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41079,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41080,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41081,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41082,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41083,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41084,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41085,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41086,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41087,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41088,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41089,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41090,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41091,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41092,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41093,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41094,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41095,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41096,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41097,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41098,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41099,10,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41000,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41001,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41002,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41003,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41004,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41005,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41006,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41007,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41008,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41009,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41010,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41011,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41012,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41013,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41014,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41015,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41016,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41017,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41018,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41019,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41020,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41021,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41022,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41023,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41024,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41025,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41026,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41027,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41028,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41029,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41030,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41031,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41032,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41033,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41034,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41035,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41036,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41037,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41038,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41039,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41040,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41041,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41042,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41043,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41044,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41045,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41046,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41047,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41048,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41049,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41050,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41051,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41052,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41053,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41054,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41055,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41056,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41057,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41058,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41059,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41060,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41061,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41062,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41063,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41064,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41065,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41066,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41067,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41068,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41069,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41070,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41071,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41072,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41073,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41074,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41075,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41076,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41077,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41078,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41079,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41080,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41081,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41082,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41083,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41084,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41085,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41086,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41087,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41088,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41089,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41090,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41091,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41092,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41093,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41094,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41095,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41096,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41097,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41098,20,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41099,20,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41000,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41001,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41002,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41003,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41004,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41005,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41006,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41007,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41008,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41009,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41010,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41011,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41012,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41013,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41014,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41015,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41016,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41017,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41018,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41019,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41020,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41021,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41022,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41023,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41024,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41025,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41026,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41027,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41028,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41029,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41030,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41031,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41032,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41033,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41034,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41035,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41036,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41037,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41038,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41039,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41040,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41041,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41042,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41043,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41044,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41045,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41046,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41047,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41048,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41049,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41050,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41051,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41052,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41053,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41054,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41055,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41056,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41057,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41058,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41059,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41060,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41061,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41062,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41063,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41064,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41065,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41066,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41067,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41068,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41069,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41070,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41071,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41072,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41073,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41074,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41075,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41076,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41077,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41078,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41079,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41080,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41081,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41082,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41083,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41084,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41085,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41086,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41087,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41088,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41089,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41090,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41091,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41092,40,2,2,2,2,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41093,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41094,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41095,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41096,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41097,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41098,40,2,1,1,1,2,8,0,0,2,ok
+MERGE_STRESS_A4_CSV 41099,40,2,0,0,0,2,8,0,0,2,ok
+MERGE_STRESS_A4_COMPLETE cases=300 seeds=100 failures=0
+exit=0

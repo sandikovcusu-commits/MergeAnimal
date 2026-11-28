@@ -1,8 +1,9 @@
 # V0.9.1-A.4 — aggregate save observer (SAVE-AGGREGATE-OBSERVER-005): PARTIAL
 
 Status: scoped-aggregate fix in `560a803`, tightened in `b58cc61`, fixture
-isolation in `7839b8d`. Verified by CI runs `46090112214` (Chromium) and
-`46090114736` (Firefox) on `7839b8d`.
+isolation in `7839b8d`. Final verification on HEAD `8103ecb`: Chromium
+`46116270680` and Firefox `46116295210`, 27/27 each; A.3 observer suite rerun
+`46116275756` and `46116299728`, 9/9 each.
 Commercial status: BLOCKED. The original natural Chromium unconfirmed event
 (`46077100528`) remains unproven and is kept as an open risk.
 
@@ -77,13 +78,14 @@ silently satisfied the aggregate. Fixed in `b58cc61`:
   wrote; a commit that included the power-up record is `verified` only when
   that record, its revision and the session primary all verify.
 
-## Results (executed)
+## Results (executed on final commit `8103ecb`)
 
-- `confirmation-a4.mjs`, Chromium `46090112214`: `checks=27 failures=0`.
-- `confirmation-a4.mjs`, Firefox `46090114736`: `checks=27 failures=0`.
-- Previous 9-test observer suite rerun (`confirm-a3-fixed`):
-  Chromium `46090592610` `checks=9 failures=0`,
-  Firefox `46090594770` `checks=9 failures=0`.
+| Suite | Run | Result |
+| --- | --- | --- |
+| `confirmation-a4.mjs`, Chromium | 46116270680 | `CONFIRM_A4 checks=27 failures=0` |
+| `confirmation-a4.mjs`, Firefox | 46116295210 | `CONFIRM_A4 checks=27 failures=0` |
+| Previous 9-test observer suite (`confirm-a3-fixed`), Chromium | 46116275756 | `CONFIRM_A3 checks=9 failures=0` |
+| Previous 9-test observer suite (`confirm-a3-fixed`), Firefox | 46116299728 | `CONFIRM_A3 checks=9 failures=0` |
 
 Covered in the A.4 fixture: session-only autosave verified against its own
 required set; power-up commit verified only when both required files verify;
@@ -107,7 +109,16 @@ errors.
 
 ## Open risks
 
-- Original natural Chromium unconfirmed cause (`46077100528`) unproven.
+- Original natural Chromium unconfirmed cause (`46077100528`) unproven. Kept
+  open as `V091-A4-001`; A.4 fixed the scoped-aggregate defect and the
+  untracked-required-file hole, neither of which proves that event.
+- Read-back retry limit: `tracker.recover()` stops retrying once
+  `retries >= 3` (3/6/12 s backoff inside the 12 s deadline window). A record
+  that has exhausted its retries does NOT revive when a fault clears; only a
+  fresh commit (`track()` of a new envelope) re-verifies it. The HUD can
+  therefore stay `unconfirmed` until the next write. Documented, measured and
+  deliberately not "fixed" by raising the limit or loosening the assertion
+  (`V091-A4-005`).
 - IDBFS sync lag between the two commit files remains; aggregate correctly
   reports pending until both verify. Sudden-close durability, eviction and
   cross-file atomicity remain unverified.

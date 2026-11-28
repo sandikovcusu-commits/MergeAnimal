@@ -3,8 +3,40 @@ CI blobs are fetched with the raw Git blob API and SHA-256 checked; ZIPs are not
 All logs here are the verbatim browser/QA logs (qa/browser.log) or native logs extracted from
 the NATIVE_EVIDENCE / WEB_EVIDENCE blob notices of the listed runs.
 
-HEAD under test: 1c5305b (product A.4 code: 5de6f06 contact retry, 560a803 + b58cc61 observer)
+HEAD under test: 8103ecb30d0f6ac50178407bd6ea8c58b43fe857 (final). Product A.4 code: 5de6f06 contact retry, 560a803 + b58cc61 observer.
 Base: e63c38c. Previous production build: 0dedf46.
+
+## FINAL VERIFICATION BLOCK — all results on HEAD 8103ecb (commit under test)
+
+Every suite below was re-executed after the report commit, so no result is
+carried over from 7839b8d/1c5305b. Product code is byte-identical between
+7839b8d and 8103ecb (`git diff 7839b8d 8103ecb -- MergeAnimals/scripts
+MergeAnimals/scenes MergeAnimals/resources MergeAnimals/project.godot
+MergeAnimals/export_presets.cfg` is empty); that is why the earlier runs are
+consistent, but they are not used as final evidence.
+
+46116256945  placement Chromium        PLACEMENT_A3_WEB checks=13 failures=0 cases=30   blob 228c1586aa45d0d9f89ca63f196dc1f7169d870c sha256 47524a47f66c3135478ab86867573d966edea806edecedb089762be429799b66
+46116261433  save integrity Chromium   SAVE_INTEGRITY checks=52 failures=0               blob fe14e30b60831ee2c9cb0059ab27dcef672b7df2 sha256 a915060164aa38c8981920d46d5a414c72252fdd9e6c31966a34696fcd1f48f7
+46116265968  contact retry Chromium    CONTACT_RETRY_A4 checks=8 failures=0 cases=30     blob 2f4e5c9a3a618ef5af6c2ebf82108c5afc06ef72 sha256 bcb68823135c8353db13963628ac30f7fc998d2a36a8a85aa141808fafaadc01
+46116270680  observer A4 Chromium      CONFIRM_A4 checks=27 failures=0                  blob 15248ec8027adc42ed3db52126ac2f7a663665d1 sha256 fcb8fe4e53757eaf70b47a186573082c1d7357c0a61ca93ad61ad42c376d51cb
+46116275756  observer A3 Chromium      CONFIRM_A3 checks=9 failures=0                   blob 053de9c2d917a2f1d431bd81f2ea7e00824c503c sha256 93730719dd54f5c6be08f7fa2b337ad3765285e601e0bedfc2355b0038ebb1e4
+46116280447  placement Firefox         PLACEMENT_A3_WEB checks=13 failures=0 cases=30    blob 4bd50e99226a113c88f3f099ee4e50dbccaa65e2 sha256 cfe1cb7d331419e1bd8ebefaecff231efdd8463a834de40bc9959ec23a816f51
+46116285779  save integrity Firefox    SAVE_INTEGRITY checks=52 failures=0              blob befddd31e074dec4d983e864fb371e11626553cd sha256 d7d84fc8cd87cae64a9c96f037167fc06fc433584433c3f40e38815b5af88eaf
+46116290564  contact retry Firefox     CONTACT_RETRY_A4 checks=8 failures=0 cases=30     blob 149f65782e66b5d4a83c2d9c89cac26b54ecae2b sha256 c1b2f931f5eb8012e9745e8f334c136ce6a7fb8c93b8d8aa8b5d2be2a7653075
+46116295210  observer A4 Firefox       CONFIRM_A4 checks=27 failures=0                  blob 0234ccb2d0408ffcd550a3d1494cb7c9b9f92ad1 sha256 86dd943bc830a3a61bd1d27f53cd61ce35e8b67924b9c3208b6f7acb833cec50
+46116299728  observer A3 Firefox       CONFIRM_A3 checks=9 failures=0                   blob f0d3f2c8d5d56be15d07c5e3add8fee6a975c005 sha256 ba741f3e799d2f14570ed22789a332404aca6089e1fd54851b49edf0f4684e3e
+46116304037  reward mock Chromium      REWARDED_RESCUE checks=68 failures=0             blob 656de7e1e3c74c01ec1fc7e31631be80c2b2be8a sha256 aa8a589505d65e2a3f920eb7f4dcab5e341a2b5754c37baf3761f54bada00934
+46116308182  reward mock Firefox       REWARDED_RESCUE checks=68 failures=0             blob 33b34a7c762ab9115c39a7f4691843332c0413cd sha256 34d7115f074d18818d8bcfeba26693677bcff604f80a69aeca9075680728b123
+46116312428  free rescue fixture both  WEB_POWERUP checks=24 failures=0 (refresh + full browser close/reopen per browser) blob 79d5f1e027586c8ecb15e17906e64816ec9b2488 sha256 69e48ad81b580207320ab7f2d5d54971baff126c7ade3e164e41b44495aa9b29
+46116317592  native                    CONTACT_RETRY_A4 checks=26 failures=0; MERGE_STRESS_A4_COMPLETE cases=300 failures=0; PLACEMENT_A3 checks=19 failures=0; SAVE_RETRY_A3 checks=8 failures=0; MERGE_STRESS_COMPLETE cases=300 failures=0; 34 x exit=0, no non-zero exit
+             blob 1badfe18970bfea63ff09c892d1180c34c10f317 sha256 df041d138f3525fa516a7f43e015acd9d92b99bfab76fb9f0eb06638a0e329c2 bytes=14860
+
+PCK audit on 8103ecb (run 46116312428): entries 393, forbidden_or_legacy [].
+Stress matrix on 8103ecb: 79 cancelled / 79 auto attempts / 79 successes /
+600 merges / 0 duplicates / 0 lost bodies / pending max 2.
+
+---
+## EARLIER RUNS (superseded as final evidence; kept because failures must not be hidden)
 
 --- Native ---
 46091855431  NATIVE_EVIDENCE blob_sha=2b7d9cf21510cf69250b62cdb5086d25a2f85f29 sha256=7c2b05b05f845518aea91d079ce204659c9cd1922ceb75143d39c37bdc3392f7 bytes=14800

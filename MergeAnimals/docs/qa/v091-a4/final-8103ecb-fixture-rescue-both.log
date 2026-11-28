@@ -1,0 +1,29 @@
+PASS chromium/fixture-rescue-new HTTP entry point
+PASS chromium-fixture-rescue two real tutorial drops physically merge
+chromium-fixture-rescue BEFORE {"score":4,"spawn_count":2,"merge_count":1,"undo_remaining":1,"remove_remaining":1,"rescue_remaining":1,"game_over_pending":false,"bodies":[{"id":"hamster","uid":3,"x":360,"y":1071}]}
+PASS chromium-fixture-rescue prepared board is tainted/ineligible and not pre-marked Game Over
+PASS chromium-fixture-rescue danger overflow produces persisted Game Over
+PASS chromium-fixture-rescue rescue initially available
+PASS chromium-fixture-rescue pending Game Over survives refresh before Rescue
+PASS chromium-fixture-rescue Rescue spends one use, removes bodies and preserves score
+chromium-fixture-rescue AFTER {"score":4,"spawn_count":2,"merge_count":1,"undo_remaining":1,"remove_remaining":1,"rescue_remaining":0,"game_over_pending":false,"bodies":[{"id":"elephant","uid":4,"x":360,"y":969},{"id":"lion","uid":5,"x":360,"y":736}]}
+PASS chromium-fixture-rescue refresh Continue autosaves restored score, bodies and limits
+PASS chromium/fixture-rescue-reopen HTTP entry point
+PASS chromium-fixture-rescue full browser close/reopen retains checkpoint
+PASS chromium-fixture-rescue reopened Continue preserves score, animals and consumed limit
+PASS chromium-fixture-rescue no captured console errors, page errors or failed requests
+PASS firefox/fixture-rescue-new HTTP entry point
+PASS firefox-fixture-rescue two real tutorial drops physically merge
+firefox-fixture-rescue BEFORE {"score":4,"spawn_count":2,"merge_count":1,"undo_remaining":1,"remove_remaining":1,"rescue_remaining":1,"game_over_pending":false,"bodies":[{"id":"hamster","uid":3,"x":360,"y":1071}]}
+PASS firefox-fixture-rescue prepared board is tainted/ineligible and not pre-marked Game Over
+PASS firefox-fixture-rescue danger overflow produces persisted Game Over
+PASS firefox-fixture-rescue rescue initially available
+PASS firefox-fixture-rescue pending Game Over survives refresh before Rescue
+PASS firefox-fixture-rescue Rescue spends one use, removes bodies and preserves score
+firefox-fixture-rescue AFTER {"score":4,"spawn_count":2,"merge_count":1,"undo_remaining":1,"remove_remaining":1,"rescue_remaining":0,"game_over_pending":false,"bodies":[{"id":"elephant","uid":4,"x":360,"y":969},{"id":"lion","uid":5,"x":360,"y":736}]}
+PASS firefox-fixture-rescue refresh Continue autosaves restored score, bodies and limits
+PASS firefox/fixture-rescue-reopen HTTP entry point
+PASS firefox-fixture-rescue full browser close/reopen retains checkpoint
+PASS firefox-fixture-rescue reopened Continue preserves score, animals and consumed limit
+PASS firefox-fixture-rescue no captured console errors, page errors or failed requests
+WEB_POWERUP checks=24 failures=0

@@ -50,12 +50,14 @@ Commercial status: BLOCKED. This report does not claim commercial clearance.
 - Web probe ops `contact_retry` / `contact_retry_matrix` + `contact-retry-a4.mjs`:
   frozen dense board in Chromium and Firefox, 30 matrix cases per browser.
 
-## Results (executed)
+## Results (executed on final commit `8103ecb`)
 
-- Native contact retry `46091855431`: `CONTACT_RETRY_A4 checks=26 failures=0`.
-- Native stress A4 `46091855431`: `MERGE_STRESS_A4_COMPLETE cases=300 seeds=100 failures=0`.
-- Web contact retry, Chromium `46090588078`: `CONTACT_RETRY_A4 browser=chromium checks=8 failures=0 cases=30`.
-- Web contact retry, Firefox `46090590413`: `CONTACT_RETRY_A4 browser=firefox checks=8 failures=0 cases=30`.
+| Suite | Run | Result |
+| --- | --- | --- |
+| Native contact retry A4 | 46116317592 | `CONTACT_RETRY_A4 checks=26 failures=0` |
+| Native stress A4 (100 seeds x 10/20/40) | 46116317592 | `MERGE_STRESS_A4_COMPLETE cases=300 failures=0` |
+| Web contact retry, Chromium | 46116265968 | `CONTACT_RETRY_A4 browser=chromium checks=8 failures=0 cases=30` |
+| Web contact retry, Firefox | 46116290564 | `CONTACT_RETRY_A4 browser=firefox checks=8 failures=0 cases=30` |
 
 ### Web deterministic scenario (both browsers, frozen dense board)
 
@@ -66,17 +68,19 @@ Commercial status: BLOCKED. This report does not claim commercial clearance.
    explicit request (`attempts=1`, `successes=1`, `failed=0`).
 4. Merge completes once: `merges=1`, `score=4`, `pending=0`, `locks=0`.
 5. Save snapshot present (`snapshot_empty=false`), `save_error=0`.
-   Retry delay: Chromium 0.466 s, Firefox 0.492 s.
+   Retry delay: Chromium 0.466 s, Firefox 0.492 s. A second drop after the
+   retry is accepted, so drop/save are not blocked.
 
 ### Native stress matrix (100 seeds x 10/20/40 bodies)
 
-- 300 cases, 0 failures; 79 cancellations, 79 automatic retries, 79
-  successes (a cancelled pair that later gained safe space merged
-  automatically).
-- Duplicate merges 0, duplicate score 0 (`score == 4 x merges` in all cases),
-  body loss 0, `pending` queue maximum 2, locks 0 at end.
+- 300 cases, 0 failures; **79 cancellations, 79 automatic retries, 79
+  successes** (a cancelled pair that later gained safe space merged
+  automatically), 600 merges total.
+- Duplicate merges 0, duplicate score 0 (`score == 4 x merges` in all 300
+  cases), body loss 0, `pending` queue maximum 2, no locks left at the end.
 - Cases with no later safe placement stayed cancelled, as intended: the goal
   is lawful automatic continuation, not forcing every cancellation to merge.
+- Per-seed data: `MERGE_STRESS_TEST.csv` rows with `suite=a4-scheduler`.
 
 ## Open risks
 

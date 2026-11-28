@@ -1,29 +1,42 @@
 # V0.9.1-A.4 — still open; commercial BLOCKED
 
-- `V091-A4-001` P1: original natural Chromium terminal unconfirmed event
-  (`46077100528`) still has no proven cause. A.4 fixed the aggregate-scope
-  defect and the untracked-required-file hole, but neither proves that
-  particular event. Kept open.
+- `V091-A4-001` P1 — PRIOR NATURAL CHROMIUM UNCONFIRMED (explicit open risk):
+  the original natural terminal event (`46077100528`, 225 inputs, score 3499,
+  observer unconfirmed >60 s) still has no proven cause. A.4 fixed the
+  aggregate-scope defect (`V091-A4-002`) and the untracked-required-file hole
+  (`V091-A4-003`), but neither proves that particular event. Kept open; it is
+  not claimed as fixed.
 - `V091-A4-002` P1: cross-file atomicity between the power-up record and the
   session primary is NOT solved and not claimed. IDBFS syncs per file; the
   aggregate correctly reports pending until both verify, but a sudden close
   between the two writes is still unverified.
 - `V091-A4-003` P1: the A.4 observer coverage is deterministic fixture
   coverage. Natural-input Game Over, natural rescue and full natural browser
-  restart were NOT run on `1c5305b`; the six natural runs from `0dedf46` are
+  restart were NOT run on `8103ecb`; the six natural runs from `0dedf46` are
   historical evidence only.
 - `V091-A4-004` P2: auto-retry latency depends on physics frame rate and the
   0.25 s scheduler interval (measured 0.466 s Chromium / 0.492 s Firefox on a
   frozen board). Natural gameplay feel is unverified; A.3 matrix cancelled
   12/60 pairs per browser and A.4 does not claim that cancellations disappear.
-- `V091-A4-005` P2: a tracked record that exhausts its bounded read retries
-  (`retries >= 3`) does not revive when the fault clears; only a fresh commit
-  re-verifies it. Observed in the A.4 fixture; the HUD can therefore stay
-  unconfirmed until the next write.
-- `V091-A4-006` P2: Godot 4.7.2 headless editor import still aborts
-  intermittently on hosted runners with glibc heap corruption after a
-  successful reimport. A.4 retries once; root cause not established. Not a
-  browser gameplay failure.
+- `V091-A4-005` P2 — READ-BACK RETRY LIMIT (explicit open risk): a tracked
+  record that exhausts its bounded read retries (`retries >= 3`, i.e. 3/6/12 s
+  backoff within the 12 s deadline) does not revive when the fault clears;
+  only a fresh commit of a new envelope re-verifies it. Observed and measured
+  in the A.4 fixture (`46116270680`, `46116295210`). The HUD can therefore stay
+  `unconfirmed` until the next write. Deliberately NOT addressed by raising the
+  timeout or loosening the assertion.
+- `V091-A4-006` P2 — GODOT IMPORT CRASH (explicit open risk): Godot 4.7.2
+  headless editor import still aborts intermittently on hosted runners with
+  glibc heap corruption (`free(): corrupted unsorted chunks`,
+  `double free or corruption (out)`) after a successful `[DONE] reimport`, i.e.
+  before any browser or test process starts. QA CSVs/reports are confirmed
+  excluded from the PCK (`audit_pck.py`: 393 entries, 0 forbidden on
+  `8103ecb`). A.4 retries the import once after removing `.godot`; all 15 A.4
+  runs imported. Root cause not established. Not a browser gameplay failure.
+- `V091-A4-007` P2: the packaged `Web-Test` build comes from CI run
+  `46116312428` (production preset, `ui_mode=none`), whose head is `8103ecb`
+  and whose PCK audit passes. Per-suite probe exports (observer/contact-retry/
+  placement builds) are QA-only and are not shipped.
 - `V091-A2-001` P1 (carried): the 192 px radial fallback can still produce a
   large committed displacement; A.3 added the Danger Line crossing guard but
   full natural consequences remain unknown.

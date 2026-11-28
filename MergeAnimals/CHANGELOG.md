@@ -12,9 +12,19 @@
   9/9 rerun. Original natural Chromium unconfirmed event still unproven.
 - `1441491`, `cdc3ad3`, `7839b8d`, `1c5305b`: test-harness fixes and evidence
   transport only (no gameplay or save behaviour change).
-- Regression on `1c5305b`: placement 13/13 per browser, save integrity 52/52
-  per browser, mock rewarded rescue 68/68 per browser, free rescue fixture
-  24 checks, all native suites `exit=0`.
+- `8103ecb`: reports and QA evidence. No product change
+  (`git diff 1c5305b 8103ecb -- scripts scenes resources project.godot
+  export_presets.cfg` is empty).
+- Final regression re-executed on `8103ecb` (not carried over): native
+  contact retry 26/26, native stress 300/300, placement 13/13 per browser,
+  save integrity 52/52 per browser, contact retry A4 8 checks + 30 cases per
+  browser, observer A4 27/27 per browser, observer A3 9/9 per browser, mock
+  rewarded rescue 68/68 per browser, free rescue fixture 24 checks (refresh +
+  full browser close/reopen), prior native stress 300/300, all native suites
+  `exit=0`.
+- Explicit open risks: read-back retry limit (no revival after exhaustion),
+  Godot editor import crash, and the unproven original natural Chromium
+  terminal unconfirmed event.
 - Not run: natural Game Over / natural rescue / sudden close on this commit;
   real device, human review. Commercial status BLOCKED.
 
