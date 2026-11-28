@@ -134,6 +134,12 @@ func dispose() -> void:
 	await frames(4)
 
 # ---------------------------------------------------------------- observation
+func _board_count() -> int:
+	var count := 0
+	for node in root.get_children():
+		if node.has_method("_attempt_drop") and not node.is_queued_for_deletion(): count += 1
+	return count
+
 func ensure_live() -> bool:
 	return is_instance_valid(game) and not game.is_queued_for_deletion()
 
@@ -528,6 +534,16 @@ func restart_isolation(result: Dictionary) -> void:
 	if adopted != null:
 		game = adopted
 		current_scene = adopted
+	# Only one board may be live. A stale terminal scene keeps its overlay Control
+	# with a STOP filter over the board, which swallows real taps even while the
+	# overlay itself is invisible; that is a fixture leak, not a gameplay defect.
+	var strays := 0
+	for node in root.get_children():
+		if node.has_method("_attempt_drop") and node != game:
+			node.queue_free()
+			strays += 1
+	for i in range(6): await frames(1)
+	print("NATURAL_RESTART_TRACE strays_freed=%d boards_now=%d" % [strays, _board_count()])
 	for i in range(10): await frames(1)
 	var fresh := live()
 	check(bool(fresh.valid), "restart produced a live session")
@@ -571,6 +587,7 @@ func restart_isolation(result: Dictionary) -> void:
 				var rect: Rect2 = (child as Control).get_global_rect()
 				if rect.has_point(drop_point):
 					subtree.append("%s|%s|filter=%d|rect=%s" % [child.get_path(), child.get_class(), int(child.mouse_filter), JSON.stringify([rect.position.x, rect.position.y, rect.size.x, rect.size.y])])
+	check(_board_count() == 1, "restart leaves exactly one live board (%d)" % _board_count())
 	print("NATURAL_RESTART_TRACE blockers=%s overlay_visible=%s overlay_children=%s" % [
 		JSON.stringify(subtree), str(game.overlay.visible),
 		JSON.stringify(game.overlay.get_children().map(func(c): return "%s|%s|vis=%s|filter=%d" % [c.name, c.get_class(), str(c.visible), int(c.mouse_filter) if c is Control else -1]))])
