@@ -283,6 +283,12 @@ func planner_probe() -> Dictionary:
 	# Replicate the production rescue commit read-only, stage by stage, so a refusal
 	# is attributed to the guard that rejected it instead of being guessed.
 	var snapshot: Dictionary = game._session_snapshot()
+	var queued := 0
+	var locked := 0
+	for body in game.pieces.get_children():
+		if not body is Animal: continue
+		if body.is_queued_for_deletion(): queued += 1
+		if body.merge_locked: locked += 1
 	var stage := "snapshot"
 	var built := snapshot.duplicate(true)
 	if not snapshot.is_empty() and not plan.is_empty():
@@ -328,6 +334,9 @@ func planner_probe() -> Dictionary:
 		"plan_empty": plan.is_empty(), "remove_uids": plan.get("remove_uids", []).size(),
 		"spawn_x": spawn_x, "spawn_y": float(game.spawn_height), "spawn_clear": spawn_clear,
 		"snapshot_valid": snapshot_ok, "stage": stage, "reject_field": reject,
+		"snapshot_empty": snapshot.is_empty(), "snapshot_valid_raw": SessionSave.valid(snapshot),
+		"queued_bodies": queued, "locked_bodies": locked,
+		"mandatory_over_limit": mandatory > int(game.rescue_max_remove),
 		"bodies_kept": built.get("bodies", []).size(),
 		"danger_max": _max_danger_field(built), "locked": int(live().get("locked", 0))}
 
