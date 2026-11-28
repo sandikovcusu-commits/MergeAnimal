@@ -1,3 +1,22 @@
+# V0.9.1-B — Classic gameplay audit (IN PROGRESS)
+
+- `68f481a` B.1/B.2 suites: `state_machine_b1`, `animal_levels_b1`,
+  `drop_system_b1`, `merge_integrity_b1`, `physics_audit_b2`, plus
+  `physics_impact_b2`. All driven by production entry points and real physics.
+- B.1 result on `46139839103`: 37 + 157 + 17 + 43 checks, 0 failures; 1000
+  executed drops of 4027 requests, 0 out-of-bounds, 0 duplicate, 0 wrong
+  animal; 11 real level transitions; golden merge awards once.
+- B.2 result: 600 dense cases (2 policies x 10/20/40 x 100 seeds) with 0.000 px
+  initial fixture overlap and 0 escapes; 180 real drops across three CCD modes
+  with identical depths. Measured mechanism: depth <= one physics step of free
+  fall, recovered in 2 frames. 1–2 px target UNMET and reported as such.
+- CI harness fixes (`V091-B2-002`, `V091-B2-003`) documented as harness defects,
+  not product changes. No product code changed in this phase.
+- Full analysis: `PHYSICS_B2_REPORT.md`; bug rows `V091-B1-001`,
+  `V091-B2-001`…`V091-B2-003`; evidence `docs/qa/v091-b2/`.
+
+---
+
 # V0.9.1-A.4 — contact retry and save observer (PARTIAL)
 
 - `5de6f06` (MERGE-CONTACT-RETRY-004): cancelled merge pairs are tracked and

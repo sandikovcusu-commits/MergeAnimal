@@ -1,3 +1,52 @@
+# V0.9.1-B — IN PROGRESS; commercial still BLOCKED
+
+Scope: stabilise Classic gameplay only. No new content, no mechanics change, no
+animal ID/level change, A.4 fixes preserved as the regression baseline.
+
+- `V091-B2-001` P2 — PENETRATION TARGET NOT MET (measured, explicit):
+  9.190 px worst real drop (hamster level 2), 5.821 px worst dense case, 2.360 px
+  on the small-animal compression board, 0 escapes in 600 dense cases and 180
+  drops. Root mechanism measured, not guessed: the reported depth is the
+  distance still to travel when the narrowphase first sees the surface, i.e. at
+  most one physics step of free fall, and it is recovered within 2 frames with a
+  0.02–0.29 px settled residual. Candidate B (CCD) is disproven on matched data
+  (CAST_RAY / CAST_SHAPE / disabled: identical depths). Candidate E (step
+  prediction) was already measured at 0.068 px for a single body but 6.033 px
+  in a 40-body pile, so it is rejected as a standalone fix. Candidates A and C
+  are excluded by scope. The 1–2 px target is therefore reported as UNMET with
+  numbers, not deferred silently.
+- `V091-B1-001` P3 — CLASSIC STATE MACHINE: no illegal transition was found.
+  B.1 exercises 37 state/transition checks, 157 animal-contract checks, 17 drop
+  checks (1000 executed drops, 0 out-of-bounds, 0 duplicate, 0 wrong animal) and
+  43 merge-integrity checks (transactions, cancellation preservation, A.4
+  auto-retry, simultaneous pairs, three-body contact, wall merge, combo math,
+  golden single-award) with 0 failures. Two behaviours are recorded as
+  contracts rather than defects: `drop_animal()` only queues intent (the
+  reservation guard runs at commit time inside `_attempt_drop`), and
+  `request_merge()` can still record a reservation after Game Over while the
+  commit path never mutates the terminal board.
+- `V091-B2-002` P3 — CI REPORTING DEFECT FOUND AND FIXED: the first three B.2
+  runs were green but printed no summary. The summary script split CSV records
+  on spaces, so every row collapsed into one `seed` key and `KeyError` aborted
+  the reporting step. Raw rows were intact; all report numbers were recomputed
+  from the raw CSV. Fixed and verified in `46139839103`.
+- `V091-B2-003` P3 — DENSE FIXTURE DEFECT FOUND AND FIXED: the first dense audit
+  reported the identical 1.842 px for all 300 cases because of a fixed lattice
+  and mixed-level overlaps up to tens of px. The fixture now packs by random
+  level with a 1 px gap and asserts the initial overlap per case; 600/600 cases
+  run with 0.000 px overlap. Density shortfalls are reported (`spawned` min 9
+  for the natural board), not hidden.
+- Carried open risks, unchanged: `V091-A4-001`/`008` unproven natural Chromium
+  terminal event, `V091-A4-002` cross-file atomicity, `V091-A4-003`/`007`
+  natural Game Over/rescue not yet run on this commit, `V091-A4-004` retry
+  latency, `V091-A4-005` read-back retry limit, `V091-A4-006` import crash,
+  `V091-A2-001` 192 px fallback, `V091-A1-003` natural overflow history.
+- Not executed in B.2 and therefore NOT claimed: browser/device penetration,
+  soak, performance protocol, natural 3+3+3 Game Over sessions, natural rescue,
+  balance telemetry (B.4) and the Danger Line natural-fall audit (B.3).
+
+---
+
 # V0.9.1-A.4 — still open; commercial BLOCKED
 
 - `V091-A4-001` P1 — PRIOR NATURAL CHROMIUM UNCONFIRMED (explicit open risk):
