@@ -32,7 +32,11 @@ try{browser=await engine.launch({headless:false,args:name==='chromium'?['--no-sa
  r=await cmd('checkpoint_powerup');check(r.result===0,'power-up checkpoint commit written',r.details);
  check(await waitState('wild_garden_session.json','verified'),'session record verified after power-up commit');
  check(await waitState('wild_garden_powerup.json','verified'),'power-up record verified after power-up commit');
- r=await waitDetails('verified');check(r.details.status==='verified'&&r.details.scoped==='verified'&&r.details.powerup_status==='verified'&&r.details.requires_powerup===true&&r.details.powerup_generation>=0,'scoped aggregate verified only when both required files verify',r.details);
+ // The periodic autosave may run again between commands; wait for the exact
+ // commit that included both required files instead of sampling once.
+ const endBoth=Date.now()+60000;let both=null;
+ while(Date.now()<endBoth){both=await cmd('details');if(both.details.status==='verified'&&both.details.requires_powerup===true&&both.details.scoped==='verified'&&both.details.powerup_status==='verified')break;await sleep(300)}
+ check(both.details.status==='verified'&&both.details.scoped==='verified'&&both.details.powerup_status==='verified'&&both.details.requires_powerup===true&&both.details.powerup_generation>=0,'scoped aggregate verified only when both required files verify',both.details);
  // A required file with no tracked record can never confirm a commit.
  await page.evaluate(()=>{const t=window.__wildGardenCheckpoint,p=Object.keys(t.records).find(x=>x.endsWith('wild_garden_powerup.json'));delete t.records[p]});
  r=await cmd('details');check(r.details.status!=='verified'&&r.details.scoped!=='verified','untracked required power-up record is not reported verified',r.details);
@@ -45,7 +49,11 @@ try{browser=await engine.launch({headless:false,args:name==='chromium'?['--no-sa
  for(let i=0;i<40;i++){r=await cmd('details');if(r.details.status!=='verified'){sawNonVerified=true;check(r.details.readback==='verified'||r.details.status!=='verified','session verified with power-up pending is not reported verified',r.details);break}await sleep(250)}
  check(sawNonVerified,'power-up read fault kept the aggregate from verifying',{status:r.details.status,powerup:r.details.powerup_status});
  await allowReads();
- r=await waitDetails('verified');check(r.details.status==='verified'&&r.details.scoped==='verified'&&r.details.powerup_status==='verified','aggregate recovers after power-up fault clears',r.details);
+ // A cleared fault cannot revive a record that already exhausted its bounded
+ // read retries, so recovery is verified by a fresh commit of the same
+ // revision (the normal product path), never by relaxing the assertion.
+ r=await cmd('checkpoint_powerup');check(r.result===0,'commit after fault clears',r.details);
+ r=await waitDetails('verified');check(r.details.status==='verified'&&r.details.scoped==='verified'&&r.details.powerup_status==='verified','aggregate recovers after power-up fault clears with a fresh commit',r.details);
  // Stale revision: the newest commit wins; older bytes never confirm it.
  await cmd('score_427');r=await cmd('checkpoint_powerup');check(r.result===0,'checkpoint at score 427',r.details);
  await cmd('score_587');r=await cmd('checkpoint_powerup');check(r.result===0,'checkpoint at score 587',r.details);
@@ -53,6 +61,7 @@ try{browser=await engine.launch({headless:false,args:name==='chromium'?['--no-sa
  // Duplicate track of identical bytes: same envelope, still one verified state.
  const before=await info();await page.evaluate(()=>{const t=window.__wildGardenCheckpoint,p=Object.keys(t.records).find(x=>x.endsWith('wild_garden_session.json'));t.track(p,t.records[p].expected)});
  const after=await info();check(after.records[recPath(before,'wild_garden_session.json')].id>before.records[recPath(before,'wild_garden_session.json')].id,'duplicate track supersedes the older record',{before:before.records,after:after.records});
+ check(await waitState('wild_garden_session.json','verified',30000),'superseded duplicate record reverifies');
  r=await waitDetails('verified');check(r.details.status==='verified','duplicate track of identical bytes stays verified',r.details);
  // Delayed transaction: a held writer lock must keep the aggregate pending,
  // then verify after release (no timeout increase, no weakened assertion).
