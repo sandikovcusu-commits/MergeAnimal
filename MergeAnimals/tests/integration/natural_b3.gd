@@ -483,9 +483,16 @@ func restart_isolation(result: Dictionary) -> void:
 	check(int(fresh.best) >= old_best, "restart preserves the legitimate best score (%d >= %d)" % [int(fresh.best), old_best])
 	# A drop must be possible immediately in the new session.
 	var spawns_before: int = int(fresh.spawns)
-	await click(Vector2(360.0, 700.0))
+	var point := safe_board_points(1)[0] if not safe_board_points(1).is_empty() else Vector2(360.0, 700.0)
+	print("NATURAL_RESTART_TRACE instance=%d state=%d spawn_state=%s paused=%s overlay=%s buttons=%s point=%s" % [
+		int(fresh.get("instance_id", 0)), int(fresh.game_state), str(int(fresh.spawn_state)), str(paused),
+		str(fresh.overlay_visible), JSON.stringify(visible_button_rects(root).map(func(r): return [r.position.x, r.position.y, r.size.x, r.size.y])), JSON.stringify(point)])
+	await click(point)
 	await ticks(3)
 	var dropped := live()
+	print("NATURAL_RESTART_TRACE after_drop instance=%d valid=%s spawns=%s state=%s spawn_state=%s" % [
+		int(dropped.get("instance_id", 0)), str(dropped.valid), str(int(dropped.get("spawns", 0))),
+		str(int(dropped.get("game_state", -1))), str(int(dropped.get("spawn_state", -1)))])
 	check(int(dropped.spawns) == spawns_before + 1, "restart session accepts the first drop")
 	check(int(dropped.score) == 0, "the previous session's score does not leak into the new one")
 	# Old callbacks: the previous session id must never reappear.
@@ -511,7 +518,14 @@ func natural_rescue(result: Dictionary) -> void:
 	var doc_before := SessionSave.load_document()
 	var revision_before: String = str(details().get("written_revision", ""))
 	var button: Control = game.rescue_button
+	print("NATURAL_RESCUE_TRACE pre_click instance=%d text=%s disabled=%s pending=%s processing=%s processing_flag=%s checkpoint_pending=%s point=%s" % [
+		int(game.get_instance_id()), str(button.text), str(button.disabled), str(int(terminal.pending)),
+		str(bool(game.rescue_processing)), str(bool(game.gameover_checkpoint_pending)), str(bool(game.save_status == OK)),
+		JSON.stringify(button.get_global_transform_with_canvas() * (button.size / 2.0))])
 	await click(button.get_global_transform_with_canvas() * (button.size / 2.0))
+	print("NATURAL_RESCUE_TRACE post_click processing=%s message=%s text=%s last_result=%s" % [
+		str(bool(game.rescue_processing)), str(game.rescue_message.text), str(game.rescue_button.text),
+		str(int(game.game_state))])
 	# The commit is deferred and includes a 0.4 s highlight, so allow real time.
 	for i in range(80):
 		await frames(1)
