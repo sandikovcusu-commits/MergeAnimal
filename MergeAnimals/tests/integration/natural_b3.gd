@@ -333,7 +333,18 @@ func planner_probe() -> Dictionary:
 			if by_uid.has(int(uid)): excluded.append(by_uid[int(uid)].get_rid())
 		query.exclude = excluded
 		spawn_clear = game.get_world_2d().direct_space_state.intersect_shape(query, 1).is_empty()
+	var blockers: Array = []
+	if not plan.is_empty():
+		var r: float = game.current_data.radius + 1.0
+		var removed: Array = plan.remove_uids
+		for body in game.pieces.get_children():
+			if not body is Animal: continue
+			if int(body.save_uid) in removed: continue
+			var d: float = Vector2(spawn_x, game.spawn_height).distance_to(body.position)
+			if d <= r + body.data.radius:
+				blockers.append("uid%d/lv%d/r%.0f/d%.1f/top%.0f" % [int(body.save_uid), int(body.data.level), float(body.data.radius), d, float(body.position.y - body.data.radius)])
 	return {"bodies": items.size(), "mandatory": mandatory, "max_remove": int(game.rescue_max_remove),
+		"blockers": blockers,
 		"plan_empty": plan.is_empty(), "remove_uids": plan.get("remove_uids", []).size(),
 		"spawn_x": spawn_x, "spawn_y": float(game.spawn_height), "spawn_clear": spawn_clear,
 		"snapshot_valid": snapshot_ok, "stage": stage, "reject_field": reject,
@@ -737,7 +748,13 @@ func natural_rescue(result: Dictionary) -> bool:
 		str(bool(game.rescue_processing)), str(bool(game.gameover_checkpoint_pending)), str(bool(game.save_status == OK)),
 		JSON.stringify(button.get_global_transform_with_canvas() * (button.size / 2.0))])
 	await click(button.get_global_transform_with_canvas() * (button.size / 2.0))
-	for i in range(6): await frames(2)
+	# The commit is deferred and includes a 0.4 s highlight; wait until it has
+	# actually settled instead of guessing a frame count.
+	for i in range(400):
+		await frames(1)
+		if not ensure_live(): break
+		if not bool(game.rescue_processing): break
+	for i in range(4): await frames(2)
 	var verdict: int = int(game.game_state)
 	var message: String = str(game.rescue_message.text)
 	print("NATURAL_RESCUE_TRACE post_click processing=%s message=%s text=%s state=%d above_line=%d bodies=%d" % [
