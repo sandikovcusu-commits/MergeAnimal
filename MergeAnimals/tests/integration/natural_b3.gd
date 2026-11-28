@@ -122,10 +122,13 @@ func press_continue() -> bool:
 		return false
 	game = loaded
 	# The production scene keeps its own runtime seed; the test seed is not
-	# injected here because Continue must restore, not reroll.
-	paused = false
-	await frames(3)
-	await ticks(2)
+	# injected here because Continue must restore, not reroll. The pause state is
+	# left exactly as the scene set it: a restored terminal session pauses the
+	# tree, and unpausing it would run physics on a finished board.
+	await frames(5)
+	if int(loaded.game_state) != 2:
+		await ticks(2)
+	print("NATURAL_CONTINUE state=%d paused=%s" % [int(loaded.game_state), str(paused)])
 	return true
 
 func dispose() -> void:
@@ -334,11 +337,47 @@ func planner_probe() -> Dictionary:
 		"plan_empty": plan.is_empty(), "remove_uids": plan.get("remove_uids", []).size(),
 		"spawn_x": spawn_x, "spawn_y": float(game.spawn_height), "spawn_clear": spawn_clear,
 		"snapshot_valid": snapshot_ok, "stage": stage, "reject_field": reject,
+		"invalid_rules": validate_report(snapshot), "tree_paused": str(paused),
 		"snapshot_empty": snapshot.is_empty(), "snapshot_valid_raw": SessionSave.valid(snapshot),
 		"queued_bodies": queued, "locked_bodies": locked,
 		"mandatory_over_limit": mandatory > int(game.rescue_max_remove),
 		"bodies_kept": built.get("bodies", []).size(),
 		"danger_max": _max_danger_field(built), "locked": int(live().get("locked", 0))}
+
+func validate_report(data: Dictionary) -> String:
+	var problems: Array = []
+	var ids: Array = SessionSave.IDS.slice(0, 5)
+	if not data.has("session_version") or not SessionSave._integer(data.get("session_version"), 1, 3): problems.append("session_version")
+	if data.get("active") != true: problems.append("active")
+	for key in ["score", "best_score", "best_at_start", "spawn_count", "merge_count", "combo_count", "combo_events", "max_combo", "highest_level"]:
+		if not SessionSave._integer(data.get(key), 0, 1000000000): problems.append("int:" + key + "=" + str(data.get(key)))
+	if int(data.get("highest_level", 0)) < 1 or int(data.get("highest_level", 0)) > 12: problems.append("highest_level range")
+	if int(data.get("best_score", 0)) < int(data.get("score", 0)) and data.get("tainted") != true and data.get("score_untrusted") != true: problems.append("best<score")
+	for key in ["combo_left", "cooldown_left"]:
+		if not SessionSave._number(data.get(key), 0, 60): problems.append("num:" + key + "=" + str(data.get(key)))
+	if not SessionSave._number(data.get("aim_x"), 0, 720): problems.append("aim_x=" + str(data.get("aim_x")))
+	if data.get("current") not in ids: problems.append("current=" + str(data.get("current")))
+	if data.get("next") not in ids: problems.append("next=" + str(data.get("next")))
+	if typeof(data.get("rng_state")) != TYPE_STRING or not str(data.get("rng_state")).is_valid_int(): problems.append("rng_state")
+	if not SessionSave._integer(data.get("tutorial_stage"), -1, 4): problems.append("tutorial_stage")
+	if not data.has("progression") or not Progression.valid(data.progression): problems.append("progression")
+	if data.has("rescue_remaining") and not SessionSave._integer(data.rescue_remaining, 0, 1): problems.append("rescue_remaining")
+	if data.has("undo_remaining") and not SessionSave._integer(data.undo_remaining, 0, 1): problems.append("undo_remaining")
+	if not SessionSave._integer(data.get("generation"), 0, 1000000000): problems.append("generation")
+	if not SessionSave._integer(data.get("next_body_uid"), 1, 1000000000): problems.append("next_body_uid")
+	if typeof(data.get("undo_snapshot")) != TYPE_DICTIONARY: problems.append("undo_snapshot type")
+	var seen := {}
+	for body in data.get("bodies", []):
+		var tag := "uid" + str(body.get("uid", "?"))
+		if body.get("id") not in SessionSave.IDS: problems.append("id:" + tag)
+		if not SessionSave._integer(body.get("uid"), 1, 1000000000) or seen.has(int(body.get("uid", 0))): problems.append("dup_uid:" + tag)
+		seen[int(body.get("uid", 0))] = true
+		if int(body.get("uid", 0)) >= int(data.get("next_body_uid", 0)): problems.append("uid>=next_body_uid:" + tag)
+		if not SessionSave._number(body.get("x"), 50, 670): problems.append("x=" + str(body.get("x")) + ":" + tag)
+		if not SessionSave._number(body.get("y"), 200, 1140): problems.append("y=" + str(body.get("y")) + ":" + tag)
+		if not SessionSave._number(body.get("danger"), 0, 10): problems.append("danger=" + str(body.get("danger")) + ":" + tag)
+		if typeof(body.get("sleeping")) != TYPE_BOOL: problems.append("sleeping:" + tag)
+	return "|".join(problems) if not problems.is_empty() else ""
 
 func _max_danger_field(snapshot: Dictionary) -> float:
 	var top := 0.0
@@ -562,6 +601,7 @@ func restart_isolation(result: Dictionary) -> void:
 	check(await press_continue(), "restart fixture restores the terminal session through Continue")
 	var terminal := live()
 	check(int(terminal.game_state) == 2, "restart fixture starts from the terminal state")
+	check(bool(paused), "restart fixture starts from a paused terminal scene")
 	# Restart is a real UI press on the overlay button.
 	var button: Control = game.get_node("HUD/Overlay/RestartButton")
 	var old: String = str(game.session_id)
@@ -685,6 +725,7 @@ func natural_rescue(result: Dictionary) -> bool:
 	check(await press_continue(), "rescue fixture restores the terminal session through Continue")
 	var terminal := live()
 	check(int(terminal.game_state) == 2, "rescue fixture starts from the terminal state")
+	check(bool(paused), "restored terminal session keeps the tree paused, as production does")
 	check(bool(terminal.rescue_ready), "free rescue button is available on Game Over (%s / %s)" % [str(terminal.rescue_ready), str(terminal.rescue_text)])
 	var before := live()
 	var bodies_before := _body_signature()
