@@ -267,9 +267,12 @@ func planner_probe() -> Dictionary:
 	var mandatory := 0
 	for item in items:
 		if float(item.y) - float(item.radius) < game.danger_height: mandatory += 1
+	var spawn_x: float = float(plan.get("spawn_x", -1.0))
+	var spawn_clear: bool = false
+	if not plan.is_empty(): spawn_clear = bool(game._spawn_clear(game.current_data, spawn_x))
 	return {"bodies": items.size(), "mandatory": mandatory, "max_remove": int(game.rescue_max_remove),
 		"plan_empty": plan.is_empty(), "remove_uids": plan.get("remove_uids", []).size(),
-		"spawn_x": float(plan.get("spawn_x", -1.0)), "spawn_y": float(game.spawn_height)}
+		"spawn_x": spawn_x, "spawn_y": float(game.spawn_height), "spawn_clear": spawn_clear}
 
 # Every body above the Danger Line, the same rule RescuePlanner applies when it
 # decides which removals are mandatory.
@@ -512,8 +515,10 @@ func restart_isolation(result: Dictionary) -> void:
 	check(int(fresh.best) >= old_best, "restart preserves the legitimate best score (%d >= %d)" % [int(fresh.best), old_best])
 	# A drop must be possible immediately in the new session.
 	var spawns_before: int = int(fresh.spawns)
-	var candidates := safe_board_points(1)
-	var point: Vector2 = Vector2(360.0, 700.0) if candidates.is_empty() else candidates[0]
+	# A drop must start inside the legal spawn span. Left bound + fixed offsets can
+	# sit inside the board wall, where the game correctly refuses the drop, so the
+	# suite aims exactly like a player: the production clamp, then a board click.
+	var point: Vector2 = Vector2(aim_x(0), 700.0)
 	print("NATURAL_RESTART_TRACE instance=%d state=%d spawn_state=%s paused=%s overlay=%s buttons=%s point=%s" % [
 		int(fresh.get("instance_id", 0)), int(fresh.game_state), str(int(fresh.spawn_state)), str(paused),
 		str(fresh.overlay_visible), JSON.stringify(visible_button_rects(root).map(func(r): return [r.position.x, r.position.y, r.size.x, r.size.y])), JSON.stringify(point)])
