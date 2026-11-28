@@ -182,13 +182,20 @@ async function playToGameOver(cap) {
   return {over: false, inputs: cap, accepted, rejected, seconds: (Date.now() - started) / 1000, session: final.session};
 }
 
+// Points that are inside the board but outside every action button of the
+// result overlay. The overlay column occupies x 190..530 from y~690 down, and
+// the two HUD buttons sit above y~90, so these probes cannot be a navigation
+// press. Native B.3 measured the same safe band.
+const SAFE_PROBES = [[130, 700], [600, 700], [130, 610], [600, 610], [360, 480], [360, 320]];
+
 async function terminalContract(before, label) {
   // Illegal input after Game Over: clicks on the board must change nothing.
-  for (let i = 0; i < 5; i++) await click(160 + i * 90, 700, 500);
+  for (const [x, y] of SAFE_PROBES) await click(x, y, 600);
   await sleep(1500);
   const after = await snapshot();
   const beforeSession = before.session || {};
   const afterSession = after.session || {};
+  check((afterSession.session_id || '') === (beforeSession.session_id || ''), `${label}: an illegal board click does not start a new session`);
   check((afterSession.spawn_count || 0) === (beforeSession.spawn_count || 0), `${label}: GAME_OVER refuses new drops (${beforeSession.spawn_count} -> ${afterSession.spawn_count})`);
   check((afterSession.score || 0) === (beforeSession.score || 0), `${label}: GAME_OVER refuses new score (${beforeSession.score} -> ${afterSession.score})`);
   check((afterSession.bodies || []).length === (beforeSession.bodies || []).length, `${label}: GAME_OVER keeps the body count`);
