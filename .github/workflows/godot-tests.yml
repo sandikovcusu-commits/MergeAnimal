@@ -212,8 +212,13 @@ jobs:
                             worst['worst_radius'], worst['worst_x'], worst['worst_y'], worst['worst_vx'], worst['worst_vy'],
                             worst['frames'], worst['duration_frames']))
               out.append('PHYSICS_EVENTS recorded=%d' % len(ev))
-          summary.write_text('\n'.join(out) + ('\n' if out else ''))
-          print(summary.read_text(), end='')
+          text = '\n'.join(out) + ('\n' if out else '')
+          summary.write_text(text)
+          # Also append to the transported log so the summary survives even when
+          # the step log stays inside the CI runner.
+          with open('/tmp/godot-test-log.txt', 'a') as handle:
+              handle.write(text)
+          print(text, end='')
           PY
           grep -vE '^PHYSICS_(CSV|EVENT) ' /tmp/godot-test-log.txt | cat
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL([ :]|$)' /tmp/godot-test-log.txt; then status=1; fi
