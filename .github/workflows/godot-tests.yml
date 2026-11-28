@@ -199,6 +199,25 @@ jobs:
             /tmp/godot-test-log.txt
             /tmp/godot-acceptance-log.txt
           if-no-files-found: warn
+      - name: Transport native test log as temporary Git blob
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -e -o pipefail
+          python3 - <<'PY'
+          import base64,hashlib,json,os,pathlib,subprocess,zipfile
+          archive=pathlib.Path('/tmp/native-evidence.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for name in ['godot-test-log.txt','godot-acceptance-log.txt']:
+                  path=pathlib.Path('/tmp')/name
+                  if path.exists(): z.write(path,name)
+          payload=pathlib.Path('/tmp/native-blob.json')
+          payload.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          result=subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(payload),'--jq','.sha'],check=True,text=True,stdout=subprocess.PIPE).stdout.strip()
+          print('::notice::NATIVE_EVIDENCE blob_sha=%s sha256=%s bytes=%d' % (result,hashlib.sha256(archive.read_bytes()).hexdigest(),archive.stat().st_size), flush=True)
+          PY
 
   physics_compare:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.physics_compare }}
