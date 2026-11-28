@@ -294,6 +294,10 @@ func _write_session_snapshot(snapshot: Dictionary, powerup: bool = false) -> Err
 func _checkpoint_details() -> Dictionary:
 	var observer := get_node_or_null("/root/SaveDurability")
 	var overall: String = observer.state() if observer else "unavailable"
+	# The session checkpoint commit is the primary plus its power-up commit
+	# record. Unrelated tracked files must not block this status; a pending
+	# power-up record for the current commit still keeps it pending.
+	var scoped: String = observer.state_for_files([SessionSave.PATH, SessionSave.POWERUP_PATH]) if observer else "unavailable"
 	var live := _session_snapshot(true, true)
 	var current := _revision(live)
 	var doc := SessionSave.load_document()
@@ -309,15 +313,21 @@ func _checkpoint_details() -> Dictionary:
 			checkpoint_verified_revision = written
 			checkpoint_verified_score = int(doc.data.get("score", -1))
 	checkpoint_written_revision = written
+	var powerup_status := "missing"
+	var powerup_generation := -1
+	var powerup_envelope := SaveManager._read_envelope(SessionSave.POWERUP_PATH)
+	if powerup_envelope.status == "ok":
+		powerup_generation = int(powerup_envelope.data.get("generation", -1))
+		powerup_status = observer.state_for(SessionSave.POWERUP_PATH, FileAccess.get_file_as_string(SessionSave.POWERUP_PATH)) if observer else "unavailable"
 	var busy: bool = drop_requested or not merge_manager.pending.is_empty() or merge_manager.commit_scheduled or live.is_empty()
 	var status := "unconfirmed"
-	if overall in ["failed", "unavailable"]: status = overall
+	if scoped in ["failed", "unavailable"]: status = scoped
 	elif busy: status = "deferred"
 	elif current.is_empty() or written != current: status = "unsaved"
-	elif verified == "pending" or overall == "pending": status = "pending"
-	elif verified == "verified" and overall == "verified": status = "verified"
+	elif verified == "pending" or scoped == "pending": status = "pending"
+	elif verified == "verified" and scoped in ["verified", "idle"]: status = "verified"
 	else: status = "unconfirmed"
-	return {"status":status, "current_revision":current, "requested_revision":checkpoint_requested_revision, "written_revision":written, "verified_revision":checkpoint_verified_revision, "written_generation":generation, "score":score, "verified_score":checkpoint_verified_score, "readback":verified}
+	return {"status":status, "current_revision":current, "requested_revision":checkpoint_requested_revision, "written_revision":written, "verified_revision":checkpoint_verified_revision, "written_generation":generation, "score":score, "verified_score":checkpoint_verified_score, "readback":verified, "aggregate":overall, "scoped":scoped, "powerup_status":powerup_status, "powerup_generation":powerup_generation}
 
 func _process(delta: float) -> void:
 	if not persist_best or not OS.has_feature("web"): return

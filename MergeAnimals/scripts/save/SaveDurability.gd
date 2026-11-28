@@ -99,6 +99,18 @@ func _ready() -> void:
 	    if (entries.some(x => x.state === 'pending')) return 'pending';
 	    return 'verified';
 	  };
+	  // Aggregate only the files that make up one checkpoint commit. An
+	  // unrelated file (settings, achievements, ...) must not block the
+	  // session checkpoint status, and a stale record for a required file
+	  // still blocks it until its own latest write verifies.
+	  tracker.statusForFiles = (paths) => {
+	    const entries = paths.map(p => tracker.records[p]).filter(Boolean);
+	    if (!entries.length) return 'idle';
+	    if (entries.some(x => x.state === 'failed')) return 'failed';
+	    if (entries.some(x => x.state === 'unconfirmed')) return 'unconfirmed';
+	    if (entries.some(x => x.state === 'pending')) return 'pending';
+	    return 'verified';
+	  };
 	  window.__wildGardenCheckpoint = tracker;
 	})();
 	""")
@@ -169,4 +181,16 @@ func state() -> String:
 	if not OS.has_feature("web"): return "native"
 	if not initialized or not available: return "unavailable"
 	var result: Variant = JavaScriptBridge.eval("window.__wildGardenCheckpoint ? window.__wildGardenCheckpoint.status() : 'unconfirmed'")
+	return str(result) if result in ["idle", "pending", "verified", "unconfirmed", "failed"] else "unavailable"
+
+func state_for_files(paths: Array) -> String:
+	if not OS.has_feature("web"): return "native"
+	if not initialized or not available: return "unavailable"
+	var absolute: Array = []
+	for path in paths:
+		var candidate := ProjectSettings.globalize_path(str(path))
+		if candidate.begins_with("/userfs/"):
+			absolute.append(candidate)
+	if absolute.is_empty(): return "unavailable"
+	var result: Variant = JavaScriptBridge.eval("window.__wildGardenCheckpoint ? window.__wildGardenCheckpoint.statusForFiles(%s) : 'unconfirmed'" % JSON.stringify(absolute))
 	return str(result) if result in ["idle", "pending", "verified", "unconfirmed", "failed"] else "unavailable"
