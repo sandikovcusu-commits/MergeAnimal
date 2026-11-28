@@ -224,8 +224,8 @@ async function scenarioGameover() {
     else await boot(true);
     await click(360, 600, 4000);   // Play
     await sleep(4000);
-    serverLog(`NATURAL_SESSION_BEGIN browser=${name} index=${i} cap=140`);
-    const result = await playToGameOver(140);
+    serverLog(`NATURAL_SESSION_BEGIN browser=${name} index=${i} cap=200`);
+    const result = await playToGameOver(200);
     const row = {
       index: i, seed: 'runtime_random', over: result.over, inputs: result.inputs,
       accepted: result.accepted, rejected: result.rejected, seconds: Number(result.seconds.toFixed(2)),
@@ -277,7 +277,7 @@ async function scenarioPersist() {
   await boot(true);
   await click(360, 600, 4000);
   await sleep(4000);
-  const result = await playToGameOver(140);
+  const result = await playToGameOver(200);
   if (!result.over) {
     serverLog(`NATURAL_PERSIST_SKIP browser=${name} reason=NOT_REACHED inputs=${result.inputs}`);
     return;
@@ -318,7 +318,7 @@ async function scenarioRescue() {
   await boot(true);
   await click(360, 600, 4000);
   await sleep(4000);
-  const result = await playToGameOver(140);
+  const result = await playToGameOver(200);
   if (!result.over) {
     serverLog(`NATURAL_RESCUE_SKIP browser=${name} reason=NOT_REACHED inputs=${result.inputs}`);
     return;
@@ -335,7 +335,13 @@ async function scenarioRescue() {
   const point = await page.evaluate(() => {
     const canvas = document.querySelector('canvas');
     const rect = canvas.getBoundingClientRect();
-    return {x: rect.left + rect.width * 0.5, y: rect.top + rect.height * 0.615};
+    // Overlay actions after the 2026-11 result-overlay rebuild: Restart at
+    // max(180, text_bottom + 14) from the top of the 720x1280 canvas, then
+    // Rescue 75 px below it, each 55 px tall. The click is aimed at the centre
+    // of that row; the screenshot and OCR confirm which action was hit.
+    const top = Math.max(180, 178);
+    const rescueCentre = top + 75 + 27.5;
+    return {x: rect.left + rect.width * 0.5, y: rect.top + rect.height * (rescueCentre / 1280)};
   });
   await click(point.x, point.y, 2000);
   await sleep(9000);
@@ -345,6 +351,12 @@ async function scenarioRescue() {
   const rescued = (after.rescue_remaining ?? 0) < (before.rescue_remaining ?? 0) || after.game_over_pending === false;
   check(after.score === before.score, `rescue: the score is unchanged (${before.score} -> ${after.score})`);
   check(removed.length > 0, `rescue: real bodies were removed (${removed.length})`);
+  const refused = after.game_over_pending === true;
+  if (refused) {
+    const textAfter = await ocr('rescue-refused');
+    serverLog(`NATURAL_RESCUE_REFUSED browser=${name} ${json({bodies: bodiesBefore.length, above_line: (before.bodies || []).filter(b => b.y - (b.radius ?? 0) < 465).length, message: (textAfter.match(/[^\n]*rescue[^\n]*/i) || [''])[0].trim()})}`);
+  }
+  check(!refused, 'rescue: the free rescue is not refused by the production planner');
   check(after.game_over_pending === false, 'rescue: the checkpoint is no longer a Game Over');
   check((after.rescue_remaining ?? 0) === ((before.rescue_remaining ?? 1) - 1), `rescue: the budget decreases exactly once (${before.rescue_remaining} -> ${after.rescue_remaining})`);
   check((after.undo_remaining ?? 1) === 0, 'rescue: the undo snapshot is consumed by rule');
