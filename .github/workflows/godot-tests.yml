@@ -208,41 +208,46 @@ jobs:
           python3 - <<'PY'
           import re, pathlib, statistics
           log = pathlib.Path('/tmp/godot-test-log.txt').read_text(errors='replace')
-          rows = [x.split(' ') for x in log.splitlines() if x.startswith('PHYSICS_CSV ')]
+          # CSV, not whitespace: each record is "PHYSICS_CSV " + comma fields.
+          rows = [x[len('PHYSICS_CSV '):].split(',') for x in log.splitlines()
+                  if x.startswith('PHYSICS_CSV ') and not x.startswith('PHYSICS_CSV seed,')]
           fields = 'seed target spawned policy frames max_depth mean_depth events escape duration_frames bodies_end worst_side worst_id worst_radius worst_x worst_y worst_vx worst_vy'.split()
-          data = [dict(zip(fields, r[1:])) for r in rows]
+          data = [dict(zip(fields, r)) for r in rows if len(r) == len(fields)]
+          skipped_rows = len(rows) - len(data)
           ev = [x for x in log.splitlines() if x.startswith('PHYSICS_EVENT ')]
           fx = [x for x in log.splitlines() if x.startswith('PHYSICS_FIXTURE ')]
           bad_fixture = [x for x in fx if float(x.split('initial_overlap=')[1].split()[0]) > 0.5]
-          imp = [x[len('IMPACT_CSV '):].split(',') for x in log.splitlines() if x.startswith('IMPACT_CSV ')]
+          imp = [x[len('IMPACT_CSV '):].split(',') for x in log.splitlines()
+                 if x.startswith('IMPACT_CSV ') and not x.startswith('IMPACT_CSV level,')]
           summary = pathlib.Path('/tmp/physics-summary.txt')
           out = []
           if data:
               by = {}
               for d in data:
-                  by.setdefault(int(d['target']), []).append(d)
-              for b in sorted(by):
-                  g = by[b]
-                  pol = g[0]['policy']
+                  by.setdefault((d['policy'], int(d['target'])), []).append(d)
+              for key in sorted(by):
+                  pol, target = key
+                  g = by[key]
                   depths = [float(d['max_depth']) for d in g]
                   means = [float(d['mean_depth']) for d in g]
-                  out.append('PHYSICS_SUMMARY policy=%s target=%d cases=%d spawned_min=%d shortfall_cases=%d max_depth=%.3f median_max=%.3f p95_max=%.3f mean_of_means=%.3f over2px=%d escapes=%d dup_merge=0'
-                             % (pol, b, len(g), min(int(x['spawned']) for x in g),
-                                sum(1 for x in g if int(x['spawned']) < b),
+                  out.append('PHYSICS_SUMMARY policy=%s target=%d cases=%d spawned_min=%d shortfall_cases=%d max_depth=%.3f median_max=%.3f p95_max=%.3f mean_of_means=%.3f over2px=%d escapes=%d'
+                             % (pol, target, len(g), min(int(x['spawned']) for x in g),
+                                sum(1 for x in g if int(x['spawned']) < target),
                                 max(depths), statistics.median(depths),
-                                sorted(depths)[max(0, int(round(0.95*len(depths)))-1)],
-                                statistics.fmean(means), sum(1 for d in depths if d > 2.0),
-                                sum(1 for d in g if d['escape'] == 'true')))
+                                sorted(depths)[max(0, int(round(0.95 * len(depths))) - 1)],
+                                statistics.fmean(means), sum(1 for x in depths if x > 2.0),
+                                sum(1 for x in g if x['escape'] == 'true')))
               sides = {}
               for d in data:
                   sides[d['worst_side']] = sides.get(d['worst_side'], 0) + 1
               out.append('PHYSICS_SIDES ' + ' '.join('%s=%d' % kv for kv in sorted(sides.items())))
               worst = max(data, key=lambda d: float(d['max_depth']))
-              out.append('PHYSICS_WORST seed=%s bodies=%s max_depth=%s side=%s id=%s radius=%s pos=(%s,%s) vel=(%s,%s) frame=%s duration=%s'
-                         % (worst['seed'], worst['bodies'], worst['max_depth'], worst['worst_side'], worst['worst_id'],
-                            worst['worst_radius'], worst['worst_x'], worst['worst_y'], worst['worst_vx'], worst['worst_vy'],
-                            worst['frames'], worst['duration_frames']))
-              out.append('PHYSICS_EVENTS recorded=%d' % len(ev))
+              out.append('PHYSICS_WORST policy=%s seed=%s target=%s spawned=%s max_depth=%s side=%s id=%s radius=%s pos=(%s,%s) vel=(%s,%s) frame=%s duration=%s'
+                         % (worst['policy'], worst['seed'], worst['target'], worst['spawned'], worst['max_depth'],
+                            worst['worst_side'], worst['worst_id'], worst['worst_radius'], worst['worst_x'],
+                            worst['worst_y'], worst['worst_vx'], worst['worst_vy'], worst['frames'],
+                            worst['duration_frames']))
+              out.append('PHYSICS_EVENTS recorded=%d skipped_rows=%d' % (len(ev), skipped_rows))
               out.append('PHYSICS_FIXTURE_CASES cases=%d overlapped_fixtures=%d worst_initial_overlap=%.3f'
                          % (len(fx), len(bad_fixture),
                             max([float(x.split('initial_overlap=')[1].split()[0]) for x in fx] or [0.0])))
