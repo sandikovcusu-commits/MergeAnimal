@@ -129,9 +129,12 @@ func run() -> void:
 	var b: Animal = guard_game.create_animal(guard_game.animals[0], Vector2(378, 800)); b.freeze = true
 	guard_game.merge_manager.request_merge(a, b)
 	var pending_before: int = guard_game.spawn_count
+	# drop_animal() only records intent; the reservation is enforced at commit
+	# time inside _attempt_drop, so assert the observable outcome.
 	var pending_accepted: bool = guard_game.drop_animal()
 	guard_game._physics_process(1.0 / 120.0)
-	check(not pending_accepted and guard_game.spawn_count == pending_before, "pending merge guard refuses a drop")
+	check(guard_game.spawn_count == pending_before and not guard_game.drop_requested,
+		"pending merge guard never spawns a drop (request accepted=%s)" % str(pending_accepted))
 	for i in range(30): await physics_frame
 	guard_game.queue_free(); await process_frame
 	print("DROP_SYSTEM_B1 requests=%d executed=%d refused=%d out_of_bounds=%d duplicate=%d wrong_animal=%d checks=%d failures=%d" % [requests, executed, refused, out_of_bounds, duplicate, wrong_animal, checks, failures])

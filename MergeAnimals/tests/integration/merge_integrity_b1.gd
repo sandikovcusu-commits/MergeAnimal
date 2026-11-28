@@ -45,7 +45,7 @@ func run() -> void:
 	var third: Animal = game.create_animal(game.animals[0], Vector2(300, 950)); third.freeze = true
 	check(not game.merge_manager.request_merge(a, third), "a locked body cannot join a second reservation")
 	for i in range(4): await physics_frame
-	check(game.merge_manager.merge_count == 1 and game.score == 2, "commit awards the level-1 score exactly once")
+	check(game.merge_manager.merge_count == 1 and game.score == game.animals[1].merge_score, "commit awards the evolved level-2 base score exactly once (%d)" % game.animals[1].merge_score)
 	check(not a.merge_locked and not b.merge_locked, "locks released after the commit")
 	check(not is_instance_valid(a) or a.is_queued_for_deletion(), "originals are removed only on a successful commit")
 	game.queue_free(); await process_frame
@@ -57,21 +57,28 @@ func run() -> void:
 			var body: Animal = game.create_animal(game.animals[0], Vector2(150 + col * 34, 820 + row * 34))
 			body.freeze = true
 			dense.append(body)
-	var ca: Animal = dense[21]
-	var cb: Animal = dense[22]
-	check(game.merge_manager.request_merge(ca, cb), "dense pair reserves")
+	var dense_a: Animal = dense[21]
+	var dense_b: Animal = dense[22]
+	check(game.merge_manager.request_merge(dense_a, dense_b), "dense pair reserves")
 	for i in range(4): await physics_frame
 	var cancelled_state: Dictionary = game.merge_manager.retry_state()
 	var bodies_after: int = game.pieces.get_child_count()
 	check(cancelled_state.cancelled >= 1, "no-safe-placement cancellation is recorded")
 	check(bodies_after == dense.size() and game.score == 0, "cancellation keeps every body and leaves score at 0")
-	check(not ca.merge_locked and not cb.merge_locked, "cancellation releases the reservation locks")
+	check(not dense_a.merge_locked and not dense_b.merge_locked, "cancellation releases the reservation locks")
 	check(game.drop_animal(), "drop is not blocked after a cancellation")
 	game._physics_process(1.0 / 120.0)
 	check(game.save_session() == OK or game.save_session() == ERR_BUSY, "save path remains responsive after a cancellation")
+	# Remove the body that probe created so the retry phase scores only the
+	# cancelled pair (the dense grid itself is untouched).
+	for body in game.pieces.get_children():
+		if body != dense_a and body != dense_b:
+			game.pieces.remove_child(body)
+			body.queue_free()
+	await physics_frame
 	# A.4 scheduler: clearing blockers must produce an automatic retry.
 	for body in dense:
-		if body != ca and body != cb and is_instance_valid(body) and body.position.y >= 700:
+		if body != dense_a and body != dense_b and is_instance_valid(body) and body.position.y >= 700:
 			game.pieces.remove_child(body); body.queue_free()
 	var retried := false
 	for i in range(240):
@@ -80,7 +87,7 @@ func run() -> void:
 			break
 		await physics_frame
 	check(retried, "A.4 automatic retry completes the cancelled pair once space appears")
-	check(game.score == 2, "retry scored exactly once")
+	check(game.score == game.animals[1].merge_score, "retry scored exactly once (%d)" % game.animals[1].merge_score)
 	game.queue_free(); await process_frame
 	# --- §10 simultaneous collisions ------------------------------------
 	# Two disjoint pairs plus a conflicting third request in the same tick.
@@ -95,16 +102,18 @@ func run() -> void:
 	for i in range(20): await physics_frame
 	check(game.merge_manager.pending.is_empty(), "simultaneous queue drains completely")
 	check(game.merge_manager.merge_count == 2, "both simultaneous merges committed")
-	check(game.score == 2 + 4, "simultaneous merges scored once each (got %d)" % game.score)
+	var pair_score: int = game.animals[1].merge_score + game.animals[2].merge_score
+	check(game.score == pair_score, "simultaneous merges scored once each (%d expected, got %d)" % [pair_score, game.score])
 	var kinds := {}
 	for body in game.pieces.get_children(): kinds[str(body.data.id)] = int(kinds.get(str(body.data.id), 0)) + 1
 	check(int(kinds.get("hamster", 0)) == 1 and int(kinds.get("rabbit", 0)) == 1, "each pair produced exactly one evolved body")
 	game.queue_free(); await process_frame
 	# Three identical animals: only one pair may merge per contact window.
 	game = await fresh()
-	var t1: Animal = game.create_animal(game.animals[0], Vector2(330, 900))
-	var t2: Animal = game.create_animal(game.animals[0], Vector2(366, 900))
-	var t3: Animal = game.create_animal(game.animals[0], Vector2(402, 900))
+	var mouse_r: float = game.animals[0].radius
+	var t1: Animal = game.create_animal(game.animals[0], Vector2(360 - mouse_r * 2.0 - 1.0, 900))
+	var t2: Animal = game.create_animal(game.animals[0], Vector2(360, 900))
+	var t3: Animal = game.create_animal(game.animals[0], Vector2(360 + mouse_r * 2.0 + 1.0, 900))
 	var tri_ok := false
 	for i in range(240):
 		if game.merge_manager.merge_count >= 1:
@@ -132,8 +141,10 @@ func run() -> void:
 	# participates in the next merge. Real physics, real ordering.
 	game = await fresh(true)
 	var chain_data: AnimalData = game.animals[1]
-	var c1: Animal = game.create_animal(chain_data, Vector2(342, 900))
-	var c2: Animal = game.create_animal(chain_data, Vector2(378, 900))
+	# Legal spacing (2r + 1 px): gravity closes the 1 px gap in one tick.
+	var chain_pair: Array = pair(game, chain_data, 900.0)
+	var c1: Animal = chain_pair[0]
+	var c2: Animal = chain_pair[1]
 	var chain_steps := 0
 	for i in range(300):
 		if game.merge_manager.merge_count > chain_steps:
@@ -156,8 +167,9 @@ func run() -> void:
 	combo_game.merge_manager.request_merge(k3, k4)
 	combo_game.merge_manager._commit_pending()
 	var second_award: int = combo_game.score - first_award
-	check(first_award == 4, "first hamster merge scores the base 4 (got %d)" % first_award)
-	check(combo_game.combo_count == 2 and second_award == roundi(4 * 1.25), "second merge inside the window applies the 1.25x combo (%d)" % second_award)
+	var combo_base: int = combo_game.animals[2].merge_score
+	check(first_award == combo_base, "first merge scores the rabbit base %d with no combo (got %d)" % [combo_base, first_award])
+	check(combo_game.combo_count == 2 and second_award == roundi(combo_base * 1.25), "second merge inside the window applies the 1.25x combo (%d expected, got %d)" % [roundi(combo_base * 1.25), second_award])
 	combo_game.queue_free(); await process_frame
 	# Combo window expiry must reset the counter without touching score.
 	var combo_before: int = game.combo_count
@@ -175,8 +187,8 @@ func run() -> void:
 	for level in range(3):
 		var data: AnimalData = game.animals[level]
 		var x: float = 360.0
-		var ca: Animal = game.create_animal(data, Vector2(x - data.radius * 1.02, 900 - level * 4))
-		var cb: Animal = game.create_animal(data, Vector2(x + data.radius * 1.02, 900 - level * 4))
+		var chain_a: Animal = game.create_animal(data, Vector2(x - data.radius * 1.02, 900 - level * 4))
+		var chain_b: Animal = game.create_animal(data, Vector2(x + data.radius * 1.02, 900 - level * 4))
 		for i in range(200):
 			if game.merge_manager.merge_count > chained:
 				chained = game.merge_manager.merge_count
@@ -190,8 +202,10 @@ func run() -> void:
 	game = await fresh()
 	var elephant: AnimalData = game.animals[11]
 	check(elephant.golden_terminal, "elephant is the golden terminal resource")
-	var g1: Animal = game.create_animal(elephant, Vector2(300, 900))
-	var g2: Animal = game.create_animal(elephant, Vector2(420, 900))
+	# Legal spacing: two 125 px radii need 250 px of separation to avoid an
+	# artificial overlapping spawn; 251 px leaves a 1 px gap for gravity.
+	var g1: Animal = game.create_animal(elephant, Vector2(360 - elephant.radius - 0.5, 900))
+	var g2: Animal = game.create_animal(elephant, Vector2(360 + elephant.radius + 0.5, 900))
 	var golden_done := false
 	for i in range(300):
 		if game.golden_label.visible or game.merge_manager.merge_count >= 1:

@@ -33,10 +33,13 @@ func run() -> void:
 		check(str(d.id) == expect_names[i], "id mapping for level %d is %s" % [i + 1, d.id])
 		check(d.radius > 0.0 and d.body_mass > 0.0, "%s has positive radius and mass" % d.id)
 		check(d.sprite != null and d.sprite.get_size().x > 0.0, "%s has a loadable sprite" % d.id)
-		# Visual/physical agreement: the drawn sprite must not be smaller than
-		# the collision circle, and its half-width should match the radius.
-		var half: float = d.sprite.get_size().x * 0.5
-		check(half >= d.radius * 0.5 and half <= d.radius * 2.0, "%s sprite half-width %.1f consistent with radius %.1f" % [d.id, half, d.radius])
+		# Visual/physical agreement: AnimalVisual draws the texture into
+		# Rect2(-r,-r,2r,2r), so the drawn box equals the collision diameter
+		# regardless of the source texture resolution. A non-square texture
+		# would stretch, so require square source art as well.
+		var size: Vector2 = d.sprite.get_size()
+		check(is_equal_approx(size.x, size.y) and size.x >= d.radius * 2.0,
+			"%s sprite %dx%d is square and at least the %d px drawn box" % [d.id, int(size.x), int(size.y), int(d.radius * 2.0)])
 		if i < 11:
 			check(str(d.next_evolution_id) == expect_names[i + 1] and not d.golden_terminal, "%s evolves into %s" % [d.id, expect_names[i + 1]])
 		else:
@@ -67,7 +70,9 @@ func run() -> void:
 		game = await fresh()
 		var data: AnimalData = game.animals[i]
 		var expected: AnimalData = game.animals[i + 1]
-		var base_score: int = data.merge_score
+		# Score contract: MergeManager emits `merged` with the EVOLVED data,
+		# so the award is the target merge_score, not the source value.
+		var award: int = expected.merge_score
 		# Two identical animals resting side by side on the floor, pushed into
 		# contact by gravity and their own velocity: a real narrowphase pair.
 		var left: Animal = game.create_animal(data, Vector2(360 - data.radius * 0.9, 900))
@@ -87,7 +92,7 @@ func run() -> void:
 		check(result != null, "level %d produced exactly one %s body" % [i + 1, expected.id])
 		var count_after: int = game.pieces.get_child_count()
 		check(count_after == 1, "level %d originals were consumed (1 body left, got %d)" % [i + 1, count_after])
-		check(game.score == roundi(base_score * 1.0), "level %d scored exactly %d once (got %d)" % [i + 1, base_score, game.score])
+		check(game.score == award, "level %d scored exactly %d once (combo disabled, got %d)" % [i + 1, award, game.score])
 		check(game.merge_manager.merge_count == 1, "level %d counted exactly one merge" % [i + 1])
 		# No orphan reservation or lock may survive a successful commit.
 		var locked := 0
