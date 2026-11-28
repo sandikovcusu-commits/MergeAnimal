@@ -1,0 +1,11 @@
+PASS fixture initial session saved {"aggregate":"pending","current_revision":"882d5b31b0d85327abdc0b04ee542454a71d8441d6023396cb681f3e934ba994","powerup_generation":-1,"powerup_status":"missing","readback":"pending","requested_revision":"882d5b31b0d85327abdc0b04ee542454a71d8441d6023396cb681f3e934ba994","scoped":"pending","score":0,"status":"pending","verified_revision":"","verified_score":-1,"written_generation":1,"written_revision":"882d5b31b0d85327abdc0b04ee542454a71d8441d6023396cb681f3e934ba994"}
+PASS session record verified {}
+FAIL power-up record verified {}
+FAIL scoped aggregate verified only when both required files verify {"aggregate":"verified","current_revision":"882d5b31b0d85327abdc0b04ee542454a71d8441d6023396cb681f3e934ba994","powerup_generation":-1,"powerup_status":"missing","readback":"verified","requested_revision":"882d5b31b0d85327abdc0b04ee542454a71d8441d6023396cb681f3e934ba994","scoped":"verified","score":0,"status":"verified","verified_revision":"882d5b31b0d85327abdc0b04ee542454a71d8441d6023396cb681f3e934ba994","verified_score":0,"written_generation":88,"written_revision":"882d5b31b0d85327abdc0b04ee542454a71d8441d6023396cb681f3e934ba994"}
+CONFIRM_A4_ERROR page.evaluate: TypeError: Cannot read properties of undefined (reading 'expected')
+    at eval (eval at evaluate (:290:30), <anonymous>:1:344)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at blockReads (/home/runner/work/MergeAnimal/MergeAnimal/MergeAnimals/tests/web/confirmation-a4.mjs:12:46)
+    at /home/runner/work/MergeAnimal/MergeAnimal/MergeAnimals/tests/web/confirmation-a4.mjs:20:8
+CONFIRM_A4 browser=chromium checks=4 failures=3

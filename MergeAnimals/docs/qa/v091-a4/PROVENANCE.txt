@@ -1,0 +1,44 @@
+V0.9.1-A.4 evidence provenance.
+CI blobs are fetched with the raw Git blob API and SHA-256 checked; ZIPs are not committed.
+All logs here are the verbatim browser/QA logs (qa/browser.log) or native logs extracted from
+the NATIVE_EVIDENCE / WEB_EVIDENCE blob notices of the listed runs.
+
+HEAD under test: 1c5305b (product A.4 code: 5de6f06 contact retry, 560a803 + b58cc61 observer)
+Base: e63c38c. Previous production build: 0dedf46.
+
+--- Native ---
+46091855431  NATIVE_EVIDENCE blob_sha=2b7d9cf21510cf69250b62cdb5086d25a2f85f29 sha256=7c2b05b05f845518aea91d079ce204659c9cd1922ceb75143d39c37bdc3392f7 bytes=14800
+46091855257  NATIVE_EVIDENCE blob_sha=c10eb4122c0ff1c1d6009ba2b9205303ddef32da sha256=70ef77cd180056cfb8afe7848db1d93179473729084faada1f9acc347d1c5c07 bytes=10580
+
+--- Web (all on 1c5305b unless noted) ---
+46086910389  observer A4 Chromium FAILED blob ed03dac231cc596fa2d7d06045d08d07c1047fd7 sha256 257e955618427351c034935bcd09e1adf1ceae7b6b560e0fbd1d19cc6e4e6975
+46086913145  observer A4 Firefox FAILED blob facfd455397f57512d61392148704cf19f64c7e5 sha256 2311f2b8877097df3cf5afc2e7c6527d5e08834e27fb0f43082ceb2e947e86c0
+46088793695  observer A4 Chromium FAILED blob 5cd172602ce16191f6547cfb345fa08d1c4ff44b sha256 a0363349c2e6a21f34653ff10cabf8c70077d2f24da845edbfe8d7f9bce6d1b4
+46088795743  observer A4 Firefox FAILED blob c4ba1ed383996cff5206fea0bdc1efac7ebb60ce sha256 6a740d045965eb080bc46d5740de159975813ddf7f2495ff66b8fdf0e4da9eb4
+46089512943  observer A4 Chromium FAILED blob 70902793a97012d2332cf10b2da263a228ef8b37 sha256 fdccd5bb53570c40dbb000b44001b0800aac9729bcb49c32f50adf8ab6fc2f98
+46089515540  observer A4 Firefox FAILED blob 72a8f014d458520d048c482a65a545b07467a897 sha256 f6ebeca7f26cdc81375e1c65307a7af9e900ee600794225af0c890178899eb2e
+46090112214  observer A4 Chromium PASS blob 5ffaa735f00dcfd2ad356ec50e010b4abb1f287b sha256 0e8bb6bef66eaaba24ee968f14b1547ecd5701f299b4c1063c814a7864d0ee61
+46090114736  observer A4 Firefox PASS blob dad54201f2ff078c3d1aea8cc747194ffa3e4dca sha256 893ce3294e64f831c7c5802011c7f40a6e02e15b9a3804ae42cee571fb34a133
+46090592610  observer A3 rerun Chromium PASS blob 77adec45ac8b9699f2567d628a1b4c5d8bf85c8b sha256 9e582c5ecb2e7c13d752397fc61c26e799ad6e735d96de085a60ffaa8a3eb98f
+46090594770  observer A3 rerun Firefox PASS blob 04dca0962237f157728d45c2d19953fb1d62f344 sha256 c8779da901fcf6aa225be0c855c397d26d529dc91504c78c81dc38a8c2adad5e
+46090588078  contact retry Chromium PASS blob 5477c63617ed9c4a169490989c5552c5b857454d sha256 f9aecb72b7702a0017ec48b94ae08b636a43bfd966ee23651bfcaa866d8a4e02
+46090590413  contact retry Firefox PASS blob 4593106f1ebdd7d12dbdbff95d1a5147100c890a sha256 9783fc28b049997c06558573bacce5113697550ab26a01d36bb4ebec150339cc
+46091059662  placement Chromium PASS blob 6d6d418e2e56ca9373515f5ca3cc113edb58a19c sha256 2785df731a5fce84cdd913a645d4dcd3f754100f41ef9dd92219313663f9c662
+46091064072  placement Firefox PASS blob b045d5dbb95d3854f972be8f3a57e0ffb1cd8d0e sha256 eb926e680e383f345359228fb4528aad4475beae8463bcd6cdfa3818edac370c
+46091062001  save integrity Chromium PASS blob 69891f77e69cbf8bc9ec5ff4000d5279938fbd66 sha256 5f95c37c1359714d322d6d83b6b009878bdb632ed53ce51e561949e5b35ada8b
+46091066385  save integrity Firefox PASS blob ae4a5f49a20aafcfeb25fa0f1b7140c9537a4bf0 sha256 0a6fee4fc45d20fa924286f6baf464483f0ae9e33ae0e94090825c5f02c28188
+46092249486  reward mock Chromium PASS blob 0f6a55693927ac51dac7e1aa1de5e726e0bc37c8 sha256 a5a7252837d5db05469ec08397bda35e2795f0d1986056985cfb4ec5514d0129
+46092252200  reward mock Firefox PASS blob baf8f0a3e75ad4c7ddef22212879df518290ff36 sha256 f3135499147226a6da6e25bfd2c2c47d4cc3577c6263b5bdd25d5b9bd3fe9292
+46092254654  fixture rescue both PASS blob cee468df2717bae8920808f42110bf028f738ed3 sha256 858d9eb7648f5d96e968c5ea4f2b3a29975bab59444e715c4b9d5a9053c9cbfc
+46091791592  wrong UI mode (invalid invocation, not a product result) blob b920bbf2ea7fd5279751cfaa7305a74118398b6a sha256 b11d91a4e15189589d3ef1c59da05362c2a691a88a50bfea0570c505b2cb11a8
+46091794147  wrong UI mode (invalid invocation, not a product result) blob 5bd690275df516a92330c1d5a62f90ae293161ec sha256 4d72082a51adf889ec13768a28d9e1e2ae26addda21cf88368367429c6114a1c
+46091796686  wrong UI mode (invalid invocation, not a product result) blob 7661aa2622090ccc224da8b48942d7f4c6c1df7a sha256 92b07c78a85fc9b0abb05c778bbd7d472004991d7fe39e6b84fb8040bfa60a12
+46091799197  wrong UI mode (invalid invocation, not a product result) blob 786ee914a10597db362732a99767186c8bd7f2df sha256 1c218fa5c534d9329d2caab0ccbfff3ca65ef09373b1314db7ddc15aec884ad7
+
+NOTE: an earlier revision of this file wrongly duplicated the 46089515540 blob
+for 46089512943. Corrected on 2026-11-25 against the live annotations; the log
+files committed here match their run ids.
+
+NOT RUN in A.4: natural-input Game Over / natural rescue / full natural restart
+on this commit. The six natural Game Over runs from 0dedf46 remain historical
+evidence only (see docs/qa/v091-a3/run-460833*.log).

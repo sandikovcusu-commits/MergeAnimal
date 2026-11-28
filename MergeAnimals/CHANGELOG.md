@@ -1,3 +1,25 @@
+# V0.9.1-A.4 — contact retry and save observer (PARTIAL)
+
+- `5de6f06` (MERGE-CONTACT-RETRY-004): cancelled merge pairs are tracked and
+  re-requested automatically by a throttled scheduler (0.25 s, max 4/tick)
+  once relevant geometry changes while physical contact persists. Placement
+  safety, Danger Line rules and 132/168 px bounds unchanged; no forced merges.
+  Native 26/26 and 300-case stress, 30 frozen Web cases per browser.
+- `560a803` + `b58cc61` (SAVE-AGGREGATE-OBSERVER-005): checkpoint aggregate
+  covers only the files the latest commit wrote; a required file with no
+  tracked record is `unconfirmed`; a power-up commit verifies only when both
+  required files verify. Observer A4 27/27 in Chromium and Firefox, A3 suite
+  9/9 rerun. Original natural Chromium unconfirmed event still unproven.
+- `1441491`, `cdc3ad3`, `7839b8d`, `1c5305b`: test-harness fixes and evidence
+  transport only (no gameplay or save behaviour change).
+- Regression on `1c5305b`: placement 13/13 per browser, save integrity 52/52
+  per browser, mock rewarded rescue 68/68 per browser, free rescue fixture
+  24 checks, all native suites `exit=0`.
+- Not run: natural Game Over / natural rescue / sudden close on this commit;
+  real device, human review. Commercial status BLOCKED.
+
+---
+
 # V0.9.1-A.3 — partial private hotfix
 
 - `6e78d87`: radius-derived bounded closest-sampled placement; no-space per-pair cancellation/cache; Danger Line crossing guard and offset timer inheritance. Automatic persistent-contact retry remains open.

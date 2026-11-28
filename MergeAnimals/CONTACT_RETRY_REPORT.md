@@ -1,7 +1,8 @@
 # V0.9.1-A.4 — automatic contact retry (MERGE-CONTACT-RETRY-004): PARTIAL
 
-Status: implementation complete in `5de6f06`; CI results pending (see below).
-Commercial status: BLOCKED. This report does not claim acceptance.
+Status: implementation complete and exercised. Commit `5de6f06` (product) plus
+`1441491` (native harness), verified by CI run `46091855431` on `1c5305b`.
+Commercial status: BLOCKED. This report does not claim commercial clearance.
 
 ## Root cause (baseline `e63c38c`)
 
@@ -49,12 +50,33 @@ Commercial status: BLOCKED. This report does not claim acceptance.
 - Web probe ops `contact_retry` / `contact_retry_matrix` + `contact-retry-a4.mjs`:
   frozen dense board in Chromium and Firefox, 30 matrix cases per browser.
 
-## Results (pending CI)
+## Results (executed)
 
-- Native contact retry: TBD
-- Native stress A4: TBD
-- Web contact retry Chromium: TBD
-- Web contact retry Firefox: TBD
+- Native contact retry `46091855431`: `CONTACT_RETRY_A4 checks=26 failures=0`.
+- Native stress A4 `46091855431`: `MERGE_STRESS_A4_COMPLETE cases=300 seeds=100 failures=0`.
+- Web contact retry, Chromium `46090588078`: `CONTACT_RETRY_A4 browser=chromium checks=8 failures=0 cases=30`.
+- Web contact retry, Firefox `46090590413`: `CONTACT_RETRY_A4 browser=firefox checks=8 failures=0 cases=30`.
+
+### Web deterministic scenario (both browsers, frozen dense board)
+
+1. Pair reserves, no safe placement, cancellation recorded (`cancelled=1`,
+   `attempts=0`).
+2. Blocker held static: no automatic retry (`attempts=0`, `failed=1`).
+3. Blockers removed, pair still in contact: automatic retry without any
+   explicit request (`attempts=1`, `successes=1`, `failed=0`).
+4. Merge completes once: `merges=1`, `score=4`, `pending=0`, `locks=0`.
+5. Save snapshot present (`snapshot_empty=false`), `save_error=0`.
+   Retry delay: Chromium 0.466 s, Firefox 0.492 s.
+
+### Native stress matrix (100 seeds x 10/20/40 bodies)
+
+- 300 cases, 0 failures; 79 cancellations, 79 automatic retries, 79
+  successes (a cancelled pair that later gained safe space merged
+  automatically).
+- Duplicate merges 0, duplicate score 0 (`score == 4 x merges` in all cases),
+  body loss 0, `pending` queue maximum 2, locks 0 at end.
+- Cases with no later safe placement stayed cancelled, as intended: the goal
+  is lawful automatic continuation, not forcing every cancellation to merge.
 
 ## Open risks
 

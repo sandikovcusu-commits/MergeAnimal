@@ -1,3 +1,40 @@
+# V0.9.1-A.4 — still open; commercial BLOCKED
+
+- `V091-A4-001` P1: original natural Chromium terminal unconfirmed event
+  (`46077100528`) still has no proven cause. A.4 fixed the aggregate-scope
+  defect and the untracked-required-file hole, but neither proves that
+  particular event. Kept open.
+- `V091-A4-002` P1: cross-file atomicity between the power-up record and the
+  session primary is NOT solved and not claimed. IDBFS syncs per file; the
+  aggregate correctly reports pending until both verify, but a sudden close
+  between the two writes is still unverified.
+- `V091-A4-003` P1: the A.4 observer coverage is deterministic fixture
+  coverage. Natural-input Game Over, natural rescue and full natural browser
+  restart were NOT run on `1c5305b`; the six natural runs from `0dedf46` are
+  historical evidence only.
+- `V091-A4-004` P2: auto-retry latency depends on physics frame rate and the
+  0.25 s scheduler interval (measured 0.466 s Chromium / 0.492 s Firefox on a
+  frozen board). Natural gameplay feel is unverified; A.3 matrix cancelled
+  12/60 pairs per browser and A.4 does not claim that cancellations disappear.
+- `V091-A4-005` P2: a tracked record that exhausts its bounded read retries
+  (`retries >= 3`) does not revive when the fault clears; only a fresh commit
+  re-verifies it. Observed in the A.4 fixture; the HUD can therefore stay
+  unconfirmed until the next write.
+- `V091-A4-006` P2: Godot 4.7.2 headless editor import still aborts
+  intermittently on hosted runners with glibc heap corruption after a
+  successful reimport. A.4 retries once; root cause not established. Not a
+  browser gameplay failure.
+- `V091-A2-001` P1 (carried): the 192 px radial fallback can still produce a
+  large committed displacement; A.3 added the Danger Line crossing guard but
+  full natural consequences remain unknown.
+- `V091-A1-003` P2 (carried): natural overflow Game Over was reached in
+  A.2/A.3 runs, but A.4 did not repeat it on this commit.
+- Carried blockers unchanged: real Android/touch, human visual/audio/play,
+  natural rescue on a real device, sudden close/eviction durability, store
+  rights, mock-ad vs platform ad, and 120 Hz penetration target.
+
+---
+
 # V0.9.1-A.3 — NOT ACCEPTED; commercial BLOCKED
 
 - Placement cancellation can miss retry when touching pair remains in contact and another blocker moves. 12/60 attempted pairs cancelled in each browser's frozen stress; natural play impact remains unknown.

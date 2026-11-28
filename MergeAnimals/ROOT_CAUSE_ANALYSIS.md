@@ -1,3 +1,80 @@
+# V0.9.1-A.4 — root-cause findings
+
+## MERGE-CONTACT-RETRY-004 (Phase A) — cause identified and fixed
+
+Baseline `e63c38c`:
+- `scripts/managers/MergeManager.gd:48-49` — `observe()` connected only
+  `body_entered`. Godot emits that once per new contact pair; it is not a
+  continuous "still touching" signal.
+- `MergeManager.gd:71-74` — `request_merge()` deliberately suppressed a pair
+  that already failed while relevant geometry stayed within the 1 px
+  `PLACEMENT_CHANGE` clearance. Correct as a guard, but nothing re-invoked
+  `request_merge` when geometry later changed.
+- `MergeManager.gd:81-84` — `_physics_process()` only drained `pending`; it
+  never re-examined `failed_placements`.
+- `MergeManager.gd:121-126` — `_commit_pending()` cancelled the pair when
+  `find_merge_position()` returned null and stored the failed geometry.
+
+Consequence: a continuously touching pair whose safe space appears later (a
+blocker moves) produced no new contact event, so no new request was made.
+Only an explicit request or a genuinely new collision could retry. Resting and
+sleeping bodies emit no events, so this was reproducible with frozen bodies.
+
+Fix `5de6f06`: tracked failed pairs (weak refs, pair key, session id, geometry
+snapshot, attempt count, cancel reason), `body_exited` connected as a dirty
+trigger, and a throttled scheduler (0.25 s, max 4 re-requests per tick) that
+re-requests only pairs whose geometry changed while physical contact persists
+and no reservation is held. Safety limits are untouched: the retry enters the
+normal reserve/commit path, so 132/168 px bounds, radius-derived search and the
+Danger Line guard still decide placement. No forced merge path exists.
+Verified: native 26/26 and 300/300 stress, Web 8 checks + 30 frozen cases in
+both browsers, 79/79 cancellations recovered automatically with 0 duplicates.
+
+## SAVE-AGGREGATE-OBSERVER-005 (Phase B) — cause identified, one real defect
+## fixed, original natural event still unproven
+
+Observed failure (`46084133893`, Chromium): session record `verified`,
+power-up record `pending` with 0 retries inside its 12 s window, aggregate
+`pending`, so `Game._checkpoint_details()` returned `pending`. Firefox
+`46084136488` verified both and passed.
+
+Findings:
+1. `Game.gd:294-318` (baseline) required the **global** observer aggregate.
+   `SaveDurability.status()` (`SaveDurability.gd:94-102`) covers every tracked
+   file, so an unrelated pending/unconfirmed record blocked the session
+   checkpoint, and the aggregate raised a stale unrelated record to
+   session-level status.
+2. The terminal commit writes the power-up record first, then the session
+   primary. IDBFS sync is per file and not atomic; at the sample instant the
+   session entry had verified and the power-up entry had not. The product was
+   right to refuse `verified`; the A.3 test asserted too early.
+3. New defect found in A.4 while validating (`b58cc61`): an ordinary autosave
+   writes only the session primary (`Game.save_session` → `powerup=false`),
+   yet the aggregate always included the power-up path, and
+   `statusForFiles` dropped missing paths — so a required-but-untracked file
+   silently counted as satisfied. Now the aggregate covers exactly the files
+   the latest commit wrote, a required path with no record is `unconfirmed`,
+   and a commit that included the power-up record verifies only when that
+   record, its revision and the primary all verify.
+
+Not proven: why the original natural Chromium terminal event
+(`46077100528`) stayed unconfirmed for 60 s. Cross-file atomicity is not
+claimed and is not guaranteed. A record that exhausts its bounded read retries
+does not revive when a fault clears; only a new commit re-verifies it (open
+risk `V091-A4-005`).
+
+## Godot editor import crashes (Phase C, item 14)
+
+Archived logs (`docs/qa/v091-a3/*import-failure.log`) end after
+`[DONE] reimport` with glibc heap corruption, before any browser or test
+process starts. QA CSVs/reports are excluded from the PCK
+(`export_presets.cfg` excludes `tests/*`, `*.md`, `*.txt`, `*.csv`, `*.mp4`,
+`*.py`; `audit_pck.py` rejects QA paths). Root cause not established; A.4 adds
+one clean retry after removing `.godot`. All A.4 runs imported successfully.
+This is not classified as a browser gameplay failure.
+
+---
+
 # V0.9.1-A.3 — root-cause boundaries
 
 Controlled evidence demonstrates old 96px placement search exhaustion and an A.2 120px danger-line crossing. The old natural locked board was not captured exactly; the 168px reconstruction remains approximate. A.3 geometric cancellation addresses those fixtures but no automatic continuous-contact retry is implemented; liveness/gameplay remains open. See MERGE_PLACEMENT_REPORT.md.
