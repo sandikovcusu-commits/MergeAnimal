@@ -122,9 +122,6 @@ func dispose() -> void:
 	await frames(4)
 
 # ---------------------------------------------------------------- observation
-func live() -> Dictionary:
-	if not ensure_live(): return empty_live()
-
 func ensure_live() -> bool:
 	return is_instance_valid(game) and not game.is_queued_for_deletion()
 
