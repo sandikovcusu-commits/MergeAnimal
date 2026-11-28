@@ -73,6 +73,16 @@ func click(point: Vector2, touch: bool = false) -> void:
 func start_new_session(seed_value: int) -> void:
 	paused = false
 	remove_meta("continue_requested")
+	# A previous path may have left a live scene (for example after Restart), so
+	# the new session starts from an empty tree instead of two live boards.
+	game = null
+	for node in root.get_children():
+		if node.has_method("_attempt_drop"):
+			node.queue_free()
+		elif is_instance_valid(current_scene) and node == current_scene and not node.has_method("_attempt_drop"):
+			node.queue_free()
+	current_scene = null
+	await frames(4)
 	game = scene.instantiate()
 	game.test_seed = seed_value
 	game.persist_best = true   # real save path: production checkpoints run
@@ -447,12 +457,19 @@ func restart_isolation(result: Dictionary) -> void:
 	# Restart is a real UI press on the overlay button.
 	var button: Control = game.get_node("HUD/Overlay/RestartButton")
 	var old: String = str(game.session_id)
+	var previous_scene = current_scene
 	await click(button.get_global_transform_with_canvas() * (button.size / 2.0))
-	for i in range(20): await frames(1)
-	paused = false
-	# reload_current_scene() replaces current_scene; adopt it.
-	if is_instance_valid(current_scene) and current_scene.has_method("_attempt_drop"):
-		game = current_scene
+	# reload_current_scene() replaces current_scene at the end of the frame; adopt
+	# the replacement only once it exists, instead of reading a freed scene.
+	var adopted = null
+	for i in range(180):
+		await frames(1)
+		paused = false
+		if is_instance_valid(current_scene) and current_scene != previous_scene and current_scene.has_method("_attempt_drop"):
+			adopted = current_scene
+			break
+	if adopted != null:
+		game = adopted
 	for i in range(10): await frames(1)
 	var fresh := live()
 	check(bool(fresh.valid), "restart produced a live session")
