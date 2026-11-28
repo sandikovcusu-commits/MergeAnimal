@@ -70,19 +70,27 @@ initial_overlap = 0.000 in 600/600 cases      (PHYSICS_FIXTURE_CASES overlapped_
 escapes = 0                                   (all 600 cases)
 ```
 
-| policy | target | cases | spawned min | shortfall cases | max depth | median | p95 | > 2 px |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 natural, merges suppressed | 10 | 100 | 9 | 3 | 4.942 | 1.071 | 3.898 | 23 |
-| 0 | 20 | 100 | 9 | 80 | 5.821 | 1.724 | 3.666 | 39 |
-| 0 | 40 | 100 | 9 | 100 | 5.800 | 1.706 | 3.664 | 35 |
-| 1 levels 1–3, merges live | 10 | 100 | 9 | 1 | 0.346 | 0.020 | 0.020 | 0 |
-| 1 | 20 | 100 | 9 | 100 | 2.360 | 1.309 | 2.196 | 8 |
-| 1 | 40 | 100 | 9 | 100 | 2.318 | 1.039 | 1.816 | 3 |
+| policy | target | cases | spawned min | shortfall cases | max depth | median | p95 | > 2 px | escapes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 natural, merges suppressed | 10 | 100 | 9 | 3 | 4.942 | 1.071 | 3.898 | 23 | 0 |
+| 0 | 20 | 100 | 9 | 80 | 5.821 | 1.724 | 3.666 | 39 | 0 |
+| 0 | 40 | 100 | 9 | 100 | 5.800 | 1.706 | 3.664 | 35 | 0 |
+| 1 levels 1–3, merges live | 10 | 100 | 10 | 0 | 0.346 | 0.020 | 0.020 | 0 | 0 |
+| 1 | 20 | 100 | 20 | 0 | 2.360 | 1.309 | 2.196 | 8 | 0 |
+| 1 | 40 | 100 | 40 | 0 | 2.318 | 1.039 | 1.816 | 3 | 0 |
+
+Worst case overall: policy 0, seed 70099, target 20 (14 spawned), mouse r=18 at
+(593.51, 1081.82), velocity (92.82, 737.78), floor side, 5.821 px, 233 frames
+of continuous contact. It is a body squeezed between its neighbours and the
+floor while still carrying 737.78 px/s of downward speed, i.e. the same
+one-step mechanism as §2 but with a horizontal velocity component; a 737.78
+px/s body covers 6.15 px per step, so 5.82 px is again inside one step.
 
 Density honesty: a 538 px wide board cannot hold 40 mixed-level bodies without
-overlap (a single level-12 body is 250 px wide). The "40 body" rows therefore
-report `spawned` (median 35, minimum 9) and are labelled as shortfall cases
-instead of claiming 40.
+overlap (a single level-12 body is 250 px wide), so the natural-board "40 body"
+rows report `spawned` (minimum 9) and are labelled as shortfall cases instead of
+claiming 40. The small-animal policy reaches the full 10/20/40 because levels
+1–3 are 36–58 px wide.
 
 Boundary sides of the worst case per case: floor 337, right 132, left 131. No
 case ever ended with a body outside the walls, and `bodies_end` never exceeded
@@ -101,12 +109,20 @@ solver-drift accumulation would look like, and consistent with H1.
 | B | CCD mode | CAST_RAY (shipped), CAST_SHAPE and disabled give **byte-identical** depth for all 60 drops | Low | Higher with CAST_SHAPE | None | REJECTED (no effect: the body is not moving fast relative to the floor normal by enough for speculative contact to matter, and the depth is a positional artifact of the step, not a tunnel) |
 | C | Material | Not tested — friction 0.5 / bounce 0.1 / damping 0 are gameplay feel values, and depth is a positional quantity | Low | None | **Changes feel** | REJECTED |
 | D | Contact stability (solver iterations, `max_contacts_reported`, sleep thresholds) | Not tested; the residual after 2 frames is already 0.02–0.29 px, so there is nothing left to stabilise | Medium | Medium | Risk of soft stacks | DEFERRED |
-| E | Spawn/merge validation (predict the floor before creating the body) | Not applied yet; `apply_floor_guard.py` already exists as an isolated test-only variant with measured results in `PERFORMANCE_REPORT.md` | Medium | One clamp per body per tick | None if it only clamps the last step | **CANDIDATE for B.2 phase 2** |
+| E | Spawn/merge validation (predict the floor before creating the body) | Already measured in V0.9.0.3 as an isolated test-only patch (`tests/physics/apply_floor_guard.py`): single drops 0.068 px (target met), but a 40-body pile still reached 6.033 px and a pair 8.322 px. `PHYSICS_AUDIT_REPORT.md` records 120 Hz predictive-floor max 7.372 px and predictive-bounds max 8.359 px over 100 seeds | Medium | One clamp per body per tick | None, but only the final step is clamped | **REJECTED as a standalone fix** |
 
-Conclusion for this phase: the only candidate that can reduce the 9.190 px
-figure without touching gameplay geometry is E, and only by bounding a single
-downward step at the floor. B is disproven with matched data, and A/C are
-excluded by the brief. Nothing has been applied to product code yet.
+Conclusion for this phase: every candidate that is allowed by the brief has now
+been measured, and none reaches 1–2 px in a dense board.
+
+* B (CCD) is disproven on matched data: three modes, 180 identical drops, identical depths.
+* E (step prediction) meets the target only for a single falling body (0.068 px) and still leaves 6.0–8.3 px in piles, because the depth there is produced by neighbour pressure, not by the ball's own step.
+* A (geometry) and C (material) are excluded by the brief.
+* D (solver/contact stability) is the only remaining lever, and it is exactly
+  the case the brief says must not degrade gameplay: raising solver iterations
+  or contact depth changes stack feel for every level. It is therefore left
+  OPEN rather than applied.
+
+Nothing has been applied to product code in this phase.
 
 ## 5. Regression guards still green
 
@@ -121,11 +137,28 @@ excluded by the brief. Nothing has been applied to product code yet.
 * Real browser or device physics: all numbers are native Godot 4.7.2 headless
   at `--fixed-fps 120`. Chromium/Firefox build with the same project settings
   but were not measured for penetration in this phase.
-* Whether 1–2 px is reachable at all in a variable-step 120 Hz game loop; the
-  measured floor is one step of free fall, which for a 726 px fall is ~9.9 px.
-  Reaching 1–2 px requires predicting the contact before the step, i.e.
-  candidate E, and that is a product change that must be measured against the
-  A.4 regression set before adoption.
+* The 1–2 px target is NOT met and is not met by any candidate allowed in this
+  phase: measured 9.190 px worst single drop, 5.821 px worst dense case,
+  ~2.3 px for the small-animal compression board. The measured lower bound for
+  a single drop is one physics step of free fall (9.94 px at the largest fall);
+  pile depth is additionally driven by neighbour pressure, which step
+  prediction does not remove (0 px for one body vs 6.0 px in a 40-body pile on
+  the same patch).
+* All of this is native headless Godot at a fixed 120 fps. Browsers in this
+  build share the same project settings but were not measured for penetration.
+
+## 6. Harness defect found and fixed (transparency)
+
+The first three B.2 runs printed 300 CSV rows but **no summary**: the job's
+summary script split each record on spaces, so every row became a single `seed`
+value and the grouping lookup raised `KeyError` before printing. The runs were
+still green because the failure happened in the reporting step only, and the
+raw rows were intact in the transported log. It is now parsed as CSV with a
+field-count check, an explicit `skipped_rows` counter and a `(policy, target)`
+grouping key, and the script was validated locally against the saved log before
+being pushed. No physics number in this report comes from the broken summary:
+every figure above was recomputed directly from the `PHYSICS_CSV` and
+`IMPACT_CSV` records.
 
 Evidence files: `docs/qa/v091-b2/physics-impact-*.log`,
 `docs/qa/v091-b2/physics-dense-p0.log`, `docs/qa/v091-b2/physics-dense-p1.log`.
