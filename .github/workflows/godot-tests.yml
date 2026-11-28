@@ -188,7 +188,10 @@ jobs:
             for b3_actor in 1 2 3; do
               mkdir -p "/tmp/b3-natural-user-$b3_actor"
               echo "===== b3 natural $b3_actor =====" | tee -a /tmp/godot-test-log.txt
-              XDG_DATA_HOME="/tmp/b3-natural-user-$b3_actor" timeout 1500 "$GODOT" --headless --path MergeAnimals --fixed-fps 120 --script res://tests/integration/natural_b3.gd -- seed=$((93000 + b3_actor * 10)) actor=$b3_actor >> /tmp/godot-test-log.txt 2>&1
+              # One measured session is ~25 s of wall clock; 600 s per actor keeps
+              # three actors well inside the 45 minute job budget while still
+              # failing loudly if a session hangs.
+              XDG_DATA_HOME="/tmp/b3-natural-user-$b3_actor" timeout 600 "$GODOT" --headless --path MergeAnimals --fixed-fps 120 --script res://tests/integration/natural_b3.gd -- seed=$((93000 + b3_actor * 10)) actor=$b3_actor >> /tmp/godot-test-log.txt 2>&1
               code=$?
               echo "exit=$code" | tee -a /tmp/godot-test-log.txt
               if [ "$code" -ne 0 ]; then status=1; fi

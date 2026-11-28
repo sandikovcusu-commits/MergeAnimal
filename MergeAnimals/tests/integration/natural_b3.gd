@@ -115,14 +115,28 @@ func press_continue() -> bool:
 
 func dispose() -> void:
 	paused = false
-	if is_instance_valid(game):
-		game.queue_free()
+	var old = game
 	game = null
-	await frames(3)
+	if is_instance_valid(old):
+		old.queue_free()
+	await frames(4)
 
 # ---------------------------------------------------------------- observation
 func live() -> Dictionary:
-	if not is_instance_valid(game): return {"valid": false}
+	if not ensure_live(): return empty_live()
+
+func ensure_live() -> bool:
+	return is_instance_valid(game) and not game.is_queued_for_deletion()
+
+func empty_live() -> Dictionary:
+	return {
+		"valid": false, "game_state": -1, "spawn_state": -1, "score": 0, "best": 0,
+		"spawns": 0, "merges": 0, "bodies": 0, "highest": 0, "combo": 0, "pending": 0,
+		"locked": 0, "rescue_remaining": 0, "undo_remaining": 0, "remove_remaining": 0,
+		"session_id": "", "paused": false, "rescue_ready": false, "rescue_text": "",
+		"overlay_visible": false, "overlay_text": "", "highest_body_y": 0.0,
+		"spawn_count_delta_locked": 0,
+	}
 	var pending := 0
 	var locked := 0
 	for pair in game.merge_manager.pending: pending += 1
@@ -222,8 +236,10 @@ func session(seed_value: int, cap_inputs: int, cadence_ticks: int) -> Dictionary
 	var terminal_at_input := 0
 	var sim_seconds := 0.0
 	var started_ms := Time.get_ticks_msec()
+	var end_state_before := 0
 	while inputs < cap_inputs:
-		if not is_instance_valid(game): break
+		if not ensure_live(): break
+		end_state_before = int(game.game_state)
 		if int(game.game_state) == 2:
 			over = true
 			terminal_at_input = inputs
@@ -234,6 +250,9 @@ func session(seed_value: int, cap_inputs: int, cadence_ticks: int) -> Dictionary
 		inputs += 1
 		# Let the queued drop be committed by the next physics tick.
 		await ticks(2)
+		if not ensure_live():
+			over = int(end_state_before) == 2
+			break
 		if game.spawn_count > spawns_before:
 			accepted += 1
 		elif game.pieces.get_child_count() == bodies_before and game.is_playing():
@@ -257,7 +276,7 @@ func session(seed_value: int, cap_inputs: int, cadence_ticks: int) -> Dictionary
 		cancelled = int(game.merge_manager.cancelled_count)
 		retries = int(game.merge_manager.auto_retry_attempts)
 		sim_seconds = float(inputs) * float(cadence_ticks) / float(Engine.physics_ticks_per_second)
-	if not over and is_instance_valid(game) and int(game.game_state) == 2:
+	if not over and ensure_live() and int(game.game_state) == 2:
 		over = true
 		terminal_at_input = inputs
 	if not over:
@@ -265,7 +284,7 @@ func session(seed_value: int, cap_inputs: int, cadence_ticks: int) -> Dictionary
 			seed_value, "input_cap" if inputs >= cap_inputs else "session_guard", inputs, cap_inputs])
 	# Let a terminal checkpoint attempt settle before reading it.
 	for i in range(40):
-		if not is_instance_valid(game) or int(game.game_state) != 2: break
+		if not ensure_live() or int(game.game_state) != 2: break
 		await frames(2)
 	var end_live := live()
 	var end_details := details()
@@ -301,8 +320,8 @@ func session(seed_value: int, cap_inputs: int, cadence_ticks: int) -> Dictionary
 
 # ---------------------------------------------------------------- 2. terminal contract
 func terminal_contract(result: Dictionary) -> void:
-	if not bool(result.over):
-		print("NATURAL_TERMINAL_CONTRACT seed=%d SKIPPED reason=not_reached" % int(result.seed))
+	if not bool(result.get("over", false)):
+		print("NATURAL_TERMINAL_CONTRACT seed=%d SKIPPED reason=not_reached" % int(result.get("seed", -1)))
 		return
 	var before := live()
 	check(int(before.game_state) == 2, "terminal state is GAME_OVER (%d)" % int(before.game_state))
@@ -329,7 +348,7 @@ func terminal_contract(result: Dictionary) -> void:
 	var d := details()
 	var doc := SessionSave.load_document()
 	print("NATURAL_CONTRACT seed=%d doc_status=%s doc_over=%s score=%d doc_score=%d details=%s" % [
-		int(result.seed), str(doc.get("status", "")), str(doc.data.get("game_over_pending", false) if doc.has("data") else ""),
+		int(result.get("seed", -1)), str(doc.get("status", "")), str(doc.data.get("game_over_pending", false) if doc.has("data") else ""),
 		int(after.score), int(doc.data.get("score", -1) if doc.has("data") else -1), JSON.stringify(d)])
 	# Save invariants that must hold for a real terminal session.
 	if doc.status in ["ok", "recovered"] and doc.has("data"):
@@ -341,7 +360,7 @@ func terminal_contract(result: Dictionary) -> void:
 		var written: String = str(d.get("written_revision", ""))
 		var verified: String = str(d.get("verified_revision", ""))
 		print("NATURAL_REVISIONS seed=%d current=%s written=%s verified=%s readback=%s scoped=%s aggregate=%s status=%s" % [
-			int(result.seed), current, written, verified, str(d.get("readback", "")), str(d.get("scoped", "")), str(d.get("aggregate", "")), str(d.get("status", ""))])
+			int(result.get("seed", -1)), current, written, verified, str(d.get("readback", "")), str(d.get("scoped", "")), str(d.get("aggregate", "")), str(d.get("status", ""))])
 		check(not current.is_empty() and written == current, "written revision matches the terminal snapshot")
 		check(str(d.get("status", "")) != "verified" or verified == written, "verified revision can only be the written one")
 	else:
@@ -349,7 +368,7 @@ func terminal_contract(result: Dictionary) -> void:
 
 # ---------------------------------------------------------------- 3. refresh-equivalent restore
 func refresh_restore(result: Dictionary) -> void:
-	if not bool(result.over):
+	if not bool(result.get("over", false)):
 		return
 	var before := live()
 	var doc_before := SessionSave.load_document()
@@ -372,17 +391,17 @@ func refresh_restore(result: Dictionary) -> void:
 	check(str(doc_after.get("status", "")) == str(doc_before.get("status", "")), "refresh does not change the save status")
 	check(bool(doc_after.data.get("game_over_pending", false)) if doc_after.has("data") else false, "refresh keeps game_over_pending")
 	print("NATURAL_REFRESH seed=%d revision=%s score=%d best=%d bodies=%d rescue=%d session_match=%s" % [
-		int(result.seed), revision, int(after.score), int(after.best), int(after.bodies), int(after.rescue_remaining),
+		int(result.get("seed", -1)), revision, int(after.score), int(after.best), int(after.bodies), int(after.rescue_remaining),
 		str(str(after.session_id) == str(before.session_id))])
 	await dispose()
 
 # ---------------------------------------------------------------- 4. restart isolation
 func restart_isolation(result: Dictionary) -> void:
-	if not bool(result.over):
+	if not bool(result.get("over", false)):
 		return
-	var old_session: String = str(result.session_id)
-	var old_score: int = int(result.score)
-	var old_best: int = int(result.best)
+	var old_session: String = str(result.get("session_id", ""))
+	var old_score: int = int(result.get("score", 0))
+	var old_best: int = int(result.get("best", 0))
 	await go_to_menu()
 	check(await press_continue(), "restart fixture restores the terminal session through Continue")
 	var terminal := live()
@@ -425,7 +444,7 @@ func restart_isolation(result: Dictionary) -> void:
 
 # ---------------------------------------------------------------- 5. natural rescue
 func natural_rescue(result: Dictionary) -> void:
-	if not bool(result.over):
+	if not bool(result.get("over", false)):
 		return
 	await go_to_menu()
 	check(await press_continue(), "rescue fixture restores the terminal session through Continue")
@@ -473,7 +492,7 @@ func natural_rescue(result: Dictionary) -> void:
 	check(not (doc_after.has("data") and bool(doc_after.data.get("game_over_pending", true))), "rescue clears game_over_pending in the checkpoint")
 	check(revision_after != revision_before, "rescue writes a new revision")
 	print("NATURAL_RESCUE seed=%d before(score=%d bodies=%d rescue=%d rev=%s) after(score=%d bodies=%d rescue=%d rev=%s removed=%d merges=%d)" % [
-		int(result.seed), int(before.score), int(before.bodies), int(before.rescue_remaining), revision_before,
+		int(result.get("seed", -1)), int(before.score), int(before.bodies), int(before.rescue_remaining), revision_before,
 		int(after.score), int(after.bodies), int(after.rescue_remaining), revision_after, removed.size(), int(merged.merges)])
 	# Post-rescue persistence: a fresh scene must not restore an active Game Over
 	# and must not refund the used rescue.
