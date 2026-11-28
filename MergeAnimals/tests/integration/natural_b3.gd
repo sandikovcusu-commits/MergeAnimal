@@ -578,25 +578,34 @@ func run() -> void:
 		await dispose()
 	var reached := 0
 	for result in results:
-		if bool(result.over): reached += 1
+		if bool(result.get("over", false)): reached += 1
 	print("NATURAL_SUMMARY sessions=%d game_over=%d not_reached=%d seeds=%s" % [
 		results.size(), reached, results.size() - reached,
-		",".join(results.map(func(r): return str(int(r.seed))))])
-	# Deep validation only on a real terminal session; skipped otherwise and
-	# reported as skipped, never as passed.
-	var deep: Dictionary = {}
-	for result in results:
-		if bool(result.over):
-			deep = result
-			break
-	if deep.is_empty():
-		print("NATURAL_DEEP SKIPPED reason=no_terminal_session")
-	else:
+		",".join(results.map(func(r): return str(int(r.get("seed", -1)))))])
+	# Each deep path legitimately rewrites the checkpoint, so each one is driven
+	# by its own freshly played natural session instead of borrowing the state a
+	# previous path left behind. Nothing is skipped and nothing is reused.
+	var deep_paths := [
+		{"name": "refresh", "seed": seed_base + 11, "cap": 260, "cadence": 150},
+		{"name": "restart", "seed": seed_base + 12, "cap": 260, "cadence": 150},
+		{"name": "rescue", "seed": seed_base + 13, "cap": 260, "cadence": 150},
+	]
+	for path in deep_paths:
+		print("NATURAL_DEEP_BEGIN path=%s seed=%d" % [str(path.name), int(path.seed)])
 		session_index += 1
-		await refresh_restore(deep)
+		var played: Dictionary = await session(int(path.seed), int(path.cap), int(path.cadence))
+		if not bool(played.get("over", false)):
+			print("NATURAL_DEEP SKIPPED path=%s reason=no_terminal_session" % str(path.name))
+			check(false, "deep path %s needs a natural Game Over" % str(path.name))
+			await dispose()
+			continue
 		session_index += 1
-		await restart_isolation(deep)
-		session_index += 1
-		await natural_rescue(deep)
+		if str(path.name) == "refresh":
+			await refresh_restore(played)
+		elif str(path.name) == "restart":
+			await restart_isolation(played)
+		else:
+			await natural_rescue(played)
+		await dispose()
 	print("NATURAL_B3 checks=%d failures=%d sessions=%d events=%d" % [checks, failures, sessions_started, events])
 	quit(1 if failures else 0)
