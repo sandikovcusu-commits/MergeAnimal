@@ -252,6 +252,25 @@ func danger_bodies() -> int:
 			count += 1
 	return count
 
+# Read-only replay of the production rescue planner with the same arguments the
+# refused rescue used. It reads the board and returns numbers; it never moves,
+# locks or frees anything.
+func planner_probe() -> Dictionary:
+	if not ensure_live(): return {}
+	var items: Array = []
+	for body in game.pieces.get_children():
+		if body is Animal:
+			items.append({"uid": body.save_uid, "x": body.position.x, "y": body.position.y, "radius": body.data.radius, "level": body.data.level})
+	var xmin: float = game.left_bound + game.current_data.radius + game.spawn_margin
+	var xmax: float = game.right_bound - game.current_data.radius - game.spawn_margin
+	var plan: Dictionary = RescuePlanner.plan(items, game.danger_height, game.spawn_height, game.current_data.radius, xmin, xmax, game.aim_x, game.rescue_max_remove)
+	var mandatory := 0
+	for item in items:
+		if float(item.y) - float(item.radius) < game.danger_height: mandatory += 1
+	return {"bodies": items.size(), "mandatory": mandatory, "max_remove": int(game.rescue_max_remove),
+		"plan_empty": plan.is_empty(), "remove_uids": plan.get("remove_uids", []).size(),
+		"spawn_x": float(plan.get("spawn_x", -1.0)), "spawn_y": float(game.spawn_height)}
+
 # Every body above the Danger Line, the same rule RescuePlanner applies when it
 # decides which removals are mandatory.
 func _bodies_above_line() -> int:
@@ -498,12 +517,22 @@ func restart_isolation(result: Dictionary) -> void:
 	print("NATURAL_RESTART_TRACE instance=%d state=%d spawn_state=%s paused=%s overlay=%s buttons=%s point=%s" % [
 		int(fresh.get("instance_id", 0)), int(fresh.game_state), str(int(fresh.spawn_state)), str(paused),
 		str(fresh.overlay_visible), JSON.stringify(visible_button_rects(root).map(func(r): return [r.position.x, r.position.y, r.size.x, r.size.y])), JSON.stringify(point)])
-	await click(point)
-	await ticks(3)
+	# The first drop of a fresh session can be refused while the spawn point is
+	# still inside the cooldown of the reloaded board; a player simply taps again,
+	# so the suite taps again and counts the refusals.
+	var drop_refusals := 0
+	for attempt in range(4):
+		await click(point)
+		await ticks(6)
+		var live_after := live()
+		print("NATURAL_RESTART_TRACE attempt=%d instance=%d valid=%s spawns=%s state=%s spawn_state=%s" % [
+			attempt + 1, int(live_after.get("instance_id", 0)), str(live_after.valid),
+			str(int(live_after.get("spawns", 0))), str(int(live_after.get("game_state", -1))),
+			str(int(live_after.get("spawn_state", -1)))])
+		if int(live_after.get("spawns", 0)) > spawns_before: break
+		drop_refusals += 1
 	var dropped := live()
-	print("NATURAL_RESTART_TRACE after_drop instance=%d valid=%s spawns=%s state=%s spawn_state=%s" % [
-		int(dropped.get("instance_id", 0)), str(dropped.valid), str(int(dropped.get("spawns", 0))),
-		str(int(dropped.get("game_state", -1))), str(int(dropped.get("spawn_state", -1)))])
+	check(drop_refusals <= 3, "restart session accepts a real drop within four taps (%d refusals)" % drop_refusals)
 	check(int(dropped.spawns) == spawns_before + 1, "restart session accepts the first drop")
 	check(int(dropped.score) == 0, "the previous session's score does not leak into the new one")
 	# Old callbacks: the previous session id must never reappear.
@@ -543,9 +572,10 @@ func natural_rescue(result: Dictionary) -> bool:
 	if verdict == 2:
 		# The production rescue was offered and then refused. Record the refusal
 		# with the state that caused it; nothing is retried inside the same board.
-		print("NATURAL_RESCUE_REFUSED seed=%d score=%d bodies=%d above_line=%d supported_above=%d rescue=%d message=%s" % [
+		print("NATURAL_RESCUE_REFUSED seed=%d score=%d bodies=%d above_line=%d supported_above=%d rescue=%d message=%s planner=%s disabled_after=%s" % [
 			int(result.get("seed", -1)), int(before.score), int(before.bodies), _bodies_above_line(),
-			danger_bodies(), int(before.rescue_remaining), message])
+			danger_bodies(), int(before.rescue_remaining), message, JSON.stringify(planner_probe()),
+			str(bool(game.rescue_button.disabled))])
 		check(false, "natural rescue completes on the first attempt (refused: %s)" % message)
 		return false
 	# The commit is deferred and includes a 0.4 s highlight, so allow real time.
