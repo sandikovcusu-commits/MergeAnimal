@@ -252,6 +252,16 @@ func danger_bodies() -> int:
 			count += 1
 	return count
 
+# Every body above the Danger Line, the same rule RescuePlanner applies when it
+# decides which removals are mandatory.
+func _bodies_above_line() -> int:
+	var count := 0
+	if not ensure_live(): return count
+	for body in game.pieces.get_children():
+		if body is Animal and body.position.y - body.data.radius < game.danger_height:
+			count += 1
+	return count
+
 # Wait a number of physics ticks, stopping early if the session ends. Returns
 # true when the session reached a terminal state while waiting.
 func settle_ticks(count: int) -> bool:
@@ -506,9 +516,9 @@ func restart_isolation(result: Dictionary) -> void:
 	await dispose()
 
 # ---------------------------------------------------------------- 5. natural rescue
-func natural_rescue(result: Dictionary) -> void:
+func natural_rescue(result: Dictionary) -> bool:
 	if not bool(result.get("over", false)):
-		return
+		return false
 	await go_to_menu()
 	check(await press_continue(), "rescue fixture restores the terminal session through Continue")
 	var terminal := live()
@@ -524,9 +534,20 @@ func natural_rescue(result: Dictionary) -> void:
 		str(bool(game.rescue_processing)), str(bool(game.gameover_checkpoint_pending)), str(bool(game.save_status == OK)),
 		JSON.stringify(button.get_global_transform_with_canvas() * (button.size / 2.0))])
 	await click(button.get_global_transform_with_canvas() * (button.size / 2.0))
-	print("NATURAL_RESCUE_TRACE post_click processing=%s message=%s text=%s last_result=%s" % [
-		str(bool(game.rescue_processing)), str(game.rescue_message.text), str(game.rescue_button.text),
-		str(int(game.game_state))])
+	for i in range(6): await frames(2)
+	var verdict: int = int(game.game_state)
+	var message: String = str(game.rescue_message.text)
+	print("NATURAL_RESCUE_TRACE post_click processing=%s message=%s text=%s state=%d above_line=%d bodies=%d" % [
+		str(bool(game.rescue_processing)), message, str(game.rescue_button.text), verdict,
+		_bodies_above_line(), int(game.pieces.get_child_count())])
+	if verdict == 2:
+		# The production rescue was offered and then refused. Record the refusal
+		# with the state that caused it; nothing is retried inside the same board.
+		print("NATURAL_RESCUE_REFUSED seed=%d score=%d bodies=%d above_line=%d supported_above=%d rescue=%d message=%s" % [
+			int(result.get("seed", -1)), int(before.score), int(before.bodies), _bodies_above_line(),
+			danger_bodies(), int(before.rescue_remaining), message])
+		check(false, "natural rescue completes on the first attempt (refused: %s)" % message)
+		return false
 	# The commit is deferred and includes a 0.4 s highlight, so allow real time.
 	for i in range(80):
 		await frames(1)
@@ -578,6 +599,7 @@ func natural_rescue(result: Dictionary) -> void:
 	check(int(restored.score) == score_now, "restored score equals the last committed score (%d vs %d)" % [int(restored.score), score_now])
 	print("NATURAL_RESCUE_RESTORE score=%d rescue=%d state=%d" % [int(restored.score), int(restored.rescue_remaining), int(restored.game_state)])
 	await dispose()
+	return true
 
 func _body_signature() -> Array:
 	var out: Array = []
@@ -620,7 +642,6 @@ func run() -> void:
 	var deep_paths := [
 		{"name": "refresh", "seed": seed_base + 11, "cap": 260, "cadence": 150},
 		{"name": "restart", "seed": seed_base + 12, "cap": 260, "cadence": 150},
-		{"name": "rescue", "seed": seed_base + 13, "cap": 260, "cadence": 150},
 	]
 	for path in deep_paths:
 		print("NATURAL_DEEP_BEGIN path=%s seed=%d" % [str(path.name), int(path.seed)])
@@ -634,10 +655,32 @@ func run() -> void:
 		session_index += 1
 		if str(path.name) == "refresh":
 			await refresh_restore(played)
-		elif str(path.name) == "restart":
-			await restart_isolation(played)
 		else:
-			await natural_rescue(played)
+			await restart_isolation(played)
 		await dispose()
+	# Natural free rescue. The rescue can be refused by the production planner on
+	# a real terminal board; each attempt is a separate freshly played session and
+	# every refusal is printed, so the measured success rate is visible instead of
+	# hidden behind a retry loop.
+	var rescue_attempts := 0
+	var rescue_refusals := 0
+	var rescue_done := false
+	for offset in [13, 23, 33]:
+		if rescue_done: break
+		rescue_attempts += 1
+		print("NATURAL_RESCUE_ATTEMPT attempt=%d seed=%d" % [rescue_attempts, seed_base + offset])
+		session_index += 1
+		var played: Dictionary = await session(seed_base + offset, 260, 150)
+		if not bool(played.get("over", false)):
+			print("NATURAL_RESCUE_ATTEMPT attempt=%d outcome=no_terminal_session" % rescue_attempts)
+			await dispose()
+			continue
+		session_index += 1
+		if await natural_rescue(played):
+			rescue_done = true
+		else:
+			rescue_refusals += 1
+		await dispose()
+	print("NATURAL_RESCUE_SUMMARY attempts=%d refusals=%d succeeded=%s" % [rescue_attempts, rescue_refusals, str(rescue_done)])
 	print("NATURAL_B3 checks=%d failures=%d sessions=%d events=%d" % [checks, failures, sessions_started, events])
 	quit(1 if failures else 0)
