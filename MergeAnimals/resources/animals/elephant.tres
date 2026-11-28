@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="AnimalData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="1"]
+
+[ext_resource type="Texture2D" path="res://assets/animals/elephant/normal.png" id="normal_texture"]
+
+[ext_resource type="Texture2D" path="res://assets/animals/elephant/blink.png" id="blink_texture"]
+[ext_resource type="Texture2D" path="res://assets/animals/elephant/happy.png" id="happy_texture"]
+[ext_resource type="Texture2D" path="res://assets/animals/elephant/surprise.png" id="surprise_texture"]
+
+[resource]
+script = ExtResource("1")
+id = &"elephant"
+display_name = "Elephant"
+translation_key = &"ANIMAL_ELEPHANT"
+level = 12
+radius = 125.0
+body_mass = 9.8
+friction = 0.5
+bounce = 0.1
+linear_damping = 0.0
+angular_damping = 0.0
+spawn_weight = 0.0
+next_evolution_id = &""
+golden_terminal = true
+merge_score = 500
+sprite = ExtResource("normal_texture")
+blink_sprite = ExtResource("blink_texture")
+happy_sprite = ExtResource("happy_texture")
+surprise_sprite = ExtResource("surprise_texture")
+placeholder_color = Color(0.717647, 0.749020, 0.772549, 1)
+unlock_id = &"elephant"

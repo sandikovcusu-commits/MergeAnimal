@@ -1,0 +1,1186 @@
+{
+  "note": "Hash inventory only; historical visual bytes are in private research archive and unchanged Git history. Exact hashes do not detect altered derivatives.",
+  "baseline_commit": "8895ddf4b879d83c13952e608df68b2977dcb31d",
+  "visuals": [
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/bear.png",
+      "sha256": "8b5af3492af2fe56de5c0bc138d5184af0a3e6fcfc51daf142010d8cabb6a647"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/cat.png",
+      "sha256": "5d3e5ff029a08a302a8cd2c96be42c744db910f200561c2354332c6966f1ee7d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/dog.png",
+      "sha256": "f15fcac139d82d50dd0db21a6c6d3c00c49973bb4a2f8a297c3b5a01e5e5f7cb"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/elephant.png",
+      "sha256": "3594abeec64e611b82c404e0d599ade6faa2d45e861be2bbfafb69bcecea7e30"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/fox.png",
+      "sha256": "f457d4cae31acdaf2f3783bd28266e971f20c54ae35d1a0a047e992dbf39610f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/hamster.png",
+      "sha256": "62e4f0021ae7cb4112ac8ef56e2593b26ff956f07a8c9f24a1cfaf7af6013f9a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/koala.png",
+      "sha256": "bb14ba29ec39ad543d1bcc336492944f0acd3476bea511f81054779b6d73e034"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/lion.png",
+      "sha256": "7c37810439e9356edf4a0ecddfb10efb3f595e5e8235ba8c0f008df775e05a84"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/mouse.png",
+      "sha256": "1b780cc9790c611e90e7a62a8b05565a63fc0d167bb92df09a039a1d56aef53d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/panda.png",
+      "sha256": "a059e1474aaed1528a7bc1125c327a06098cc28f6084a7b3035c729fe77b04b0"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/rabbit.png",
+      "sha256": "e87fdf9e5f5114b124f5a3ac03de8affcf577b1d2b2642a8e1cc1fbb2ed4ee53"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/collision_overlays/raccoon.png",
+      "sha256": "7cc96c93ac1e10916c91f858523bb7ac7aeeafaf561dcc7b1788ac64eeb3172a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/contact_black_WIP.png",
+      "sha256": "47f0d98f0a912320dc8fb6717a09a7a940f3ca4aad88024d1a88b84ed0749d29"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/contact_collision_WIP.png",
+      "sha256": "ede0f6fdf78bdafd59d8e55aebd813e37f25e2379985146ea73d9cee35ed4430"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/contact_game_scale_WIP.png",
+      "sha256": "c9213ebc87c64c19abf1a9aba19c16e77b9d18bc7c0e5e146f69c58a39a108a0"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/contact_white_WIP.png",
+      "sha256": "3255559fa0e13c24b3a56722b275b906c46d8f84fb2a99493f130335829fd02c"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/render_preview/game_1080x1920.jpg",
+      "sha256": "a74b5a108494142ad84448f0c2b14338f30ebdcfdcaf0d7e4cfb38cfe34edb98"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/render_preview/game_1366x768.jpg",
+      "sha256": "045714b87be3b0108e492b7645cf8b996d481511251d144690ec56f6e65de959"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/render_preview/game_1920x1080.jpg",
+      "sha256": "f5e46064bba23ee8d2a8ee886c67a9bf13111bdf81f38efaffa2c8ec169d3678"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/render_preview/game_360x640.jpg",
+      "sha256": "de9a50304eda2e02ed2e6456a6c454d279f42f9d9ffd9d9ddb88971f55b7709a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/render_preview/game_360x800.jpg",
+      "sha256": "de9a50304eda2e02ed2e6456a6c454d279f42f9d9ffd9d9ddb88971f55b7709a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/render_preview/game_720x1280.jpg",
+      "sha256": "6cdcb2d993db556ba54587f17eb1803288c8aca542f295bdac11d662caff5cd3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_capture_index.jpg",
+      "sha256": "845c7f5d9b870a94cc570e04850f408c7af771eaa791158b8089cea8e536d77d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme0_1080x1920.jpg",
+      "sha256": "263fa6c4093ba7cbbe48952c60fdf1f456e9ea76d2e0ba156dc060b09770a639"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme0_1366x768.jpg",
+      "sha256": "8b58d9557763c7006dcd4f6dba53ee8a7c091fb87cddf30aad22eaa02500c6cb"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme0_1920x1080.jpg",
+      "sha256": "5ab6aa01c098b7f4a4faf2232ac18ded910fe388aec35747ba04069d7ed0b49d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme0_360x640.jpg",
+      "sha256": "f6155338e12ff38a5dc877f0d55569340fa82c7c0669afd3cdc6eb0e1bd186b6"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme0_360x800.jpg",
+      "sha256": "41525a44bf6b0067362d73b5dc387749fc2457dd405171ed4c20be685c183d9f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme0_720x1280.jpg",
+      "sha256": "f0310919844c92b597e6411d445a65d41908862d563f9b5b745eb378d1b1e2f1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme1_1080x1920.jpg",
+      "sha256": "c457c93dd6171323722e53a80acadefb7d7b749cbec5d60ad9c580acff3813ba"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme1_1366x768.jpg",
+      "sha256": "e9189ad62eeb05ef3fe9de1875fddc1bb64cb1b0c30ec14caffed9e21b237ab9"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme1_1920x1080.jpg",
+      "sha256": "1871d9cd7a547b9ed855a31ffbb148789fb5b835f433e516313e2e61763e6463"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme1_360x640.jpg",
+      "sha256": "9b05df7308d30247cbff69ea8e063332f41d98bd6ee5da618157dd30e24a03c1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme1_360x800.jpg",
+      "sha256": "ede1a9434b401be3eba758ea352eb710bcb5be0d7876c6bd545ceaee9f3a4af7"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme1_720x1280.jpg",
+      "sha256": "157c61c52636cb8a5626a4f1c5b5c0a5f7f7d729fbab046aea8631a691e01342"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme2_1080x1920.jpg",
+      "sha256": "cc6c7b7edc75835f388a1489eea07c26669b0ff73e4a152c66671831432d2da4"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme2_1366x768.jpg",
+      "sha256": "60521a357a5bdffd6c44826ed93c5ede244b55626d8e4abccc954939febd6496"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme2_1920x1080.jpg",
+      "sha256": "764b7a69fed838b973a5e010ca7b9d96edb36d3e34e70f35134ef72a98aacc39"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme2_360x640.jpg",
+      "sha256": "71ac4898915e5ecba8516ebba1a6002da5370d1b656d9f58c7bf3cd18f8e2cc9"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme2_360x800.jpg",
+      "sha256": "c759dd671f0b79e364653050155aa8dce51b8ad9d7516b3d495d55970fda3e33"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v041_windows/theme2_720x1280.jpg",
+      "sha256": "f7d625c3ed07db73a5244426785f46b0c18b4c0ea23e5332069d8d82b7d74f26"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_before/settings_clipped_360x640.jpg",
+      "sha256": "019d55970bdcc8a568ccb5a69ddadb9fe375d1a989cb663190358014d5ffb660"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme0_1080x1920.jpg",
+      "sha256": "26272e4301f2ceddeae2eddc09f762b9c1c80be02d2ee300ae620dfa206c23bc"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme0_1366x768.jpg",
+      "sha256": "844101e6eed033ef4f2ad01b368f054de16ddb2439f1bf0aa3a51a50ba96acca"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme0_1920x1080.jpg",
+      "sha256": "a922804f221d9a556554d85e8c272eb3035e8367cdd2acea74be9a08b55f0095"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme0_360x640.jpg",
+      "sha256": "52f78f55fcc9faf96cf3a2c29ac0bc7acb70f68fe687935f41b3063a9b6b4005"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme0_360x800.jpg",
+      "sha256": "0e8ba9c68b4b011d4e9800104e85d9413b054c734195c23f13802e06515794a7"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme0_720x1280.jpg",
+      "sha256": "ffdae4aec4602bd0fbdde348da78449610e7f6ec1970fd92542fadcfef24cc27"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme1_1080x1920.jpg",
+      "sha256": "b8baead721b51d3c1c865e373f5f00949b1eea85ebd0b59594613b211a301aee"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme1_1366x768.jpg",
+      "sha256": "fc332282114666183bb9fc749e795cf53ae111a551cd76dec7f67f3c8d9c5490"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme1_1920x1080.jpg",
+      "sha256": "3f4a6fbe26c7bd2b76058e0965b60d9d609d74dfdda6a5049ddaed6656e29911"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme1_360x640.jpg",
+      "sha256": "af0befa3ccd0ea8a36988bc8996df26689e95348e43880b9bf38d1504b8bc83d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme1_360x800.jpg",
+      "sha256": "d09b38dda96cbbefb37c87a8087e7ccf5b615c65befac7092bb3af2578d329c2"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme1_720x1280.jpg",
+      "sha256": "a9a3672d23fea386983a23660a6ef90c51d94faa1184014f3fd2f08996958e22"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme2_1080x1920.jpg",
+      "sha256": "95eb2485bec70032f46df375aa4df6158f3951bacfa2c84a3a7a8843a0439568"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme2_1366x768.jpg",
+      "sha256": "c869019e1cf09656265a90e8fb39d15dbf7f2897e412abf69f1529ee246ed1d2"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme2_1920x1080.jpg",
+      "sha256": "6b3367319c40754e45e9709f4e7b3a561009e161064f26987e667a6aba5b5688"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme2_360x640.jpg",
+      "sha256": "a7adb1243a896ef05eb395a6c5574b66dc2d3592e4d35d6c2ddf564dcbd81388"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme2_360x800.jpg",
+      "sha256": "ff40b539247d32b825a263b59a7df4cae9a72c1d31fb1efa0c541b7b2490b0b1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/theme2_720x1280.jpg",
+      "sha256": "3ef967e54939c128a401a1c298d49982f9d5863750a9e07b656091531df69d7c"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_effects_1366x768.jpg",
+      "sha256": "5dbcefe26fcb6f5db24d11e3dfeae0a67a8e55ac8de700d3cd321e418dfb5788"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_effects_360x640.jpg",
+      "sha256": "3c49a3dc81ac87db9500a6e137a195c4aa4d94c653318a3f4a4505b32b773537"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_effects_720x1280.jpg",
+      "sha256": "107cb934832f3beed36a80eb69897e1aba8478987e62b62837aa71426bbddbc3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_gameover_1366x768.jpg",
+      "sha256": "4282bd5d20bb8f789119c8b347034d2a0f24521e35f571ab45d49717dfe3eab1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_gameover_360x640.jpg",
+      "sha256": "cc632232447861fb0aa178160ae71f15dc5d26c3438672018dd044c67ac7d82b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_gameover_720x1280.jpg",
+      "sha256": "53ed95b45b4eee1cc712ed26d0cabd9bd450a175acde1f1e825ca916ab139325"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_menu_1366x768.jpg",
+      "sha256": "2612832b077fc22e262d67d9b9371c434c9eb01101c9909384e1e2b8e586da70"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_menu_360x640.jpg",
+      "sha256": "4b128ee5d0f5e57a21f6cbf8fd8bce60337a8ec5dfad581c90288ea4168e5923"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_menu_720x1280.jpg",
+      "sha256": "c423130a422f3dc90ba79b5f5fcf91595ee1e19d4e76cd12d4131b2d4a942a77"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_pause_1366x768.jpg",
+      "sha256": "19f185137705e66d2a88e4380995b14a1bd63ce376780dede61d8c2df5be4cd5"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_pause_360x640.jpg",
+      "sha256": "50d82f6906f66fde61d33284a1bcc24cbad085fb6a68084f8e1be04d40619d2d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_pause_720x1280.jpg",
+      "sha256": "50fb46ac988694d182163351f61740ee443c22a2e34939b056a0f5509e667ac6"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_settings_1366x768.jpg",
+      "sha256": "26919537edc2c1183c03e9f335e99f691cc12d89ec110e52875713724302d6d3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_settings_360x640.jpg",
+      "sha256": "ca464409306f263a8bf1b1f491ef282d10aad7fea083e9f23ee8c94dc02d09fa"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_settings_720x1280.jpg",
+      "sha256": "45c8d47add02a7084756759e85f43e3afc49596a3f71f118cbe6e0784f3c51d1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_tutorial_1366x768.jpg",
+      "sha256": "2705da11cd4e8412e4a6e709a59131ac2711a6d0a6da4d953ad321afaf9541e8"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_tutorial_360x640.jpg",
+      "sha256": "691d55cb79fb50821024b807bb2d8cda278f0e7c2beb232ba79893f6f6cbd644"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v050_ui/ui_tutorial_720x1280.jpg",
+      "sha256": "3055712e46773f67e42a503377341e29361529bc162c4f1e58df8e505eb51754"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v061_session/day61_continue_menu.jpg",
+      "sha256": "fea81ab961389ae0d1c82b3463d34852c99fe9862fb9afbeb1fc46f2c7374b65"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v061_session/day61_restored_game.jpg",
+      "sha256": "15c569d7c1bc1285d02d8e1c1aa84c43bc01cbc07b5f51fa6ea1a02dc5ae72bb"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v061_session/day61_saved_game.jpg",
+      "sha256": "f1cdf8f0afd501f2c8f8d6e58ee6725b4420cc6006d19f27cc1d7666efb33cf4"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/collection_1366x768.jpg",
+      "sha256": "481924f98646e9e9139c468d748b5f23333fdac49f4513052f9572c3cae4417d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/collection_360x640.jpg",
+      "sha256": "2f13b54c484f5a9c327d982604bf59a7538de80d973fedf484def93452d339e6"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/collection_720x1280.jpg",
+      "sha256": "fd9c47e3ffad753f8d6b9d97e72d832bcb6557f2fc3a66b5f2b14e9eb9787856"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/details_1366x768.jpg",
+      "sha256": "819c4562ee2e24b5801457a6a33a8af3a284a042bd8a93aa86ad598688bcc515"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/details_360x640.jpg",
+      "sha256": "aa98eb42f5249ba78b48428b429036ce724b470b71a686e61d892948e7866391"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/details_720x1280.jpg",
+      "sha256": "1d869e2bd4fd8324912e56f1d9da94f07508fdb0105f74ccf6fe74c5e1a22a9c"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/locked_1366x768.jpg",
+      "sha256": "00525fe4c4f73e1d3ae3f54b0a430b7a32e4bb2101e85aafc79ec2396a2bb40a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/locked_360x640.jpg",
+      "sha256": "ab968ecbd2a23f152d333ea0d730fb4e65e3d88e8ecd122351844a94f497a89f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/locked_720x1280.jpg",
+      "sha256": "4e3250a41ee4a5d81e5445f221ebc046ee98ea2ccff0433bff7eb3ff4ee694e1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/menu_1366x768.jpg",
+      "sha256": "7dc348fd52978659e5383095cdcaa7f84d1b75bc6f960ed51745096c6c467139"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/menu_360x640.jpg",
+      "sha256": "237e81e51261ef65c084c68b1e17ff06681436b8627667e9852e057745a81201"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/menu_720x1280.jpg",
+      "sha256": "3a42eb3211145331b8f58ce84d57ef02087e9f333149503633ee872839c62eef"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/notification_1366x768.jpg",
+      "sha256": "dfe6939eb6a89e810d61f9104afaf2150af13dda978c5b31bab3451e1cf2b01d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/notification_360x640.jpg",
+      "sha256": "4ea86fd39022f2122f431920c39799171eda72b3723c6019f4f66a4457984eb4"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/notification_720x1280.jpg",
+      "sha256": "895dec8492aa96c626ce1956ab76bac7ff8eec79b9ac5037244c8db0e26e5397"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/statistics_1366x768.jpg",
+      "sha256": "e49589f60bea21f26b9c95519c87a3c545afe7d42460eb8bbd3a2bb871dd1f08"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/statistics_360x640.jpg",
+      "sha256": "ab87b97a1a3991aae95ef8a0200fdb1ad4db424761b58347a5e3050729dff537"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/statistics_720x1280.jpg",
+      "sha256": "9b6338c8cbd8d505b3ee55eba09c0873887140059cb3963dd2ccb01775bb9207"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/unlocked_1366x768.jpg",
+      "sha256": "5499748dd6786e377e600df485ea3dbb0e32d16203e2a9785a57e89af9227dce"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/unlocked_360x640.jpg",
+      "sha256": "92269508a40b8ba48e9235e2c83f97eb037db5bcc91882602cb1ffe0e6ebd8f3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v062_ui/unlocked_720x1280.jpg",
+      "sha256": "22cef267fbe3d626285dcbf382ecc97efb649e740b62ca57e43d951b90f29b8b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0631_remove/after_remove.jpg",
+      "sha256": "e269ac53d5e90ac3c78a926520d1326acaa39e96d8fbd8e0af90c9c9b8a54c2d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0631_remove/before_remove.jpg",
+      "sha256": "d5ac954efe4af3a1efe42d85274e1a8dde5e15b15cecc09edf66e57311fe5c1f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0631_remove/remove_button.jpg",
+      "sha256": "d5ac954efe4af3a1efe42d85274e1a8dde5e15b15cecc09edf66e57311fe5c1f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0631_remove/remove_selecting.jpg",
+      "sha256": "2da525d451e3b1d7e93ab0ce17118ab78bcb2fe820f8614a428cc8104ad76f52"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0631_remove/remove_used.jpg",
+      "sha256": "e269ac53d5e90ac3c78a926520d1326acaa39e96d8fbd8e0af90c9c9b8a54c2d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/after_undo.jpg",
+      "sha256": "544845c1a66d8c494659558a94afe373179377b002e768683f62d2366ee3b30b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/before_undo.jpg",
+      "sha256": "e972fb945ef1fec64ce3d048226f7458af7bc472e2de099a48f01eee02529626"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/chain_after.jpg",
+      "sha256": "13c7a3c8e653dc50b216cb10881028f955d48d4042104db559d7a7fa2af76093"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/chain_before.jpg",
+      "sha256": "7ada949ddb1978cf3bf96296cdb775d5bb82fc2545ce2c8bc6184f066c55d96e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/chain_undo.jpg",
+      "sha256": "81493b28f7ce35762bbbfc5fef17e313632ea5a3be9ba66ac497a3c0c9a52231"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/undo_button.jpg",
+      "sha256": "af0880cb6a9de1076a97be17e32f90ac37e7825d7afcc8007466dc734816b7da"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/undo_no_snapshot.jpg",
+      "sha256": "877f614c71b09f3e802d3937799c2a47cc52fbbd880289102d43b4eab2ccfc25"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0632_undo/undo_used.jpg",
+      "sha256": "544845c1a66d8c494659558a94afe373179377b002e768683f62d2366ee3b30b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0633_rescue/after_rescue.jpg",
+      "sha256": "bfaf9c947fb0e13888f1cb8b9565367f7e992bba8db93407feb8cd88cfd358fb"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0633_rescue/before_rescue.jpg",
+      "sha256": "1604ee66f7f1379e5ecb6ea71ce3352937b80035893332b71672e61ed4ba4efc"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0633_rescue/game_over.jpg",
+      "sha256": "1604ee66f7f1379e5ecb6ea71ce3352937b80035893332b71672e61ed4ba4efc"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0633_rescue/rescue_animation.jpg",
+      "sha256": "fc3d1c745001a41d11a0be623fc73dd627f4185b155827739c71e8e905a6c518"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0633_rescue/rescue_button.jpg",
+      "sha256": "1604ee66f7f1379e5ecb6ea71ce3352937b80035893332b71672e61ed4ba4efc"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0633_rescue/rescue_used.jpg",
+      "sha256": "0ee722a37caf8182698fcc693f556ca06fe7c2ebd4da5770c48072a036a3c9ea"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0641_challenge/challenge_failed.jpg",
+      "sha256": "aede4e62d98a01f600a796ad975c44d9de911c3cef77bc7fbaf9f00f59d84107"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0641_challenge/challenge_gameplay.jpg",
+      "sha256": "2f08c0041c282784c4cb45b5f41de0299fc7dbe2feb6761b11246c620c9b4307"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0641_challenge/challenge_selection_locked.jpg",
+      "sha256": "b78a837bdbc9d30827e703c8e8b57834be3f313658017ff7bf4134f2122253ca"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0641_challenge/challenge_selection_unlocked.jpg",
+      "sha256": "968a7ecc8a4ab6ff8f28a75b8279521ffe0675a88b1e262abfd9854279142d5a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0641_challenge/challenge_success.jpg",
+      "sha256": "1f79c8f319caeaced8c8034c60d56f0f13969a8168c97814072c48e91727469d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/challenge_failed.jpg",
+      "sha256": "aede4e62d98a01f600a796ad975c44d9de911c3cef77bc7fbaf9f00f59d84107"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/challenge_gameplay.jpg",
+      "sha256": "3d5fefa85fb72f6ec929519d63aa1d8f7cfd216cfb221de696fc2a9a29440914"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/challenge_selection_locked.jpg",
+      "sha256": "4d45bdf7a2d36aec9420437c900d795db47598ca263494ba7da0e82e50d19e3d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/challenge_selection_unlocked.jpg",
+      "sha256": "291f3838ad18149f9e395cb22e1c04d670371501722369c60db422116688ec63"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/challenge_success.jpg",
+      "sha256": "6ef07a182bc56bbf89913767f5dd56fb7eace5b59858983a8fc9deb41fc285ec"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_advanced.jpg",
+      "sha256": "f2c390cc146716fde298c158af9e9e013d804a2b39d0fa2eaa9ceee091c9394b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_beginner.jpg",
+      "sha256": "7fa1c64e71ec1b6d1129b56169caba6c8141068071c991ef55004635eca1570d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_expert.jpg",
+      "sha256": "6c114756148e16e08b91abf5bb6c4977093617c271c7ed75e86fb56f63989532"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_failed.jpg",
+      "sha256": "74c0f99eeb420de6b47c80b678717be768117f4edce87506fc5fe1287cb0b156"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_golden_garden.jpg",
+      "sha256": "b26b62cb799c9dcb457566db06bae9838f05238f871918a97390e948c6a12b11"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_intermediate.jpg",
+      "sha256": "eba521d5b4a5771e7fa202039f3f158c80b99a8aa67a924fe96ae9b5168a3f4e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_leave_warning.jpg",
+      "sha256": "849bd89e8abb48123899023dd2f896b178893f2ac6d9cce1d01ded1d59bf5a6b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_limited_drops.jpg",
+      "sha256": "264c7f3e0caf20b94c56e092ddded4036b330efd3c6c4707761aa9ecfed99654"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_selection_20.jpg",
+      "sha256": "7fa1c64e71ec1b6d1129b56169caba6c8141068071c991ef55004635eca1570d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_success.jpg",
+      "sha256": "a18bcccea9a57fed011522c219aa4d442012647e18b7ba03c913786bacdbeed5"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/desktop_timer_challenge.jpg",
+      "sha256": "b255e6f6885cb3e6c48da18c7a2cf52d321758beb7dec25b88c6b764deae94fd"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_advanced.jpg",
+      "sha256": "681a1836e5baf6616cbb13e00397f2695d75d27b591e61325fb841fbdcb846f8"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_beginner.jpg",
+      "sha256": "71146dfd92c1e15bc1a7ad9a69c93b8d63106949ae49ced4000b645f94c0c927"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_expert.jpg",
+      "sha256": "f6a1417db7a00d661cdb450ebe34b5dc6891f77d9c9ebb52c3a9230728870dbb"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_failed.jpg",
+      "sha256": "fbea1d67c919f3aed02014f3f0d38f670b4cfcfc7f5b38408779922e15a98b54"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_golden_garden.jpg",
+      "sha256": "83e3864156d8e79dd37c89605681e32a4edc5e2f4acc9dbd872911ad5bed261e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_intermediate.jpg",
+      "sha256": "ae8f01ebacfa4a574f0c9861e0638568c6b0da215aadc19ba3ff014b6adc35d3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_leave_warning.jpg",
+      "sha256": "f618e50d8d7eb3bd2322fcdbcd3b12a860ee83e3335ea0cddefe6a6463f8e815"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_limited_drops.jpg",
+      "sha256": "aa7feeefdde7e5c5d9ba813a664f5a3afc259921f33bebbe87807384d509ed62"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_selection_20.jpg",
+      "sha256": "71146dfd92c1e15bc1a7ad9a69c93b8d63106949ae49ced4000b645f94c0c927"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_success.jpg",
+      "sha256": "1245236d6775526ea043a45a55f3597af778ea45315d5a89e258f72424f4bd66"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0642_challenge/mobile_timer_challenge.jpg",
+      "sha256": "5d0ca4d409cc5613ce7fd6ddb9e8f6c82616099b56e564431143e70d11517b16"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/1366x768_achievement_notification.jpg",
+      "sha256": "f60e00a98d24aaec034a453b63c324fe2eb452744169076e46013e2f16f1853d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/1366x768_completed_collection.jpg",
+      "sha256": "67bd6835df22382f16689fdd0f7b80d00edab3d672f2404b86f651ca47e55e24"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/1366x768_locked_screen.jpg",
+      "sha256": "25ccc63cd63fcfa237f226c6bc9285e556978e6ee833ef8e01f2bf12b5eacb60"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/1366x768_main_menu.jpg",
+      "sha256": "fd7d329858eece3a72aa509fde9a734b6265b8d75c19367ffe4987d4a64b16cf"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/1366x768_progress_bar.jpg",
+      "sha256": "3fa95f49afdf29939c0e836bd00000a7113221395b53a1e94f66ac763445bcdd"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/1366x768_unlocked_achievement.jpg",
+      "sha256": "31c82fd0a9338e3c94cddceb77253e7d6d9bab5bd49969578d856013dc756a87"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/360x640_achievement_notification.jpg",
+      "sha256": "2e0d07f8b1b733d644d9807bebae79a50fb24f0d45e7ce9cc3c0bcf2f21f3348"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/360x640_completed_collection.jpg",
+      "sha256": "ece65ed725290929e2c64ea32c83430347e8ce4a95417c84b7044be5b0a0e280"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/360x640_locked_screen.jpg",
+      "sha256": "f25edc5c102739acc33de45e3f1f52b733080d1bca681c21509f056b75c361e0"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/360x640_main_menu.jpg",
+      "sha256": "29d9de784d91cbeaa4e268f98a0ceb673445d412b99670b6e2c443fcee7c33d1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/360x640_progress_bar.jpg",
+      "sha256": "391ace663efdf40d9719231d263d4001efdaad98b81000af9f048db526625224"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/360x640_unlocked_achievement.jpg",
+      "sha256": "3105ec51318adcf7cf5f70a369e1df2e3bac606d9e2e51de6b0ef9a4a18be378"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/720x1280_achievement_notification.jpg",
+      "sha256": "e764404249b61e3b5660a4582e903c25ea453beacb49e326c610a51786438778"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/720x1280_completed_collection.jpg",
+      "sha256": "9966558a2705d3c1802e79398833238c59fa716cfe1c4ae400b1547045abb930"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/720x1280_locked_screen.jpg",
+      "sha256": "7a60136ea44262f78893ef1d1a5a39ecba6571bf0b57735f3708f197e06a5e64"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/720x1280_main_menu.jpg",
+      "sha256": "b2329530732faa1ed31006bccdebf02cd42b346d4fb4c18f73f5b7bc31d1daf4"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/720x1280_progress_bar.jpg",
+      "sha256": "146e9b339b5de51b703b08a1f3babae92c20eadd854c83d6e89f13166f7cf944"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/720x1280_unlocked_achievement.jpg",
+      "sha256": "673e54a013b992059fb8d3ecee359fa7fe3930e37e3d977907f082b7560bdccd"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/1366x768_achievement_notification.jpg",
+      "sha256": "bc4e7ba275dd632641d0efc04b901c4158035aad063c4a5ceabe267972ffd043"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/1366x768_completed_collection.jpg",
+      "sha256": "e6e0c3017be4448efa0f3a1d112f2350109d33fce8005c0af8b587e1bf51a6c7"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/1366x768_locked_screen.jpg",
+      "sha256": "d0937f8e95658762078dc6325bd1c3b06a065769d8a245dbc37531abb7150420"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/1366x768_main_menu.jpg",
+      "sha256": "aad0b06c796b38b13bf6b7917d03eba79f74fb5d54f7cd78c017c1134b87a664"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/1366x768_progress_bar.jpg",
+      "sha256": "db32fb365d2b8914ec0643e273501e900e30fc7d46c00412bf4db5cf3cd60215"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/1366x768_unlocked_achievement.jpg",
+      "sha256": "b55590108e9bdeaf2022dedef1ff3c7b17b5d31f9013fda5c958de52baf616a5"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/360x640_achievement_notification.jpg",
+      "sha256": "886390ec6a663536fadfdb6424c5e5e8891c112788637291c9cbb6e7bf11aaa9"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/360x640_completed_collection.jpg",
+      "sha256": "806643522d581863a8061cba79d373d776f12fb3c26829da521c1436367e5ce3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/360x640_locked_screen.jpg",
+      "sha256": "9d7c0330a2aaa122c17a324098f3fb9d91401f1739f80c96f65da9a9b7403e41"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/360x640_main_menu.jpg",
+      "sha256": "acbff4d74bbce8ea79149acaca93c4fb3e8d92942f1a34f9a85211a35102ce18"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/360x640_progress_bar.jpg",
+      "sha256": "bfe875f5241f388981de5e4623c093af99bf1678db95709ec1d772b49ca3b57e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/360x640_unlocked_achievement.jpg",
+      "sha256": "d3c7206a6d28c62202a349dc43850a96920a57131de60bdb068f72dfcbcaae77"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/720x1280_achievement_notification.jpg",
+      "sha256": "930e4a83b4041531a21d154c7a62a397524969d6022f7b927fcc780697cb1de7"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/720x1280_completed_collection.jpg",
+      "sha256": "7e18b2b4665704c93b4c8197d102705c108d2bb141e82dc0b219ee728a4cde05"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/720x1280_locked_screen.jpg",
+      "sha256": "aa104c987542b010807c60bc43e29eefa5b5d80c40327a4d10a9a9fc2ea6ae3c"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/720x1280_main_menu.jpg",
+      "sha256": "548ec1c43ae6b4881ea1500dee18eb5a3fe56b5db41a7133c93d7ffc2491cdd2"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/720x1280_progress_bar.jpg",
+      "sha256": "b444b2545cba133e75e64e7f378c218d2edb59cdae5e9f043258060cf715adde"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0643_achievements/full_resolution/720x1280_unlocked_achievement.jpg",
+      "sha256": "d97b7196792190399825ef1d3b6d37890e7594aa46bcf34495c5fcfb2f068faa"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_achievements_az.jpg",
+      "sha256": "1747aea7c318356f8a7de7bc675442057c0067b0283c08e01c139b96952535ce"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_achievements_ru.jpg",
+      "sha256": "b458246651b102828015cf74854b231d0fabf6ac2ecaba60112d01c3d4843c2a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_achievements_tr.jpg",
+      "sha256": "7bacd8540970ffca6a96815d7a27c57b3c8a71778f0af5ff2ad1e392a8fda892"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_challenges_az.jpg",
+      "sha256": "4b982bbe756f6c0b6f636793f6b707d55731f73e085cbad7369c6df3620f640e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_challenges_ru.jpg",
+      "sha256": "aeb8e93ef12b68e1bcd8544675eac7807b7bf44d96db5b2ad5d5465b13a63819"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_challenges_tr.jpg",
+      "sha256": "f03a52368c8bb73472c6c063537e0394ab7b1704683e3f7dba6874e30142fdc0"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_forest_az.jpg",
+      "sha256": "b43c9b6d99a97b3b3b618ee35e4eba971befa85bee494d70f5b6c7e67944cb11"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_forest_en.jpg",
+      "sha256": "c9b11bc8eaecb9bef0e912d1609a951a90cb3c3f61e354d63091ee9e3b25b0fc"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_forest_ru.jpg",
+      "sha256": "a5cbe9c40bc7d45364705a78621e900e40739e27387751b0b8080c39bf2ad141"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_forest_tr.jpg",
+      "sha256": "a5a84e0dab74313db1c774709d0e698645d6dfa791e074efc3698432dd5a6173"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_snow_az.jpg",
+      "sha256": "234331612bf2d3e9c2c6cacd33b077357ce750d72bdf2169d981f7c75014b62f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_snow_en.jpg",
+      "sha256": "d4dc22c5152b5e88a6aba78a23afc057aa4a28218eaeaf6711f9a89ed6282e1a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_snow_ru.jpg",
+      "sha256": "4ba4a5e2eababe3164d44b7fa963c5b8f89a6011097065893d8932d93cad3def"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_snow_tr.jpg",
+      "sha256": "8cef41b3bd666d8ae205d89ee24cbd829eb03f9fe8fe294c65471664e9bec12b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_sunset_az.jpg",
+      "sha256": "b4c8197042a81e02f6a92faddc19d281cad11a33e0e9dffaa69162a8e55db520"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_sunset_en.jpg",
+      "sha256": "21d8ecb98c834e235f559fc317ff8f607b41b47aabc310fdda45b6b0f55be0be"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_sunset_ru.jpg",
+      "sha256": "59d8bbe4bef6a77b8e717c71442ca46c46203ae06ee0d7abfce76cfa77052022"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_menu_sunset_tr.jpg",
+      "sha256": "ccc2a62df7434e26772201d5df6dc314ba37a56f95c32cbfc439895672494b3f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_settings_az.jpg",
+      "sha256": "d9e3052ac9d427ee69a1d666da390aacf31a4318dc8066c92afe52926b5a7248"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_settings_ru.jpg",
+      "sha256": "d12752e4bd01942d6d4fe9d61ac863025c4b0286f825b4b1e816b7fc61de9779"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_settings_tr.jpg",
+      "sha256": "3a33fe0ee3c08f2930d4dadc8ca84bd6e137e20f41030f09557b9a44983dd3b6"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_themes_forest.jpg",
+      "sha256": "d79c65955ea072cb96dc28b4aec15a9742432ba07c317653f938c7142a6618ea"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_themes_snow.jpg",
+      "sha256": "26912e2a72cb0a53e35186d1884989c69a7c29a7a85f0764349022dcb8a561b2"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/1366x768_themes_sunset.jpg",
+      "sha256": "3f09662aa2953fb9e344dc3b094976cb149cd41793522b565954a5e8147d5a80"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_achievements_az.jpg",
+      "sha256": "c64887d5642cde466be8b77e24df52fa28110e343c3abca3e9a3a084ab9e5447"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_achievements_ru.jpg",
+      "sha256": "d70458edc5ac7fe3db283c9af910cd934dba79f8df5a25bea405405c97e60681"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_achievements_tr.jpg",
+      "sha256": "0244708904546406b8df0111e5d0ac3953177902c4a454406ce332e1aa990ba2"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_challenges_az.jpg",
+      "sha256": "69b40db83d8f420557df8b7804524c0a80b972c054e9cf24254764953c358814"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_challenges_ru.jpg",
+      "sha256": "ee9bd9751565abc3de29f302c7a839e0e6a7d2c20f90f0ef7f576fef37e351ca"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_challenges_tr.jpg",
+      "sha256": "147cc6cf9a52f366b27b26b53c5b8cc7a1a796add75072e2a67edbb9ac75f43e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_forest_az.jpg",
+      "sha256": "dc2089aba4fb7273c8e486ac94503315ade426ff3cfdbafcefda27b3f62f267c"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_forest_en.jpg",
+      "sha256": "59d4e86ff8040e29f2ebb0a44efb4c3dc91b1b21ff163f8b5e82e7f19ec8b3b0"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_forest_ru.jpg",
+      "sha256": "8483720e42a67c968f42bfc889ddeb1aa3124aba6c9b13625b43b6a0e623c50d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_forest_tr.jpg",
+      "sha256": "c7ee1e1e75fc92bd6af1e267b945c8c08f708631f5dd755fc132c815074f03e2"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_snow_az.jpg",
+      "sha256": "8650996a0e9962befd4bf4b6bf6679bf5e1b4ec85cad91344c3c77c7a9e1f4df"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_snow_en.jpg",
+      "sha256": "faad5086f835cfa420c6160b6d75dd8da5b54aec24d8bad4c4e1694cf39f15bc"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_snow_ru.jpg",
+      "sha256": "4c7f498dffcd590fea2fb5b8d33d6ffe9f0f831f314b8ea1f3bac109fadecc72"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_snow_tr.jpg",
+      "sha256": "ef65ae0757205469c30ad3ffc961a5161ae3925cc79175e7c71638444935dd08"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_sunset_az.jpg",
+      "sha256": "55a1bbb55fb8dfd15a8dc474f19bc53306dbe34ede8606720b5202fb02a50f73"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_sunset_en.jpg",
+      "sha256": "e49ccda2e37092d5afd6148274d0cc27809fbe43f5436faf3e6dd47b849e7204"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_sunset_ru.jpg",
+      "sha256": "63bb55015985f2664a603709b6033be2f2971a9dbed376c12f9fb4774e4df77a"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_menu_sunset_tr.jpg",
+      "sha256": "f1cfa0ddbdf370393822ec36821ad69336c8f04233e5a8f4b42e548917304f6e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_settings_az.jpg",
+      "sha256": "5e480a54aa7eddb971d42eb09216e60480a8ae667a552bd0dd53ff1d0a111bc8"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_settings_ru.jpg",
+      "sha256": "2be5ff385bad47b5e9d0af369ff1041df5c78ab5d5da0082d262c1b476f9d42b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_settings_tr.jpg",
+      "sha256": "465acb8fd5f8abe2b01052fa423e6728d8c4243a05d93780578ad3d2177f3c5d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_themes_forest.jpg",
+      "sha256": "d32f91e602c8bbfc08db5b38f9e10de1bf13d6e2a9bb59bc353f55df93d9d194"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_themes_snow.jpg",
+      "sha256": "6cd6665553a8686afb1a4f1b1e1210867ab9e41755ecc5a5414caa867e907703"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/360x640_themes_sunset.jpg",
+      "sha256": "c574b3444211a8fe726d35615c2fcc14c8ee08afd1887cc8548c541fb33dda70"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_achievements_az.jpg",
+      "sha256": "9d87a91225460d50f61f85552d637fefd98e06363fe223fee39190177fddb3ca"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_achievements_ru.jpg",
+      "sha256": "676833417e7073df374b20c03988b4a99383c4603a70de92d9128f7f837ebdeb"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_achievements_tr.jpg",
+      "sha256": "74de4f831d91a555107020e791cbe38869ec819034f319c6be561fc8ea6547ca"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_challenges_az.jpg",
+      "sha256": "cbef54d6ca8ca846da56239ba1da65221917e6bef75d086e358203a17b53226b"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_challenges_ru.jpg",
+      "sha256": "09cd209ee4a81bb7c1b53641baa019930c6eabc68e5e8df7b7d09ff3f4125e46"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_challenges_tr.jpg",
+      "sha256": "d939d370c63fe4ede9b9982400bc50862c95b686d60393546b777de93f7697c3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_forest_az.jpg",
+      "sha256": "9fed8645e21aceb9676815b1b979b5c52945c12e81f29cf91a467828af6b283f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_forest_en.jpg",
+      "sha256": "0efcccaabc81db1f43c6dfc077fd092d3d1e8e9f922be90df5d324cd28b7bb20"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_forest_ru.jpg",
+      "sha256": "f1172c510870e7c6d8f34bd58f4552860213c066f59431eb5872fc54fc7b9c68"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_forest_tr.jpg",
+      "sha256": "33f4776af78b0e136fcae8db28673ba59571e780b7cfdd022118f5a84c4da3ad"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_snow_az.jpg",
+      "sha256": "dd357518048f9e31249f878bc0039846eb144f013e27d1b506faf6b1b58513e1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_snow_en.jpg",
+      "sha256": "66541a07f19fa68231a0d965154663e0cbc373bda0f7a303f52be517b2290285"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_snow_ru.jpg",
+      "sha256": "9afa8ebbf9a45e8b1fa76540cae82e63680c4cefde0bc5158b4accefbd105875"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_snow_tr.jpg",
+      "sha256": "c727afab08358be3c954e3400507654dbe5fb1f72dd4ed7a74a8dd7349164cf1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_sunset_az.jpg",
+      "sha256": "6b95f4d38e2704deb5801ad32583b4067fbdd85c32110106d87c53e0302887b1"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_sunset_en.jpg",
+      "sha256": "23758c5cb56073a0b1f5cf48074bba3bbafc4e9cf50290eecf7835a217584b39"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_sunset_ru.jpg",
+      "sha256": "7c44cbd11ebdcde5991b5ce920f8f27f1ff38cdb17731ae08ef360d92ca69023"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_menu_sunset_tr.jpg",
+      "sha256": "a6de15458c59e895192454514b47c2433f7f007460221b40f376807a1e562026"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_settings_az.jpg",
+      "sha256": "eaea5b182cef5b37708765bdfeada252fb7d22bc0024308815749fe17af55808"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_settings_ru.jpg",
+      "sha256": "cfa45c884c5ea61525bce4cf0edb1f5c09964ee5eb27837061c96ee5ba930299"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_settings_tr.jpg",
+      "sha256": "70ccc07914009d02052ab3a3833d42d7649addd4217c78a9e299911e671ab9b3"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_themes_forest.jpg",
+      "sha256": "633abb64b4ed5e76de6f41607104d00530e105cbae90fcea4b7e8a505dad39eb"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_themes_snow.jpg",
+      "sha256": "181310505af82c8f5dadf429bd8ce284dad2887857030464eee9973f7c69e040"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v0650_themes_locales/720x1280_themes_sunset.jpg",
+      "sha256": "f43bb0ea9bce7eb7d6ecaa5bf664cc2b246c15a14ca74d07fc3aa63d59ddf666"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v070_game_feel/gameplay.jpg",
+      "sha256": "52112304f63ad94dc9fffe5945a0b795c63f1a461b12bedcd270bc8f50cfad2f"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v070_game_feel/menu_logo.jpg",
+      "sha256": "acef5ac257658a0ac9dc48dac5dd4de24234dbcc34ac2854871bd66555d896a8"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v070_game_feel/physical_merge.jpg",
+      "sha256": "984e4ea3ce33688f91c3755c6572009d3b5ea7f48860dc8cb40475f1e4df7c4e"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_reports/v070_game_feel/scripted_merge.mp4",
+      "sha256": "997ec762c27bb94bb11c2ee6673249e7ebf11c9f63bfc47e15ce3ddb2b048a40"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/bear.png",
+      "sha256": "439dffce797a5b366d7ca0afed792278d22c913fdb3869bb9a42a385cab302de"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/cat.png",
+      "sha256": "a6a1ec72048edfab69d8ce4f8c337b2c6acccb387458267390dff84f60e70c92"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/dog.png",
+      "sha256": "1bce84e122817605aaf09c3123669cc88778dcb3f0806d31d208f0bb0f1ae4ba"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/elephant.png",
+      "sha256": "e23452876ee83861968fd96aa833579514d44d1c220235e77936c672d1c5da5d"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/fox.png",
+      "sha256": "007c6972f19680fc01869485b9b033120141c664e31a4cfeaf9044cd7ce31317"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/hamster.png",
+      "sha256": "c05ffd53335f35c2d07c6c8cbd926cf5f23dfc4c5f3094fd6801222e87137a84"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/koala.png",
+      "sha256": "58821b8c1fd70c25f58f90f039861ad06162192dfd5c3b1f6fe5352ad50a1062"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/lion.png",
+      "sha256": "ae40ce23385d5729f3a63be8e960353acc9704d2c4cf4941bc56e9cafb8083d5"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/mouse.png",
+      "sha256": "1ddce18282800ab11ebb3704e1aaa2e4ee38006a55a3b5c1f3a98c33e27604b9"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/panda.png",
+      "sha256": "d092dadb18bb6a9dca7368767730c996306a7d28f22670d7e6f207a86870fcfd"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/rabbit.png",
+      "sha256": "d43ddf965eeb3eda9506b66235e8f8a312368225a82b8ec853cdf0634a6f50a8"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/art_source/raccoon.png",
+      "sha256": "405314d0955e90b5190847e15b5918e6c04a75d96d352b07ac5b97702a158dee"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/concepts/cat.png",
+      "sha256": "a269743ecab88bb3a61597e69dfbb7cd22892757e66b9d846d8f605fa46c6515"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/concepts/elephant.png",
+      "sha256": "b4bbabfe3e8cbdeea2df75bcb9ef5a086f404c059acf2ff05ba3caabb9adc3d0"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/concepts/mouse.png",
+      "sha256": "ca5b0316b0dedad4f8fb05cee4f6d614c9e501ee75848fc17c2eac05606f8216"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/concepts/processed/cat.png",
+      "sha256": "e1559cd831ec026ce48c8843a313c58eb7d53b441392b11752741d5e5bca8a24"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/concepts/processed/elephant.png",
+      "sha256": "59d9c9fea7142fc8680d61898d9ae7f29c2033a058fe8175e38f54d798956b35"
+    },
+    {
+      "path_in_private_archive": "MergeAnimals/concepts/processed/mouse.png",
+      "sha256": "777a744e518f7a74a3936975fd750a351a8d7dcf65647acd3d84fcf72601034d"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/mouse/normal.png",
+      "sha256": "7945608f0ed5653892e083cfe5349d8fa4c48e683ff73858d6ef6f5ccc31d857"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/hamster/normal.png",
+      "sha256": "599ddbd5f6d9c0d548f388425f8637242e3de3dc336db3dbccdedbed9f4c0add"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/rabbit/normal.png",
+      "sha256": "2767a75c52ddf023631de47bfe5316cf65b1f8448f3f6cf2e054c0306515ae59"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/cat/normal.png",
+      "sha256": "5ff485f88b16389d814a18a42e570bb3fa508343acc75eab58213f2f1619ca49"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/dog/normal.png",
+      "sha256": "a18cf37fb23b057cec17a749cafcb1fcd861ed0fc122f41156d3f861856735f2"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/fox/normal.png",
+      "sha256": "afd684261124d20c347f25432521b29f822899fd92c71c2856ebf26c32798838"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/raccoon/normal.png",
+      "sha256": "ecb6fab5be4e42cc9a38eeec9e103b37bfb6de4506ca861d711808f1cc8ded90"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/koala/normal.png",
+      "sha256": "77600bd934422e84baeaf32b662fa5daf8abda432293a4762ccd936712a53623"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/panda/normal.png",
+      "sha256": "eaaea2f0ad01c63115dafd1061b4e549b34360a9ccf25bcf86e6a696f0267bf8"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/bear/normal.png",
+      "sha256": "367b23399fe328c4b9636e99748259198f0af0fff769d7ceaac44533fc8ff314"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/lion/normal.png",
+      "sha256": "fae19f2a97edee80c3152f6e4c96fe0ef5c7eaae5befe4d43110efe91364bbe5"
+    },
+    {
+      "path_in_private_archive": "baseline-runtime/elephant/normal.png",
+      "sha256": "91e1fbb2bb222a0d89ef93f1bfaa652ae719d42f434f1ff1e45d1b62658ed62e"
+    }
+  ]
+}

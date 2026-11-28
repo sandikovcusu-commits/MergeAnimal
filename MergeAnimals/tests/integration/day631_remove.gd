@@ -1,0 +1,155 @@
+extends SceneTree
+var checks := 0
+var failures := 0
+var discoveries: Array[StringName] = []
+func _initialize() -> void: call_deferred("run")
+func check(value: bool, message: String) -> void:
+	checks += 1
+	print("%s: %s" % ["PASS" if value else "FAIL", message])
+	if not value: failures += 1
+func frames(n: int = 3) -> void:
+	for i in range(n): await process_frame
+func mouse(game, position: Vector2) -> void:
+	var event := InputEventMouseButton.new(); event.button_index = MOUSE_BUTTON_LEFT; event.pressed = true; event.position = position
+	game._unhandled_input(event)
+func touch(game, position: Vector2) -> void:
+	var event := InputEventScreenTouch.new(); event.index = 0; event.pressed = true; event.position = position
+	game._unhandled_input(event)
+	event.pressed = false
+	game._unhandled_input(event)
+func clear_save() -> void:
+	for path in [SessionSave.PATH, SessionSave.POWERUP_PATH]:
+		for suffix in ["", ".bak", ".tmp", ".bak.tmp"]:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(path + suffix))
+func make_game(persist := true):
+	var game = (load("res://scenes/game/Game.tscn") as PackedScene).instantiate()
+	game.test_seed = 7; game.persist_best = persist
+	root.add_child(game); current_scene = game
+	return game
+func run() -> void:
+	var phase := OS.get_environment("REMOVE_PHASE")
+	if phase == "read":
+		await read_phase(); return
+	clear_save()
+	var game = make_game()
+	await frames()
+	check(game.remove_remaining == 1 and not game.remove_button.disabled, "fresh session offers one Remove")
+	var body: Animal = game.create_animal(game.animals[0], Vector2(200, 700))
+	body.freeze = true
+	await frames()
+	game.discovery_notifier.shown.connect(func(id: StringName): discoveries.append(id))
+	var score: int = game.score; var merges: int = game.merge_manager.merge_count
+	var progression: Dictionary = game.progression.duplicate(true)
+	var achievement_hash := FileAccess.get_sha256(AchievementManager.PATH)
+	game.remove_button.pressed.emit()
+	check(game.remove_selecting and game.remove_button.text == tr("REMOVE_CANCEL"), "button enters selection and displays Cancel")
+	check(not game.drop_animal() and not game.drop_requested, "drop blocked in selection")
+	mouse(game, Vector2(500, 400)); await frames()
+	check(game.remove_selecting and game.remove_remaining == 1 and is_instance_valid(body), "invalid mouse selection consumes nothing")
+	game.remove_button.pressed.emit()
+	check(not game.remove_selecting and game.remove_remaining == 1, "Cancel consumes nothing")
+	game.remove_button.pressed.emit(); game._toggle_pause()
+	check(not game.remove_selecting and game.remove_remaining == 1 and game.remove_button.disabled, "pause cancels selection without consumption")
+	game._toggle_pause()
+	check(not game.remove_button.disabled, "Remove re-enabled on resume")
+	game.remove_button.pressed.emit(); body.merge_locked = true
+	mouse(game, body.global_position); await frames()
+	check(game.remove_selecting and game.remove_remaining == 1 and is_instance_valid(body), "merge-locked animal cannot be selected")
+	body.merge_locked = false
+	game.merge_manager.set_physics_process(false)
+	var other: Animal = game.create_animal(game.animals[0], Vector2(450, 700)); other.freeze = true
+	check(game.merge_manager.request_merge(body, other), "real merge reservation locks pair")
+	mouse(game, body.global_position); await frames()
+	check(is_instance_valid(body) and game.remove_remaining == 1 and game.merge_manager.pending.size() == 1, "pending merge animal is not removed")
+	game.merge_manager.pending.clear(); body.merge_locked = false; other.merge_locked = false
+	game.pieces.remove_child(other); other.queue_free(); game.merge_manager.set_physics_process(true)
+	await frames()
+	check(not game._remove_eligible(game.current_preview) and not game._remove_eligible(game.next_preview), "both previews are ineligible")
+	var external: Animal = game.animal_scene.instantiate(); external.data = game.animals[0]; root.add_child(external)
+	check(not game._remove_eligible(external), "animal outside gameplay pieces is ineligible")
+	external.queue_free()
+	var preview_pos: Vector2 = game.current_preview.global_position
+	mouse(game, preview_pos); await frames()
+	check(game.remove_remaining == 1 and is_instance_valid(body), "preview cannot be selected")
+	# A failed validation/write leaves board and allowance unchanged.
+	var invalid_file := FileAccess.open(SessionSave.PATH, FileAccess.WRITE); invalid_file.store_string("bad"); invalid_file.close()
+	invalid_file = FileAccess.open(SessionSave.PATH + ".bak", FileAccess.WRITE); invalid_file.store_string("bad"); invalid_file.close()
+	invalid_file = FileAccess.open(SessionSave.POWERUP_PATH, FileAccess.WRITE); invalid_file.store_string("bad"); invalid_file.close()
+	mouse(game, body.global_position); await frames()
+	check(is_instance_valid(body) and game.remove_remaining == 1 and game.remove_selecting, "save failure preserves body and allowance")
+	clear_save()
+	var cancelled := InputEventScreenTouch.new(); cancelled.index = 3; cancelled.position = body.global_position; cancelled.pressed = true
+	game._unhandled_input(cancelled); cancelled.pressed = false; cancelled.canceled = true; game._unhandled_input(cancelled)
+	await frames()
+	check(is_instance_valid(body) and game.remove_remaining == 1, "cancelled touch selection does not spend Remove")
+	touch(game, body.global_position); await frames(5)
+	check(not is_instance_valid(body) and game.pieces.get_child_count() == 0, "touch selects and safely removes body")
+	check(game.remove_remaining == 0 and game.remove_button.disabled and not game.remove_selecting, "successful remove spends one and disables button")
+	check(FileAccess.get_sha256(AchievementManager.PATH) == achievement_hash, "Remove does not award or modify achievements")
+	check(game.score == score and game.merge_manager.merge_count == merges, "remove changes neither score nor merge count")
+	# Ignore clock, which advances normally while selecting.
+	progression.play_seconds = game.progression.play_seconds
+	check(game.progression == progression and discoveries.is_empty(), "remove does not modify collection, statistics or emit discovery")
+	game._toggle_remove(); check(not game.remove_selecting, "second Remove blocked")
+	var saved := SessionSave.load_session()
+	check(saved.status == "ok" and saved.data.remove_remaining == 0 and saved.data.bodies.is_empty(), "body and used allowance saved together")
+	var backup := SaveManager._read_envelope(SessionSave.PATH + ".bak")
+	check(backup.status == "ok" and backup.data.remove_remaining == 0 and backup.data.bodies.is_empty(), "backup contains committed removal")
+	var corrupt := FileAccess.open(SessionSave.PATH, FileAccess.WRITE); corrupt.store_string("broken primary"); corrupt.close()
+	var recovered := SessionSave.load_session()
+	check(recovered.status == "recovered" and recovered.data.remove_remaining == 0 and recovered.data.bodies.is_empty(), "backup recovery does not restore spent allowance")
+	check(game.save_session() == OK, "recovered state can write a new primary")
+	var bad: Dictionary = saved.data.duplicate(true); bad.remove_remaining = 2
+	check(not SessionSave.valid(bad), "invalid allowance rejected")
+	var legacy: Dictionary = saved.data.duplicate(true); legacy.erase("remove_remaining")
+	check(SessionSave.valid(legacy), "legacy v2 session accepted")
+	if phase == "write":
+		print("REMOVE_WRITE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0); return
+	# A real Continue of an old v2 session initializes the newly added field.
+	clear_save()
+	legacy.session_version = 2
+	check(SaveManager.save_progress(legacy, SessionSave.PATH) == OK, "write legacy v2 fixture")
+	game.queue_free(); await frames()
+	set_meta("continue_requested", true)
+	game = make_game(); await frames()
+	check(game.remove_remaining == 1 and not game.remove_button.disabled, "legacy v2 Continue receives one free use")
+	check(game.save_session() == OK and SessionSave.load_session().data.remove_remaining == 1, "legacy v2 migrated on save")
+	# Non-persistent fixture resets allowances only for stress; production cannot.
+	game.queue_free(); await frames()
+	game = make_game(false); await frames()
+	var deleted: Animal = game.create_animal(game.animals[0], Vector2(200, 700))
+	deleted.queue_free()
+	check(not game._remove_eligible(deleted), "queued-for-deletion animal is ineligible")
+	await frames(2)
+	for i in range(50):
+		game.remove_remaining = 1
+		var animal: Animal = game.create_animal(game.animals[i % 5], Vector2(360, 700))
+		animal.freeze = i % 2 == 0
+		if not animal.freeze: animal.linear_velocity = Vector2(50, -10)
+		await physics_frame
+		game._toggle_remove(); mouse(game, animal.global_position); await frames(2)
+		check(not is_instance_valid(animal) and game.remove_remaining == 0 and game.pieces.get_child_count() == 0 and game.merge_manager.pending.is_empty(), "stress removal %d" % (i + 1))
+	print("REMOVE checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)
+func read_phase() -> void:
+	var loaded := SessionSave.load_session()
+	check(loaded.status == "ok" and loaded.data.remove_remaining == 0, "second process sees used allowance")
+	var menu = (load("res://scenes/ui/MainMenu.tscn") as PackedScene).instantiate()
+	root.add_child(menu); current_scene = menu; await frames(3)
+	check(not menu.continue_button.disabled, "Continue enabled in second process")
+	menu.continue_button.pressed.emit(); await frames(5)
+	var game = current_scene
+	check(game != menu and game.has_method("save_session"), "Continue button opens gameplay")
+	if game == menu or not game.has_method("save_session"):
+		print("REMOVE_READ checks=%d failures=%d" % [checks, failures]); quit(1); return
+	check(game.remove_remaining == 0 and game.remove_button.disabled and game.pieces.get_child_count() == 0, "Continue restores removed board and disabled button")
+	game._toggle_remove(); check(not game.remove_selecting, "Continue cannot reuse Remove")
+	var before: int = game.spawn_count
+	game._set_aim(300); game.drop_animal()
+	for i in range(120):
+		await physics_frame
+		if game.spawn_count > before: break
+	check(game.spawn_count == before + 1, "normal dropping continues after Remove and Continue")
+	game._restart(); await frames(6)
+	game = current_scene
+	check(game.remove_remaining == 1 and not game.remove_button.disabled, "restart creates new allowance")
+	print("REMOVE_READ checks=%d failures=%d" % [checks, failures]); quit(1 if failures else 0)

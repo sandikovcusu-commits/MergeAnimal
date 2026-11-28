@@ -1,0 +1,27 @@
+// Observe browser IDB transaction lifecycle. Completion is not an OS fsync or
+// a Godot-level acknowledgement; this probe does not alter game storage.
+import {chromium,firefox} from 'playwright';import fs from 'node:fs';import path from 'node:path';
+const name=process.env.UI_BROWSER||'chromium',base=process.env.WEB_URL,out=process.env.WEB_QA_DIR||'/tmp/web-qa',sleep=ms=>new Promise(r=>setTimeout(r,ms));let browser,ctx,page,events=[];
+try{
+ browser=await (name==='chromium'?chromium:firefox).launch({headless:false,args:name==='chromium'?['--no-sandbox','--use-gl=angle','--use-angle=swiftshader-webgl','--enable-unsafe-swiftshader']:[],firefoxUserPrefs:{'webgl.force-enabled':true,'webgl.disabled':false}});
+ ctx=await browser.newContext({viewport:{width:360,height:640}});await ctx.addInitScript(()=>{
+  window.__idbTx=[];const txOriginal=IDBDatabase.prototype.transaction,putOriginal=IDBObjectStore.prototype.put,deleteOriginal=IDBObjectStore.prototype.delete;
+  IDBDatabase.prototype.transaction=function(stores,mode,...rest){const tx=txOriginal.call(this,stores,mode,...rest);if(mode==='readwrite'){let entry={database:this.name,stores:Array.isArray(stores)?stores:[stores],start:performance.now(),operations:[]};tx.__entry=entry;window.__idbTx.push(entry);tx.addEventListener('complete',()=>{entry.end=performance.now();entry.outcome='complete'});tx.addEventListener('abort',()=>{entry.end=performance.now();entry.outcome='abort'});}return tx};
+  IDBObjectStore.prototype.put=function(v,...args){this.transaction.__entry?.operations.push({type:'put',store:this.name,key:String(args[0]??v?.key??'')});return putOriginal.call(this,v,...args)};
+  IDBObjectStore.prototype.delete=function(k){this.transaction.__entry?.operations.push({type:'delete',store:this.name,key:String(k)});return deleteOriginal.call(this,k)};
+ });page=await ctx.newPage();page.on('console',m=>events.push({type:'console:'+m.type(),text:m.text()}));page.on('pageerror',e=>events.push({type:'pageerror',text:String(e)}));await page.goto(base,{waitUntil:'domcontentloaded'});await page.waitForSelector('canvas');await sleep(14000);await page.mouse.click(180,300);await sleep(6000);let clicks=[];
+ for(let i=0;i<6;i++){let t=await page.evaluate(()=>performance.now());clicks.push(t);await page.mouse.click(145+(i%3)*35,260);await sleep(4000)}await sleep(7000);
+ // The production tracker must not report a nonexistent revision as saved.
+ await page.waitForFunction(() => window.__wildGardenCheckpoint && Object.values(window.__wildGardenCheckpoint.records).some(r=>r.state==='verified'),null,{timeout:20000});
+ const trackerCheck=await page.evaluate(async()=>{
+  const tracker=window.__wildGardenCheckpoint;
+  const key='/userfs/__qa_missing_checkpoint__';
+  tracker.track(key,'not a real committed entry');
+  await new Promise(r=>setTimeout(r,500));
+  const state=tracker.records[key]?.state;
+  delete tracker.records[key];
+  return {missingRevisionState:state, trackedPaths:Object.keys(tracker.records), status:tracker.status()};
+ });
+ if(trackerCheck.missingRevisionState!=='pending') throw Error('nonexistent revision was not pending: '+JSON.stringify(trackerCheck));
+ const tx=await page.evaluate(()=>window.__idbTx);let complete=tx.filter(t=>t.outcome==='complete'&&t.operations.length),deltas=clicks.map(t=>{let x=complete.find(z=>z.start>=t);return x?{click:t,transaction_start:x.start,transaction_end:x.end,click_to_complete_ms:x.end-t,transaction_ms:x.end-x.start}:null});let result={browser:name,ua:await page.evaluate(()=>navigator.userAgent),clicks,trackerCheck,transactions:tx,click_to_next_transaction:deltas,events};fs.writeFileSync(path.join(out,`${name}-idb-timing.json`),JSON.stringify(result,null,2));await page.screenshot({path:path.join(out,`${name}-idb-timing.png`)});console.log('IDB_TIMING',JSON.stringify({transactions:tx.length,completedWrites:complete.length,deltas,transactionMs:complete.map(x=>x.end-x.start)}));if(!complete.length)throw Error('no completed readwrite transactions observed');
+}catch(e){console.error('IDB_ERROR',e.stack||e);process.exitCode=1}finally{await ctx?.close();await browser?.close()}

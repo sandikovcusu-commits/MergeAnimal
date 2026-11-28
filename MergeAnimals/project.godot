@@ -1,0 +1,41 @@
+; Merge Animals: Wild Garden — V0.6.4.1 development build
+config_version=5
+
+[application]
+config/name="Merge Animals: Wild Garden"
+config/version="0.7.0-dev"
+run/main_scene="res://scenes/ui/MainMenu.tscn"
+
+[autoload]
+SaveDurability="*res://scripts/save/SaveDurability.gd"
+CrazyGamesBridge="*res://addons/crazygames/Utils/CrazyGamesBridge.gd"
+CrazyGames="*res://addons/crazygames/CrazyGames.gd"
+AdManager="*res://scripts/ads/AdManager.gd"
+AudioManager="*res://scripts/audio/AudioManager.gd"
+AnimalVisualScheduler="*res://scripts/gameplay/AnimalVisualScheduler.gd"
+WebTouchGuard="*res://scripts/ui/WebTouchGuard.gd"
+
+[display]
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/size/window_width_override=540
+window/size/window_height_override=960
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+window/handheld/orientation=1
+
+[editor]
+; Godot 4.7.2 binary conversion loses inherited Challenge UI offsets and PackedStringArray data on Web.
+export/convert_text_resources_to_binary.web=false
+
+[physics]
+common/physics_ticks_per_second=120
+
+[input_devices]
+pointing/emulate_touch_from_mouse=false
+pointing/emulate_mouse_from_touch=false
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=false

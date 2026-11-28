@@ -1,0 +1,12 @@
+V0.3.0-dev faktiki sınaqlar — Godot 4.7.2.stable.official.ed1daf0bf / Linux Actions / headless
+Baza ebd434c: run https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45664927879 — 49 checks, 0 failures.
+Gün 3 fbcb4ca: run https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45665893612 — köhnə 49 checks 0 failure (base score üçün combo disabled); yeni 57 checks 0 failure (combo ayrıca aktiv test).
+11 normal evolution və Elephant Golden: hər biri real Godot collision ilə PASS; 10000 spawn seed=13579 [3012,2511,2058,1479,940,0,0,0,0,0,0,0].
+100 bot sessiyası real gameplay physics ilə bitdi (90 sim-s cap), xam log və CSV tests/logs/ altında; bu insan ölçüsü deyil.
+Divar matrisi 16 təcrid sınağı: bütöv escape və yoxlanılan >2px statik ilişmə 0; ölçülən overlap sıfır deyil. PHYSICS_REPORT.md.
+Əvvəlki quick-tap, real 48-body overflow, pause/resume, restart və 100-drop regressionları PASS.
+UNVERIFIED: real render və screenshot, 6 ekran üzrə real input/oxunaqlılıq, Windows, mobil hardware, Web export, mobil FPS/RAM, konseptlərin kənar keyfiyyəti və lisenziyası.
+
+Daha yeni kod 71016a8: run https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45666836718 — 49/49 əvvəlki, 61/61 yeni; 100 bot və 19 divar + 6 floor case; bot maksimum 16.678 px normal overlap, 0 tam escape-frame. Xam log tests/logs/v030-runtime-71016a8.txt.
+
+Run 45668965282 — 120 Hz-də 49/49 və 61/61 PASS, 100 bot tamamlandı, 100-drop 99/99 FAIL; test sabit 60 Hz cooldown gözləməsinə əsaslandığı üçün düzəldilib, sonrakı run 45670121999: 100/100 PASS, 49/49 və 61/61 PASS; logs/v030-runtime-120-green.txt.

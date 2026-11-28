@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/achievements/AchievementData.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/ui/icons/star.svg" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = "A09"
+title = "Score Master"
+description = "Reach a Classic best score of 1000."
+icon = ExtResource("2")
+objective_type = "best_score"
+target = 1000
+unlock_condition = ""

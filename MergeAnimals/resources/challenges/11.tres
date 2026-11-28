@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 11
+title_key = &"KOALA_KINGDOM"
+objective_key = &"MAKE_KOALA"
+objective_type = "animal"
+animal_id = &"koala"
+target = 1
+starting_animals = PackedStringArray("raccoon")
+spawn_sequence = PackedStringArray("raccoon")

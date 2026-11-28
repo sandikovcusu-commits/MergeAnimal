@@ -1,0 +1,252 @@
+class_name MergeManager
+extends Node
+
+signal merged(result: AnimalData, point: Vector2)
+signal golden_merged(point: Vector2)
+
+var game
+var pending: Array[Dictionary] = []
+var merge_count: int = 0
+var commit_scheduled: bool = false
+var last_merge_eligible: bool = false
+# Failed placement is suppressed until relevant collision geometry changes by
+# the 1px clearance used by the placement test. Weak refs avoid retaining bodies.
+var failed_placements: Dictionary = {}
+const PLACEMENT_CHANGE := 1.0
+# A.4 automatic contact retry (MERGE-CONTACT-RETRY-004). A cancelled pair that
+# stays in physical contact gets no new body_entered event, so suppression
+# alone would never retry it. A throttled scheduler re-checks only tracked
+# failed pairs (never all bodies) after contact/geometry events or every
+# RETRY_INTERVAL seconds. Eligibility still requires changed geometry, live
+# contact, same session and a free reservation; placement safety is unchanged.
+const RETRY_INTERVAL := 0.25
+const RETRY_MAX_PER_TICK := 4
+const CONTACT_EPSILON := 2.0
+var retry_elapsed := 0.0
+var retry_dirty := false
+var cancelled_count := 0
+var auto_retry_attempts := 0
+var auto_retry_successes := 0
+var auto_retry_max_delay := 0.0
+var last_retry_delay := 0.0
+var contact_broken_count := 0
+
+func _pair_key(a: Animal, b: Animal) -> String:
+	var x := a.get_instance_id(); var y := b.get_instance_id()
+	return "%d:%d" % [mini(x, y), maxi(x, y)]
+
+func _placement_geometry(a: Animal, b: Animal, radius: float) -> Dictionary:
+	var middle := (a.global_position + b.global_position) * 0.5
+	var limit: float = game.merge_placement_limit(radius, a, b)
+	var positions := {}
+	for node in game.pieces.get_children():
+		if not node is Animal or node.is_queued_for_deletion(): continue
+		# A one-pixel margin also detects blockers entering the relevant region.
+		if node == a or node == b or node.global_position.distance_to(middle) <= limit + radius + node.data.radius + 2.0:
+			positions[node.get_instance_id()] = node.global_position
+	return positions
+
+func _same_geometry(previous: Dictionary, current: Dictionary) -> bool:
+	if previous.size() != current.size(): return false
+	for id in previous:
+		if not current.has(id) or previous[id].distance_squared_to(current[id]) >= PLACEMENT_CHANGE * PLACEMENT_CHANGE: return false
+	return true
+
+func _prune_failures() -> void:
+	for key in failed_placements.keys():
+		var record: Dictionary = failed_placements[key]
+		var a: Variant = record.a.get_ref(); var b: Variant = record.b.get_ref()
+		if not is_instance_valid(a) or not is_instance_valid(b) or a.is_queued_for_deletion() or b.is_queued_for_deletion() or a.get_parent() != game.pieces or b.get_parent() != game.pieces:
+			failed_placements.erase(key)
+
+func setup(owner_game: Node2D) -> void:
+	game = owner_game
+
+func observe(animal: Animal) -> void:
+	animal.body_entered.connect(_on_body_entered.bind(animal))
+	animal.body_exited.connect(_on_body_exited.bind(animal))
+
+func _on_body_entered(other: Node, animal: Animal) -> void:
+	retry_dirty = true
+	if not other is Animal or not game.is_playing():
+		return
+	if not is_instance_valid(animal) or animal.get_parent() != game.pieces or other.get_parent() != game.pieces:
+		return
+	request_merge(animal, other as Animal)
+
+# Any contact change can alter placement geometry for a tracked failed pair.
+# Only a flag is set here; the throttled scheduler validates eligibility.
+func _on_body_exited(_other: Node, _animal: Animal) -> void:
+	retry_dirty = true
+
+func request_merge(a: Animal, b: Animal) -> bool:
+	if not is_instance_valid(a) or not is_instance_valid(b) or a == b:
+		return false
+	if a.merge_locked or b.merge_locked or a.is_queued_for_deletion() or b.is_queued_for_deletion():
+		return false
+	if a.data.level != b.data.level or a.data.id != b.data.id:
+		return false
+	var target: AnimalData = game.find_animal(a.data.next_evolution_id)
+	var golden: bool = a.data.golden_terminal
+	if target == null and not golden:
+		return false
+	_prune_failures()
+	var key := _pair_key(a, b)
+	if failed_placements.has(key) and not golden:
+		if _same_geometry(failed_placements[key].geometry, _placement_geometry(a, b, target.radius)):
+			return false
+		failed_placements.erase(key)
+	# Reserve both synchronously inside the callback. No scene/physics mutation here.
+	a.merge_locked = true
+	b.merge_locked = true
+	pending.append({"a": a, "b": b, "target": target, "golden": golden})
+	return true
+
+func _physics_process(delta: float) -> void:
+	if not pending.is_empty() and not commit_scheduled:
+		commit_scheduled = true
+		call_deferred("_commit_pending")
+	_retry_scan_tick(delta)
+
+func _retry_scan_tick(delta: float) -> void:
+	if failed_placements.is_empty():
+		return
+	if game == null or not game.is_playing() or get_tree().paused:
+		return
+	retry_elapsed += delta
+	if retry_elapsed < RETRY_INTERVAL and not retry_dirty:
+		return
+	retry_elapsed = 0.0
+	retry_dirty = false
+	_scan_retry()
+
+# Re-request only tracked failed pairs whose geometry changed while contact
+# persists. Cheap checks run first; placement itself is re-validated by the
+# normal reserve/commit path, so no unsafe merge can be forced here.
+func _scan_retry() -> void:
+	_prune_failures()
+	if failed_placements.is_empty():
+		return
+	var now := Time.get_ticks_msec()
+	var attempts_this_tick := 0
+	for key in failed_placements.keys():
+		if attempts_this_tick >= RETRY_MAX_PER_TICK:
+			break
+		if not failed_placements.has(key):
+			continue
+		var record: Dictionary = failed_placements[key]
+		var a: Variant = record.a.get_ref()
+		var b: Variant = record.b.get_ref()
+		if not is_instance_valid(a) or not is_instance_valid(b) or not a is Animal or not b is Animal:
+			failed_placements.erase(key)
+			continue
+		if a.is_queued_for_deletion() or b.is_queued_for_deletion() or a.get_parent() != game.pieces or b.get_parent() != game.pieces:
+			failed_placements.erase(key)
+			continue
+		if str(record.get("session_id", "")) != str(game.session_id):
+			failed_placements.erase(key)
+			continue
+		if a.merge_locked or b.merge_locked:
+			continue
+		if a.data.id != b.data.id or a.data.level != b.data.level:
+			failed_placements.erase(key)
+			continue
+		var target: AnimalData = game.find_animal(a.data.next_evolution_id)
+		if target == null:
+			failed_placements.erase(key)
+			continue
+		if a.global_position.distance_to(b.global_position) > a.data.radius + b.data.radius + CONTACT_EPSILON:
+			failed_placements.erase(key)
+			contact_broken_count += 1
+			continue
+		if _same_geometry(record.geometry, _placement_geometry(a, b, target.radius)):
+			continue
+		auto_retry_attempts += 1
+		attempts_this_tick += 1
+		var delay := float(now - int(record.get("last_attempt_msec", now))) / 1000.0
+		last_retry_delay = delay
+		auto_retry_max_delay = maxf(auto_retry_max_delay, delay)
+		record.attempts = int(record.get("attempts", 1)) + 1
+		record.last_attempt_msec = now
+		if request_merge(a, b):
+			auto_retry_successes += 1
+
+# Board replacement (undo restore) invalidates every tracked geometry
+# baseline. Other transitions rely on _prune_failures plus geometry checks.
+func clear_retry_state() -> void:
+	failed_placements.clear()
+	retry_elapsed = 0.0
+	retry_dirty = false
+
+func retry_state() -> Dictionary:
+	return {"failed": failed_placements.size(), "pending": pending.size(), "cancelled": cancelled_count, "attempts": auto_retry_attempts, "successes": auto_retry_successes, "max_delay": auto_retry_max_delay, "last_delay": last_retry_delay, "contact_broken": contact_broken_count}
+
+# Release only this reservation; never unlock a body owned by another pair.
+# A failed transaction preserves all still-live bodies and does not award score.
+func _cancel_pair(pair: Dictionary) -> void:
+	pending.erase(pair)
+	for key in ["a", "b"]:
+		var body: Variant = pair.get(key)
+		if not is_instance_valid(body) or not body is Animal: continue
+		var reserved_elsewhere := false
+		for remaining in pending:
+			if remaining.get("a") == body or remaining.get("b") == body:
+				reserved_elsewhere = true
+				break
+		if not reserved_elsewhere: body.merge_locked = false
+
+func _commit_pending() -> void:
+	commit_scheduled = false
+	if not game.is_playing():
+		return
+	for pair in pending.duplicate():
+		var a: Variant = pair.get("a")
+		var b: Variant = pair.get("b")
+		if not is_instance_valid(a) or not is_instance_valid(b) or not a is Animal or not b is Animal:
+			_cancel_pair(pair)
+			continue
+		if a == b or a.is_queued_for_deletion() or b.is_queued_for_deletion() or a.get_parent() != game.pieces or b.get_parent() != game.pieces or not a.merge_locked or not b.merge_locked:
+			_cancel_pair(pair)
+			continue
+		var target: AnimalData = pair.get("target")
+		if a.data.id != b.data.id or a.data.level != b.data.level or (target == null and not pair.get("golden", false)):
+			_cancel_pair(pair)
+			continue
+		var midpoint: Vector2 = (a.global_position + b.global_position) * 0.5
+		var safe_point: Variant = midpoint
+		if not pair["golden"]:
+			safe_point = game.find_merge_position(midpoint, target.radius, a, b)
+			if safe_point == null:
+				# Cancel only this transaction and suppress the same unchanged
+				# geometry; bodies, score and all other pairs are preserved.
+				# The scheduler may re-request this pair automatically once
+				# relevant geometry changes while contact persists.
+				cancelled_count += 1
+				failed_placements[_pair_key(a, b)] = {"a":weakref(a), "b":weakref(b), "geometry":_placement_geometry(a, b, target.radius), "session_id":str(game.session_id), "attempts":1, "last_attempt_msec":Time.get_ticks_msec(), "cancel_reason":"no_safe_placement", "midpoint":midpoint}
+				_cancel_pair(pair)
+				continue
+		failed_placements.erase(_pair_key(a, b))
+		var inherited_danger: float = maxf(float(game.danger_monitor.timers.get(a.instance_uid, 0.0)), float(game.danger_monitor.timers.get(b.instance_uid, 0.0)))
+		pending.erase(pair)
+		# Remove from the tree outside physics callbacks before creating the replacement.
+		game.pieces.remove_child(a)
+		game.pieces.remove_child(b)
+		a.queue_free()
+		b.queue_free()
+		merge_count += 1
+		last_merge_eligible = a.progression_eligible and b.progression_eligible
+		if pair["golden"]:
+			golden_merged.emit(midpoint)
+		else:
+			var result: Animal = game.create_animal(target, safe_point)
+			result.progression_eligible = last_merge_eligible
+			# Only an offset placement inherits a running danger timer. A normal
+			# midpoint merge retains the existing natural gameplay rules.
+			if inherited_danger > 0.0 and result.global_position.distance_squared_to(midpoint) > 0.0001 and result.global_position.y - target.radius < game.danger_height:
+				game.danger_monitor.inherit_merge_timer(result, inherited_danger)
+			result.visual.animate_action("merge")
+			merged.emit(target, safe_point)
+	# Capture only after the queue has drained, never a locked partial board.
+	if pending.is_empty() and game.persist_best and game.is_playing() and not game.save_scheduled:
+		game.save_scheduled = true
+		game.call_deferred("_autosave_safe")

@@ -1,0 +1,27 @@
+$ python3 tests/unit/check_project.py
+PASS: 19 project text files scanned; resource paths and basic configuration verified.
+
+$ python3 tests/unit/test_static_contract.py
+test_contact_monitor_enabled (__main__.StaticContract.test_contact_monitor_enabled) ... ok
+test_contiguous_levels (__main__.StaticContract.test_contiguous_levels) ... ok
+test_physics_material_ranges (__main__.StaticContract.test_physics_material_ranges) ... ok
+test_positive_mass (__main__.StaticContract.test_positive_mass) ... ok
+test_preview_uses_same_script_as_bodies (__main__.StaticContract.test_preview_uses_same_script_as_bodies) ... ok
+test_project_disables_input_emulation (__main__.StaticContract.test_project_disables_input_emulation) ... ok
+test_same_scene_references_all_resources (__main__.StaticContract.test_same_scene_references_all_resources) ... ok
+test_scene_has_pause_and_restart_buttons (__main__.StaticContract.test_scene_has_pause_and_restart_buttons) ... ok
+test_scores_match_balance_table (__main__.StaticContract.test_scores_match_balance_table) ... ok
+test_strict_radius_progression (__main__.StaticContract.test_strict_radius_progression) ... ok
+test_unique_ids (__main__.StaticContract.test_unique_ids) ... ok
+test_wall_inner_faces_match_game_bounds (__main__.StaticContract.test_wall_inner_faces_match_game_bounds) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.001s
+
+OK
+
+$ gdparse scripts/gameplay/*.gd scripts/managers/*.gd tests/integration/*.gd tests/physics/*.gd
+exit 0 (syntactic parsing only)
+
+$ git diff --check
+exit 0

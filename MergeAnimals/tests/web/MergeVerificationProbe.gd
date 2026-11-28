@@ -1,0 +1,347 @@
+extends Node
+# Temporary QA export only. Production scripts are not changed. Frozen synthetic
+# cases and explicit requests are reported separately from physical contacts.
+var last_id := 0
+var first: Animal
+var second: Animal
+func _ready() -> void: process_mode = Node.PROCESS_MODE_ALWAYS
+func _process(_delta: float) -> void:
+	var raw: Variant = JavaScriptBridge.eval("JSON.stringify(window.__verifyCommand || null)")
+	if typeof(raw) != TYPE_STRING: return
+	var cmd: Variant = JSON.parse_string(raw)
+	if not cmd is Dictionary or int(cmd.get("id",0)) == last_id: return
+	last_id = int(cmd.id)
+	call_deferred("dispatch", cmd)
+func finish(id: int, value: Dictionary) -> void:
+	value.id = id
+	JavaScriptBridge.eval("window.__verifyReply=" + JSON.stringify(value))
+func fresh(persist: bool = true):
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/game/Game.tscn")
+	for i in range(6): await get_tree().process_frame
+	var game = get_tree().current_scene
+	game.persist_best = persist
+	game.combo_enabled = false
+	game.danger_monitor.set_physics_process(false)
+	return game
+func pair(game, y: float = 800.0) -> void:
+	first = game.create_animal(game.animals[0], Vector2(342,y)); first.freeze = true
+	second = game.create_animal(game.animals[0], Vector2(378,y)); second.freeze = true
+func metrics(game) -> Dictionary:
+	var locks := 0
+	for b in game.pieces.get_children():
+		if b is Animal and b.merge_locked: locks += 1
+	return {"session_id":game.session_id, "state":game.game_state, "paused":get_tree().paused, "pending":game.merge_manager.pending.size(), "locks":locks, "count":game.pieces.get_child_count(), "score":game.score, "merges":game.merge_manager.merge_count, "spawns":game.spawn_count, "undo":game.undo_remaining, "remove":game.remove_remaining, "rescue_remaining":game.rescue_remaining, "rescue_finalized":game.rescue_finalized, "save_error":game.save_status, "snapshot_empty":game._session_snapshot().is_empty(), "retry":game.merge_manager.retry_state(), "details":game._checkpoint_details()}
+func dispatch(cmd: Dictionary) -> void:
+	var op := str(cmd.op)
+	if op == "setup":
+		var game = await fresh(true)
+		game.merge_manager.set_physics_process(false)
+		pair(game)
+		var result: Error = game.save_session()
+		var out := metrics(game); out.result = result; finish(int(cmd.id), out); return
+	if op == "matrix":
+		var game = await fresh(false)
+		game.merge_manager.set_physics_process(false)
+		get_tree().paused = true
+		var rows := []
+		for count in [10,20,40]:
+			for seed_value in range(10):
+				for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+				game.score = 0; game.merge_manager.merge_count = 0
+				var rng := RandomNumberGenerator.new(); rng.seed = 51000 + seed_value
+				var bodies: Array[Animal] = []
+				for i in range(count):
+					var body: Animal = game.create_animal(game.animals[0], Vector2(216 + (i % 8) * 36, 820 + (i / 8) * 36))
+					body.freeze = true; bodies.append(body)
+				var index: int = rng.randi_range(0, count / 2 - 2) * 2
+				var center: Vector2 = (bodies[index].position + bodies[index+1].position) / 2.0
+				var found: Variant = game.find_merge_position(center, game.animals[1].radius, bodies[index], bodies[index+1])
+				var start := Time.get_ticks_usec()
+				var r1: bool = game.merge_manager.request_merge(bodies[index], bodies[index+1])
+				var duplicate: bool = game.merge_manager.request_merge(bodies[index], bodies[index+2])
+				var r2: bool = game.merge_manager.request_merge(bodies[index+2], bodies[index+3])
+				var queue: int = game.merge_manager.pending.size(); var locks := 0
+				for b in bodies:
+					if b.merge_locked: locks += 1
+				var blocked: bool = game.save_session() == ERR_BUSY and game._session_snapshot().is_empty()
+				game._attempt_drop(); blocked = blocked and game.spawn_count == 0
+				game.merge_manager._commit_pending()
+				var elapsed := (Time.get_ticks_usec() - start) / 1000.0
+				var valid: bool = r1 and r2 and not duplicate and blocked and game.merge_manager.pending.is_empty() and game.merge_manager.merge_count == 2 and game.score == 8 and game.pieces.get_child_count() == count - 2
+				var clear := true; var bounds := true
+				for b in game.pieces.get_children():
+					if b.merge_locked: valid = false
+					if b.data.id == &"hamster":
+						bounds = bounds and b.position.x-b.data.radius >= game.left_bound-0.01 and b.position.x+b.data.radius <= game.right_bound+0.01 and b.position.y+b.data.radius <= game.floor_height+0.01
+						for other in game.pieces.get_children():
+							if other != b and b.position.distance_to(other.position) < b.data.radius+other.data.radius+0.99: clear = false
+				valid = valid and clear and bounds
+				rows.append({"seed":51000+seed_value,"bodies":count,"queue_max":queue,"locks_max":locks,"pending_ms":elapsed,"distance":found.distance_to(center) if found is Vector2 else -1.0,"merges":game.merge_manager.merge_count,"score":game.score,"lost":count-game.merge_manager.merge_count-game.pieces.get_child_count(),"duplicate":int(duplicate),"clear":clear,"bounds":bounds,"ok":valid})
+		finish(int(cmd.id), {"rows":rows}); return
+	if op == "matrix_a3":
+		var game = await fresh(false)
+		game.merge_manager.set_physics_process(false)
+		get_tree().paused = true
+		var rows := []
+		for count in [10,20,40]:
+			for seed_value in range(10):
+				for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+				game.score = 0; game.merge_manager.merge_count = 0
+				var rng := RandomNumberGenerator.new(); rng.seed = 51000 + seed_value
+				var bodies: Array[Animal] = []
+				for i in range(count):
+					var body: Animal = game.create_animal(game.animals[0], Vector2(216 + (i % 8) * 36, 820 + (i / 8) * 36))
+					body.freeze = true; bodies.append(body)
+				var index: int = rng.randi_range(0, count / 2 - 2) * 2
+				var center: Vector2 = (bodies[index].position + bodies[index+1].position) / 2.0
+				var found: Variant = game.find_merge_position(center, game.animals[1].radius, bodies[index], bodies[index+1])
+				var start := Time.get_ticks_usec()
+				var r1: bool = game.merge_manager.request_merge(bodies[index], bodies[index+1])
+				var duplicate: bool = game.merge_manager.request_merge(bodies[index], bodies[index+2])
+				var r2: bool = game.merge_manager.request_merge(bodies[index+2], bodies[index+3])
+				var queue: int = game.merge_manager.pending.size(); var locks := 0
+				for b in bodies:
+					if b.merge_locked: locks += 1
+				var blocked: bool = game.save_session() == ERR_BUSY and game._session_snapshot().is_empty()
+				game._attempt_drop(); blocked = blocked and game.spawn_count == 0
+				game.merge_manager._commit_pending()
+				var elapsed := (Time.get_ticks_usec() - start) / 1000.0
+				var valid: bool = r1 and r2 and not duplicate and blocked and game.merge_manager.pending.is_empty() and game.merge_manager.merge_count <= 2 and game.score == 4 * game.merge_manager.merge_count and game.pieces.get_child_count() == count - game.merge_manager.merge_count
+				var clear := true; var bounds := true
+				for b in game.pieces.get_children():
+					if b.merge_locked: valid = false
+					if b.data.id == &"hamster":
+						bounds = bounds and b.position.x-b.data.radius >= game.left_bound-0.01 and b.position.x+b.data.radius <= game.right_bound+0.01 and b.position.y+b.data.radius <= game.floor_height+0.01
+						for other in game.pieces.get_children():
+							if other != b and b.position.distance_to(other.position) < b.data.radius+other.data.radius+0.99: clear = false
+				valid = valid and clear and bounds
+				rows.append({"seed":51000+seed_value,"bodies":count,"queue_max":queue,"locks_max":locks,"pending_ms":elapsed,"distance":found.distance_to(center) if found is Vector2 else -1.0,"merges":game.merge_manager.merge_count,"score":game.score,"lost":count-game.merge_manager.merge_count-game.pieces.get_child_count(),"duplicate":int(duplicate),"clear":clear,"bounds":bounds,"ok":valid})
+		finish(int(cmd.id), {"rows":rows}); return
+	if op == "document":
+		finish(int(cmd.id), {"document":SessionSave.load_document()}); return
+	if op == "placement":
+		var game = await fresh(false)
+		game.merge_manager.set_physics_process(false); get_tree().paused = true
+		var rows := []
+		for base_y in [344.0, 800.0]:
+			for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+			var a: Animal; var b: Animal
+			for row in range(7):
+				for col in range(7):
+					var body: Animal = game.create_animal(game.animals[0], Vector2(252+col*36,base_y+row*36)); body.freeze = true
+					if row == 3 and col == 3: a = body
+					if row == 3 and col == 4: b = body
+			var middle: Vector2 = (a.position+b.position)*0.5
+			var point: Variant = game.find_merge_position(middle, game.animals[1].radius, a, b)
+			rows.append({"scenario":"dense_danger" if base_y < 500.0 else "dense_bottom", "x":middle.x,"y":middle.y,"result_x":point.x if point is Vector2 else -1.0,"result_y":point.y if point is Vector2 else -1.0,"distance":point.distance_to(middle) if point is Vector2 else -1.0,"before_danger":middle.y-game.animals[0].radius < game.danger_height,"after_danger":point.y-game.animals[1].radius < game.danger_height if point is Vector2 else false})
+		# Adversarial upper pile, touching spacing: source above danger line,
+		# lower candidate below it. This measures geometry, not full Game Over.
+		for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+		var danger_a: Animal; var danger_b: Animal
+		for row in range(4):
+			for col in range(7):
+				var body: Animal = game.create_animal(game.animals[0],Vector2(252+col*36,344+row*36)); body.freeze = true
+				if row == 1 and col == 2: danger_a = body
+				if row == 1 and col == 3: danger_b = body
+		var danger_mid: Vector2 = (danger_a.position+danger_b.position)*0.5
+		var danger_point: Variant = game.find_merge_position(danger_mid,game.animals[1].radius,danger_a,danger_b)
+		var danger_reserved: bool = game.merge_manager.request_merge(danger_a,danger_b)
+		game.merge_manager._commit_pending()
+		var result_body: Animal
+		for body in game.pieces.get_children():
+			if body.data.id == &"hamster": result_body = body
+		rows.append({"scenario":"danger_crossing","x":danger_mid.x,"y":danger_mid.y,"result_x":danger_point.x if danger_point is Vector2 else -1.0,"result_y":danger_point.y if danger_point is Vector2 else -1.0,"distance":danger_point.distance_to(danger_mid) if danger_point is Vector2 else -1.0,"before_danger":danger_mid.y-game.animals[0].radius < game.danger_height,"after_danger":danger_point.y-game.animals[1].radius < game.danger_height if danger_point is Vector2 else false,"reserved":danger_reserved,"committed":result_body != null and result_body.position.distance_to(danger_point) < 0.1,"merges":game.merge_manager.merge_count,"score":game.score})
+		for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+		var a: Animal = game.create_animal(game.animals[0], Vector2(109,1076)); a.freeze = true
+		var b: Animal = game.create_animal(game.animals[0], Vector2(145,1076)); b.freeze = true
+		var center: Vector2 = (a.position+b.position)*0.5
+		var point: Variant = game.find_merge_position(center,game.animals[1].radius,a,b)
+		rows.append({"scenario":"wall_floor","x":center.x,"y":center.y,"result_x":point.x if point is Vector2 else -1.0,"result_y":point.y if point is Vector2 else -1.0,"distance":point.distance_to(center) if point is Vector2 else -1.0,"radius":game.animals[1].radius,"left":game.left_bound,"right":game.right_bound,"floor":game.floor_height})
+		finish(int(cmd.id), {"rows":rows}); return
+	if op == "contact_retry":
+		# A.4: frozen dense board, scheduler enabled. No explicit re-request
+		# after the blocker moves; the merge must happen automatically.
+		var game = await fresh(true)
+		var a: Animal; var b: Animal
+		for row in range(7):
+			for col in range(7):
+				var body: Animal = game.create_animal(game.animals[0], Vector2(252+col*36,800+row*36)); body.freeze = true
+				if row == 3 and col == 3: a = body
+				if row == 3 and col == 4: b = body
+		var reserved: bool = game.merge_manager.request_merge(a, b)
+		for i in range(6): await get_tree().physics_frame
+		var cancelled: Dictionary = game.merge_manager.retry_state()
+		for i in range(45): await get_tree().physics_frame
+		var static_state: Dictionary = game.merge_manager.retry_state()
+		for body in game.pieces.get_children():
+			if body != a and body != b and body.position.y >= 700:
+				game.pieces.remove_child(body); body.queue_free()
+		var merged := false
+		for i in range(240):
+			if game.merge_manager.merge_count >= 1: merged = true; break
+			await get_tree().physics_frame
+		for i in range(30): await get_tree().physics_frame
+		var saved: Error = game.save_session()
+		finish(int(cmd.id), {"reserved":reserved, "cancelled":cancelled, "static_state":static_state, "merged":merged, "saved":saved, "final":metrics(game)}); return
+	if op == "contact_retry_matrix":
+		var game = await fresh(false)
+		var rows := []
+		for count in [10,20,40]:
+			for seed_value in range(10):
+				for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+				game.score = 0; game.merge_manager.merge_count = 0
+				var rng := RandomNumberGenerator.new(); rng.seed = 51000 + seed_value
+				var bodies: Array[Animal] = []
+				for i in range(count):
+					var body: Animal = game.create_animal(game.animals[0], Vector2(216 + (i % 8) * 36, 820 + (i / 8) * 36))
+					body.freeze = true; bodies.append(body)
+				var index: int = rng.randi_range(0, count / 2 - 2) * 2
+				var before: Dictionary = game.merge_manager.retry_state()
+				var start := Time.get_ticks_usec()
+				var r1: bool = game.merge_manager.request_merge(bodies[index], bodies[index+1])
+				for i in range(6): await get_tree().physics_frame
+				var cancelled: int = game.merge_manager.retry_state().cancelled - before.cancelled
+				for body in game.pieces.get_children():
+					if body != bodies[index] and body != bodies[index+1]:
+						game.pieces.remove_child(body); body.queue_free()
+				var merged := false
+				for i in range(180):
+					if game.merge_manager.merge_count >= 1: merged = true; break
+					await get_tree().physics_frame
+				for i in range(10): await get_tree().physics_frame
+				var state: Dictionary = game.merge_manager.retry_state()
+				var elapsed := (Time.get_ticks_usec() - start) / 1000.0
+				var locks := 0
+				for b in game.pieces.get_children():
+					if b is Animal and b.merge_locked: locks += 1
+				var valid: bool = r1 and game.merge_manager.pending.is_empty() and locks == 0 and game.score == 4 * game.merge_manager.merge_count and (game.merge_manager.merge_count == 1 or cancelled == 0)
+				rows.append({"seed":51000+seed_value,"bodies":count,"reserved":r1,"cancelled":cancelled,"attempts":state.attempts - before.attempts,"successes":state.successes - before.successes,"merges":game.merge_manager.merge_count,"score":game.score,"pending":game.merge_manager.pending.size(),"locks":locks,"pending_ms":elapsed,"merged":merged,"ok":valid})
+		finish(int(cmd.id), {"rows":rows}); return
+	if op == "cancel":
+		var game = await fresh(true)
+		game.merge_manager.set_physics_process(false); pair(game)
+		var blockers := []
+		for y in [680,820,960]:
+			for x in [220,360,500]:
+				var body: Animal = game.create_animal(game.animals[11],Vector2(x,y)); body.freeze = true; blockers.append(body)
+		get_tree().paused = true
+		var no_point: bool = game.find_merge_position(Vector2(360,800),game.animals[1].radius,first,second) == null
+		var reserved: bool = game.merge_manager.request_merge(first,second)
+		game.merge_manager._commit_pending()
+		var after := metrics(game)
+		var saved: Error = game.save_session()
+		game._set_aim(360); game._attempt_drop()
+		var dropped: int = game.spawn_count
+		# No external callback is generated while paused; process the empty queue repeatedly.
+		for i in range(120): game.merge_manager._physics_process(1.0/120.0)
+		var loop_pending: int = game.merge_manager.pending.size()
+		var blocked_unchanged := true
+		for i in range(120):
+			if game.merge_manager.request_merge(first,second): blocked_unchanged = false; game.merge_manager._commit_pending()
+		for body in blockers: game.pieces.remove_child(body); body.queue_free()
+		var retry: bool = game.merge_manager.request_merge(first,second)
+		game.merge_manager._commit_pending()
+		finish(int(cmd.id), {"no_point":no_point,"reserved":reserved,"after":after,"saved":saved,"dropped":dropped,"loop_pending":loop_pending,"blocked_unchanged":blocked_unchanged,"retry":retry,"final":metrics(game)}); return
+	if op == "consecutive":
+		var game = await fresh(true)
+		game.merge_manager.set_physics_process(false); get_tree().paused = true
+		var bodies: Array[Animal] = []
+		for x in [200,236,484,520]:
+			var body: Animal = game.create_animal(game.animals[0], Vector2(x,800)); body.freeze = true; bodies.append(body)
+		var r1: bool = game.merge_manager.request_merge(bodies[0],bodies[1]); game.merge_manager._commit_pending()
+		var s1: Error = game.save_session()
+		var r2: bool = game.merge_manager.request_merge(bodies[2],bodies[3]); game.merge_manager._commit_pending()
+		var s2: Error = game.save_session()
+		var data := metrics(game); data.r1 = r1; data.r2 = r2; data.s1 = s1; data.s2 = s2
+		finish(int(cmd.id),data); return
+	if op == "mixed_cancel":
+		var game = await fresh(false)
+		game.merge_manager.set_physics_process(false); pair(game)
+		for y in [680,820,960]:
+			for x in [220,360,500]:
+				var blocker: Animal = game.create_animal(game.animals[11],Vector2(x,y)); blocker.freeze = true
+		var c: Animal = game.create_animal(game.animals[0],Vector2(342,350)); c.freeze = true
+		var d: Animal = game.create_animal(game.animals[0],Vector2(378,350)); d.freeze = true
+		get_tree().paused = true
+		var aok: bool = game.merge_manager.request_merge(first,second)
+		var bok: bool = game.merge_manager.request_merge(c,d)
+		game.merge_manager._commit_pending()
+		finish(int(cmd.id), {"both_reserved":aok and bok,"first_unlocked":not first.merge_locked and not second.merge_locked,"count":game.pieces.get_child_count(),"score":game.score,"merges":game.merge_manager.merge_count,"pending":game.merge_manager.pending.size()}); return
+	if op == "physical":
+		var game = await fresh(false)
+		game.create_animal(game.animals[1], Vector2(360,1071))
+		game.create_animal(game.animals[0], Vector2(360,980))
+		game.create_animal(game.animals[0], Vector2(360,880))
+		for i in range(600):
+			await get_tree().physics_frame
+			if game.merge_manager.merge_count >= 2: break
+		var chain := {"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}
+		game = await fresh(false)
+		game.create_animal(game.animals[11], Vector2(360,969))
+		game.create_animal(game.animals[11], Vector2(360,650))
+		for i in range(600):
+			await get_tree().physics_frame
+			if game.merge_manager.merge_count >= 1: break
+		var golden := {"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}
+		game = await fresh(false)
+		for point in [Vector2(220,1076),Vector2(220,900),Vector2(500,1076),Vector2(500,900)]:
+			game.create_animal(game.animals[0], point)
+		for i in range(600):
+			await get_tree().physics_frame
+			if game.merge_manager.merge_count >= 2: break
+		var simultaneous := {"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}
+		game = await fresh(false)
+		for point in [Vector2(342,1076),Vector2(378,1076),Vector2(360,900)]:
+			game.create_animal(game.animals[0], point)
+		for i in range(600):
+			await get_tree().physics_frame
+			if game.merge_manager.merge_count >= 1: break
+		for i in range(30): await get_tree().physics_frame
+		var triple := {"merges":game.merge_manager.merge_count,"score":game.score,"count":game.pieces.get_child_count(),"pending":game.merge_manager.pending.size()}
+		finish(int(cmd.id), {"chain":chain,"golden":golden,"simultaneous":simultaneous,"triple":triple}); return
+	var game = get_tree().current_scene
+	if not game or not game.has_method("save_session"):
+		finish(int(cmd.id), {"error":"game unavailable"}); return
+	var result: Variant = null
+	if op == "reserve": result = game.merge_manager.request_merge(first,second)
+	# QA isolation for a same-request readback retry: stop the periodic
+	# autosave from superseding the deliberately faulted request.
+	elif op == "suspend_autosave": game.set_physics_process(false)
+	# QA isolation: drop an already scheduled deferred autosave so it cannot
+	# write a session-only commit between fixture commands.
+	elif op == "drain_autosave":
+		game.save_scheduled = false
+		game.autosave_elapsed = 0.0
+	elif op == "save": result = game.save_session()
+	elif op == "score_427":
+		game.score = 427; game.best_score = 427; game.progression.best_score = 427
+		result = game.save_session()
+	elif op == "score_587":
+		game.score = 587; game.best_score = 587; game.progression.best_score = 587
+	elif op == "commit": game.merge_manager._commit_pending()
+	# QA-only: exercise the real power-up checkpoint commit path (power-up
+	# record first, then the session primary) used by terminal/undo commits,
+	# without changing terminal game state.
+	elif op == "checkpoint_powerup": result = game._write_session_snapshot(game._session_snapshot(), true)
+	elif op == "pause" or op == "resume": game._toggle_pause()
+	elif op == "undo":
+		game.undo_snapshot = game._session_snapshot(true,true)
+		game._request_undo()
+	elif op == "remove":
+		game._toggle_remove(); game._commit_remove(first)
+	elif op == "menu": game._main_menu()
+	elif op == "restart":
+		game.merge_manager.commit_scheduled = true
+		game.merge_manager.call_deferred("_commit_pending")
+		game._restart()
+		for i in range(8): await get_tree().process_frame
+		var current = get_tree().current_scene
+		finish(int(cmd.id), {"scene":current.scene_file_path,"count":current.pieces.get_child_count(),"score":current.score,"pending":current.merge_manager.pending.size(),"merges":current.merge_manager.merge_count}); return
+	elif op == "gameover":
+		first.position = Vector2(342,450); first.supported = true
+		game.danger_monitor._physics_process(game.danger_monitor.grace_period + 0.1)
+		for i in range(5): await get_tree().process_frame
+	elif op != "details":
+		finish(int(cmd.id), {"error":"unknown operation"}); return
+	var out := metrics(game); out.result = result; finish(int(cmd.id), out)

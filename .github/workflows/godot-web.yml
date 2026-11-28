@@ -1,0 +1,380 @@
+name: Godot Web phase A
+on:
+  workflow_dispatch:
+    inputs:
+      scenarios:
+        description: "Comma-separated undo, remove, fixture-rescue, rescue (natural), immediate"
+        default: 'undo,remove,fixture-rescue,immediate'
+        required: true
+      browsers:
+        description: "Comma-separated chromium, firefox"
+        default: 'chromium,firefox'
+        required: true
+      web_touch:
+        description: 'Use simulated Chromium touch in power-up fixture scenario'
+        default: 'false'
+        required: true
+      ui_mode:
+        description: "UI: none, screens, matrix, touch, locale, gameplay-locale, theme, theme-matrix, outcomes, lifecycle, navigation, touch-navigation, tutorial-locale, audio, audio-touch, audio-production, sdk-real, sdk-blocked, sdk-mute, sdk-production, reward-demo, reward-mock, reward-basic, reward-blocked, reward-production"
+        default: 'none'
+        required: true
+      perf_baseline:
+        description: 'Use 32d50e5 baseline runtime for reward-perf'
+        default: 'false'
+      perf_process:
+        description: 'Measure Linux browser process-tree CPU/RSS'
+        default: 'false'
+      perf_compare_v0904:
+        description: 'On same runner, benchmark current then unchanged V0.9.0.4 baseline'
+        default: 'false'
+      perf_aba:
+        description: 'After paired run, measure current again and reduced effects (ABA order)'
+        default: 'false'
+      perf_isolation:
+        description: 'Same-runner synthetic visual component isolation sequence'
+        default: 'false'
+      perf_reference:
+        description: 'Paired reference: base or pre-ui-optimization'
+        default: 'base'
+      perf_variant:
+        description: 'Physics benchmark only: baseline or predictive-bounds'
+        default: 'baseline'
+      perf_ticks:
+        description: 'Test-only physics tick rate: 60, 90 or 120'
+        default: '120'
+      perf_seconds:
+        description: 'Benchmark seconds per repetition'
+        default: '60'
+      perf_repeats:
+        description: 'Benchmark repetitions'
+        default: '3'
+      perf_throttle:
+        description: 'Chromium CPU throttle factor'
+        default: '1'
+      ui_locale:
+        description: 'UI locale: en, az, tr, ru'
+        default: 'en'
+        required: true
+      ui_browser:
+        description: "UI: chromium or firefox"
+        default: 'chromium'
+        required: true
+      b3_sessions:
+        description: 'B.3 natural sessions per browser (gameover scenario)'
+        default: '3'
+
+permissions:
+  contents: write
+  checks: write
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inspect official Godot asset metadata
+        if: ${{ inputs.ui_mode == 'sdk-inspect' }}
+        run: |
+          mkdir -p /tmp/web-qa
+          curl -L --max-time 45 -sS https://store.godotengine.org/asset/crazygames/crazysdk/ -o /tmp/web-qa/store.txt
+          head -c 1000 /tmp/web-qa/store.txt
+          curl -fL --max-time 45 -sS https://store.godotengine.org/asset/crazygames/crazysdk/download/7510/ -o /tmp/sdk-asset.zip
+          file /tmp/sdk-asset.zip | tee /tmp/web-qa/sdk-file.txt
+          sha256sum /tmp/sdk-asset.zip | tee /tmp/web-qa/sdk-sha.txt
+          base64 -w0 /tmp/sdk-asset.zip > /tmp/web-qa/sdk-base64.txt
+      - name: Install Godot, Web templates and browsers
+        if: ${{ inputs.ui_mode != 'sdk-inspect' }}
+        shell: bash
+        run: |
+          set -e -o pipefail
+          mkdir -p /tmp/web-qa
+          exec > >(tee /tmp/web-qa/install.log) 2>&1
+          set -x
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick tesseract-ocr pulseaudio
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz -O /tmp/templates.tpz
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable" /tmp/templates
+          unzip -q /tmp/templates.tpz -d /tmp/templates
+          cp -a /tmp/templates/templates/. "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          npm ci --prefix MergeAnimals/tests/web
+          cd MergeAnimals/tests/web && npx playwright install --with-deps chromium firefox
+      - name: Export and browser power-up tests over local HTTP
+        if: ${{ inputs.ui_mode != 'sdk-inspect' }}
+        env:
+          WEB_SCENARIOS: ${{ inputs.scenarios }}
+          WEB_BROWSERS: ${{ inputs.browsers }}
+          WEB_TOUCH: ${{ inputs.web_touch }}
+          UI_MODE: ${{ inputs.ui_mode }}
+          UI_BROWSER: ${{ inputs.ui_browser }}
+          UI_LOCALE: ${{ inputs.ui_locale }}
+          PERF_BASELINE: ${{ inputs.perf_baseline }}
+          PERF_PROCESS: ${{ inputs.perf_process }}
+          PERF_COMPARE_V0904: ${{ inputs.perf_compare_v0904 }}
+          PERF_ABA: ${{ inputs.perf_aba }}
+          PERF_REFERENCE: ${{ inputs.perf_reference }}
+          PERF_ISOLATION: ${{ inputs.perf_isolation }}
+          PERF_VARIANT: ${{ inputs.perf_variant }}
+          PERF_TICKS: ${{ inputs.perf_ticks }}
+          PERF_SECONDS: ${{ inputs.perf_seconds }}
+          PERF_REPEATS: ${{ inputs.perf_repeats }}
+          PERF_THROTTLE: ${{ inputs.perf_throttle }}
+        run: |
+          set -e -o pipefail
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          mkdir -p /tmp/web-test /tmp/web-qa
+          # Godot 4.7.2 headless import intermittently aborts with glibc heap
+          # corruption after a successful reimport (see A.4 report). One clean
+          # retry is a CI reliability measure, not a product result.
+          if ! "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/web-qa/export.log 2>&1; then
+            echo 'editor import attempt 1 failed; clean retry' >> /tmp/web-qa/export.log
+            rm -rf MergeAnimals/.godot
+            "$GODOT" --headless --path MergeAnimals --editor --quit >> /tmp/web-qa/export.log 2>&1
+          fi
+          if [ "$UI_MODE" = perf ]; then for sprite in mouse hamster rabbit; do cp "MergeAnimals/assets/animals/$sprite/normal.png.import" "/tmp/web-qa/$sprite.import.txt"; done; fi
+          if [ "$UI_MODE" = sdk-production ]; then PRESET='Web CrazyGames (experimental)'; elif [ "$UI_MODE" = reward-production ]; then PRESET='Web CrazyGames Rewarded (full-launch opt-in)'; else PRESET='Web (single-threaded)'; fi
+          "$GODOT" --headless --path MergeAnimals --export-release "$PRESET" /tmp/web-test/index.html >> /tmp/web-qa/export.log 2>&1
+          python3 MergeAnimals/tests/performance/audit_pck.py /tmp/web-test/index.pck | tee /tmp/web-qa/pck-audit.log
+          ls -l /tmp/web-test | tee /tmp/web-qa/files.log
+          grep -E 'GODOT_THREADS_ENABLED *= *false' /tmp/web-test/index.html | head -1 | tee /tmp/web-qa/threads.log
+          python3 -m http.server 8765 --directory /tmp/web-test >/tmp/web-qa/server.log 2>&1 &
+          SERVER=$!
+          trap 'kill $SERVER 2>/dev/null || true' EXIT
+          URL=http://127.0.0.1:8765/
+          if [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ] || [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ] || [[ "$UI_MODE" == reward-* ]]; then
+            # A virtual sink permits real browser audio graph processing in CI;
+            # this is still not a physical speaker or listening test.
+            pulseaudio --start --exit-idle-time=-1
+            pactl load-module module-null-sink sink_name=qa_audio >/dev/null
+            pactl set-default-sink qa_audio
+          fi
+          if [ "$UI_MODE" = perf ]; then
+            if [ "$PERF_BASELINE" = true ]; then
+              git fetch --depth=1 origin 32d50e50d87c5903287fe2b823ac0239fe2c2405
+              mkdir -p /tmp/perf-old; git archive 32d50e50d87c5903287fe2b823ac0239fe2c2405 MergeAnimals | tar -x -C /tmp/perf-old
+              cp -a /tmp/perf-old/MergeAnimals /tmp/perf-qa-project
+            else
+              cp -a MergeAnimals /tmp/perf-qa-project
+            fi
+            if [ "$PERF_VARIANT" = predictive-bounds ]; then python3 MergeAnimals/tests/physics/apply_floor_guard.py /tmp/perf-qa-project bounds; elif [ "$PERF_VARIANT" != baseline ]; then echo "Invalid PERF_VARIANT"; exit 1; fi
+            if [ "$PERF_ISOLATION" = true ]; then
+              # e034511 is project-authored private-test artwork, not the
+              # rights-unknown historical legacy images; QA build only.
+              git fetch --no-tags --depth=1 origin e034511e234f6b6314e81dbeaa8ca7dd02df0ced
+              mkdir -p /tmp/perf-qa-project/assets/perf_baseline
+              git show e034511e234f6b6314e81dbeaa8ca7dd02df0ced:MergeAnimals/assets/animals/mouse/normal.png > /tmp/mouse_old.png
+              convert /tmp/mouse_old.png -resize 256x256 /tmp/perf-qa-project/assets/perf_baseline/mouse_old.png
+            fi
+            cp MergeAnimals/tests/performance/PerfProbe.gd /tmp/perf-qa-project/scripts/PerfProbe.gd
+            sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/perf-qa-project/project.godot
+            mkdir -p /tmp/web-test/perf-qa
+            "$GODOT" --headless --path /tmp/perf-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/perf-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/perf-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            kill $SERVER; wait $SERVER 2>/dev/null || true
+            WEB_ROOT=/tmp/web-test/perf-qa python3 MergeAnimals/tests/performance/serve.py >/tmp/web-qa/perf-server.log 2>&1 & SERVER=$!
+            for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/perf-server.log; exit 1; fi; sleep 1; done
+            curl -sf -o /dev/null http://127.0.0.1:8765/
+            URL=http://127.0.0.1:8765/; TEST=benchmark.mjs
+            export PERF_BROWSER="$UI_BROWSER" PERF_SCENARIO="$UI_LOCALE" PERF_SECONDS PERF_REPEATS PERF_THROTTLE PERF_PROCESS PERF_TICKS
+          elif [[ "$UI_MODE" == reward-* ]] && [ "$UI_MODE" != reward-production ]; then
+            if [ "$UI_MODE" = reward-perf ] && [ "$PERF_BASELINE" = true ]; then
+              git fetch --depth=1 origin 32d50e50d87c5903287fe2b823ac0239fe2c2405
+              mkdir -p /tmp/perf-old; git archive 32d50e50d87c5903287fe2b823ac0239fe2c2405 MergeAnimals | tar -x -C /tmp/perf-old
+              cp -a /tmp/perf-old/MergeAnimals /tmp/reward-qa-project
+            else
+              cp -a MergeAnimals /tmp/reward-qa-project
+            fi
+            cp MergeAnimals/tests/web/RewardProbe.gd /tmp/reward-qa-project/scripts/ads/RewardProbe.gd
+            sed -i '/^\[autoload\]/a RewardProbe="*res://scripts/ads/RewardProbe.gd"' /tmp/reward-qa-project/project.godot
+            mkdir -p /tmp/web-test/reward-qa
+            "$GODOT" --headless --path /tmp/reward-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            if [ "$UI_MODE" = reward-basic ]; then PRESET='Web CrazyGames (experimental)'; else PRESET='Web CrazyGames Rewarded (full-launch opt-in)'; fi
+            "$GODOT" --headless --path /tmp/reward-qa-project --export-release "$PRESET" /tmp/web-test/reward-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/reward-qa/; TEST=reward-rescue.mjs
+            export REWARD_CASE="${UI_MODE#reward-}"
+          elif [ "$UI_MODE" = sdk-real ] || [ "$UI_MODE" = sdk-blocked ] || [ "$UI_MODE" = sdk-mute ]; then
+            cp -a MergeAnimals /tmp/sdk-qa-project
+            cp /tmp/sdk-qa-project/tests/web/SdkProbe.gd /tmp/sdk-qa-project/scripts/ads/SdkProbe.gd
+            sed -i '/^\[autoload\]/a SdkProbe="*res://scripts/ads/SdkProbe.gd"' /tmp/sdk-qa-project/project.godot
+            mkdir -p /tmp/web-test/sdk-qa
+            "$GODOT" --headless --path /tmp/sdk-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
+            export SDK_CASE="${UI_MODE#sdk-}"
+          elif [ "$UI_MODE" = merge-verification ] || [ "$UI_MODE" = placement-a3 ] || [ "$UI_MODE" = confirm-a3-baseline ] || [ "$UI_MODE" = confirm-a3-fixed ] || [ "$UI_MODE" = contact-retry-a4 ] || [ "$UI_MODE" = confirm-a4 ]; then
+            cp -a MergeAnimals /tmp/verify-project
+            cp MergeAnimals/tests/web/MergeVerificationProbe.gd /tmp/verify-project/scripts/MergeVerificationProbe.gd
+            sed -i '/^\[autoload\]/a MergeVerificationProbe="*res://scripts/MergeVerificationProbe.gd"' /tmp/verify-project/project.godot
+            mkdir -p /tmp/web-test/verify-qa
+            "$GODOT" --headless --path /tmp/verify-project --editor --quit >> /tmp/web-qa/verify-export.log 2>&1
+            "$GODOT" --headless --path /tmp/verify-project --export-release 'Web (single-threaded)' /tmp/web-test/verify-qa/index.html >> /tmp/web-qa/verify-export.log 2>&1
+            URL=http://127.0.0.1:8765/verify-qa/; if [ "$UI_MODE" = placement-a3 ]; then TEST=placement-a3.mjs; elif [ "$UI_MODE" = contact-retry-a4 ]; then TEST=contact-retry-a4.mjs; elif [ "$UI_MODE" = confirm-a4 ]; then TEST=confirmation-a4.mjs; elif [[ "$UI_MODE" = confirm-a3-* ]]; then TEST=confirmation-a3.mjs; else TEST=merge-verification.mjs; fi
+          elif [ "$UI_MODE" = quality-matrix ] || [ "$UI_MODE" = gameover-investigation ] || [ "$UI_MODE" = natural-observe ] || [ "$UI_MODE" = natural-long ] || [ "$UI_MODE" = merge-deadlock ]; then
+            # Test-only probe build; production export above is untouched.
+            cp -a MergeAnimals /tmp/quality-project
+            cp MergeAnimals/tests/web/QualityMatrixProbe.gd /tmp/quality-project/scripts/QualityMatrixProbe.gd
+            sed -i '/^\[autoload\]/a QualityMatrixProbe="*res://scripts/QualityMatrixProbe.gd"' /tmp/quality-project/project.godot
+            mkdir -p /tmp/web-test/quality-qa
+            "$GODOT" --headless --path /tmp/quality-project --editor --quit >> /tmp/web-qa/quality-export.log 2>&1
+            "$GODOT" --headless --path /tmp/quality-project --export-release 'Web (single-threaded)' /tmp/web-test/quality-qa/index.html >> /tmp/web-qa/quality-export.log 2>&1
+            URL=http://127.0.0.1:8765/quality-qa/
+            if [ "$UI_MODE" = gameover-investigation ]; then TEST=gameover-save-investigation.mjs; elif [ "$UI_MODE" = natural-observe ] || [ "$UI_MODE" = natural-long ]; then TEST=natural-gameover-save.mjs; elif [ "$UI_MODE" = merge-deadlock ]; then TEST=merge-deadlock.mjs; else TEST=quality-matrix.mjs; fi
+          elif [[ "$UI_MODE" == natural-b3-* ]]; then
+            # Unmodified production export: real browser input, no probe, no
+            # prepared board. The scenario only chooses which flow to drive.
+            mkdir -p /tmp/b3-profile
+            TEST=natural-b3.mjs
+            export NATURAL_SCENARIO="${UI_MODE#natural-b3-}"
+            export NATURAL_PROFILE="/tmp/b3-profile/$UI_BROWSER"
+            export NATURAL_SESSIONS="${B3_SESSIONS:-3}"
+          elif [ "$UI_MODE" = natural-gameover ]; then
+            # Unmodified production export, real browser inputs, no board fixture.
+            TEST=natural-gameover-save.mjs
+          elif [ "$UI_MODE" = visual-modal-showcase ]; then
+            TEST=visual-modal-showcase.mjs
+          elif [ "$UI_MODE" = visual-showcase ]; then
+            # Production Web export; capture automated mouse gameplay, no debug probe.
+            TEST=visual-showcase.mjs
+          elif [ "$UI_MODE" = physics-capture ]; then
+            cp -a MergeAnimals /tmp/physics-capture-project
+            cp MergeAnimals/tests/web/PhysicsCapture.gd /tmp/physics-capture-project/scripts/PhysicsCapture.gd
+            sed -i '/^\[autoload\]/a PhysicsCapture="*res://scripts/PhysicsCapture.gd"' /tmp/physics-capture-project/project.godot
+            mkdir -p /tmp/web-test/physics-capture
+            "$GODOT" --headless --path /tmp/physics-capture-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/physics-capture-project --export-release 'Web (single-threaded)' /tmp/web-test/physics-capture/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/physics-capture/; TEST=physics-capture.mjs
+          elif [ "$UI_MODE" = save-integrity ]; then
+            # Generate genuine prior-version save files with the historical
+            # project and its own existing write-phase test. Old assets stay
+            # outside all deliverable packages.
+            for pair in v0.6.1:ae7d0ec3185575e0ba834714b8a82f90c925cdee v0.7.0:63f21273fe252824ca552257931ec2aa780a7d4c; do
+              OLD_VERSION="${pair%%:*}"; OLD_COMMIT="${pair#*:}"
+              git fetch --no-tags --depth=1 origin "$OLD_COMMIT"
+              mkdir -p "/tmp/old-$OLD_VERSION" "/tmp/old-user-$OLD_VERSION"
+              git archive "$OLD_COMMIT" MergeAnimals | tar -x -C "/tmp/old-$OLD_VERSION"
+              if ! XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" "$GODOT" --headless --path "/tmp/old-$OLD_VERSION/MergeAnimals" --editor --quit >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1; then
+                echo 'Historical import failed; one clean retry' >> "/tmp/web-qa/$OLD_VERSION-generation.log"
+                rm -rf "/tmp/old-$OLD_VERSION/MergeAnimals/.godot"
+                XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" "$GODOT" --headless --path "/tmp/old-$OLD_VERSION/MergeAnimals" --editor --quit >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1
+              fi
+              SESSION_PHASE=write XDG_DATA_HOME="/tmp/old-user-$OLD_VERSION" timeout 600 "$GODOT" --headless --fixed-fps 60 --path "/tmp/old-$OLD_VERSION/MergeAnimals" --script res://tests/integration/day61_session_process.gd >> "/tmp/web-qa/$OLD_VERSION-generation.log" 2>&1
+              python3 - "$OLD_VERSION" "$OLD_COMMIT" <<'PYFIX'
+          import json,pathlib,sys
+          version,commit=sys.argv[1:]
+          root=pathlib.Path('/tmp/old-user-'+version)
+          paths=[p for p in root.rglob('wild_garden*') if p.is_file() and not p.name.endswith(('.tmp','.bak.tmp'))]
+          files={p.name:p.read_text() for p in paths}
+          if 'wild_garden_session.json' not in files: raise RuntimeError('historical session missing '+str(root))
+          fixture=json.dumps({'source':'historical Godot '+commit+' write-phase','files':files},indent=2)
+          pathlib.Path('MergeAnimals/tests/web/fixtures/'+version+'-captured.json').write_text(fixture)
+          pathlib.Path('/tmp/web-qa/'+version+'-captured.json').write_text(fixture)
+          PYFIX
+            done
+            # Isolated probe build; the standard export above remains unmodified.
+            cp -a MergeAnimals /tmp/save-qa-project
+            cp MergeAnimals/tests/web/SaveIntegrityProbe.gd /tmp/save-qa-project/scripts/save/SaveIntegrityProbe.gd
+            sed -i '/^\[autoload\]/a SaveIntegrityProbe="*res://scripts/save/SaveIntegrityProbe.gd"' /tmp/save-qa-project/project.godot
+            mkdir -p /tmp/web-test/save-qa
+            "$GODOT" --headless --path /tmp/save-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/save-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/save-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/save-qa/; TEST=save-integrity.mjs
+          elif [ "$UI_MODE" = save-timing ]; then
+            TEST=save-timing.mjs
+          elif [ "$UI_MODE" = audio-production ] || [ "$UI_MODE" = sdk-production ] || [ "$UI_MODE" = reward-production ]; then
+            TEST=audio-production.mjs
+          elif [ "$UI_MODE" = audio ] || [ "$UI_MODE" = audio-touch ]; then
+            # Separate instrumented build. The release ZIP remains untouched.
+            cp -a MergeAnimals /tmp/audio-qa-project
+            cp /tmp/audio-qa-project/tests/web/AudioProbe.gd /tmp/audio-qa-project/scripts/audio/AudioProbe.gd
+            sed -i '/^\[autoload\]/a AudioProbe="*res://scripts/audio/AudioProbe.gd"' /tmp/audio-qa-project/project.godot
+            mkdir -p /tmp/web-test/audio-qa
+            "$GODOT" --headless --path /tmp/audio-qa-project --editor --quit >> /tmp/web-qa/export.log 2>&1
+            "$GODOT" --headless --path /tmp/audio-qa-project --export-release 'Web (single-threaded)' /tmp/web-test/audio-qa/index.html >> /tmp/web-qa/export.log 2>&1
+            URL=http://127.0.0.1:8765/audio-qa/; TEST=audio-web.mjs
+          elif [ "$UI_MODE" = none ]; then TEST=powerup-persistence.mjs; else TEST=ui-responsive.mjs; fi
+          WEB_URL="$URL" WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node "MergeAnimals/tests/web/$TEST" 2>&1 | tee /tmp/web-qa/browser.log
+          if [ "$UI_MODE" = perf ] && [ "$PERF_ISOLATION" = true ]; then
+            cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/isolation-normal.json
+            for variant in no-blink old-texture per-node reduced golden normal-repeat; do
+              visual="$variant"; effects=normal
+              if [ "$variant" = reduced ]; then visual=normal; effects=reduced; fi
+              if [ "$variant" = normal-repeat ]; then visual=normal; fi
+              PERF_VISUAL_MODE="$visual" PERF_EFFECTS="$effects" WEB_URL="$URL" WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee "/tmp/web-qa/isolation-${variant}.log"
+              cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" "/tmp/web-qa/isolation-${variant}.json"
+            done
+          fi
+          if [ "$UI_MODE" = perf ] && [ "$PERF_COMPARE_V0904" = true ]; then
+            cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/after-metrics.json
+            # Identical probe and browser harness, sequential on this exact runner.
+            if [ "$PERF_REFERENCE" = base ]; then
+              PERF_REF=5a50de4d3b22118fc8044f973a6c2aeee620e7e0
+            elif [ "$PERF_REFERENCE" = pre-ui-optimization ]; then
+              PERF_REF=51e35b0e8b96f788f60f35354e886447a2b448a8
+            elif [ "$PERF_REFERENCE" = pre-visual-scheduler ]; then
+              PERF_REF=3bd61aa75a6e528929ca75bf6363d9355f9b1a0d
+            else
+              echo 'Invalid paired benchmark reference'; exit 1
+            fi
+            echo "Paired reference $PERF_REF" | tee /tmp/web-qa/reference.txt
+            git fetch --depth=1 origin "$PERF_REF"
+            mkdir -p /tmp/visual-baseline
+            git archive "$PERF_REF" MergeAnimals | tar -x -C /tmp/visual-baseline
+            cp MergeAnimals/tests/performance/PerfProbe.gd /tmp/visual-baseline/MergeAnimals/scripts/PerfProbe.gd
+            sed -i '/^\[autoload\]/a PerfProbe="*res://scripts/PerfProbe.gd"' /tmp/visual-baseline/MergeAnimals/project.godot
+            mkdir -p /tmp/web-test/visual-baseline
+            "$GODOT" --headless --path /tmp/visual-baseline/MergeAnimals --editor --quit >> /tmp/web-qa/baseline-export.log 2>&1
+            "$GODOT" --headless --path /tmp/visual-baseline/MergeAnimals --export-release 'Web (single-threaded)' /tmp/web-test/visual-baseline/index.html >> /tmp/web-qa/baseline-export.log 2>&1
+            kill $SERVER; wait $SERVER 2>/dev/null || true
+            WEB_ROOT=/tmp/web-test/visual-baseline python3 MergeAnimals/tests/performance/serve.py >/tmp/web-qa/baseline-server.log 2>&1 & SERVER=$!
+            for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/baseline-server.log; exit 1; fi; sleep 1; done
+            WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee /tmp/web-qa/baseline-browser.log
+            cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/before-metrics.json
+            if [ "$PERF_ABA" = true ]; then
+              kill $SERVER; wait $SERVER 2>/dev/null || true
+              WEB_ROOT=/tmp/web-test/perf-qa python3 MergeAnimals/tests/performance/serve.py >/tmp/web-qa/repeat-server.log 2>&1 & SERVER=$!
+              for i in $(seq 1 120); do if curl -s -o /dev/null http://127.0.0.1:8765/; then break; fi; if ! kill -0 $SERVER 2>/dev/null; then cat /tmp/web-qa/repeat-server.log; exit 1; fi; sleep 1; done
+              WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee /tmp/web-qa/after-repeat-browser.log
+              cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/after-repeat-metrics.json
+              PERF_EFFECTS=reduced WEB_URL=http://127.0.0.1:8765/ WEB_QA_DIR=/tmp/web-qa LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a -s '-screen 0 1920x1400x24' node MergeAnimals/tests/web/benchmark.mjs 2>&1 | tee /tmp/web-qa/reduced-browser.log
+              cp "/tmp/web-qa/${UI_BROWSER}-${UI_LOCALE}-metrics.json" /tmp/web-qa/reduced-metrics.json
+            fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-phase-a
+          path: |
+            /tmp/web-test
+            /tmp/web-qa/*.log
+            /tmp/web-qa/*.json
+            /tmp/web-qa/*.png
+            /tmp/web-qa/*.txt
+            /tmp/web-qa/*.webm
+            /tmp/web-qa/*.ogg
+          if-no-files-found: warn
+      - name: Transport test build and evidence as temporary Git blob
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          UI_MODE: ${{ inputs.ui_mode }}
+        run: |
+          set -e -o pipefail
+          python3 - <<'PY' 2>&1 | tee /tmp/transport.log
+          import base64,hashlib,json,os,pathlib,subprocess,zipfile
+          archive=pathlib.Path('/tmp/web-evidence.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for root, prefix in [(pathlib.Path('/tmp/web-test'),'web'),(pathlib.Path('/tmp/web-qa'),'qa')]:
+                  if root.exists() and not (prefix == 'web' and os.environ.get('UI_MODE') == 'perf'):
+                      for f in sorted(root.rglob('*')):
+                          if f.is_file() and (prefix == 'web' or (f.parent == root and f.name != 'install.log')):
+                              z.write(f, str(pathlib.Path(prefix)/f.relative_to(root)))
+          payload=pathlib.Path('/tmp/web-blob.json')
+          payload.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          result=subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(payload),'--jq','.sha'],check=True,text=True,stdout=subprocess.PIPE).stdout.strip()
+          print('::notice::WEB_EVIDENCE blob_sha=%s sha256=%s bytes=%d' % (result,hashlib.sha256(archive.read_bytes()).hexdigest(),archive.stat().st_size), flush=True)
+          PY

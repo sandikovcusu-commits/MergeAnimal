@@ -1,0 +1,12 @@
+PASS fixture initial session saved {"aggregate":"pending","current_revision":"43f1e304035358355856b2dddd84ca4f02c5cc864751eeaac2a12012ea85ecb5","powerup_generation":-1,"powerup_status":"missing","readback":"pending","requested_revision":"43f1e304035358355856b2dddd84ca4f02c5cc864751eeaac2a12012ea85ecb5","scoped":"pending","score":0,"status":"pending","verified_revision":"","verified_score":-1,"written_generation":1,"written_revision":"43f1e304035358355856b2dddd84ca4f02c5cc864751eeaac2a12012ea85ecb5"}
+PASS session record verified {}
+FAIL power-up record verified {}
+FAIL scoped aggregate verified only when both required files verify {"aggregate":"verified","current_revision":"43f1e304035358355856b2dddd84ca4f02c5cc864751eeaac2a12012ea85ecb5","powerup_generation":-1,"powerup_status":"missing","readback":"verified","requested_revision":"43f1e304035358355856b2dddd84ca4f02c5cc864751eeaac2a12012ea85ecb5","scoped":"verified","score":0,"status":"verified","verified_revision":"43f1e304035358355856b2dddd84ca4f02c5cc864751eeaac2a12012ea85ecb5","verified_score":0,"written_generation":61,"written_revision":"43f1e304035358355856b2dddd84ca4f02c5cc864751eeaac2a12012ea85ecb5"}
+CONFIRM_A4_ERROR page.evaluate: can't access property "expected", t.records[p] is undefined
+@debugger eval code line 290 > eval:1:331
+evaluate@debugger eval code:292:16
+@debugger eval code:1:44
+
+    at blockReads (/home/runner/work/MergeAnimal/MergeAnimal/MergeAnimals/tests/web/confirmation-a4.mjs:12:46)
+    at /home/runner/work/MergeAnimal/MergeAnimal/MergeAnimals/tests/web/confirmation-a4.mjs:20:8
+CONFIRM_A4 browser=firefox checks=4 failures=3

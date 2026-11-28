@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="AnimalData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/AnimalData.gd" id="1"]
+
+[ext_resource type="Texture2D" path="res://assets/animals/raccoon/normal.png" id="normal_texture"]
+
+[ext_resource type="Texture2D" path="res://assets/animals/raccoon/blink.png" id="blink_texture"]
+[ext_resource type="Texture2D" path="res://assets/animals/raccoon/happy.png" id="happy_texture"]
+[ext_resource type="Texture2D" path="res://assets/animals/raccoon/surprise.png" id="surprise_texture"]
+
+[resource]
+script = ExtResource("1")
+id = &"raccoon"
+display_name = "Raccoon"
+translation_key = &"ANIMAL_RACCOON"
+level = 7
+radius = 59.0
+body_mass = 3.6
+friction = 0.5
+bounce = 0.1
+linear_damping = 0.0
+angular_damping = 0.0
+spawn_weight = 0.0
+next_evolution_id = &"koala"
+golden_terminal = false
+merge_score = 48
+sprite = ExtResource("normal_texture")
+blink_sprite = ExtResource("blink_texture")
+happy_sprite = ExtResource("happy_texture")
+surprise_sprite = ExtResource("surprise_texture")
+placeholder_color = Color(0.619608, 0.603922, 0.600000, 1)
+unlock_id = &"raccoon"

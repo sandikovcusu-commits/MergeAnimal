@@ -1,0 +1,60 @@
+OCR tutorial-actual-viewport "a WILD GARDEN OD a NEXT » MOUSE (Remove Evolution guide tis"
+OCR tutorial "‘ WILD GARDEN (wa) SCORE 0 NEXT - MOUSE BEST 0 Saving checkpoint... G Remove: 1 iG noundo_ | Oo & left or right to aim °@"
+PASS Play opens tutorial stage zero
+NAV_LAYOUT tutorial 360x640 {"w":360,"h":640,"sw":360,"sh":640,"x":0,"y":0,"cw":360,"ch":640}
+PASS tutorial 360x640 canvas visible and no DOM overflow
+NAV_LAYOUT tutorial 393x873 {"w":393,"h":873,"sw":393,"sh":873,"x":0,"y":0,"cw":393,"ch":873}
+PASS tutorial 393x873 canvas visible and no DOM overflow
+NAV_LAYOUT tutorial 540x1170 {"w":540,"h":1170,"sw":540,"sh":1170,"x":0,"y":0,"cw":540,"ch":1170}
+PASS tutorial 540x1170 canvas visible and no DOM overflow
+NAV_LAYOUT tutorial 720x1280 {"w":720,"h":1280,"sw":720,"sh":1280,"x":0,"y":0,"cw":720,"ch":1280}
+PASS tutorial 720x1280 canvas visible and no DOM overflow
+NAV_LAYOUT tutorial 1366x768 {"w":1366,"h":768,"sw":1366,"sh":768,"x":0,"y":0,"cw":1366,"ch":768}
+PASS tutorial 1366x768 canvas visible and no DOM overflow
+NAV_LAYOUT tutorial 1920x1080 {"w":1920,"h":1080,"sw":1920,"sh":1080,"x":0,"y":0,"cw":1920,"ch":1080}
+PASS tutorial 1920x1080 canvas visible and no DOM overflow
+PASS one board input drops one animal near chosen x
+NAV_FIRST {"active":true,"ad_rescue_earned":false,"aim_x":260,"best_at_start":0,"best_score":0,"bodies":[{"angular_velocity":0,"danger":0,"eligible":true,"id":"mouse","rotation":0,"sleeping":true,"uid":1,"vx":0,"vy":0,"x":260,"y":1076.09826660156}],"combo_count":0,"combo_events":0,"combo_left":0,"cooldown_left":0,"current":"mouse","game_over_pending":false,"generation":26,"highest_level":1,"max_combo":0,"merge_count":0,"next":"mouse","next_body_uid":2,"progression":{"animals":{"bear":{"count":0,"date":""},"cat":{"count":0,"date":""},"dog":{"count":0,"date":""},"elephant":{"count":0,"date":""},"fox":{"count":0,"date":""},"hamster":{"count":0,"date":""},"koala":{"count":0,"date":""},"lion":{"count":0,"date":""},"mouse":{"count":1,"date":"2026-11-27 22:10:54"},"panda":{"count":0,"date":""},"rabbit":{"count":0,"date":""},"raccoon":{"count":0,"date":""}},"best_score":0,"completed_games":0,"golden_merges":0,"highest_animal":1,"max_combo":0,"play_seconds":24.4416666666659,"total_drops":1,"total_games":1,"total_merges":0,"version":1},"remove_remaining":1,"rescue_remaining":1,"rng_state":"-4307128509334707967","score":0,"score_untrusted":false,"session_id":"fe84d1e20fffc015a9a05daddb8901c3","session_version":3,"spawn_count":1,"tainted":false,"tutorial_stage":-1,"undo_remaining":1,"undo_snapshot":{"active":true,"ad_rescue_earned":false,"aim_x":260,"best_at_start":0,"best_score":0,"bodies":[],"combo_count":0,"combo_events":0,"combo_left":0,"cooldown_left":0,"current":"mouse","game_over_pending":false,"generation":0,"highest_level":1,"max_combo":0,"merge_count":0,"next":"mouse","next_body_uid":1,"progression":{"animals":{"bear":{"count":0,"date":""},"cat":{"count":0,"date":""},"dog":{"count":0,"date":""},"elephant":{"count":0,"date":""},"fox":{"count":0,"date":""},"hamster":{"count":0,"date":""},"koala":{"count":0,"date":""},"lion":{"count":0,"date":""},"mouse":{"count":0,"date":""},"panda":{"count":0,"date":""},"rabbit":{"count":0,"date":""},"raccoon":{"count":0,"date":""}},"best_score":0,"completed_games":0,"golden_merges":0,"highest_animal":0,"max_combo":0,"play_seconds":18.3833333333329,"total_drops":0,"total_games":1,"total_merges":0,"version":1},"remove_remaining":1,"rescue_remaining":1,"rng_state":"753578296992545687","score":0,"score_untrusted":false,"session_id":"fe84d1e20fffc015a9a05daddb8901c3","session_version":3,"spawn_count":0,"tainted":false,"tutorial_stage":-1,"undo_remaining":1,"undo_snapshot":{}}}
+OCR pause-actual-viewport "- WILD GARDEN mae] NEXT MOUSE Pau: Evolution guide Tiwi Bcd g oan &"
+OCR pause "e WILD GARDEN (wa) SCORE 0 NEXT - MOUSE BEST 0 Checkpoint saved G Remove: 1 iG vndo:a | Oo Pause Restart & Settings Main menu | @ °@"
+PASS Pause button opens overlay
+PASS Pause does not create a drop
+NAV_LAYOUT pause 360x640 {"w":360,"h":640,"sw":360,"sh":640,"x":0,"y":0,"cw":360,"ch":640}
+PASS pause 360x640 canvas visible and no DOM overflow
+NAV_LAYOUT pause 393x873 {"w":393,"h":873,"sw":393,"sh":873,"x":0,"y":0,"cw":393,"ch":873}
+PASS pause 393x873 canvas visible and no DOM overflow
+NAV_LAYOUT pause 540x1170 {"w":540,"h":1170,"sw":540,"sh":1170,"x":0,"y":0,"cw":540,"ch":1170}
+PASS pause 540x1170 canvas visible and no DOM overflow
+NAV_LAYOUT pause 720x1280 {"w":720,"h":1280,"sw":720,"sh":1280,"x":0,"y":0,"cw":720,"ch":1280}
+PASS pause 720x1280 canvas visible and no DOM overflow
+NAV_LAYOUT pause 1366x768 {"w":1366,"h":768,"sw":1366,"sh":768,"x":0,"y":0,"cw":1366,"ch":768}
+PASS pause 1366x768 canvas visible and no DOM overflow
+NAV_LAYOUT pause 1920x1080 {"w":1920,"h":1080,"sw":1920,"sh":1080,"x":0,"y":0,"cw":1920,"ch":1080}
+PASS pause 1920x1080 canvas visible and no DOM overflow
+OCR return-menu "Ny AERC eC Ill Db ‘ontinue game o Collection w Statistics Achievements Themes Challenges Settings Best score 0 Checkpoint ved"
+PASS Pause Main Menu returns to menu
+PASS session remains saved after return to menu
+OCR continued-actual-viewport "a WILD GARDEN {we a NEXT » MOUSE (B Remove: Evolution guide tis"
+OCR continued "‘ WILD GARDEN SCORE 0 NEXT - MOUSE BEST 0 Saving checkpoint... G Remove: 1 iG vndo:a | Oo °@"
+PASS Continue opens gameplay (OCR)
+PASS Continue retains original saved animal with no extra drop
+NAV_LAYOUT continue 360x640 {"w":360,"h":640,"sw":360,"sh":640,"x":0,"y":0,"cw":360,"ch":640}
+PASS continue 360x640 canvas visible and no DOM overflow
+NAV_LAYOUT continue 393x873 {"w":393,"h":873,"sw":393,"sh":873,"x":0,"y":0,"cw":393,"ch":873}
+PASS continue 393x873 canvas visible and no DOM overflow
+NAV_LAYOUT continue 540x1170 {"w":540,"h":1170,"sw":540,"sh":1170,"x":0,"y":0,"cw":540,"ch":1170}
+PASS continue 540x1170 canvas visible and no DOM overflow
+NAV_LAYOUT continue 720x1280 {"w":720,"h":1280,"sw":720,"sh":1280,"x":0,"y":0,"cw":720,"ch":1280}
+PASS continue 720x1280 canvas visible and no DOM overflow
+NAV_LAYOUT continue 1366x768 {"w":1366,"h":768,"sw":1366,"sh":768,"x":0,"y":0,"cw":1366,"ch":768}
+PASS continue 1366x768 canvas visible and no DOM overflow
+NAV_LAYOUT continue 1920x1080 {"w":1920,"h":1080,"sw":1920,"sh":1080,"x":0,"y":0,"cw":1920,"ch":1080}
+PASS continue 1920x1080 canvas visible and no DOM overflow
+OCR restart "a WILD GARDEN OD a TE (Remove Evolution guide tis"
+NAV_RESTART {"active":true,"ad_rescue_earned":false,"aim_x":360,"best_at_start":0,"best_score":0,"bodies":[],"combo_count":0,"combo_events":0,"combo_left":0,"cooldown_left":0,"current":"cat","game_over_pending":false,"generation":54,"highest_level":1,"max_combo":0,"merge_count":0,"next":"hamster","next_body_uid":1,"progression":{"animals":{"bear":{"count":0,"date":""},"cat":{"count":0,"date":""},"dog":{"count":0,"date":""},"elephant":{"count":0,"date":""},"fox":{"count":0,"date":""},"hamster":{"count":0,"date":""},"koala":{"count":0,"date":""},"lion":{"count":0,"date":""},"mouse":{"count":1,"date":"2026-11-27 22:10:54"},"panda":{"count":0,"date":""},"rabbit":{"count":0,"date":""},"raccoon":{"count":0,"date":""}},"best_score":0,"completed_games":0,"golden_merges":0,"highest_animal":1,"max_combo":0,"play_seconds":51.1416666666645,"total_drops":1,"total_games":2,"total_merges":0,"version":1},"remove_remaining":1,"rescue_remaining":1,"rng_state":"-4540005265166792187","score":0,"score_untrusted":false,"session_id":"fc76f5cb8d4cad0febb1bbc6eaa2f8ef","session_version":3,"spawn_count":0,"tainted":false,"tutorial_stage":-1,"undo_remaining":1,"undo_snapshot":{}}
+PASS Restart clears the previous run and creates no drop
+PASS after Restart one input creates one animal at chosen x
+NAV_AFTER_RESTART {"active":true,"ad_rescue_earned":false,"aim_x":469.999938964844,"best_at_start":0,"best_score":0,"bodies":[{"angular_velocity":0,"danger":0,"eligible":true,"id":"cat","rotation":0,"sleeping":true,"uid":1,"vx":0,"vy":0,"x":469.999938964844,"y":1059.02526855469}],"combo_count":0,"combo_events":0,"combo_left":0,"cooldown_left":0,"current":"hamster","game_over_pending":false,"generation":62,"highest_level":4,"max_combo":0,"merge_count":0,"next":"rabbit","next_body_uid":2,"progression":{"animals":{"bear":{"count":0,"date":""},"cat":{"count":1,"date":"2026-11-27 22:11:55"},"dog":{"count":0,"date":""},"elephant":{"count":0,"date":""},"fox":{"count":0,"date":""},"hamster":{"count":0,"date":""},"koala":{"count":0,"date":""},"lion":{"count":0,"date":""},"mouse":{"count":1,"date":"2026-11-27 22:10:54"},"panda":{"count":0,"date":""},"rabbit":{"count":0,"date":""},"raccoon":{"count":0,"date":""}},"best_score":0,"completed_games":0,"golden_merges":0,"highest_animal":4,"max_combo":0,"play_seconds":59.066666666664,"total_drops":2,"total_games":2,"total_merges":0,"version":1},"remove_remaining":1,"rescue_remaining":1,"rng_state":"8842779483230198047","score":0,"score_untrusted":false,"session_id":"fc76f5cb8d4cad0febb1bbc6eaa2f8ef","session_version":3,"spawn_count":1,"tainted":false,"tutorial_stage":-1,"undo_remaining":1,"undo_snapshot":{"active":true,"ad_rescue_earned":false,"aim_x":469.999938964844,"best_at_start":0,"best_score":0,"bodies":[],"combo_count":0,"combo_events":0,"combo_left":0,"cooldown_left":0,"current":"cat","game_over_pending":false,"generation":0,"highest_level":1,"max_combo":0,"merge_count":0,"next":"hamster","next_body_uid":1,"progression":{"animals":{"bear":{"count":0,"date":""},"cat":{"count":0,"date":""},"dog":{"count":0,"date":""},"elephant":{"count":0,"date":""},"fox":{"count":0,"date":""},"hamster":{"count":0,"date":""},"koala":{"count":0,"date":""},"lion":{"count":0,"date":""},"mouse":{"count":1,"date":"2026-11-27 22:10:54"},"panda":{"count":0,"date":""},"rabbit":{"count":0,"date":""},"raccoon":{"count":0,"date":""}},"best_score":0,"completed_games":0,"golden_merges":0,"highest_animal":1,"max_combo":0,"play_seconds":54.0166666666643,"total_drops":1,"total_games":2,"total_merges":0,"version":1},"remove_remaining":1,"rescue_remaining":1,"rng_state":"-4540005265166792187","score":0,"score_untrusted":false,"session_id":"fc76f5cb8d4cad0febb1bbc6eaa2f8ef","session_version":3,"spawn_count":0,"tainted":false,"tutorial_stage":-1,"undo_remaining":1,"undo_snapshot":{}}}
+OCR after-restart-drop "a WILD GARDEN {we a NEXT © RABBIT (B Remove: Piy Evolution guide Tins"
+PASS chromium touch-navigation no observed console/page/network errors
+WEB_UI mode=touch-navigation browser=chromium checks=29 failures=0

@@ -1,0 +1,409 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Started Project initialization (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Scanning file structure...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Loading global class names...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Verifying GDExtensions...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Creating autoload scripts...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Initializing plugins...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Starting file scan...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mfirst_scan_filesystem^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Started Registering global classes... (52 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[   1% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Animal^[[39m^[[0m
+[   3% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AnimalData^[[39m^[[0m
+[   5% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[   7% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[   9% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | GoldenConfig^[[39m^[[0m
+[  11% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | DangerMonitor^[[39m^[[0m
+[  13% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | MergeManager^[[39m^[[0m
+[  15% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | RewardRequestGateway^[[39m^[[0m
+[  16% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Progression^[[39m^[[0m
+[  18% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SaveManager^[[39m^[[0m
+[  20% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SessionSave^[[39m^[[0m
+[  22% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  24% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | CollectionNames^[[39m^[[0m
+[  26% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  28% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  30% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  32% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SettingsStore^[[39m^[[0m
+[  33% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  35% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | UIStrings^[[39m^[[0m
+[  37% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  39% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  41% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  43% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  45% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  47% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  49% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  50% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  52% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  54% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  56% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  58% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  60% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  62% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  64% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  66% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  67% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  69% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  71% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  73% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  75% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  77% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  79% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  81% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  83% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  84% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  86% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  88% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  90% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  92% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  94% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  96% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mupdate_scripts_classes^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | Started Scanning actions... (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   2% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   5% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   8% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  11% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  13% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  16% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  19% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  22% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  25% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  27% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  30% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  33% ] ^[[90m^[[1m_update_scan_actions^[[22m | forest_garden.svg^[[39m^[[0m
+[  36% ] ^[[90m^[[1m_update_scan_actions^[[22m | snowy_valley.svg^[[39m^[[0m
+[  38% ] ^[[90m^[[1m_update_scan_actions^[[22m | sunset_safari.svg^[[39m^[[0m
+[  41% ] ^[[90m^[[1m_update_scan_actions^[[22m | back.svg^[[39m^[[0m
+[  44% ] ^[[90m^[[1m_update_scan_actions^[[22m | challenge.svg^[[39m^[[0m
+[  47% ] ^[[90m^[[1m_update_scan_actions^[[22m | check.svg^[[39m^[[0m
+[  50% ] ^[[90m^[[1m_update_scan_actions^[[22m | close.svg^[[39m^[[0m
+[  52% ] ^[[90m^[[1m_update_scan_actions^[[22m | collection.svg^[[39m^[[0m
+[  55% ] ^[[90m^[[1m_update_scan_actions^[[22m | home.svg^[[39m^[[0m
+[  58% ] ^[[90m^[[1m_update_scan_actions^[[22m | lock.svg^[[39m^[[0m
+[  61% ] ^[[90m^[[1m_update_scan_actions^[[22m | music.svg^[[39m^[[0m
+[  63% ] ^[[90m^[[1m_update_scan_actions^[[22m | mute.svg^[[39m^[[0m
+[  66% ] ^[[90m^[[1m_update_scan_actions^[[22m | pause.svg^[[39m^[[0m
+[  69% ] ^[[90m^[[1m_update_scan_actions^[[22m | play.svg^[[39m^[[0m
+[  72% ] ^[[90m^[[1m_update_scan_actions^[[22m | remove.svg^[[39m^[[0m
+[  75% ] ^[[90m^[[1m_update_scan_actions^[[22m | rescue.svg^[[39m^[[0m
+[  77% ] ^[[90m^[[1m_update_scan_actions^[[22m | restart.svg^[[39m^[[0m
+[  80% ] ^[[90m^[[1m_update_scan_actions^[[22m | reward.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1m_update_scan_actions^[[22m | settings.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1m_update_scan_actions^[[22m | sound.svg^[[39m^[[0m
+[  88% ] ^[[90m^[[1m_update_scan_actions^[[22m | star.svg^[[39m^[[0m
+[  91% ] ^[[90m^[[1m_update_scan_actions^[[22m | trophy.svg^[[39m^[[0m
+[  94% ] ^[[90m^[[1m_update_scan_actions^[[22m | undo.svg^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1m_update_scan_actions^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing pre-reimport operations...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | close.svg^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | collection.svg^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | home.svg^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | lock.svg^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | music.svg^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | mute.svg^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | pause.svg^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | play.svg^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | remove.svg^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | rescue.svg^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | restart.svg^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | reward.svg^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | settings.svg^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | sound.svg^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | star.svg^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | trophy.svg^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | undo.svg^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | forest_garden.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | snowy_valley.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | sunset_safari.svg^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | back.svg^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | challenge.svg^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | check.svg^[[39m^[[0m
+[  97% ] ^[[90m^[[1mreimport^[[22m | Finalizing Asset Import...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing post-reimport operations...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Started Loading editor (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading editor layout...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading docks...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mloading_editor_layout^[[22m
+^[[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: fresh game has no snapshot
+PASS: normal real drop succeeds
+PASS: successful drop creates usable snapshot
+PASS: drop awards one discovery
+PASS: save drop and undo snapshot
+PASS: failed save leaves live board and allowance unchanged
+PASS: create checkpoint write obstruction
+PASS: checkpoint write failure leaves board and primary unchanged
+PASS: normal Undo restores board and drop count
+PASS: Undo consumes one use
+PASS: queue and RNG restored exactly
+PASS: creation count rolls back; discovery stays unlocked
+PASS: can replay after Undo
+PASS: replay counts once without duplicate discovery
+PASS: second Undo blocked
+PASS: chain fixture drops mouse
+PASS: first chain merge from real contact
+PASS: two real-contact merges and score
+PASS: chain awarded eligible statistics and best
+PASS: blocked drop preserves previous snapshot
+PASS: Undo rolls back chain, score and combo
+PASS: Undo rolls back session best and lifetime best
+PASS: v3 canonical best ignores stale separate legacy record
+PASS: Undo rolls back merge statistics
+PASS: Undo restores both original chain bodies without duplicates
+PASS: first drop for latest snapshot
+PASS: second drop for latest snapshot
+PASS: second successful drop replaces Undo boundary
+PASS: Undo reverses only last successful drop
+PASS: state fixture takes real drop
+PASS: snapshot captures danger timer
+PASS: stable body identity restored without duplicates
+PASS: position and rotation restored
+PASS: linear and angular velocities restored
+PASS: danger timer restored to replacement instance
+PASS: score and combo restored
+PASS: spawn cooldown restored
+PASS: current next and RNG match snapshot
+PASS: Golden fixture takes real drop
+PASS: real elephant contact awards Golden once
+PASS: Undo restores both elephants and reverses Golden award
+PASS: Undo clears Golden presentation
+PASS: tutorial fixture drops from stage zero
+PASS: tutorial advanced after drop
+PASS: Undo restores tutorial stage without duplicate overlay
+PASS: Remove interaction has prior drop
+PASS: Remove invalidates pre-existing Undo snapshot
+PASS: new drop after Remove creates new snapshot
+PASS: Undo never refunds Remove
+PASS: backup failure fixture takes a drop
+PASS: backup fixture has prior durable copies
+PASS: backup write obstruction created
+WARNING: Power-up checkpoint committed; ordinary save mirror failed: 20
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] write_snapshot (res://scripts/save/SessionSave.gd:118)
+         [1] _commit_undo (res://scripts/gameplay/Game.gd:351)
+PASS: journal commits Undo despite ordinary mirror failure
+PASS: journal prevents old backup refund after failed mirror and corrupt primary
+PASS: tombstone mirror obstruction created
+WARNING: Session tombstone committed; ordinary mirror failed: 20
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] clear_session (res://scripts/save/SessionSave.gd:159)
+         [1] backup_failure_test (res://tests/integration/day632_undo.gd:218)
+         [2] undo (res://tests/integration/day632_undo.gd:36)
+         [3] frames (res://tests/integration/day632_undo.gd:11)
+PASS: tombstone commits despite backup failure
+PASS: tombstone journal prevents resurrection after corrupt primary
+PASS: Remove backup fixture prepared
+PASS: Remove mirror obstruction created
+WARNING: Power-up checkpoint committed; ordinary save mirror failed: 20
+     at: push_warning (core/variant/variant_utility.cpp:1033)
+     GDScript backtrace (most recent call first):
+         [0] write_snapshot (res://scripts/save/SessionSave.gd:118)
+         [1] _commit_remove (res://scripts/gameplay/Game.gd:475)
+PASS: Remove checkpoint commits despite mirror failure
+PASS: Remove checkpoint prevents backup refund
+PASS: stress Undo 1
+PASS: stress Undo 2
+PASS: stress Undo 3
+PASS: stress Undo 4
+PASS: stress Undo 5
+PASS: stress Undo 6
+PASS: stress Undo 7
+PASS: stress Undo 8
+PASS: stress Undo 9
+PASS: stress Undo 10
+PASS: stress Undo 11
+PASS: stress Undo 12
+PASS: stress Undo 13
+PASS: stress Undo 14
+PASS: stress Undo 15
+PASS: stress Undo 16
+PASS: stress Undo 17
+PASS: stress Undo 18
+PASS: stress Undo 19
+PASS: stress Undo 20
+PASS: stress Undo 21
+PASS: stress Undo 22
+PASS: stress Undo 23
+PASS: stress Undo 24
+PASS: stress Undo 25
+PASS: stress Undo 26
+PASS: stress Undo 27
+PASS: stress Undo 28
+PASS: stress Undo 29
+PASS: stress Undo 30
+PASS: stress Undo 31
+PASS: stress Undo 32
+PASS: stress Undo 33
+PASS: stress Undo 34
+PASS: stress Undo 35
+PASS: stress Undo 36
+PASS: stress Undo 37
+PASS: stress Undo 38
+PASS: stress Undo 39
+PASS: stress Undo 40
+PASS: stress Undo 41
+PASS: stress Undo 42
+PASS: stress Undo 43
+PASS: stress Undo 44
+PASS: stress Undo 45
+PASS: stress Undo 46
+PASS: stress Undo 47
+PASS: stress Undo 48
+PASS: stress Undo 49
+PASS: stress Undo 50
+PASS: stress Undo 51
+PASS: stress Undo 52
+PASS: stress Undo 53
+PASS: stress Undo 54
+PASS: stress Undo 55
+PASS: stress Undo 56
+PASS: stress Undo 57
+PASS: stress Undo 58
+PASS: stress Undo 59
+PASS: stress Undo 60
+PASS: stress Undo 61
+PASS: stress Undo 62
+PASS: stress Undo 63
+PASS: stress Undo 64
+PASS: stress Undo 65
+PASS: stress Undo 66
+PASS: stress Undo 67
+PASS: stress Undo 68
+PASS: stress Undo 69
+PASS: stress Undo 70
+PASS: stress Undo 71
+PASS: stress Undo 72
+PASS: stress Undo 73
+PASS: stress Undo 74
+PASS: stress Undo 75
+PASS: stress Undo 76
+PASS: stress Undo 77
+PASS: stress Undo 78
+PASS: stress Undo 79
+PASS: stress Undo 80
+PASS: stress Undo 81
+PASS: stress Undo 82
+PASS: stress Undo 83
+PASS: stress Undo 84
+PASS: stress Undo 85
+PASS: stress Undo 86
+PASS: stress Undo 87
+PASS: stress Undo 88
+PASS: stress Undo 89
+PASS: stress Undo 90
+PASS: stress Undo 91
+PASS: stress Undo 92
+PASS: stress Undo 93
+PASS: stress Undo 94
+PASS: stress Undo 95
+PASS: stress Undo 96
+PASS: stress Undo 97
+PASS: stress Undo 98
+PASS: stress Undo 99
+PASS: stress Undo 100
+UNDO checks=161 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: fresh game has no snapshot
+PASS: normal real drop succeeds
+PASS: successful drop creates usable snapshot
+PASS: drop awards one discovery
+PASS: save drop and undo snapshot
+UNDO_WRITE checks=5 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: new process enables Continue
+PASS: Continue opens gameplay
+PASS: Continue restores undo snapshot and use
+PASS: Pause and Resume preserve Undo snapshot and allowance
+PASS: Continued snapshot can be undone
+PASS: used Undo is durable
+PASS: Continue never replenishes Undo
+UNDO_READ checks=7 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: third process offers Continue
+PASS: third process opens gameplay
+PASS: spent Undo and restored board survive another process
+UNDO_VERIFY checks=3 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE undo_no_snapshot 720x1280 seeded fixture
+CAPTURE undo_button 720x1280 seeded fixture
+CAPTURE before_undo 720x1280 seeded fixture
+PASS viewport mouse Undo did not drop
+CAPTURE after_undo 720x1280 seeded fixture
+CAPTURE undo_used 720x1280 seeded fixture
+CAPTURE chain_before 720x1280 seeded fixture
+CAPTURE chain_after 720x1280 seeded fixture
+PASS viewport simulated touch Undo
+CAPTURE chain_undo 720x1280 seeded fixture
+

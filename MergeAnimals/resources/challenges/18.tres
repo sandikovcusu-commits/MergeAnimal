@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 18
+title_key = &"LION_KING"
+objective_key = &"MAKE_LION"
+objective_type = "animal"
+animal_id = &"lion"
+target = 1
+time_limit = 0.0
+starting_animals = PackedStringArray("bear")
+spawn_sequence = PackedStringArray("bear")

@@ -1,0 +1,313 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Started Project initialization (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Scanning file structure...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Loading global class names...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Verifying GDExtensions...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Creating autoload scripts...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Initializing plugins...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mfirst_scan_filesystem^[[22m | Starting file scan...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mfirst_scan_filesystem^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Started Registering global classes... (74 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AchievementData^[[39m^[[0m
+[   1% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AchievementManager^[[39m^[[0m
+[   2% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ChallengeData^[[39m^[[0m
+[   4% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[   5% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ChallengeManager^[[39m^[[0m
+[   6% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ChallengeStore^[[39m^[[0m
+[   8% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[   9% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Animal^[[39m^[[0m
+[  10% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | AnimalData^[[39m^[[0m
+[  12% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  13% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  14% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | GoldenConfig^[[39m^[[0m
+[  16% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | DangerMonitor^[[39m^[[0m
+[  17% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | MergeManager^[[39m^[[0m
+[  18% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | RescuePlanner^[[39m^[[0m
+[  20% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | RewardRequestGateway^[[39m^[[0m
+[  21% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | Progression^[[39m^[[0m
+[  22% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SaveManager^[[39m^[[0m
+[  24% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SessionSave^[[39m^[[0m
+[  25% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  26% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  28% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  29% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | CollectionNames^[[39m^[[0m
+[  30% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  32% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  33% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  34% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | SettingsStore^[[39m^[[0m
+[  36% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  37% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | UIStrings^[[39m^[[0m
+[  38% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  40% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  41% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  42% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  44% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  45% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  46% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  48% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  49% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  50% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  52% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  53% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  54% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  56% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  57% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  58% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  60% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  61% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  62% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  64% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  65% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  66% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  68% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  69% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  70% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  72% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  73% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  74% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  76% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  77% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  78% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  80% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  81% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  82% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  84% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  85% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  86% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  88% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  89% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  90% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  92% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  93% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  94% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  96% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+[  97% ] ^[[90m^[[1mupdate_scripts_classes^[[22m | ^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mupdate_scripts_classes^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | Started Scanning actions... (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   2% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   5% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[   8% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  11% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  13% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  16% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  19% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  22% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  25% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  27% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  30% ] ^[[90m^[[1m_update_scan_actions^[[22m | normal.png^[[39m^[[0m
+[  33% ] ^[[90m^[[1m_update_scan_actions^[[22m | forest_garden.svg^[[39m^[[0m
+[  36% ] ^[[90m^[[1m_update_scan_actions^[[22m | snowy_valley.svg^[[39m^[[0m
+[  38% ] ^[[90m^[[1m_update_scan_actions^[[22m | sunset_safari.svg^[[39m^[[0m
+[  41% ] ^[[90m^[[1m_update_scan_actions^[[22m | back.svg^[[39m^[[0m
+[  44% ] ^[[90m^[[1m_update_scan_actions^[[22m | challenge.svg^[[39m^[[0m
+[  47% ] ^[[90m^[[1m_update_scan_actions^[[22m | check.svg^[[39m^[[0m
+[  50% ] ^[[90m^[[1m_update_scan_actions^[[22m | close.svg^[[39m^[[0m
+[  52% ] ^[[90m^[[1m_update_scan_actions^[[22m | collection.svg^[[39m^[[0m
+[  55% ] ^[[90m^[[1m_update_scan_actions^[[22m | home.svg^[[39m^[[0m
+[  58% ] ^[[90m^[[1m_update_scan_actions^[[22m | lock.svg^[[39m^[[0m
+[  61% ] ^[[90m^[[1m_update_scan_actions^[[22m | music.svg^[[39m^[[0m
+[  63% ] ^[[90m^[[1m_update_scan_actions^[[22m | mute.svg^[[39m^[[0m
+[  66% ] ^[[90m^[[1m_update_scan_actions^[[22m | pause.svg^[[39m^[[0m
+[  69% ] ^[[90m^[[1m_update_scan_actions^[[22m | play.svg^[[39m^[[0m
+[  72% ] ^[[90m^[[1m_update_scan_actions^[[22m | remove.svg^[[39m^[[0m
+[  75% ] ^[[90m^[[1m_update_scan_actions^[[22m | rescue.svg^[[39m^[[0m
+[  77% ] ^[[90m^[[1m_update_scan_actions^[[22m | restart.svg^[[39m^[[0m
+[  80% ] ^[[90m^[[1m_update_scan_actions^[[22m | reward.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1m_update_scan_actions^[[22m | settings.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1m_update_scan_actions^[[22m | sound.svg^[[39m^[[0m
+[  88% ] ^[[90m^[[1m_update_scan_actions^[[22m | star.svg^[[39m^[[0m
+[  91% ] ^[[90m^[[1m_update_scan_actions^[[22m | trophy.svg^[[39m^[[0m
+[  94% ] ^[[90m^[[1m_update_scan_actions^[[22m | undo.svg^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1m_update_scan_actions^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | Preparing files to reimport...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing pre-reimport operations...^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | close.svg^[[39m^[[0m
+[   2% ] ^[[90m^[[1mreimport^[[22m | collection.svg^[[39m^[[0m
+[   5% ] ^[[90m^[[1mreimport^[[22m | home.svg^[[39m^[[0m
+[   8% ] ^[[90m^[[1mreimport^[[22m | lock.svg^[[39m^[[0m
+[  11% ] ^[[90m^[[1mreimport^[[22m | music.svg^[[39m^[[0m
+[  13% ] ^[[90m^[[1mreimport^[[22m | mute.svg^[[39m^[[0m
+[  16% ] ^[[90m^[[1mreimport^[[22m | pause.svg^[[39m^[[0m
+[  19% ] ^[[90m^[[1mreimport^[[22m | play.svg^[[39m^[[0m
+[  22% ] ^[[90m^[[1mreimport^[[22m | remove.svg^[[39m^[[0m
+[  25% ] ^[[90m^[[1mreimport^[[22m | rescue.svg^[[39m^[[0m
+[  27% ] ^[[90m^[[1mreimport^[[22m | restart.svg^[[39m^[[0m
+[  30% ] ^[[90m^[[1mreimport^[[22m | reward.svg^[[39m^[[0m
+[  33% ] ^[[90m^[[1mreimport^[[22m | settings.svg^[[39m^[[0m
+[  36% ] ^[[90m^[[1mreimport^[[22m | sound.svg^[[39m^[[0m
+[  38% ] ^[[90m^[[1mreimport^[[22m | star.svg^[[39m^[[0m
+[  41% ] ^[[90m^[[1mreimport^[[22m | trophy.svg^[[39m^[[0m
+[  44% ] ^[[90m^[[1mreimport^[[22m | undo.svg^[[39m^[[0m
+[  47% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  50% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  52% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  55% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  58% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  61% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  63% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  66% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  69% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  72% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  75% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  77% ] ^[[90m^[[1mreimport^[[22m | normal.png^[[39m^[[0m
+[  80% ] ^[[90m^[[1mreimport^[[22m | forest_garden.svg^[[39m^[[0m
+[  83% ] ^[[90m^[[1mreimport^[[22m | snowy_valley.svg^[[39m^[[0m
+[  86% ] ^[[90m^[[1mreimport^[[22m | sunset_safari.svg^[[39m^[[0m
+[  88% ] ^[[90m^[[1mreimport^[[22m | back.svg^[[39m^[[0m
+[  91% ] ^[[90m^[[1mreimport^[[22m | challenge.svg^[[39m^[[0m
+[  94% ] ^[[90m^[[1mreimport^[[22m | check.svg^[[39m^[[0m
+[  97% ] ^[[90m^[[1mreimport^[[22m | Finalizing Asset Import...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Started (Re)Importing Assets (35 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mreimport^[[22m | Executing post-reimport operations...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mreimport^[[22m
+^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Started Loading editor (5 steps)^[[39m^[[0m
+[   0% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading editor layout...^[[39m^[[0m
+[  16% ] ^[[90m^[[1mloading_editor_layout^[[22m | Loading docks...^[[39m^[[0m
+^[[92m[ DONE ]^[[39m ^[[1mloading_editor_layout^[[22m
+^[[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: 15 resource definitions loaded
+PASS: main menu achievement button enabled
+PASS: achievement UI navigation and 15 cards
+PASS: initial achievement count 0/15
+PASS: achievement Back navigation
+PASS: A01 unlocks from two actual drops and physical merge
+PASS: duplicate unlock emits no extra notification
+PASS: Undo rolls back statistics, keeps permanent achievement
+PASS: debug spawn taints session
+PASS: debug bodies do not unlock achievements
+PASS: create historical Classic migration fixture
+PASS: create historical Challenge migration fixture
+PASS: A01 historical evidence migration (date unknown)
+PASS: A02 historical evidence migration (date unknown)
+PASS: A03 historical evidence migration (date unknown)
+PASS: A04 historical evidence migration (date unknown)
+PASS: A05 historical evidence migration (date unknown)
+PASS: A06 historical evidence migration (date unknown)
+PASS: A07 historical evidence migration (date unknown)
+PASS: A08 historical evidence migration (date unknown)
+PASS: A09 historical evidence migration (date unknown)
+PASS: A10 historical evidence migration (date unknown)
+PASS: A11 historical evidence migration (date unknown)
+PASS: A12 historical evidence migration (date unknown)
+PASS: A13 historical evidence migration (date unknown)
+PASS: A14 historical evidence migration (date unknown)
+PASS: A15 historical evidence migration (date unknown)
+PASS: migration sends no retroactive notifications
+PASS: migration is idempotent
+PASS: achievement backup recovers corrupted primary
+ACHIEVEMENT checks=30 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+CLASSIC_REAL drops=45 merges=41 score=2539 combo=5
+PASS: A01 unlocked by actual Classic drops
+PASS: A03 unlocked by actual Classic drops
+PASS: A04 unlocked by actual Classic drops
+PASS: A07 unlocked by actual Classic drops
+PASS: A08 unlocked by actual Classic drops
+PASS: A09 unlocked by actual Classic drops
+PASS: A10 unlocked by actual Classic drops
+PASS: A11 unlocked by actual Classic drops
+PASS: A12 unlocked by actual Classic drops
+PASS: Classic score reaches 2500 through actual collisions
+PASS: animal and achievement notifications display sequentially and close
+ACHIEVEMENT_CLASSIC checks=11 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: separate process loads achievement backup
+PASS: A01 restored in separate process
+PASS: A02 restored in separate process
+PASS: A03 restored in separate process
+PASS: A04 restored in separate process
+PASS: A05 restored in separate process
+PASS: A06 restored in separate process
+PASS: A07 restored in separate process
+PASS: A08 restored in separate process
+PASS: A09 restored in separate process
+PASS: A10 restored in separate process
+PASS: A11 restored in separate process
+PASS: A12 restored in separate process
+PASS: A13 restored in separate process
+PASS: A14 restored in separate process
+PASS: A15 restored in separate process
+ACHIEVEMENT_READ checks=16 failures=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE 360x640_main_menu 360x640 seeded X11 fixture
+CAPTURE 360x640_locked_screen 360x640 seeded X11 fixture
+CAPTURE 360x640_unlocked_achievement 360x640 seeded X11 fixture
+CAPTURE 360x640_progress_bar 360x640 seeded X11 fixture
+CAPTURE 360x640_completed_collection 360x640 seeded X11 fixture
+CAPTURE 360x640_achievement_notification 360x640 seeded X11 fixture
+PASS seeded achievement visual fixtures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE 720x1280_main_menu 720x1280 seeded X11 fixture
+CAPTURE 720x1280_locked_screen 720x1280 seeded X11 fixture
+CAPTURE 720x1280_unlocked_achievement 720x1280 seeded X11 fixture
+CAPTURE 720x1280_progress_bar 720x1280 seeded X11 fixture
+CAPTURE 720x1280_completed_collection 720x1280 seeded X11 fixture
+CAPTURE 720x1280_achievement_notification 720x1280 seeded X11 fixture
+PASS seeded achievement visual fixtures
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 26.0.8-1ubuntu0.3 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 21.1.8, 256 bits)
+
+CAPTURE 1366x768_main_menu 1366x768 seeded X11 fixture
+CAPTURE 1366x768_locked_screen 1366x768 seeded X11 fixture
+CAPTURE 1366x768_unlocked_achievement 1366x768 seeded X11 fixture
+CAPTURE 1366x768_progress_bar 1366x768 seeded X11 fixture
+CAPTURE 1366x768_completed_collection 1366x768 seeded X11 fixture
+CAPTURE 1366x768_achievement_notification 1366x768 seeded X11 fixture
+PASS seeded achievement visual fixtures

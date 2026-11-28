@@ -1,0 +1,53 @@
+PASS burst 10 synchronous save calls complete 
+PASS burst 10 generations strictly increase {"first":1,"last":10}
+PASS burst 10 final exact IDB entries verified 
+PASS burst 50 synchronous save calls complete 
+PASS burst 50 generations strictly increase {"first":11,"last":60}
+PASS burst 50 final exact IDB entries verified 
+PASS burst 100 synchronous save calls complete 
+PASS burst 100 generations strictly increase {"first":61,"last":160}
+PASS burst 100 final exact IDB entries verified 
+PASS fixture separate stores saved 
+PASS score collection statistics read before restart 
+PASS language and audio settings before restart 
+PASS challenge theme achievement before restart 
+PASS confirmed latest checkpoint survives browser restart 
+PASS separate fixture stores survive restart 
+PASS injected local write failure is surfaced without blocking main loop 
+PASS successful later write clears local failure 
+PASS delayed write stays pending while transaction is held 
+PASS delayed transaction confirms only after release 
+PASS injected IDB read denial never reports verified 
+PASS observer recovers after read access restored 
+PASS injected storage permission denial remains unconfirmed 
+PASS confirmation resumes when injected denial removed 
+PASS injected readwrite transaction abort never confirmed 
+PASS later save confirmed after abort injection removed
+PASS corrupt session primary fixture created 
+PASS power-up checkpoint recovers corrupt primary in running game 
+PASS v0.6.1 captured files staged 
+PASS v0.6.1 captured session accepted {"score":152}
+PASS v0.6.1 captured files committed to IndexedDB 
+PASS v0.6.1 score board and generation survive restart 
+PASS v0.6.1 Continue scene launched 
+PASS v0.6.1 resumed and rewritten as current schema {"result":0,"old":1,"new":3,"oldScore":152,"newScore":172}
+PASS v0.7.0 captured files staged 
+PASS v0.7.0 captured session accepted {"generation":42,"score":152}
+PASS v0.7.0 captured files committed to IndexedDB 
+PASS v0.7.0 score board and generation survive restart 
+PASS v0.7.0 Continue scene launched 
+PASS v0.7.0 resumed and rewritten as current schema {"result":0,"old":3,"new":3,"oldScore":152,"newScore":172}
+PASS v0.8.0 captured files staged 
+PASS v0.8.0 captured session accepted {"generation":24,"score":4}
+PASS v0.8.0 captured files committed to IndexedDB 
+PASS v0.8.0 score board and generation survive restart 
+PASS v0.8.0 Continue scene launched 
+PASS v0.8.0 resumed and rewritten as current schema {"result":0,"old":3,"new":3,"oldScore":4,"newScore":4}
+PASS v0.9.0.2 captured files staged 
+PASS v0.9.0.2 captured session accepted {"generation":47,"score":0}
+PASS v0.9.0.2 captured files committed to IndexedDB 
+PASS v0.9.0.2 score board and generation survive restart 
+PASS v0.9.0.2 Continue scene launched 
+PASS v0.9.0.2 resumed and rewritten as current schema {"result":0,"old":3,"new":3,"oldScore":0,"newScore":0}
+PASS no uncaught page errors []
+SAVE_INTEGRITY browser=firefox checks=52 failures=0

@@ -1,0 +1,5 @@
+FAIL chromium rescue-fixture: Error: unknown mode
+    at file:///home/runner/work/MergeAnimal/MergeAnimal/MergeAnimals/tests/web/ui-responsive.mjs:219:600
+OCR error "Ne MERGE 2 ANIMALS (___WILD GARDEN 7 % oO Continue game Collection Statistics Achievements Themes Challenges Settings Best score 0"
+WEB_UI mode=rescue-fixture browser=chromium checks=1 failures=1
+xvfb-run: error: problem while cleaning up temporary directory

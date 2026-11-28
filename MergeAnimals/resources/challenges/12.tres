@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 12
+title_key = &"PANDA_RESCUE"
+objective_key = &"MAKE_PANDA"
+objective_type = "animal"
+animal_id = &"panda"
+target = 1
+starting_animals = PackedStringArray("koala")
+spawn_sequence = PackedStringArray("koala")

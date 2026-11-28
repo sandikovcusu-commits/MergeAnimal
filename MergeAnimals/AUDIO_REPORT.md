@@ -1,0 +1,15 @@
+# V0.8.1.3 update — Web audio
+
+Godot 4.7.2 Web now uses stream playback for the existing pool and singleton music; native selection and all 23 WAV assets remain unchanged. Real Chromium/Firefox WASM graph output, mute/unmute, three loops, fixture-triggered cues and settings persistence were measured; the ad pause/restore hook was tested without an SDK. Production exports received independent WebAudio smoke checks. These supersede the older statement below that Web autoplay compatibility had not been tested, but do not establish physical audibility or audio quality. Fixture coverage is not full natural gameplay coverage. See `WEB_AUDIO_REPORT.md` for exact runs, limitations and open risks.
+
+---
+
+# V0.7.0 audio
+
+`AudioManager` is a persistent autoload: one looping music player and at most eight simultaneous one-shot players; there are Master, Music, SFX and UI buses, with UI routed through SFX. A single user input gesture enables sound, avoiding forced browser autoplay before interaction. Theme selection switches the one music player; an unchanged theme does not restart it on scene change. Settings retain legacy `.cfg` migration and save current master/music/SFX/mute/reduced/language through checksummed SaveManager envelopes.
+
+Twenty separately generated WAV cues cover click/back, drop/landing/collision, three merge sizes, combo, golden, discovery/achievement, success/failure, undo/remove/rescue, game over/danger and theme unlock. Collision audio uses speed ≥100, global 0.18-second cooldown, bounded players and pitch/volume variation. Actions call cues at their existing event/commit points; silent when no manager or before the first gesture. UI acts on its original signals, not on animation callbacks.
+
+The three 8-second mono procedural synthesized loops are different note patterns, not sampled piano or externally sourced music. WAV was used; OGG compression was not produced. Local PCM inspection found first and last samples zero for all three files; Godot loop-forward metadata is tested, but there was **no human listening or perceptual seam/quality review**. These simple sound sketches are not evidence of professional final audio. Actual loudness, mix, clipping, loop perception, mobile audio latency, Web autoplay compatibility and accessibility review remain open. See `ASSET_LICENSES.md` and `ASSET_MANIFEST.json`.
+
+[Godot game-feel CI 45838523955](https://github.com/sandikovcusu-commits/MergeAnimal/actions/runs/45838523955) passed 91 checks plus one separate-process settings read: loads and plays each of the 20 cue resources with dummy audio, pool limit and impact threshold/cooldown, bus values/mute, settings persistence, music loop configuration and same-theme singleton behavior, actual drop/landing/merge sound dispatch and Golden collision dispatch. Not every event's end-to-end signal path or audible output was separately verified, and this is not a listening test. Scene-change music check uses the same live manager in a scene transition; real Web browser testing is not done.

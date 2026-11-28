@@ -1,0 +1,44 @@
+name: Commercial asset evidence (not rights clearance)
+on:
+  push:
+    branches: ['arena/2b071717-mergeanimal']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  asset-provenance:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install development-only rasterizer and font tools
+        run: |
+          npm install --prefix /tmp/animal-render --no-save @resvg/resvg-js@2.6.2
+          python -m pip install fonttools==4.69.1 pillow==11.3.0
+      - name: Check generated content and static SVG inputs
+        env:
+          NODE_PATH: /tmp/animal-render/node_modules
+        run: python MergeAnimals/tests/commercial/audit_vectors.py
+      - name: Check blink frames only change eye pixels
+        env:
+          NODE_PATH: /tmp/animal-render/node_modules
+        run: python MergeAnimals/tests/commercial/audit_blink_pixels.py
+      - name: Verify declared asset hashes (not rights clearance)
+        run: python MergeAnimals/tests/commercial/audit_manifest.py
+      - name: Confirm source tree has no known legacy visual bytes
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('MergeAnimals')
+          old=json.loads((root/'docs/asset_audit/legacy_visual_sha256.json').read_text())['visuals']
+          hashes={x['sha256'] for x in old}
+          files=[p for p in root.rglob('*') if p.is_file() and '.godot' not in p.parts]
+          bad=[str(p) for p in files if hashlib.sha256(p.read_bytes()).hexdigest() in hashes]
+          assert not bad,bad
+          print('No exact known historical visual matches among',len(files),'files. Legal clearance not evaluated.')
+          PY

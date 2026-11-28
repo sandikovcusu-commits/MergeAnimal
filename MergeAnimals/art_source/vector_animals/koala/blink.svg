@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><radialGradient id="fur" cx=".35" cy=".25" r=".8"><stop stop-color="#ced4d1"/><stop offset="1" stop-color="#939fa3"/></radialGradient></defs>
+<g id="ears" stroke="#553e39" stroke-width="8" stroke-linejoin="round"><g fill="#ced4d1"><circle cx="91" cy="181" r="70"/><circle cx="421" cy="181" r="70"/></g></g>
+<g id="inner-ears" fill="#e5a4a9" opacity=".8"><circle cx="91" cy="181" r="41"/><circle cx="421" cy="181" r="41"/></g>
+<g id="body"><circle cx="256" cy="272" r="230" fill="url(#fur)" stroke="#553e39" stroke-width="8"/>
+<path d="M125 359 Q151 438 256 456 Q361 438 387 359" fill="none" stroke="#939fa3" stroke-width="17" stroke-linecap="round" opacity=".22"/>
+<ellipse cx="200" cy="164" rx="91" ry="41" fill="#ffffff" opacity=".12" transform="rotate(-16 200 164)"/>
+<ellipse cx="161" cy="186" rx="21" ry="10" fill="#fff9e8" opacity=".13" transform="rotate(-22 161 186)"/>
+</g>
+<g id="species-markings"><ellipse cx="166" cy="276" rx="32" ry="19" fill="#e8b4b1" opacity=".5"/><ellipse cx="346" cy="276" rx="32" ry="19" fill="#e8b4b1" opacity=".5"/></g>
+<g id="muzzle"><ellipse cx="256" cy="318" rx="85" ry="62" fill="#f2eee5" opacity=".88"/>
+<path d="M202 340 Q256 370 310 340" fill="none" stroke="#939fa3" stroke-width="5" stroke-linecap="round" opacity=".18"/></g>
+<g id="face-details" fill="none" stroke="#553e39" stroke-width="5" stroke-linecap="round" opacity=".43"><path d="M104 297 Q121 309 141 309 M408 297 Q391 309 371 309"/><path d="M229 157 Q256 144 283 157"/></g>
+<g id="eyes-and-mouth" fill="#553e39"><path d="M160 235 Q179 248 198 235 M314 235 Q333 248 352 235" fill="none" stroke="#553e39" stroke-width="9" stroke-linecap="round"/><ellipse cx="256" cy="277" rx="23" ry="31" fill="#5b6a70"/><path d="M256 304 Q256 329 270 328" fill="none" stroke="#553e39" stroke-width="7" stroke-linecap="round"/></g>
+<g id="eye-highlights"></g>
+<path d="M148 383 Q256 420 364 383" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".16"/>
+</svg>

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 13
+title_key = &"SCORE_MASTER"
+objective_key = &"SCORE_1000"
+objective_type = "score"
+animal_id = &""
+target = 1000
+starting_animals = PackedStringArray("lion")
+spawn_sequence = PackedStringArray("lion")

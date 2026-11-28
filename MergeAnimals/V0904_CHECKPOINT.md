@@ -1,0 +1,9 @@
+# V0.9.0.4 — əvvəlki 4bc8f262 checkpoint-i, tarixi qeyd
+
+**Sonrakı iş və cari status üçün `VISUAL_ACCEPTANCE_REPORT.md` və `DESIGN_FREEZE.md`-yə baxın.** Aşağıdakı qalan işlər həmin checkpoint vaxtının vəziyyətidir; ayrıca runtime rig hazırda tələb edilmir.
+
+Cari vizual kod `3783810`; `45b9ded` və `6cf89fd` əlavə test/evidence workflow dəyişiklikləridir. 12 mövcud heyvana növ detalları və redaktə olunan mənbə qrupları, tək kosmetik scheduler, collision-suz golden echo, Collection/Statistics/Challenges/Achievements səthləri əlavə edilib. `e034511`-dən sonrakı menu, HUD, theme və merge effektləri qorunub; fizika parametrləri/balans qəsdən dəyişdirilməyib. Reproducibility və hüquq qeydləri `ASSET_MANIFEST.json` və `ASSET_LICENSES.md`-dədir; **kommersiya BLOCKED**.
+
+Faktiki sübutlar `docs/visual/v0904/continuation/`: 12 native əvvəl/sonra statik fixture, Golden Merge-in fiziki collision fixture görüntüsü, Chromium ekranları və 10/20/40 xam A/B/A JSON. Yeni 69.163 s gameplay videosu avtomatlaşdırılmış, unseeded və səssizdir, insan playtesti deyil; session workspace `artifacts/v0904d/visual-gameplay-latest.webm`. Əvvəlki 68.9 s video `artifacts/v0904c/visual-gameplay.webm` saxlanıb. CI linkləri `REGRESSION_REPORT.md`-dədir.
+
+**Tamamlanmayıb:** 12 dizaynın premium redesign keyfiyyətinə insan/device təsdiqi; müstəqil eyes/pupils/ears runtime rig və hərəkətli tam showcase; Settings/Pause/Game Over/Rescue və success/failure vizual polish; hər ekran/dil/theme/viewport üzrə vizual yoxlama; real Android, human/audio; exhaustive gameplay/save/reward regression; hər workload üçün etibarlı texture memory və original-baseline A/B, ilk 40-body A mərhələsində −5.9% fərqin səbəbi. İddia edilən −5% hədəfi faktiki sübut edilməyib. 9.190 px fizik penetration və IndexedDB qəfil bağlanma riski qalır.

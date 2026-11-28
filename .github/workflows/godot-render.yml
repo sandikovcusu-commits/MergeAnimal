@@ -1,0 +1,240 @@
+name: Godot software render
+on:
+  push:
+    branches: ['arena/2b071717-mergeanimal']
+  workflow_dispatch:
+    inputs:
+      quality_matrix:
+        description: 'Capture complete native gameplay/game-over quality fixture matrix'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+  checks: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Xvfb and official Godot
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+      - name: Import and render
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/godot-renders
+        run: |
+          mkdir -p "$CAPTURE_DIR"
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$GODOT" --headless --path MergeAnimals --editor --quit 2>&1 | tee /tmp/render-log.txt
+          export GODOT
+          xvfb-run -a -s '-screen 0 1920x1920x24' bash -e -o pipefail -c '
+            for theme in 0 1 2; do
+              for size in 360x640 360x800 720x1280 1080x1920 1366x768 1920x1080; do
+                CAPTURE_THEME=$theme CAPTURE_SIZE=$size timeout 35s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_capture.gd
+              done
+            done
+            CAPTURE_SIZE=720x1280 timeout 35s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution 720x1280 --script res://tests/integration/render_expressions.gd
+            for screen in menu pause settings gameover tutorial effects; do
+              for size in 360x640 720x1280 1366x768; do
+                CAPTURE_SCREEN=$screen CAPTURE_SIZE=$size timeout 35s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/render_ui.gd
+              done
+            done
+          ' 2>&1 | tee -a /tmp/render-log.txt
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL' /tmp/render-log.txt; then exit 1; fi
+          ls -l "$CAPTURE_DIR"
+      - name: Native before-after character fixture
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/character-renders
+          BASELINE_DIR: /tmp/character-baseline
+        run: |
+          set -e -o pipefail
+          mkdir -p "$CAPTURE_DIR" "$BASELINE_DIR"
+          git fetch --no-tags --depth=1 origin e034511e234f6b6314e81dbeaa8ca7dd02df0ced
+          for name in mouse hamster rabbit cat dog fox raccoon koala panda bear lion elephant; do
+            git show e034511e234f6b6314e81dbeaa8ca7dd02df0ced:MergeAnimals/assets/animals/$name/normal.png > "$BASELINE_DIR/$name.png"
+          done
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          xvfb-run -a -s '-screen 0 1920x1920x24' "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution 720x1280 --script res://tests/integration/render_character_comparison.gd 2>&1 | tee /tmp/character-log.txt
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/character-log.txt; then exit 1; fi
+          test "$(find "$CAPTURE_DIR" -name '*-before-after.png' | wc -l)" -eq 12
+          xvfb-run -a -s '-screen 0 1920x1920x24' "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution 720x1280 --script res://tests/integration/render_golden_merge.gd 2>&1 | tee -a /tmp/character-log.txt
+          if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/character-log.txt; then exit 1; fi
+          test -s "$CAPTURE_DIR/golden-merge-fixture.png"
+      - name: Transport character evidence
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, os, pathlib, subprocess, zipfile
+          archive=pathlib.Path('/tmp/character-evidence.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for f in sorted(pathlib.Path('/tmp/character-renders').glob('*.png')): z.write(f,f.name)
+              for f in sorted(pathlib.Path('/tmp/godot-renders').glob('theme*_720x1280.png')): z.write(f,'gameplay-themes/'+f.name)
+              log=pathlib.Path('/tmp/character-log.txt')
+              if log.exists(): z.write(log,'character-log.txt')
+          payload=pathlib.Path('/tmp/character-blob.json')
+          payload.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          sha=subprocess.check_output(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(payload),'--jq','.sha'],text=True).strip()
+          print(f'::notice::CHARACTER_EVIDENCE blob_sha={sha} sha256={hashlib.sha256(archive.read_bytes()).hexdigest()} bytes={archive.stat().st_size}')
+          PY
+      - name: Upload renders
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-renders
+          path: /tmp/godot-renders/*.png
+          if-no-files-found: warn
+      - name: Publish render inspection thumbnails
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          python3 - <<'PYCODE'
+          import base64, json, os, pathlib, subprocess
+          files = sorted(pathlib.Path('/tmp/godot-renders').glob('*.png'))
+          for f in files:
+              thumb = pathlib.Path('/tmp') / (f.stem + '.jpg')
+              subprocess.run(['convert', str(f), '-resize', '360x640>', '-quality', '45', str(thumb)], check=True)
+              info = subprocess.check_output(['identify', '-format', '%wx%h', str(f)], text=True)
+              encoded = base64.b64encode(thumb.read_bytes()).decode()
+              if len(encoded) > 60000:
+                  raise RuntimeError('inspection thumbnail too large for checks API')
+              payload = {'name': 'Render inspection ' + f.stem, 'head_sha': os.environ['SHA'], 'status': 'completed', 'conclusion': 'success',
+                         'output': {'title': 'Software renderer thumbnail', 'summary': f'Original viewport image size: {info}; thumbnail is a JPEG for inspection only.', 'text': encoded}}
+              p = pathlib.Path('/tmp/render-check.json')
+              p.write_text(json.dumps(payload))
+              subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input',str(p)], check=True, stdout=subprocess.DEVNULL)
+          PYCODE
+      - name: Publish render log
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PYCODE'
+          import json, os, pathlib, subprocess
+          log = pathlib.Path('/tmp/render-log.txt')
+          data = log.read_text(errors='replace')[-45000:] if log.exists() else 'render log unavailable'
+          payload = {'name':'Godot software render diagnostic','head_sha':os.environ['SHA'],'status':'completed','conclusion':'neutral', 'output':{'title':'Render log','summary':'Render script output','text':data}}
+          pathlib.Path('/tmp/render-diag.json').write_text(json.dumps(payload))
+          subprocess.run(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/check-runs",'--input','/tmp/render-diag.json'], check=True, stdout=subprocess.DEVNULL)
+          PYCODE
+  native-matrix:
+    if: ${{ inputs.quality_matrix == true }}
+    strategy:
+      fail-fast: false
+      matrix:
+        locale: [az, en, tr, ru]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot and software renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri imagemagick xdotool
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+      - name: Capture native gameplay and game-over matrix
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/matrix
+          QA_LOCALE: ${{ matrix.locale }}
+          XDG_DATA_HOME: /tmp/matrix-user
+        run: |
+          set -e -o pipefail
+          mkdir -p "$CAPTURE_DIR" "$XDG_DATA_HOME"
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/matrix/import.log 2>&1
+          export GODOT
+          xvfb-run -a -s '-screen 0 1920x1400x24' bash -e -o pipefail -c '
+            for theme in forest sunset snow; do
+              for size in 360x640 393x873 540x1170 1920x1080; do
+                QA_THEME=$theme QA_SIZE=$size timeout 45s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution "$size" --script res://tests/integration/quality_matrix_native.gd
+              done
+            done
+          ' 2>&1 | tee /tmp/matrix/capture.log
+          ! grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/matrix/import.log /tmp/matrix/capture.log
+          test "$(find /tmp/matrix -name '*.png' | wc -l)" -eq 24
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-quality-${{ matrix.locale }}
+          path: /tmp/matrix
+      - name: Transport fixture evidence as temporary blob
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          QA_LOCALE: ${{ matrix.locale }}
+        run: |
+          python3 - <<'PY'
+          import base64,hashlib,json,os,pathlib,subprocess,zipfile
+          root=pathlib.Path('/tmp/matrix'); archive=pathlib.Path('/tmp/native-quality.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              if root.exists():
+                  for f in sorted(root.iterdir()):
+                      if f.is_file():z.write(f,f.name)
+          p=pathlib.Path('/tmp/payload.json');p.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          sha=subprocess.check_output(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(p),'--jq','.sha'],text=True).strip()
+          print(f"::notice::NATIVE_MATRIX locale={os.environ['QA_LOCALE']} blob_sha={sha} sha256={hashlib.sha256(archive.read_bytes()).hexdigest()} bytes={archive.stat().st_size}")
+          PY
+  animation-motion:
+    if: ${{ inputs.quality_matrix == true }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot and video capture tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri xdotool ffmpeg
+          wget -q https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip -O /tmp/godot.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot
+      - name: Exercise and record actual Godot animation
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          CAPTURE_DIR: /tmp/animation-quality
+          XDG_DATA_HOME: /tmp/animation-user
+        run: |
+          set -e -o pipefail
+          mkdir -p "$CAPTURE_DIR" "$XDG_DATA_HOME"
+          GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
+          "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/animation-quality/import.log 2>&1
+          xvfb-run -a -s '-screen 0 1920x1400x24' timeout 90s "$GODOT" --path MergeAnimals --audio-driver Dummy --rendering-method gl_compatibility --resolution 720x1280 --script res://tests/integration/quality_animation_motion.gd 2>&1 | tee /tmp/animation-quality/animation.log
+          ! grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|^FAIL' /tmp/animation-quality/{import,animation}.log
+          test -s /tmp/animation-quality/animation-motion.mp4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: godot-animation-quality
+          path: /tmp/animation-quality
+      - name: Transport animation evidence as temporary blob
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import base64,hashlib,json,os,pathlib,subprocess,zipfile
+          root=pathlib.Path('/tmp/animation-quality');archive=pathlib.Path('/tmp/animation-quality.zip')
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              if root.exists():
+                  for f in sorted(root.iterdir()):
+                      if f.is_file(): z.write(f,f.name)
+          p=pathlib.Path('/tmp/payload.json');p.write_text(json.dumps({'content':base64.b64encode(archive.read_bytes()).decode(),'encoding':'base64'}))
+          sha=subprocess.check_output(['gh','api','--method','POST',f"repos/{os.environ['REPO']}/git/blobs",'--input',str(p),'--jq','.sha'],text=True).strip()
+          print(f'::notice::ANIMATION_QUALITY blob_sha={sha} sha256={hashlib.sha256(archive.read_bytes()).hexdigest()} bytes={archive.stat().st_size}')
+          PY

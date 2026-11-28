@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><radialGradient id="fur" cx=".35" cy=".25" r=".8"><stop stop-color="#f4c37a"/><stop offset="1" stop-color="#c8854f"/></radialGradient></defs>
+<g id="ears" stroke="#553e39" stroke-width="8" stroke-linejoin="round"><g fill="#f4c37a"><path d="M92 168 L113 65 Q121 38 150 64 L211 130Z"/><path d="M420 168 L399 65 Q391 38 362 64 L301 130Z"/></g></g>
+<g id="inner-ears" fill="#efaca2" opacity=".8"><path d="M112 148 L126 83 L178 129Z"/><path d="M400 148 L386 83 L334 129Z"/></g>
+<g id="body"><circle cx="256" cy="272" r="230" fill="url(#fur)" stroke="#553e39" stroke-width="8"/>
+<path d="M125 359 Q151 438 256 456 Q361 438 387 359" fill="none" stroke="#c8854f" stroke-width="17" stroke-linecap="round" opacity=".22"/>
+<ellipse cx="200" cy="164" rx="91" ry="41" fill="#ffffff" opacity=".12" transform="rotate(-16 200 164)"/>
+<ellipse cx="161" cy="186" rx="21" ry="10" fill="#fff9e8" opacity=".13" transform="rotate(-22 161 186)"/>
+</g>
+<g id="species-markings"><path d="M217 86 L228 147 M256 80 L256 143 M295 86 L284 147" fill="none" stroke="#b77b55" stroke-width="12" stroke-linecap="round" opacity=".7"/></g>
+<g id="muzzle"><ellipse cx="256" cy="318" rx="85" ry="62" fill="#fff0dc" opacity=".88"/>
+<path d="M202 340 Q256 370 310 340" fill="none" stroke="#c8854f" stroke-width="5" stroke-linecap="round" opacity=".18"/></g>
+<g id="face-details" fill="none" stroke="#553e39" stroke-width="5" stroke-linecap="round" opacity=".43"><path d="M110 290 L151 301 M106 311 L151 312 M361 301 L402 290 M361 312 L406 311"/></g>
+<g id="eyes-and-mouth" fill="#553e39"><path d="M160 235 Q179 248 198 235 M314 235 Q333 248 352 235" fill="none" stroke="#553e39" stroke-width="9" stroke-linecap="round"/><path d="M238 277 Q256 267 274 277 Q270 292 256 296 Q242 292 238 277Z"/><path d="M256 296 Q256 313 242 318 M256 296 Q256 313 270 318" fill="none" stroke="#553e39" stroke-width="7" stroke-linecap="round"/></g>
+<g id="eye-highlights"></g>
+<path d="M148 383 Q256 420 364 383" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".16"/>
+</svg>

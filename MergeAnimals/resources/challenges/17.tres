@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ChallengeData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/challenges/ChallengeData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = 17
+title_key = &"COMBO_CHAMPION"
+objective_key = &"COMBO_FIVE"
+objective_type = "combo"
+animal_id = &""
+target = 5
+time_limit = 0.0
+starting_animals = PackedStringArray()
+spawn_sequence = PackedStringArray("dog")
