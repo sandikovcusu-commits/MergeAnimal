@@ -199,6 +199,7 @@ func details() -> Dictionary:
 const LANES := [130.0, 245.0, 360.0, 475.0, 590.0, 245.0, 475.0, 360.0]
 
 func aim_x(i: int) -> float:
+	if not ensure_live(): return 360.0
 	var left: float = game.left_bound + game.current_data.radius + game.spawn_margin
 	var right: float = game.right_bound - game.current_data.radius - game.spawn_margin
 	var lane: float = LANES[(i + session_index * 2) % LANES.size()]
@@ -268,11 +269,29 @@ func planner_probe() -> Dictionary:
 	for item in items:
 		if float(item.y) - float(item.radius) < game.danger_height: mandatory += 1
 	var spawn_x: float = float(plan.get("spawn_x", -1.0))
+	var snapshot_ok: bool = SessionSave.valid(game._session_snapshot())
 	var spawn_clear: bool = false
-	if not plan.is_empty(): spawn_clear = bool(game._spawn_clear(game.current_data, spawn_x))
+	if not plan.is_empty():
+		# The production check excludes the bodies it is about to remove, so the
+		# probe excludes them too; otherwise a planned removal looks like a blocker.
+		var by_uid := {}
+		for body in game.pieces.get_children():
+			if body is Animal: by_uid[body.save_uid] = body
+		var circle := CircleShape2D.new()
+		circle.radius = game.current_data.radius + 1.0
+		var query := PhysicsShapeQueryParameters2D.new()
+		query.shape = circle
+		query.transform = Transform2D(0.0, Vector2(spawn_x, game.spawn_height))
+		query.collision_mask = 1
+		var excluded: Array[RID] = []
+		for uid in plan.remove_uids:
+			if by_uid.has(int(uid)): excluded.append(by_uid[int(uid)].get_rid())
+		query.exclude = excluded
+		spawn_clear = game.get_world_2d().direct_space_state.intersect_shape(query, 1).is_empty()
 	return {"bodies": items.size(), "mandatory": mandatory, "max_remove": int(game.rescue_max_remove),
 		"plan_empty": plan.is_empty(), "remove_uids": plan.get("remove_uids", []).size(),
-		"spawn_x": spawn_x, "spawn_y": float(game.spawn_height), "spawn_clear": spawn_clear}
+		"spawn_x": spawn_x, "spawn_y": float(game.spawn_height), "spawn_clear": spawn_clear,
+		"snapshot_valid": snapshot_ok, "locked": int(live().get("locked", 0))}
 
 # Every body above the Danger Line, the same rule RescuePlanner applies when it
 # decides which removals are mandatory.
@@ -494,14 +513,19 @@ func restart_isolation(result: Dictionary) -> void:
 	# reload_current_scene() replaces current_scene at the end of the frame; adopt
 	# the replacement only once it exists, instead of reading a freed scene.
 	var adopted = null
-	for i in range(180):
+	for i in range(240):
 		await frames(1)
 		paused = false
-		if is_instance_valid(current_scene) and current_scene != previous_scene and current_scene.has_method("_attempt_drop"):
-			adopted = current_scene
+		var boards: Array = []
+		for node in root.get_children():
+			if node.has_method("_attempt_drop") and not node.is_queued_for_deletion():
+				boards.append(node)
+		if not boards.is_empty() and boards[boards.size() - 1] != previous_scene:
+			adopted = boards[boards.size() - 1]
 			break
 	if adopted != null:
 		game = adopted
+		current_scene = adopted
 	for i in range(10): await frames(1)
 	var fresh := live()
 	check(bool(fresh.valid), "restart produced a live session")
