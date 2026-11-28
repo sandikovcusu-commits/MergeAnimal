@@ -151,10 +151,12 @@ func run() -> void:
 	if current_scene: current_scene.queue_free(); await process_frame
 	# 9. Undo restores a legal PLAYING board with cleared retry state.
 	game = await fresh()
-	check(drop(game, 300.0), "undo fixture drop 1")
-	for i in range(30): await physics_frame
-	check(drop(game, 300.0), "undo fixture drop 2")
-	for i in range(45): await physics_frame
+	check(drop(game, 260.0), "undo fixture drop 1")
+	# The drop cooldown is 0.5 s = 60 ticks at 120 Hz, and the second drop must
+	# target a column whose own spawn circle is free.
+	for i in range(90): await physics_frame
+	check(drop(game, 460.0), "undo fixture drop 2")
+	for i in range(90): await physics_frame
 	var score_before_undo: int = game.score
 	game._request_undo()
 	for i in range(6): await process_frame

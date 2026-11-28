@@ -46,7 +46,9 @@ func run() -> void:
 	check(not game.merge_manager.request_merge(a, third), "a locked body cannot join a second reservation")
 	for i in range(4): await physics_frame
 	check(game.merge_manager.merge_count == 1 and game.score == game.animals[1].merge_score, "commit awards the evolved level-2 base score exactly once (%d)" % game.animals[1].merge_score)
-	check(not a.merge_locked and not b.merge_locked, "locks released after the commit")
+	# A committed pair is freed, so "lock released" only applies while a body
+	# still exists; the surviving guarantee is that no phantom lock remains.
+	check((not is_instance_valid(a) or not a.merge_locked) and (not is_instance_valid(b) or not b.merge_locked), "locks released after the commit")
 	check(not is_instance_valid(a) or a.is_queued_for_deletion(), "originals are removed only on a successful commit")
 	game.queue_free(); await process_frame
 	# --- §09 cancellation preserves everything --------------------------
