@@ -56,6 +56,9 @@ on:
         description: Run B.3 native natural gameplay, terminal contract, refresh, restart and rescue
         type: boolean
         default: false
+      natural_b3_only:
+        description: 'B.3 focus: all, matrix, refresh, restart or rescue'
+        default: all'
 permissions:
   contents: write
   checks: write
@@ -192,7 +195,7 @@ jobs:
               # each a freshly played session) takes ~4 min of wall clock; 1200 s
               # per actor keeps three actors inside the 45 minute job budget and
               # still fails loudly if a session hangs.
-              XDG_DATA_HOME="/tmp/b3-natural-user-$b3_actor" timeout 1200 "$GODOT" --headless --path MergeAnimals --fixed-fps 120 --script res://tests/integration/natural_b3.gd -- seed=$((93000 + b3_actor * 10)) actor=$b3_actor >> /tmp/godot-test-log.txt 2>&1
+              XDG_DATA_HOME="/tmp/b3-natural-user-$b3_actor" timeout 1200 "$GODOT" --headless --path MergeAnimals --fixed-fps 120 --script res://tests/integration/natural_b3.gd -- seed=$((93000 + b3_actor * 10)) actor=$b3_actor only=${{ inputs.natural_b3_only }} >> /tmp/godot-test-log.txt 2>&1
               code=$?
               echo "exit=$code" | tee -a /tmp/godot-test-log.txt
               if [ "$code" -ne 0 ]; then status=1; fi

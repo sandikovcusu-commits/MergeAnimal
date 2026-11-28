@@ -22,11 +22,13 @@ var sessions_started := 0
 var game = null
 var hero := ""
 var events := 0
+var only := ""
 
 func _initialize() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("seed="): seed_base = int(arg.split("=")[1])
 		if arg.begins_with("actor="): hero = arg.split("=")[1]
+		if arg.begins_with("only="): only = arg.split("=")[1]
 	call_deferred("run")
 
 func check(ok: bool, text: String) -> void:
@@ -559,6 +561,19 @@ func restart_isolation(result: Dictionary) -> void:
 	var owner_text := "none"
 	if is_instance_valid(owner):
 		owner_text = "%s/%s filter=%d" % [owner.get_path(), owner.get_class(), int(owner.mouse_filter)]
+	var subtree: Array = []
+	var stack: Array = [root]
+	while not stack.is_empty():
+		var node = stack.pop_back()
+		for child in node.get_children():
+			stack.append(child)
+			if child is Control and child.is_visible_in_tree() and child.mouse_filter != Control.MOUSE_FILTER_IGNORE:
+				var rect: Rect2 = (child as Control).get_global_rect()
+				if rect.has_point(drop_point):
+					subtree.append("%s|%s|filter=%d|rect=%s" % [child.get_path(), child.get_class(), int(child.mouse_filter), JSON.stringify([rect.position.x, rect.position.y, rect.size.x, rect.size.y])])
+	print("NATURAL_RESTART_TRACE blockers=%s overlay_visible=%s overlay_children=%s" % [
+		JSON.stringify(subtree), str(game.overlay.visible),
+		JSON.stringify(game.overlay.get_children().map(func(c): return "%s|%s|vis=%s|filter=%d" % [c.name, c.get_class(), str(c.visible), int(c.mouse_filter) if c is Control else -1]))])
 	print("NATURAL_RESTART_TRACE drop_points=%s chosen=%s owner=%s playing=%s tree_paused=%s spawn_state=%d mouse_down=%s remove=%s undo=%s save_status=%d" % [
 		JSON.stringify(point), JSON.stringify(drop_point), owner_text, str(game.is_playing()), str(paused),
 		int(game.spawn_state), str(bool(game.mouse_down)), str(bool(game.remove_selecting)),
@@ -694,7 +709,7 @@ func _body_signature() -> Array:
 
 # ---------------------------------------------------------------- driver
 func run() -> void:
-	print("NATURAL_CONFIG engine=%s physics=%d actor=%s" % [Engine.get_version_info().string, Engine.physics_ticks_per_second, hero if not hero.is_empty() else "none"])
+	print("NATURAL_CONFIG engine=%s physics=%d actor=%s only=%s" % [Engine.get_version_info().string, Engine.physics_ticks_per_second, hero if not hero.is_empty() else "none", only if not only.is_empty() else "all"])
 	# A clean starting state: no Continue flag, no tutorial injection.
 	remove_meta("continue_requested")
 	# 260 inputs at a 150 tick (1.25 s at 120 Hz) cadence is at most ~325 s of
@@ -706,7 +721,10 @@ func run() -> void:
 		{"seed": seed_base + 3, "cap": 260, "cadence": 150},
 	]
 	var results: Array = []
+	# only=<name> runs one path, for diagnosing a single failure quickly. It is a
+	# developer switch, never used for validation runs.
 	for config in sessions:
+		if not only.is_empty() and only != "matrix": break
 		session_index += 1
 		var result: Dictionary = await session(int(config.seed), int(config.cap), int(config.cadence))
 		results.append(result)
@@ -726,6 +744,7 @@ func run() -> void:
 		{"name": "restart", "seed": seed_base + 12, "cap": 260, "cadence": 150},
 	]
 	for path in deep_paths:
+		if not only.is_empty() and only != str(path.name): continue
 		print("NATURAL_DEEP_BEGIN path=%s seed=%d" % [str(path.name), int(path.seed)])
 		session_index += 1
 		var played: Dictionary = await session(int(path.seed), int(path.cap), int(path.cadence))
@@ -749,6 +768,7 @@ func run() -> void:
 	var rescue_done := false
 	for offset in [13, 23, 33]:
 		if rescue_done: break
+		if not only.is_empty() and only != "rescue": break
 		rescue_attempts += 1
 		print("NATURAL_RESCUE_ATTEMPT attempt=%d seed=%d" % [rescue_attempts, seed_base + offset])
 		session_index += 1
