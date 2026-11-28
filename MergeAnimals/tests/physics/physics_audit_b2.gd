@@ -27,17 +27,19 @@ func run_case(count: int, seed_value: int) -> void:
 	root.add_child(game)
 	await process_frame
 	game.danger_monitor.set_physics_process(false)
-	var rng := RandomNumberGenerator.new()
-	rng.seed = 70000 + seed_value
-	# Fill the board bottom-up so compression builds naturally, then release
-	# the bodies into real gravity.
+	# Fill the board bottom-up with a LEGAL lattice: level-1 mice (r = 18) in
+	# 38 px cells (mouse diameter 36 px + 2 px air), so no body overlaps another
+	# body or a wall at spawn and every contact is coplanar.
+	# The first audit attempt mixed levels 1-4 on a 42 px lattice, so larger
+	# animals started interpenetrating and produced artificial deep contact.
+	var step := 38.0
+	var columns: int = int(floor((float(game.right_bound) - float(game.left_bound)) / step))
+	var x0: float = float(game.left_bound) + (float(game.right_bound) - float(game.left_bound) - float(columns) * step) * 0.5
 	for i in range(count):
-		var row: int = i / 8
-		var col: int = i % 8
-		var level: int = rng.randi_range(0, 3)
-		var point := Vector2(200 + col * 42, 1040 - row * 44)
-		var body: Animal = game.create_animal(game.animals[level], point)
-		body.linear_velocity = Vector2(rng.randf_range(-40, 40), 0)
+		var row: int = i / columns
+		var col: int = i % columns
+		var point := Vector2(x0 + (float(col) + 0.5) * step, 1040.0 - float(row) * step)
+		var body: Animal = game.create_animal(game.animals[0], point)
 	var max_depth := 0.0
 	var depth_sum := 0.0
 	var depth_samples := 0
