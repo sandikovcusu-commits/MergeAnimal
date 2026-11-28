@@ -280,7 +280,32 @@ func planner_probe() -> Dictionary:
 	for item in items:
 		if float(item.y) - float(item.radius) < game.danger_height: mandatory += 1
 	var spawn_x: float = float(plan.get("spawn_x", -1.0))
-	var snapshot_ok: bool = SessionSave.valid(game._session_snapshot())
+	# Replicate the production rescue commit read-only, stage by stage, so a refusal
+	# is attributed to the guard that rejected it instead of being guessed.
+	var snapshot: Dictionary = game._session_snapshot()
+	var stage := "snapshot"
+	var built := snapshot.duplicate(true)
+	if not snapshot.is_empty() and not plan.is_empty():
+		var ids: Array = plan.remove_uids
+		var kept: Array = []
+		for item in snapshot.bodies:
+			if int(item.uid) not in ids:
+				item.danger = 0.0
+				kept.append(item)
+		built.bodies = kept
+		built.aim_x = plan.spawn_x
+		built.rescue_remaining = int(game.rescue_remaining) - 1
+		built.game_over_pending = false
+		built.undo_snapshot = {}
+		built.cooldown_left = maxf(0.25, float(snapshot.cooldown_left))
+		stage = "valid"
+	var snapshot_ok: bool = SessionSave.valid(game._session_snapshot()) and SessionSave.valid(built)
+	var reject := ""
+	if not SessionSave.valid(built) and not built.is_empty():
+		for key in ["session_version", "active", "score", "best_score", "best_at_start", "spawn_count", "merge_count", "combo_count", "combo_events", "max_combo", "highest_level", "combo_left", "cooldown_left", "aim_x", "current", "next", "rng_state", "tutorial_stage", "progression", "generation", "undo_remaining", "next_body_uid", "undo_snapshot", "bodies", "rescue_remaining", "remove_remaining", "session_id", "game_over_pending"]:
+			var probe := built.duplicate(true)
+			probe.erase(key)
+			if SessionSave.valid(probe): reject += key + " "
 	var spawn_clear: bool = false
 	if not plan.is_empty():
 		# The production check excludes the bodies it is about to remove, so the
@@ -302,7 +327,15 @@ func planner_probe() -> Dictionary:
 	return {"bodies": items.size(), "mandatory": mandatory, "max_remove": int(game.rescue_max_remove),
 		"plan_empty": plan.is_empty(), "remove_uids": plan.get("remove_uids", []).size(),
 		"spawn_x": spawn_x, "spawn_y": float(game.spawn_height), "spawn_clear": spawn_clear,
-		"snapshot_valid": snapshot_ok, "locked": int(live().get("locked", 0))}
+		"snapshot_valid": snapshot_ok, "stage": stage, "reject_field": reject,
+		"bodies_kept": built.get("bodies", []).size(),
+		"danger_max": _max_danger_field(built), "locked": int(live().get("locked", 0))}
+
+func _max_danger_field(snapshot: Dictionary) -> float:
+	var top := 0.0
+	for body in snapshot.get("bodies", []):
+		top = maxf(top, float(body.get("danger", 0.0)))
+	return top
 
 # Every body above the Danger Line, the same rule RescuePlanner applies when it
 # decides which removals are mandatory.
