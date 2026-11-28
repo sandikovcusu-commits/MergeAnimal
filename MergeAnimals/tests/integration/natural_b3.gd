@@ -483,7 +483,8 @@ func restart_isolation(result: Dictionary) -> void:
 	check(int(fresh.best) >= old_best, "restart preserves the legitimate best score (%d >= %d)" % [int(fresh.best), old_best])
 	# A drop must be possible immediately in the new session.
 	var spawns_before: int = int(fresh.spawns)
-	var point := safe_board_points(1)[0] if not safe_board_points(1).is_empty() else Vector2(360.0, 700.0)
+	var candidates := safe_board_points(1)
+	var point: Vector2 = Vector2(360.0, 700.0) if candidates.is_empty() else candidates[0]
 	print("NATURAL_RESTART_TRACE instance=%d state=%d spawn_state=%s paused=%s overlay=%s buttons=%s point=%s" % [
 		int(fresh.get("instance_id", 0)), int(fresh.game_state), str(int(fresh.spawn_state)), str(paused),
 		str(fresh.overlay_visible), JSON.stringify(visible_button_rects(root).map(func(r): return [r.position.x, r.position.y, r.size.x, r.size.y])), JSON.stringify(point)])
