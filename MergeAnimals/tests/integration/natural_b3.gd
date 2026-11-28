@@ -444,6 +444,10 @@ func session(seed_value: int, cap_inputs: int, cadence_ticks: int) -> Dictionary
 		end_live.get("score", 0), end_live.get("best", 0), end_live.get("highest", 0), max_bodies,
 		max_combo, max_danger, danger_approaches, danger_cleared, sim_seconds, elapsed,
 		end_live.get("bodies", 0), end_live.get("session_id", "")])
+	if over and ensure_live():
+		print("NATURAL_RESCUE_FEASIBILITY seed=%d above_line=%d max_remove=%d feasible=%s supported_above=%d" % [
+			seed_value, _bodies_above_line(), int(game.rescue_max_remove),
+			str(_bodies_above_line() <= int(game.rescue_max_remove)), danger_bodies()])
 	print("NATURAL_TERMINAL_STATE seed=%d game_state=%d overlay=%s rescue_ready=%s rescue_text=%s pending=%d locked=%d" % [
 		seed_value, end_live.get("game_state", -1), str(end_live.get("overlay_visible", false)),
 		str(end_live.get("rescue_ready", false)), end_live.get("rescue_text", ""),

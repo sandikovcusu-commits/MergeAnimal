@@ -1,0 +1,1626 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (133 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | AdModule[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | DataModule[39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | GameModule[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | UserModule[39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | CrazyBanner[39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | Callbacks[39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | AchievementData[39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | AchievementManager[39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | FeelAudio[39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | ChallengeData[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ChallengeManager[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | ChallengeStore[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | Animal[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | AnimalData[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | AnimalCosmetic[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | GoldenConfig[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | DangerMonitor[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | MergeManager[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | RescuePlanner[39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | RewardRequestGateway[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | Progression[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | SaveManager[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | SessionSave[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | ThemeStore[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | CollectionNames[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | GardenDesign[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | SettingsStore[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | TouchScroll[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | UIStrings[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (100 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | blink.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | happy.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | normal.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | surprise.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | forest.wav[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | snow.wav[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | sunset.wav[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | achievement_unlocked.wav[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | animal_collision.wav[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | animal_discovered.wav[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | animal_drop.wav[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | button_click.wav[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | challenge_failed.wav[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | challenge_success.wav[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | combo.wav[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | danger_warning.wav[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | game_over.wav[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | golden_merge.wav[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | large_merge.wav[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | medium_merge.wav[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | menu_back.wav[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | remove.wav[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | rescue.wav[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | small_merge.wav[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | soft_landing.wav[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | theme_unlocked.wav[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | undo.wav[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | forest_garden.svg[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | snowy_valley.svg[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | sunset_safari.svg[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | DejaVuSans.ttf[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | back.svg[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | challenge.svg[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | check.svg[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | close.svg[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | collection.svg[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | home.svg[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | lock.svg[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | music.svg[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | mute.svg[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | pause.svg[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | play.svg[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | play_light.svg[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | remove.svg[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | rescue.svg[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | restart.svg[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | reward.svg[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | settings.svg[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | sound.svg[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | star.svg[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | trophy.svg[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | undo.svg[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | wild_garden.svg[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | BUG_TRACKER.csv[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | MERGE_STRESS_TEST.csv[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (100 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   1% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   3% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   5% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   7% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   9% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  11% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  12% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  14% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  16% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  18% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  22% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  24% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  27% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  29% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  31% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  35% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  37% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  38% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  42% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  43% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  44% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  48% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  49% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  51% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  55% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  56% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  57% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  59% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  61% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  62% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  64% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  68% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  70% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  72% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  74% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  75% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  77% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  79% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  81% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  83% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  85% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  87% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  88% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  90% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  92% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  93% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  94% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  96% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  98% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[   0% ] [90m[1mreimport[22m | MERGE_STRESS_TEST.csv[39m[0m
+[   1% ] [90m[1mreimport[22m | BUG_TRACKER.csv[39m[0m
+[   2% ] [90m[1mreimport[22m | DejaVuSans.ttf[39m[0m
+[   3% ] [90m[1mreimport[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[   4% ] [90m[1mreimport[22m | MERGE_STRESS_TEST.csv[39m[0m
+[   5% ] [90m[1mreimport[22m | BUG_TRACKER.csv[39m[0m
+[   6% ] [90m[1mreimport[22m | DejaVuSans.ttf[39m[0m
+[   7% ] [90m[1mreimport[22m | close.svg[39m[0m
+[   8% ] [90m[1mreimport[22m | check.svg[39m[0m
+[   9% ] [90m[1mreimport[22m | challenge.svg[39m[0m
+[  10% ] [90m[1mreimport[22m | back.svg[39m[0m
+[  11% ] [90m[1mreimport[22m | sunset_safari.svg[39m[0m
+[  12% ] [90m[1mreimport[22m | snowy_valley.svg[39m[0m
+[  13% ] [90m[1mreimport[22m | forest_garden.svg[39m[0m
+[  14% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  15% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  16% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  17% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  18% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  19% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  20% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  21% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  22% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  23% ] [90m[1mreimport[22m | wild_garden.svg[39m[0m
+[  24% ] [90m[1mreimport[22m | undo.svg[39m[0m
+[  25% ] [90m[1mreimport[22m | trophy.svg[39m[0m
+[  26% ] [90m[1mreimport[22m | star.svg[39m[0m
+[  27% ] [90m[1mreimport[22m | sound.svg[39m[0m
+[  28% ] [90m[1mreimport[22m | settings.svg[39m[0m
+[  29% ] [90m[1mreimport[22m | reward.svg[39m[0m
+[  30% ] [90m[1mreimport[22m | restart.svg[39m[0m
+[  31% ] [90m[1mreimport[22m | rescue.svg[39m[0m
+[  32% ] [90m[1mreimport[22m | remove.svg[39m[0m
+[  33% ] [90m[1mreimport[22m | play_light.svg[39m[0m
+[  34% ] [90m[1mreimport[22m | play.svg[39m[0m
+[  35% ] [90m[1mreimport[22m | pause.svg[39m[0m
+[  36% ] [90m[1mreimport[22m | mute.svg[39m[0m
+[  37% ] [90m[1mreimport[22m | music.svg[39m[0m
+[  38% ] [90m[1mreimport[22m | lock.svg[39m[0m
+[  39% ] [90m[1mreimport[22m | home.svg[39m[0m
+[  40% ] [90m[1mreimport[22m | collection.svg[39m[0m
+[  41% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  42% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  43% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  44% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  45% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  46% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  47% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  48% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  49% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  50% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  51% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  52% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  53% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  54% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  55% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  56% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  57% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  58% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  59% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  60% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  61% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  62% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  63% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  64% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  65% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  66% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  67% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  68% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  69% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  70% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  71% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  72% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  73% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  74% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  75% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  76% ] [90m[1mreimport[22m | VISUAL_TEST_MATRIX.csv[39m[0m
+[  77% ] [90m[1mreimport[22m | MERGE_STRESS_TEST.csv[39m[0m
+[  78% ] [90m[1mreimport[22m | BUG_TRACKER.csv[39m[0m
+[  79% ] [90m[1mreimport[22m | DejaVuSans.ttf[39m[0m
+[  80% ] [90m[1mreimport[22m | close.svg[39m[0m
+[  81% ] [90m[1mreimport[22m | check.svg[39m[0m
+[  82% ] [90m[1mreimport[22m | challenge.svg[39m[0m
+[  83% ] [90m[1mreimport[22m | back.svg[39m[0m
+[  84% ] [90m[1mreimport[22m | sunset_safari.svg[39m[0m
+[  85% ] [90m[1mreimport[22m | snowy_valley.svg[39m[0m
+[  86% ] [90m[1mreimport[22m | forest_garden.svg[39m[0m
+[  87% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  88% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  89% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  90% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  91% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  92% ] [90m[1mreimport[22m | normal.png[39m[0m
+[  93% ] [90m[1mreimport[22m | happy.png[39m[0m
+[  94% ] [90m[1mreimport[22m | blink.png[39m[0m
+[  95% ] [90m[1mreimport[22m | surprise.png[39m[0m
+[  96% ] [90m[1mreimport[22m | wild_garden.svg[39m[0m
+[  97% ] [90m[1mreimport[22m | undo.svg[39m[0m
+[  98% ] [90m[1mreimport[22m | trophy.svg[39m[0m
+[  99% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (100 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+===== integration =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: mouse pair accepted
+PASS 2: duplicate contact locked level 1
+PASS 3: level 1 produces next level
+PASS 4: level 1 score counted once
+PASS 5: hamster pair accepted
+PASS 6: duplicate contact locked level 2
+PASS 7: level 2 produces next level
+PASS 8: level 2 score counted once
+PASS 9: rabbit pair accepted
+PASS 10: duplicate contact locked level 3
+PASS 11: level 3 produces next level
+PASS 12: level 3 score counted once
+PASS 13: cat pair accepted
+PASS 14: duplicate contact locked level 4
+PASS 15: level 4 produces next level
+PASS 16: level 4 score counted once
+PASS 17: different levels do not merge
+PASS 18: first of three reserves
+PASS 19: three-way contact cannot reuse animal
+PASS 20: three-way result keeps third and other-level body
+PASS 21: four bodies reserve two legal pairs
+PASS 22: four bodies produce two hamsters and two scores
+PASS 23: result bodies can chain
+PASS 24: chain creates rabbit and correct score
+PASS 25: wall/floor pair accepted
+PASS 26: merge corrected away from left wall
+PASS 27: merge corrected above floor
+PASS 28: left aim clamp
+PASS 29: right aim clamp
+PASS 30: drop request accepted
+PASS 31: duplicate request rejected
+PASS 32: one physical body spawned
+PASS 33: queue advances exactly once
+PASS 34: cooldown active
+PASS 35: cooldown rejects another request
+PASS 36: preview hidden in cooldown
+PASS 37: preview data matches queue
+PASS 38: canceled touch does not drop
+PASS 39: emulated mouse ignored
+PASS 40: blocked spawn does not change queue or add a body
+PASS 41: blocking body not deleted
+PASS 42: falling unsupported body ignored
+PASS 43: supported danger starts grace period
+PASS 44: danger timer resets on loss of support
+PASS 45: persistent danger ends and pauses game
+PASS 46: game over blocks drop
+PASS 47: pause stops tree
+PASS 48: pause blocks drop
+PASS 49: resume unpauses tree
+Checks: 49; failures: 0
+exit=0
+===== character expression frames =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+mouse expression frames, collision invariants and reduced reset: PASS
+hamster expression frames, collision invariants and reduced reset: PASS
+rabbit expression frames, collision invariants and reduced reset: PASS
+cat expression frames, collision invariants and reduced reset: PASS
+dog expression frames, collision invariants and reduced reset: PASS
+fox expression frames, collision invariants and reduced reset: PASS
+raccoon expression frames, collision invariants and reduced reset: PASS
+koala expression frames, collision invariants and reduced reset: PASS
+panda expression frames, collision invariants and reduced reset: PASS
+bear expression frames, collision invariants and reduced reset: PASS
+lion expression frames, collision invariants and reduced reset: PASS
+elephant expression frames, collision invariants and reduced reset: PASS
+EXPRESSION_FRAMES total=12 failures=0
+exit=0
+===== visual scheduler lifecycle =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: animal registered exactly once
+PASS: one shared ticker; individual callback disabled
+PASS: shared ticker advances cosmetic phase
+PASS: pause freezes cosmetics
+PASS: reduced mode unregisters and resets
+PASS: restoring normal effects re-registers
+PASS: freeing body unregisters scheduler reference
+VISUAL_SCHEDULER checks=7 failures=0
+exit=0
+===== day6 save primitive =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Day6 experimental save checks=217 failures=0
+exit=0
+===== day63 reward gateway =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: unknown reward rejected
+PASS: request alone grants nothing
+PASS: only one pending request
+PASS: unrelated callback ignored
+PASS: failed callback does not earn reward
+PASS: duplicate callback ignored
+PASS: distinct remove request accepts successful callback
+PASS: success reports only the matching request
+PASS: old callback cannot resolve a new request
+PASS: rescue callback reported once
+Reward gateway checks: 10; failures: 0
+exit=0
+===== day61 session write process =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: new game started
+PASS: 20 animals dropped via gameplay
+PASS: real contact merge awards score
+PASS: game paused before process exit
+PASS: persist first snapshot
+PASS: persist matching backup snapshot
+PASS: saved session readable
+DAY61_SAVED drops=20 merges=9 score=124 bodies=11 rng=1474054863062599966
+DAY61 phase=write checks=7 failures=0
+exit=0
+===== day61 session read process =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: prior process fixture present
+PASS: prior saved snapshot valid
+PASS: Continue enabled in new process
+PASS: new game requests confirmation before replacing save
+PASS: prompt alone does not overwrite save
+PASS: Continue button opens gameplay
+PASS: drop and merge counters restored without duplicates
+PASS: score and best restored without duplicate award
+PASS: combo restored
+PASS: collection statistics restored across processes
+PASS: discovery dates and animal counts restored across processes
+PASS: current next and exact RNG state restored
+PASS: future RNG sequence matches previous process
+PASS: exact body count restored
+PASS: body 0 id, position and rotation
+PASS: body 0 linear and angular velocity
+PASS: body 1 id, position and rotation
+PASS: body 1 linear and angular velocity
+PASS: body 2 id, position and rotation
+PASS: body 2 linear and angular velocity
+PASS: body 3 id, position and rotation
+PASS: body 3 linear and angular velocity
+PASS: body 4 id, position and rotation
+PASS: body 4 linear and angular velocity
+PASS: body 5 id, position and rotation
+PASS: body 5 linear and angular velocity
+PASS: body 6 id, position and rotation
+PASS: body 6 linear and angular velocity
+PASS: body 7 id, position and rotation
+PASS: body 7 linear and angular velocity
+PASS: body 8 id, position and rotation
+PASS: body 8 linear and angular velocity
+PASS: body 9 id, position and rotation
+PASS: body 9 linear and angular velocity
+PASS: body 10 id, position and rotation
+PASS: body 10 linear and angular velocity
+PASS: corrupt primary recovers backup
+PASS: duplicate body identity rejected
+PASS: unknown animal rejected
+PASS: Continue enabled for recovered backup
+PASS: Continue actually restores corrupted primary from backup
+PASS: backup Continue restores statistics without duplicate discoveries
+PASS: continue after recovery writes valid primary
+PASS: continued gameplay accepts a further real drop
+PASS: pending merge fixture reserved
+PASS: save refused during pending merge
+PASS: pending save did not change durable data
+PASS: game over saves pending continue
+PASS: finalized game over invalidates continue
+PASS: corrupt tombstone cannot resurrect old game
+DAY61_RESTORED score=134 bodies=13 drops=21
+PASS: new game confirmation fixture
+PASS: new game dialog appears
+PASS: confirmed new game starts a fresh board
+PASS: confirmed new game clears previous session
+PASS: future schema fixture
+PASS: future session schema recognized
+PASS: future session schema cannot be overwritten
+PASS: future session remains intact
+DAY61 phase=read checks=58 failures=0
+exit=0
+===== day62 collection integration =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: write legacy session fixture
+PASS: V0.6.1 session remains readable
+PASS: legacy migration preserves best without invented animals
+PASS: legacy settings preserved
+PASS: legacy Continue restores session and best
+PASS: legacy session migrates without fake discovery
+PASS: legacy unknown-provenance collision cannot fake discovery or record
+PASS: legacy game remains saveable when uncertain merge score exceeds best
+PASS: new genuine drops still progress after uncertain legacy merge
+PASS: new game counted once, collection starts empty
+PASS: active gameplay time increases
+PASS: first real drop counted
+PASS: first mouse unlocked once
+PASS: discovery date and nonblocking notification
+PASS: repeat drop increments count, not discovery
+PASS: real collision unlocks hamster and counts merge
+PASS: duplicate discovery prevented, date stable
+PASS: legacy best retained and actual max combo recorded
+PASS: notifications queued and input-transparent
+PASS: debug spawn and subsequent collisions cannot progress collection or merge stats
+PASS: debug score cannot become lifetime best
+PASS: tainted session remains saveable without altering best
+PASS: restart starts another game without completion
+PASS: restart preserves collection
+PASS: paused gameplay time stops
+PASS: collection and statistics saved with session
+PASS: save/load includes collection
+PASS: pause navigates to main menu
+PASS: main menu time not counted
+PASS: collection has 12 cards in three-column grid
+PASS: collection cards share styled interaction states
+PASS: unlocked and locked cards render appropriate state
+PASS: card text fits and descriptions translate for en
+PASS: card text fits and descriptions translate for az
+PASS: card text fits and descriptions translate for tr
+PASS: card text fits and descriptions translate for ru
+PASS: collection grid scrolls to later animals
+PASS: animal detail opens with persisted count
+PASS: detail closes
+PASS: statistics screen reads actual saved values
+PASS: statistics shows all 11 totals and 12 animal counts in styled rows
+PASS: Continue does not double-count game or events
+PASS: create matching backup for recovery
+PASS: corrupt session recovers collection and statistics
+PASS: real golden collision counted once
+PASS: golden gameplay updates best and preserves maximum combo
+PASS: golden merge preserves existing Elephant discovery
+PASS: pending game over is recoverable without completion
+PASS: finalization counts completion once
+PASS: game-over reentry does not duplicate completion
+PASS: golden collection persists after game over
+PASS: all corrupt copies are not overwritten
+PASS: unrecoverable data is not presented as empty collection
+PASS: future progression fixture written
+PASS: future progression schema is protected
+DAY62 collection and statistics checks=55 failures=0
+exit=0
+===== day5 tutorial collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: tutorial starts with matching pair
+PASS: real screen drag advances aim instruction
+PASS: release actually drops first piece and advances tutorial
+PASS: second matching animal was actually dropped
+PASS: real physics collision advances merge and danger instruction
+Day5 tutorial checks=5 failures=0
+exit=0
+===== day5 effects =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: sparkle animates without physics
+PASS: soft_burst animates without physics
+PASS: golden_glow animates without physics
+PASS: leaves animates without physics
+PASS: score_star animates without physics
+PASS: combo_shine animates without physics
+PASS: golden_echo animates without physics
+PASS: forest has keyboard focus style
+PASS: earth has keyboard focus style
+PASS: sunset has keyboard focus style
+PASS: snow has keyboard focus style
+PASS: gold has keyboard focus style
+PASS: berry has keyboard focus style
+PASS: sky has keyboard focus style
+PASS: cream has keyboard focus style
+PASS: reduced effects emits only one low-cost burst
+PASS: reduced burst omits decorative second ring
+PASS: regular merge emits layered effects
+PASS: golden echo uses existing happy artwork without physics children
+PASS: reduced golden merge emits no ghost or shake
+PASS: effects self-remove after playback
+Day5 effects checks=21 failures=0
+exit=0
+===== day803 performance regression =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: animal idle animation advances when effects enabled
+PASS: reducing effects stops idle updates and cancels action tween
+PASS: enabling effects resumes idle animation
+PASS: selected small sprites are imported at 256; larger sprites remain 512
+PASS: spawn query reuses objects and updates radius
+PASS: cached spawn query detects occupied and clear positions
+PERFORMANCE_REGRESSION checks=6 failures=0
+exit=0
+===== day5 GUI input =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: mouse click opens Settings through viewport GUI dispatch
+PASS: mouse click Back closes Settings
+PASS: mouse click Play transitions to game
+PASS: touch Skip is consumed without dropping a piece
+PASS: simulated touch opens Pause
+PASS: keyboard focus reaches Resume
+PASS: keyboard accept activates focused Resume
+Day5 GUI dispatch: checks=7 failures=0
+exit=0
+===== day5 UI interaction =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: main menu exposes working Play
+PASS: menu primary button exposes distinct visual states
+PASS: collection and challenge selection enabled
+PASS: menu opens settings
+PASS: settings uses shared panel and button styles
+PASS: settings language button and popup use readable shared colors
+PASS: checked and hovered settings toggles retain readable text
+PASS: volume change persisted
+PASS: Azerbaijani translation applied
+PASS: audio bus infrastructure exists
+PASS: language 0 translates and persists
+PASS: language 1 translates and persists
+PASS: language 2 translates and persists
+PASS: language 3 translates and persists
+PASS: settings back closes modal
+PASS: Play transitions to live game
+PASS: HUD backdrop is a cached canvas decoration, not an input control
+PASS: tutorial starts with matching pair
+PASS: tutorial banner does not overlap power-up buttons
+PASS: tutorial banner does not obscure spawn preview
+PASS: tutorial skip persists completion
+PASS: pause cancels an uncommitted drop
+PASS: pause freezes game and shows overlay
+PASS: pause/game-over/rescue controls use shared styles
+PASS: settings opens while paused
+PASS: settings card is centered above gameplay overlay
+PASS: settings back preserves pause
+PASS: resume restores gameplay
+PASS: replay tutorial restarts with matching pair
+PASS: localized result text and actions fit without overlap: en
+PASS: localized result text and actions fit without overlap: az
+PASS: localized result text and actions fit without overlap: tr
+PASS: localized result text and actions fit without overlap: ru
+PASS: game over freezes and cannot resume
+PASS: game-over restart resets scene
+PASS: pause to main menu unpauses tree
+Day5 UI integration: checks=36 failures=0
+exit=0
+===== day4.1 UI assets =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: icon play imports
+PASS: icon pause imports
+PASS: icon restart imports
+PASS: icon settings imports
+PASS: icon home imports
+PASS: icon collection imports
+PASS: icon challenge imports
+PASS: icon sound imports
+PASS: icon music imports
+PASS: icon mute imports
+PASS: icon undo imports
+PASS: icon remove imports
+PASS: icon rescue imports
+PASS: icon trophy imports
+PASS: icon star imports
+PASS: icon lock imports
+PASS: icon check imports
+PASS: icon close imports
+PASS: icon back imports
+PASS: icon reward imports
+PASS: forest normal style
+PASS: forest hover style
+PASS: forest pressed style
+PASS: forest disabled style
+PASS: earth normal style
+PASS: earth hover style
+PASS: earth pressed style
+PASS: earth disabled style
+PASS: sunset normal style
+PASS: sunset hover style
+PASS: sunset pressed style
+PASS: sunset disabled style
+PASS: snow normal style
+PASS: snow hover style
+PASS: snow pressed style
+PASS: snow disabled style
+PASS: gold normal style
+PASS: gold hover style
+PASS: gold pressed style
+PASS: gold disabled style
+PASS: berry normal style
+PASS: berry hover style
+PASS: berry pressed style
+PASS: berry disabled style
+PASS: sky normal style
+PASS: sky hover style
+PASS: sky pressed style
+PASS: sky disabled style
+PASS: cream normal style
+PASS: cream hover style
+PASS: cream pressed style
+PASS: cream disabled style
+PASS: HUD has native theme
+Day4.1 UI checks: 53; failures: 0
+exit=0
+===== day4 assets =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: mouse expected present/missing status
+PASS 2: mouse imported texture dimensions and alpha
+PASS 3: mouse transparent corners
+PASS 4: mouse preview and next use same texture
+PASS 5: mouse body texture and collision radius
+PASS 6: hamster expected present/missing status
+PASS 7: hamster imported texture dimensions and alpha
+PASS 8: hamster transparent corners
+PASS 9: hamster preview and next use same texture
+PASS 10: hamster body texture and collision radius
+PASS 11: rabbit expected present/missing status
+PASS 12: rabbit imported texture dimensions and alpha
+PASS 13: rabbit transparent corners
+PASS 14: rabbit preview and next use same texture
+PASS 15: rabbit body texture and collision radius
+PASS 16: cat expected present/missing status
+PASS 17: cat imported texture dimensions and alpha
+PASS 18: cat transparent corners
+PASS 19: cat preview and next use same texture
+PASS 20: cat body texture and collision radius
+PASS 21: dog expected present/missing status
+PASS 22: dog imported texture dimensions and alpha
+PASS 23: dog transparent corners
+PASS 24: dog preview and next use same texture
+PASS 25: dog body texture and collision radius
+PASS 26: fox expected present/missing status
+PASS 27: fox imported texture dimensions and alpha
+PASS 28: fox transparent corners
+PASS 29: fox preview and next use same texture
+PASS 30: fox body texture and collision radius
+PASS 31: raccoon expected present/missing status
+PASS 32: raccoon imported texture dimensions and alpha
+PASS 33: raccoon transparent corners
+PASS 34: raccoon preview and next use same texture
+PASS 35: raccoon body texture and collision radius
+PASS 36: koala expected present/missing status
+PASS 37: koala imported texture dimensions and alpha
+PASS 38: koala transparent corners
+PASS 39: koala preview and next use same texture
+PASS 40: koala body texture and collision radius
+PASS 41: panda expected present/missing status
+PASS 42: panda imported texture dimensions and alpha
+PASS 43: panda transparent corners
+PASS 44: panda preview and next use same texture
+PASS 45: panda body texture and collision radius
+PASS 46: bear expected present/missing status
+PASS 47: bear imported texture dimensions and alpha
+PASS 48: bear transparent corners
+PASS 49: bear preview and next use same texture
+PASS 50: bear body texture and collision radius
+PASS 51: lion expected present/missing status
+PASS 52: lion imported texture dimensions and alpha
+PASS 53: lion transparent corners
+PASS 54: lion preview and next use same texture
+PASS 55: lion body texture and collision radius
+PASS 56: elephant expected present/missing status
+PASS 57: elephant imported texture dimensions and alpha
+PASS 58: elephant transparent corners
+PASS 59: elephant preview and next use same texture
+PASS 60: elephant body texture and collision radius
+PASS 61: three theme backgrounds are configured
+PASS 62: theme 0 can be selected
+PASS 63: theme 1 can be selected
+PASS 64: theme 2 can be selected
+Day4 DEV asset checks: 64; failures: 0; normal sprites=12; happy/surprise=not supplied
+exit=0
+===== day3 evolution =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS 1: 12 configured AnimalData resources
+PASS 2: animal 1 identity radius score
+PASS 3: animal 2 identity radius score
+PASS 4: animal 3 identity radius score
+PASS 5: animal 4 identity radius score
+PASS 6: animal 5 identity radius score
+PASS 7: animal 6 identity radius score
+PASS 8: animal 7 identity radius score
+PASS 9: animal 8 identity radius score
+PASS 10: animal 9 identity radius score
+PASS 11: animal 10 identity radius score
+PASS 12: animal 11 identity radius score
+PASS 13: animal 12 identity radius score
+PASS 14: evolution link 1
+PASS 15: evolution link 2
+PASS 16: evolution link 3
+PASS 17: evolution link 4
+PASS 18: evolution link 5
+PASS 19: evolution link 6
+PASS 20: evolution link 7
+PASS 21: evolution link 8
+PASS 22: evolution link 9
+PASS 23: evolution link 10
+PASS 24: evolution link 11
+PASS 25: elephant golden terminal
+PASS 26: two elephant diameters fit container
+Spawn distribution seed=13579 n=10000: [3012, 2511, 2058, 1479, 940, 0, 0, 0, 0, 0, 0, 0]
+PASS 27: spawn weight mouse within 2 percentage points
+PASS 28: spawn weight hamster within 2 percentage points
+PASS 29: spawn weight rabbit within 2 percentage points
+PASS 30: spawn weight cat within 2 percentage points
+PASS 31: spawn weight dog within 2 percentage points
+PASS 32: no high tier randomly spawns
+PASS 33: level 6+ cannot spawn even with nonzero weight
+PASS 34: spawn seed reproducible
+PASS 35: combo start 1x
+PASS 36: combo x2 1.25
+PASS 37: combo x3 1.5
+PASS 38: combo x4 1.75
+PASS 39: combo x5+ capped 2x
+PASS 40: combo timer pauses
+PASS 41: combo timeout resets and clears label
+PASS 42: post timeout returns to 1x
+PASS 43: game over resets combo
+PASS 44: real collision mouse -> hamster (score=4, count=1)
+PASS 45: real collision hamster -> rabbit (score=8, count=1)
+PASS 46: real collision rabbit -> cat (score=12, count=1)
+PASS 47: real collision cat -> dog (score=20, count=1)
+PASS 48: real collision dog -> fox (score=32, count=1)
+PASS 49: real collision fox -> raccoon (score=48, count=1)
+PASS 50: real collision raccoon -> koala (score=70, count=1)
+PASS 51: real collision koala -> panda (score=100, count=1)
+PASS 52: real collision panda -> bear (score=150, count=1)
+PASS 53: real collision bear -> lion (score=220, count=1)
+PASS 54: real collision lion -> elephant (score=500, count=1)
+PASS 55: real collision elephant -> gold (score=1000, count=0)
+PASS 56: golden duplicate protected; play continues
+PASS 57: gold pair reservation
+PASS 58: duplicate gold callback rejected
+PASS 59: custom gold resource awarded once
+PASS 60: new scene resets combo score guide
+PASS 61: guide records highest created animal
+Day3 checks: 61; failures: 0
+exit=0
+===== natural collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Natural collision: bodies=1 score=4 merges=1 result=PASS
+exit=0
+===== input recovery =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: touch quick tap accepted at clear x after blocked cooldown
+PASS: touch creates exactly one drop
+PASS: mouse quick tap accepted at clear x after blocked cooldown
+PASS: mouse creates exactly one drop
+Input recovery failures: 0
+exit=0
+===== multitouch =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: second finger cannot drop or steal the active touch
+PASS: first finger release queues one drop
+PASS: release beyond right edge is clamped
+PASS: multi-touch sequence creates exactly one body
+Multi-touch failures: 0
+exit=0
+===== restart =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: scene restart clears bodies and score, resumes tree
+exit=0
+===== contact chain =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: actual contact chain mouse->hamster->rabbit; bodies=1 score=12 merges=2 pending=0
+exit=0
+===== wall matrix =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.081 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=0 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.804 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.911 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.964 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=64 speed=700 bounce=0.10 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.00 max_px=0.360 overlap_frames=158 max_consecutive=158 fully_escaped=false stuck=false final_depth=0.300
+WALL level=1 radius=18.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.50 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=1 radius=14.4 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=0.288 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.090 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=5 radius=42.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=2.293 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=120 bounce=0.10 max_px=0.400 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=120 thickness=32 speed=700 bounce=0.10 max_px=0.264 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=1 ticks=240 thickness=32 speed=700 bounce=0.10 max_px=0.294 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false final_depth=0.000
+WALL level=12 radius=125.0 ccd=2 ticks=60 thickness=32 speed=700 bounce=0.10 max_px=5.909 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false final_depth=0.000
+FLOOR level=1 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=1 speed=700 max_px=0.360 overlap_frames=1 max_consecutive=1 fully_escaped=false stuck=false
+FLOOR level=5 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=5 speed=700 max_px=9.958 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+FLOOR level=12 speed=120 max_px=0.000 overlap_frames=0 max_consecutive=0 fully_escaped=false stuck=false
+FLOOR level=12 speed=700 max_px=5.283 overlap_frames=2 max_consecutive=2 fully_escaped=false stuck=false
+NATURAL_DROP level=1 ticks=60 max_px=0.360 frames=165 max_consecutive=165 max_speed=1138.00 full_escape=false final_depth=0.250
+NATURAL_DROP level=1 ticks=120 max_px=4.190 frames=305 max_consecutive=303 max_speed=1144.77 full_escape=false final_depth=0.098
+NATURAL_DROP level=1 ticks=240 max_px=1.657 frames=608 max_consecutive=606 max_speed=1144.54 full_escape=false final_depth=0.089
+NATURAL_DROP level=4 ticks=60 max_px=16.678 frames=154 max_consecutive=152 max_speed=1138.00 full_escape=false final_depth=0.253
+NATURAL_DROP level=4 ticks=120 max_px=2.171 frames=306 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.025
+NATURAL_DROP level=4 ticks=240 max_px=4.395 frames=612 max_consecutive=610 max_speed=1133.71 full_escape=false final_depth=0.150
+NATURAL_DROP level=5 ticks=60 max_px=4.712 frames=153 max_consecutive=152 max_speed=1123.53 full_escape=false final_depth=0.300
+NATURAL_DROP level=5 ticks=120 max_px=9.171 frames=307 max_consecutive=305 max_speed=1130.33 full_escape=false final_depth=0.285
+NATURAL_DROP level=5 ticks=240 max_px=1.963 frames=614 max_consecutive=612 max_speed=1126.48 full_escape=false final_depth=0.103
+NATURAL_DROP level=12 ticks=60 max_px=14.259 frames=160 max_consecutive=158 max_speed=1065.45 full_escape=false final_depth=0.209
+NATURAL_DROP level=12 ticks=120 max_px=0.695 frames=317 max_consecutive=316 max_speed=1057.75 full_escape=false final_depth=0.244
+NATURAL_DROP level=12 ticks=240 max_px=2.787 frames=635 max_consecutive=633 max_speed=1061.17 full_escape=false final_depth=0.246
+Wall matrix cases=19 full_escape_or_stuck=0
+exit=0
+===== bot sessions 60Hz =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak
+BOT_WORST seed=30000 depth=16.678 level=4 x=466.139 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30000,random,70,51,8,1151,25,time_cap,90.02,0,16.678,5316,2794
+BOT_WORST seed=30001 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30001,same_target,72,57,8,1428,22,time_cap,90.02,0,16.678,5320,2146
+BOT_WORST seed=30002 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30002,lowest_stack,72,37,7,680,18,time_cap,90.02,0,16.678,5320,4817
+BOT_WORST seed=30003 depth=16.678 level=4 x=244.000 y=1075.678 r=35.000 vel=(0.00,1138.00)
+BOT_CSV 30003,merge_priority,69,55,7,887,16,time_cap,90.02,0,16.678,5326,2028
+BOT_COMPLETE sessions=4 ticks=60 wall_seconds=6.642
+exit=0
+===== bot sessions 120Hz =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BOT_CSV seed,strategy,drops,merges,highest_level,score,combo_events,end_reason,sim_seconds,full_escape_frames,max_overlap_px,overlap_frames,max_body_streak
+BOT_WORST seed=30000 depth=9.190 level=2 x=167.992 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30000,random,72,41,7,869,20,time_cap,90.00,0,9.190,10625,8993
+BOT_WORST seed=30001 depth=5.651 level=3 x=122.000 y=1070.651 r=29.000 vel=(0.00,1137.55)
+BOT_CSV 30001,same_target,72,60,9,1636,21,time_cap,90.00,0,5.651,10626,5902
+BOT_WORST seed=30002 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30002,lowest_stack,71,43,8,934,21,time_cap,90.00,0,9.190,10626,10624
+BOT_WORST seed=30003 depth=9.190 level=2 x=177.000 y=1080.190 r=23.000 vel=(0.00,1144.77)
+BOT_CSV 30003,merge_priority,70,48,7,765,18,time_cap,90.00,0,9.190,10625,9179
+BOT_COMPLETE sessions=4 ticks=120 wall_seconds=12.561
+exit=0
+===== wall collision =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+INFO: CCD mode=1 ticks=60 left_gap=-0.664 right_gap=-6.636 floor_gap=-0.506 landed=true full_escape=false center_in_wall=false
+PASS: no full escape or trapped center; overlap measurement is not a zero-penetration pass
+exit=0
+===== real gameplay =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: pause stops actual rigid body movement
+PASS: resume continues actual rigid body movement
+Real overflow: bodies=48 supported=48 peak_time=2.008 game_state=GAME_OVER
+PASS: stable physical pile triggers game over
+PASS: real game over blocks spawn
+Real gameplay failures: 0
+exit=0
+===== 100 drops =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+100-drop fixture: requests=100 spawned=100 result=PASS
+exit=0
+===== stress =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+count=100 actual=100 fps=145.0 physics_seconds=0.000634 static_bytes=69114768 escaped=0 merge_count=0 pending=0
+count=150 actual=150 fps=145.0 physics_seconds=0.000893 static_bytes=70455416 escaped=0 merge_count=0 pending=0
+count=200 actual=200 fps=145.0 physics_seconds=0.001153 static_bytes=71868792 escaped=0 merge_count=0 pending=0
+exit=0
+===== b3 natural 1 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NATURAL_CONFIG engine=4.7.2-stable (official) physics=120 actor=1 only=all
+NATURAL_SESSION_BEGIN seed=93011 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93011 over=true inputs=188 accepted=187 rejected=1 merges=116 cancelled=471 retries=452 score=2428 best=2428 highest=8 max_bodies=71 max_combo=6 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=235.00 wall_seconds=31.40 bodies_end=71 session=a5971b3226c711e24ac4c90d8046dceb
+NATURAL_TERMINAL_STATE seed=93011 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93011 doc_status=ok doc_score=2428.0 doc_over=true generation=841.0 details={"aggregate":"native","current_revision":"f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0","powerup_generation":841,"powerup_status":"native","readback":"native","requested_revision":"f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0","requires_powerup":true,"scoped":"native","score":2428,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":841,"written_revision":"f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93011 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (187 -> 187 spawns)
+PASS: GAME_OVER refuses new score (2428 -> 2428)
+PASS: GAME_OVER keeps the body count (71 -> 71)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93011 doc_status=ok doc_over=true score=2428 doc_score=2428 details={"aggregate":"native","current_revision":"f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0","powerup_generation":841,"powerup_status":"native","readback":"native","requested_revision":"f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0","requires_powerup":true,"scoped":"native","score":2428,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":841,"written_revision":"f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (2428 vs 2428)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93011 current=f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0 written=f26d461c8711c90433391909ec43f5632139ba818fea411f5ac54bc27397a6c0 verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SESSION_BEGIN seed=93012 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93012 over=true inputs=207 accepted=205 rejected=1 merges=134 cancelled=330 retries=318 score=3016 best=3016 highest=8 max_bodies=71 max_combo=6 max_danger=2 danger_approaches=2 danger_cleared=0 sim_seconds=258.75 wall_seconds=38.84 bodies_end=71 session=c52654ee9bbfa031f3c7371fba0b6161
+NATURAL_TERMINAL_STATE seed=93012 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93012 doc_status=ok doc_score=3016.0 doc_over=true generation=1611.0 details={"aggregate":"native","current_revision":"c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b","powerup_generation":1611,"powerup_status":"native","readback":"native","requested_revision":"c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b","requires_powerup":true,"scoped":"native","score":3016,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":1611,"written_revision":"c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93012 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (205 -> 205 spawns)
+PASS: GAME_OVER refuses new score (3016 -> 3016)
+PASS: GAME_OVER keeps the body count (71 -> 71)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93012 doc_status=ok doc_over=true score=3016 doc_score=3016 details={"aggregate":"native","current_revision":"c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b","powerup_generation":1611,"powerup_status":"native","readback":"native","requested_revision":"c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b","requires_powerup":true,"scoped":"native","score":3016,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":1611,"written_revision":"c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (3016 vs 3016)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93012 current=c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b written=c04075c7055790b3df370a7d9077ebb71c111164300cc346593cd1005fb7e16b verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SESSION_BEGIN seed=93013 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93013 over=true inputs=233 accepted=225 rejected=6 merges=162 cancelled=1020 retries=999 score=3788 best=3788 highest=8 max_bodies=63 max_combo=9 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=291.25 wall_seconds=61.56 bodies_end=63 session=b194eb7efe476696b72d35e216eefb56
+NATURAL_TERMINAL_STATE seed=93013 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93013 doc_status=ok doc_score=3788.0 doc_over=true generation=2852.0 details={"aggregate":"native","current_revision":"0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8","powerup_generation":2852,"powerup_status":"native","readback":"native","requested_revision":"0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8","requires_powerup":true,"scoped":"native","score":3788,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":2852,"written_revision":"0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93013 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (225 -> 225 spawns)
+PASS: GAME_OVER refuses new score (3788 -> 3788)
+PASS: GAME_OVER keeps the body count (63 -> 63)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93013 doc_status=ok doc_over=true score=3788 doc_score=3788 details={"aggregate":"native","current_revision":"0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8","powerup_generation":2852,"powerup_status":"native","readback":"native","requested_revision":"0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8","requires_powerup":true,"scoped":"native","score":3788,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":2852,"written_revision":"0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (3788 vs 3788)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93013 current=0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8 written=0c94866aad490321a5a69a37d4f811343b88d8e4e1553db12d738427db81cda8 verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SUMMARY sessions=3 game_over=3 not_reached=0 seeds=93011,93012,93013
+NATURAL_DEEP_BEGIN path=refresh seed=93021
+NATURAL_SESSION_BEGIN seed=93021 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93021 over=true inputs=238 accepted=229 rejected=8 merges=156 cancelled=1033 retries=1001 score=4110 best=4110 highest=9 max_bodies=73 max_combo=14 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=297.50 wall_seconds=64.03 bodies_end=73 session=21fe6294a2581a7cc512f6c70725cfca
+NATURAL_TERMINAL_STATE seed=93021 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93021 doc_status=ok doc_score=4110.0 doc_over=true generation=4163.0 details={"aggregate":"native","current_revision":"79c6b24a12ab9bf43b6b7bb175b6a9cc786bfc67889949c8c72d794f7dfb2a01","powerup_generation":4163,"powerup_status":"native","readback":"native","requested_revision":"79c6b24a12ab9bf43b6b7bb175b6a9cc786bfc67889949c8c72d794f7dfb2a01","requires_powerup":true,"scoped":"native","score":4110,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":4163,"written_revision":"79c6b24a12ab9bf43b6b7bb175b6a9cc786bfc67889949c8c72d794f7dfb2a01"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: refresh-equivalent reaches gameplay through Continue
+PASS: refresh-equivalent: scene reloads from the terminal checkpoint
+PASS: refresh keeps the terminal Game Over state (got 2)
+PASS: refresh keeps the same session id
+PASS: refresh keeps the score (4110 vs 4110)
+PASS: refresh does not lower the best score
+PASS: refresh keeps the terminal body set (73 vs 73)
+PASS: refresh keeps the rescue budget (1)
+PASS: refresh re-shows the Game Over overlay
+PASS: refresh does not change the save status
+PASS: refresh keeps game_over_pending
+NATURAL_REFRESH seed=93021 revision=79c6b24a12ab9bf43b6b7bb175b6a9cc786bfc67889949c8c72d794f7dfb2a01 score=4110 best=4110 bodies=73 rescue=1 session_match=true
+NATURAL_DEEP_BEGIN path=restart seed=93022
+NATURAL_SESSION_BEGIN seed=93022 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93022 over=true inputs=219 accepted=214 rejected=4 merges=150 cancelled=1086 retries=1073 score=3348 best=4110 highest=8 max_bodies=67 max_combo=14 max_danger=1 danger_approaches=3 danger_cleared=1 sim_seconds=273.75 wall_seconds=60.97 bodies_end=64 session=520262c157ca3a5d7f34372a75f47c79
+NATURAL_TERMINAL_STATE seed=93022 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93022 doc_status=ok doc_score=3348.0 doc_over=true generation=5440.0 details={"aggregate":"native","current_revision":"810b41a3d2f497b6f1ec2f6714d1dda9c06623a6ca7c6f89382c22591ee7e964","powerup_generation":5440,"powerup_status":"native","readback":"native","requested_revision":"810b41a3d2f497b6f1ec2f6714d1dda9c06623a6ca7c6f89382c22591ee7e964","requires_powerup":true,"scoped":"native","score":3348,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":5440,"written_revision":"810b41a3d2f497b6f1ec2f6714d1dda9c06623a6ca7c6f89382c22591ee7e964"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: restart fixture restores the terminal session through Continue
+PASS: restart fixture starts from the terminal state
+NATURAL_RESTART_TRACE strays_freed=1 boards_now=1
+PASS: restart produced a live session
+PASS: restart returns to PLAYING (got 0)
+PASS: restart creates a new session id
+PASS: restart resets the score (got 0)
+PASS: restart clears the board (0 bodies)
+PASS: restart clears merges, reservations and locks
+PASS: restart clears the combo counter
+PASS: restart restores the per-session power-up budgets
+PASS: restart preserves the legitimate best score (4110 >= 4110)
+PASS: restart leaves exactly one live board (1)
+NATURAL_RESTART_TRACE blockers=[] overlay_visible=false overlay_children=["Background|Panel|vis=true|filter=2","Title|Label|vis=true|filter=2","ResumeButton|Button|vis=true|filter=0","RestartButton|Button|vis=true|filter=0","SettingsButton|Button|vis=true|filter=0","MainMenuButton|Button|vis=true|filter=0","RescueButton|Button|vis=false|filter=0","RescueMessage|Label|vis=false|filter=2"]
+NATURAL_RESTART_TRACE drop_points=["(111.0, 700.0)","(171.0, 700.0)","(231.0, 700.0)"] chosen="(475.0, 620.0)" owner=none playing=true tree_paused=false spawn_state=0 mouse_down=false remove=false undo=false save_status=0
+NATURAL_RESTART_TRACE instance=21975099509175 state=0 spawn_state=0 paused=false overlay=false buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]] point=["(111.0, 700.0)","(171.0, 700.0)","(231.0, 700.0)"]
+NATURAL_RESTART_TRACE attempt=1 instance=21975099509175 valid=true spawns=1 state=0 spawn_state=3
+PASS: restart session accepts a real drop within four taps (0 refusals)
+PASS: restart session accepts the first drop
+PASS: the previous session's score does not leak into the new one
+PASS: no stale callback resurrects the old session
+PASS: the checkpoint no longer describes the abandoned terminal session
+NATURAL_RESTART old_session=520262c157ca3a5d7f34372a75f47c79 new_session=ff1a6b8a8bf26dec9e2486791e5efe68 old_score=3348 live_score=0 best=4110 overlays_pending=false
+NATURAL_RESCUE_ATTEMPT attempt=1 seed=93023
+NATURAL_SESSION_BEGIN seed=93023 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93023 over=true inputs=45 accepted=45 rejected=0 merges=11 cancelled=0 retries=0 score=223 best=4110 highest=6 max_bodies=34 max_combo=6 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=56.25 wall_seconds=2.83 bodies_end=34 session=f9e528121d5cb1fdd37582517d8706c5
+NATURAL_TERMINAL_STATE seed=93023 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93023 doc_status=ok doc_score=223.0 doc_over=true generation=5540.0 details={"aggregate":"native","current_revision":"9ec4e62cdd49e574b38ca509574f8bdfda5c0074f595bd2085b89731309471fb","powerup_generation":5540,"powerup_status":"native","readback":"native","requested_revision":"9ec4e62cdd49e574b38ca509574f8bdfda5c0074f595bd2085b89731309471fb","requires_powerup":true,"scoped":"native","score":223,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":5540,"written_revision":"9ec4e62cdd49e574b38ca509574f8bdfda5c0074f595bd2085b89731309471fb"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=22666102703807 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=9 bodies=34
+NATURAL_RESCUE_REFUSED seed=93023 score=223 bodies=34 above_line=9 supported_above=8 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":34,"locked":0,"mandatory":9,"max_remove":10,"plan_empty":false,"remove_uids":9,"snapshot_valid":false,"spawn_clear":true,"spawn_x":590.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_ATTEMPT attempt=2 seed=93033
+NATURAL_SESSION_BEGIN seed=93033 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93033 over=true inputs=214 accepted=212 rejected=2 merges=144 cancelled=279 retries=269 score=3175 best=4110 highest=8 max_bodies=68 max_combo=6 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=267.50 wall_seconds=34.36 bodies_end=68 session=2e06d14f57a70ac9b4afe25fb53058b3
+NATURAL_TERMINAL_STATE seed=93033 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93033 doc_status=ok doc_score=3175.0 doc_over=true generation=6282.0 details={"aggregate":"native","current_revision":"886424ec96fc8dc7aa6d27b7da2ae36630b48dfc3285690482038b59cfadfc24","powerup_generation":6282,"powerup_status":"native","readback":"native","requested_revision":"886424ec96fc8dc7aa6d27b7da2ae36630b48dfc3285690482038b59cfadfc24","requires_powerup":true,"scoped":"native","score":3175,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":6282,"written_revision":"886424ec96fc8dc7aa6d27b7da2ae36630b48dfc3285690482038b59cfadfc24"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=26558785915047 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=21 bodies=68
+NATURAL_RESCUE_REFUSED seed=93033 score=3175 bodies=68 above_line=21 supported_above=5 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":68,"locked":0,"mandatory":21,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_ATTEMPT attempt=3 seed=93043
+NATURAL_SESSION_BEGIN seed=93043 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93043 over=true inputs=175 accepted=169 rejected=4 merges=98 cancelled=480 retries=465 score=2216 best=4110 highest=8 max_bodies=71 max_combo=7 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=218.75 wall_seconds=41.59 bodies_end=71 session=f1dcc6fd7ad32cf07c63cf2ee69352cb
+NATURAL_TERMINAL_STATE seed=93043 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93043 doc_status=ok doc_score=2216.0 doc_over=true generation=7062.0 details={"aggregate":"native","current_revision":"37f8b43bd96245354fa8f7eec470f371201de66e0de7f8c9330cff425ff2341b","powerup_generation":7062,"powerup_status":"native","readback":"native","requested_revision":"37f8b43bd96245354fa8f7eec470f371201de66e0de7f8c9330cff425ff2341b","requires_powerup":true,"scoped":"native","score":2216,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":7062,"written_revision":"37f8b43bd96245354fa8f7eec470f371201de66e0de7f8c9330cff425ff2341b"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=29931861969728 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=20 bodies=71
+NATURAL_RESCUE_REFUSED seed=93043 score=2216 bodies=71 above_line=20 supported_above=0 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":71,"locked":0,"mandatory":20,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_SUMMARY attempts=3 refusals=3 succeeded=false
+NATURAL_B3 checks=93 failures=3 sessions=8 events=1547
+WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+exit=1
+===== b3 natural 2 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NATURAL_CONFIG engine=4.7.2-stable (official) physics=120 actor=2 only=all
+NATURAL_SESSION_BEGIN seed=93021 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93021 over=true inputs=207 accepted=200 rejected=7 merges=132 cancelled=793 retries=777 score=2897 best=2897 highest=8 max_bodies=68 max_combo=8 max_danger=2 danger_approaches=3 danger_cleared=0 sim_seconds=258.75 wall_seconds=32.42 bodies_end=68 session=334dbae4935fa1c85905032c88f9a8ab
+NATURAL_TERMINAL_STATE seed=93021 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93021 doc_status=ok doc_score=2897.0 doc_over=true generation=1090.0 details={"aggregate":"native","current_revision":"0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7","powerup_generation":1090,"powerup_status":"native","readback":"native","requested_revision":"0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7","requires_powerup":true,"scoped":"native","score":2897,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":1090,"written_revision":"0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93021 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (200 -> 200 spawns)
+PASS: GAME_OVER refuses new score (2897 -> 2897)
+PASS: GAME_OVER keeps the body count (68 -> 68)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93021 doc_status=ok doc_over=true score=2897 doc_score=2897 details={"aggregate":"native","current_revision":"0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7","powerup_generation":1090,"powerup_status":"native","readback":"native","requested_revision":"0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7","requires_powerup":true,"scoped":"native","score":2897,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":1090,"written_revision":"0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (2897 vs 2897)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93021 current=0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7 written=0d41ddf12e159c5dab52d6b0ebcef4df5b3fe9fda04e448d446168141acd87f7 verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SESSION_BEGIN seed=93022 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93022 over=true inputs=231 accepted=226 rejected=5 merges=153 cancelled=1204 retries=1179 score=2986 best=2986 highest=7 max_bodies=73 max_combo=6 max_danger=3 danger_approaches=2 danger_cleared=0 sim_seconds=288.75 wall_seconds=67.00 bodies_end=73 session=83d79157989a2d5b5e414fd22cf25083
+NATURAL_TERMINAL_STATE seed=93022 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93022 doc_status=ok doc_score=2986.0 doc_over=true generation=2523.0 details={"aggregate":"native","current_revision":"e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208","powerup_generation":2523,"powerup_status":"native","readback":"native","requested_revision":"e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208","requires_powerup":true,"scoped":"native","score":2986,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":2523,"written_revision":"e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93022 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (226 -> 226 spawns)
+PASS: GAME_OVER refuses new score (2986 -> 2986)
+PASS: GAME_OVER keeps the body count (73 -> 73)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93022 doc_status=ok doc_over=true score=2986 doc_score=2986 details={"aggregate":"native","current_revision":"e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208","powerup_generation":2523,"powerup_status":"native","readback":"native","requested_revision":"e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208","requires_powerup":true,"scoped":"native","score":2986,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":2523,"written_revision":"e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (2986 vs 2986)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93022 current=e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208 written=e5fcf426da31b899284cb68719d55a1d85e7242f43e31d9c94f43b061cbcd208 verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SESSION_BEGIN seed=93023 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93023 over=true inputs=217 accepted=212 rejected=5 merges=142 cancelled=704 retries=688 score=2977 best=2986 highest=8 max_bodies=70 max_combo=6 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=271.25 wall_seconds=52.06 bodies_end=70 session=c30dd6874234e3c8e2c160744fc55802
+NATURAL_TERMINAL_STATE seed=93023 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93023 doc_status=ok doc_score=2977.0 doc_over=true generation=3599.0 details={"aggregate":"native","current_revision":"cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3","powerup_generation":3599,"powerup_status":"native","readback":"native","requested_revision":"cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3","requires_powerup":true,"scoped":"native","score":2977,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":3599,"written_revision":"cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93023 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (212 -> 212 spawns)
+PASS: GAME_OVER refuses new score (2977 -> 2977)
+PASS: GAME_OVER keeps the body count (70 -> 70)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93023 doc_status=ok doc_over=true score=2977 doc_score=2977 details={"aggregate":"native","current_revision":"cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3","powerup_generation":3599,"powerup_status":"native","readback":"native","requested_revision":"cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3","requires_powerup":true,"scoped":"native","score":2977,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":3599,"written_revision":"cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (2977 vs 2977)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93023 current=cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3 written=cb0f3f8e4cb4e0a34815fd207d02840399d674ae1f0a8aa64117e89e9f8111d3 verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SUMMARY sessions=3 game_over=3 not_reached=0 seeds=93021,93022,93023
+NATURAL_DEEP_BEGIN path=refresh seed=93031
+NATURAL_SESSION_BEGIN seed=93031 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93031 over=true inputs=222 accepted=219 rejected=0 merges=156 cancelled=465 retries=447 score=3263 best=3263 highest=8 max_bodies=63 max_combo=8 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=277.50 wall_seconds=43.42 bodies_end=63 session=b32da9e224f9ac55c9d3d7a59c88cb84
+NATURAL_TERMINAL_STATE seed=93031 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93031 doc_status=ok doc_score=3263.0 doc_over=true generation=4509.0 details={"aggregate":"native","current_revision":"40a193cedc3d69629aa1e5a8a6095df2ac33b0c5cd4b142b48b7e59277e0958a","powerup_generation":4509,"powerup_status":"native","readback":"native","requested_revision":"40a193cedc3d69629aa1e5a8a6095df2ac33b0c5cd4b142b48b7e59277e0958a","requires_powerup":true,"scoped":"native","score":3263,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":4509,"written_revision":"40a193cedc3d69629aa1e5a8a6095df2ac33b0c5cd4b142b48b7e59277e0958a"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: refresh-equivalent reaches gameplay through Continue
+PASS: refresh-equivalent: scene reloads from the terminal checkpoint
+PASS: refresh keeps the terminal Game Over state (got 2)
+PASS: refresh keeps the same session id
+PASS: refresh keeps the score (3263 vs 3263)
+PASS: refresh does not lower the best score
+PASS: refresh keeps the terminal body set (63 vs 63)
+PASS: refresh keeps the rescue budget (1)
+PASS: refresh re-shows the Game Over overlay
+PASS: refresh does not change the save status
+PASS: refresh keeps game_over_pending
+NATURAL_REFRESH seed=93031 revision=40a193cedc3d69629aa1e5a8a6095df2ac33b0c5cd4b142b48b7e59277e0958a score=3263 best=3263 bodies=63 rescue=1 session_match=true
+NATURAL_DEEP_BEGIN path=restart seed=93032
+NATURAL_SESSION_BEGIN seed=93032 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93032 over=true inputs=219 accepted=214 rejected=5 merges=150 cancelled=423 retries=401 score=3414 best=3414 highest=8 max_bodies=64 max_combo=11 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=273.75 wall_seconds=41.36 bodies_end=64 session=d7489ff87cf7ad3125780cfe99b4ba28
+NATURAL_TERMINAL_STATE seed=93032 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93032 doc_status=ok doc_score=3414.0 doc_over=true generation=5374.0 details={"aggregate":"native","current_revision":"c39e1a93c98ed3f496711223dea8acc83a522f61247a16cc73c3dd68c0bb6e35","powerup_generation":5374,"powerup_status":"native","readback":"native","requested_revision":"c39e1a93c98ed3f496711223dea8acc83a522f61247a16cc73c3dd68c0bb6e35","requires_powerup":true,"scoped":"native","score":3414,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":5374,"written_revision":"c39e1a93c98ed3f496711223dea8acc83a522f61247a16cc73c3dd68c0bb6e35"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: restart fixture restores the terminal session through Continue
+PASS: restart fixture starts from the terminal state
+NATURAL_RESTART_TRACE strays_freed=1 boards_now=1
+PASS: restart produced a live session
+PASS: restart returns to PLAYING (got 0)
+PASS: restart creates a new session id
+PASS: restart resets the score (got 0)
+PASS: restart clears the board (0 bodies)
+PASS: restart clears merges, reservations and locks
+PASS: restart clears the combo counter
+PASS: restart restores the per-session power-up budgets
+PASS: restart preserves the legitimate best score (3414 >= 3414)
+PASS: restart leaves exactly one live board (1)
+NATURAL_RESTART_TRACE blockers=[] overlay_visible=false overlay_children=["Background|Panel|vis=true|filter=2","Title|Label|vis=true|filter=2","ResumeButton|Button|vis=true|filter=0","RestartButton|Button|vis=true|filter=0","SettingsButton|Button|vis=true|filter=0","MainMenuButton|Button|vis=true|filter=0","RescueButton|Button|vis=false|filter=0","RescueMessage|Label|vis=false|filter=2"]
+NATURAL_RESTART_TRACE drop_points=["(111.0, 700.0)","(171.0, 700.0)","(231.0, 700.0)"] chosen="(475.0, 620.0)" owner=none playing=true tree_paused=false spawn_state=0 mouse_down=false remove=false undo=false save_status=0
+NATURAL_RESTART_TRACE instance=21971978946310 state=0 spawn_state=0 paused=false overlay=false buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]] point=["(111.0, 700.0)","(171.0, 700.0)","(231.0, 700.0)"]
+NATURAL_RESTART_TRACE attempt=1 instance=21971978946310 valid=true spawns=1 state=0 spawn_state=3
+PASS: restart session accepts a real drop within four taps (0 refusals)
+PASS: restart session accepts the first drop
+PASS: the previous session's score does not leak into the new one
+PASS: no stale callback resurrects the old session
+PASS: the checkpoint no longer describes the abandoned terminal session
+NATURAL_RESTART old_session=d7489ff87cf7ad3125780cfe99b4ba28 new_session=d8232a98efd4acbf0cb0d9d86081938c old_score=3414 live_score=0 best=3414 overlays_pending=false
+NATURAL_RESCUE_ATTEMPT attempt=1 seed=93033
+NATURAL_SESSION_BEGIN seed=93033 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93033 over=true inputs=194 accepted=190 rejected=3 merges=124 cancelled=645 retries=630 score=2565 best=3414 highest=8 max_bodies=67 max_combo=6 max_danger=1 danger_approaches=3 danger_cleared=0 sim_seconds=242.50 wall_seconds=36.13 bodies_end=66 session=19edd06f79ada9358f26e9391da37a8a
+NATURAL_TERMINAL_STATE seed=93033 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93033 doc_status=ok doc_score=2565.0 doc_over=true generation=6378.0 details={"aggregate":"native","current_revision":"ad2846727266f627b588bf5ade3a95f099420165db5734435eee98e49231876d","powerup_generation":6378,"powerup_status":"native","readback":"native","requested_revision":"ad2846727266f627b588bf5ade3a95f099420165db5734435eee98e49231876d","requires_powerup":true,"scoped":"native","score":2565,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":6378,"written_revision":"ad2846727266f627b588bf5ade3a95f099420165db5734435eee98e49231876d"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=25956500637859 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=19 bodies=66
+NATURAL_RESCUE_REFUSED seed=93033 score=2565 bodies=66 above_line=19 supported_above=1 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":66,"locked":0,"mandatory":19,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_ATTEMPT attempt=2 seed=93043
+NATURAL_SESSION_BEGIN seed=93043 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93043 over=true inputs=182 accepted=176 rejected=4 merges=116 cancelled=1344 retries=1322 score=2818 best=3414 highest=7 max_bodies=69 max_combo=13 max_danger=1 danger_approaches=1 danger_cleared=0 sim_seconds=227.50 wall_seconds=56.18 bodies_end=60 session=505b4c7096e2263ff775edd1048a0993
+NATURAL_TERMINAL_STATE seed=93043 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93043 doc_status=ok doc_score=2818.0 doc_over=true generation=7648.0 details={"aggregate":"native","current_revision":"57649fee925039472cffbd7c93c208010400fdc64c7c71114692b39cccc6a5a3","powerup_generation":7648,"powerup_status":"native","readback":"native","requested_revision":"57649fee925039472cffbd7c93c208010400fdc64c7c71114692b39cccc6a5a3","requires_powerup":true,"scoped":"native","score":2818,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":7648,"written_revision":"57649fee925039472cffbd7c93c208010400fdc64c7c71114692b39cccc6a5a3"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=30195096488827 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=13 bodies=60
+NATURAL_RESCUE_REFUSED seed=93043 score=2818 bodies=60 above_line=13 supported_above=0 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":60,"locked":0,"mandatory":13,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_ATTEMPT attempt=3 seed=93053
+NATURAL_SESSION_BEGIN seed=93053 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93053 over=true inputs=195 accepted=190 rejected=3 merges=121 cancelled=440 retries=428 score=2551 best=3414 highest=8 max_bodies=69 max_combo=13 max_danger=1 danger_approaches=3 danger_cleared=0 sim_seconds=243.75 wall_seconds=40.14 bodies_end=69 session=ba7a2e647c826a751c7f6f5f864e5e2e
+NATURAL_TERMINAL_STATE seed=93053 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93053 doc_status=ok doc_score=2551.0 doc_over=true generation=8465.0 details={"aggregate":"native","current_revision":"6027188f2ef6c1386e239e35487f0e3b2e532c1816787dce88d71c40ca567b29","powerup_generation":8465,"powerup_status":"native","readback":"native","requested_revision":"6027188f2ef6c1386e239e35487f0e3b2e532c1816787dce88d71c40ca567b29","requires_powerup":true,"scoped":"native","score":2551,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":8465,"written_revision":"6027188f2ef6c1386e239e35487f0e3b2e532c1816787dce88d71c40ca567b29"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=33910679407274 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=23 bodies=69
+NATURAL_RESCUE_REFUSED seed=93053 score=2551 bodies=69 above_line=23 supported_above=0 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":69,"locked":0,"mandatory":23,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_SUMMARY attempts=3 refusals=3 succeeded=false
+NATURAL_B3 checks=93 failures=3 sessions=8 events=1695
+exit=1
+===== b3 natural 3 =====
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+NATURAL_CONFIG engine=4.7.2-stable (official) physics=120 actor=3 only=all
+NATURAL_SESSION_BEGIN seed=93031 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93031 over=true inputs=213 accepted=203 rejected=9 merges=129 cancelled=797 retries=779 score=2403 best=2403 highest=7 max_bodies=74 max_combo=7 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=266.25 wall_seconds=38.55 bodies_end=74 session=751410f3d953e63ffb392ae2abdee249
+NATURAL_TERMINAL_STATE seed=93031 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93031 doc_status=ok doc_score=2403.0 doc_over=true generation=1039.0 details={"aggregate":"native","current_revision":"6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de","powerup_generation":1039,"powerup_status":"native","readback":"native","requested_revision":"6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de","requires_powerup":true,"scoped":"native","score":2403,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":1039,"written_revision":"6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93031 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (203 -> 203 spawns)
+PASS: GAME_OVER refuses new score (2403 -> 2403)
+PASS: GAME_OVER keeps the body count (74 -> 74)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93031 doc_status=ok doc_over=true score=2403 doc_score=2403 details={"aggregate":"native","current_revision":"6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de","powerup_generation":1039,"powerup_status":"native","readback":"native","requested_revision":"6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de","requires_powerup":true,"scoped":"native","score":2403,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":1039,"written_revision":"6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (2403 vs 2403)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93031 current=6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de written=6915199b4c739f5191d4ffe9c7662ee688db20e72949b002e7bc4f79b29813de verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SESSION_BEGIN seed=93032 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93032 over=true inputs=204 accepted=202 rejected=2 merges=131 cancelled=592 retries=578 score=2560 best=2560 highest=8 max_bodies=71 max_combo=5 max_danger=1 danger_approaches=3 danger_cleared=1 sim_seconds=255.00 wall_seconds=49.60 bodies_end=71 session=4d90b2ec87f28749efefd7ae8e27bad2
+NATURAL_TERMINAL_STATE seed=93032 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93032 doc_status=ok doc_score=2560.0 doc_over=true generation=2012.0 details={"aggregate":"native","current_revision":"5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6","powerup_generation":2012,"powerup_status":"native","readback":"native","requested_revision":"5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6","requires_powerup":true,"scoped":"native","score":2560,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":2012,"written_revision":"5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93032 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (202 -> 202 spawns)
+PASS: GAME_OVER refuses new score (2560 -> 2560)
+PASS: GAME_OVER keeps the body count (71 -> 71)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93032 doc_status=ok doc_over=true score=2560 doc_score=2560 details={"aggregate":"native","current_revision":"5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6","powerup_generation":2012,"powerup_status":"native","readback":"native","requested_revision":"5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6","requires_powerup":true,"scoped":"native","score":2560,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":2012,"written_revision":"5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (2560 vs 2560)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93032 current=5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6 written=5d0246da0682dc566a9caba327e0b454305287ccb53471688b867ae796a391b6 verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SESSION_BEGIN seed=93033 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93033 over=true inputs=204 accepted=197 rejected=7 merges=129 cancelled=914 retries=882 score=2883 best=2883 highest=8 max_bodies=68 max_combo=8 max_danger=1 danger_approaches=3 danger_cleared=0 sim_seconds=255.00 wall_seconds=51.89 bodies_end=68 session=0f469d5602f1f0b4d834d9aa77cdc537
+NATURAL_TERMINAL_STATE seed=93033 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93033 doc_status=ok doc_score=2883.0 doc_over=true generation=3153.0 details={"aggregate":"native","current_revision":"6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1","powerup_generation":3153,"powerup_status":"native","readback":"native","requested_revision":"6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1","requires_powerup":true,"scoped":"native","score":2883,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":3153,"written_revision":"6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1"}
+PASS: terminal state is GAME_OVER (2)
+PASS: terminal overlay is visible with text
+NATURAL_PROBE seed=93033 points=["(111.0, 700.0)","(171.0, 700.0)","(591.0, 700.0)","(111.0, 610.0)","(171.0, 610.0)","(231.0, 610.0)"] buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[190.0,690.0,340.0,68.0],[190.0,840.0,340.0,68.0],[190.0,765.0,340.0,55.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]]
+PASS: terminal board is still the same live scene after illegal input
+PASS: GAME_OVER refuses new drops (197 -> 197 spawns)
+PASS: GAME_OVER refuses new score (2883 -> 2883)
+PASS: GAME_OVER keeps the body count (68 -> 68)
+PASS: no reservation or lock survives Game Over (pending=0 locked=0)
+PASS: terminal board is immune to a deferred merge commit
+PASS: merge counter unchanged by a deferred commit
+PASS: repeated input never re-enters a second state
+NATURAL_CONTRACT seed=93033 doc_status=ok doc_over=true score=2883 doc_score=2883 details={"aggregate":"native","current_revision":"6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1","powerup_generation":3153,"powerup_status":"native","readback":"native","requested_revision":"6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1","requires_powerup":true,"scoped":"native","score":2883,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":3153,"written_revision":"6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1"}
+PASS: terminal checkpoint marks game_over_pending
+PASS: checkpoint score equals the live terminal score (2883 vs 2883)
+PASS: checkpoint best score is not below the final score
+PASS: checkpoint belongs to this session
+NATURAL_REVISIONS seed=93033 current=6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1 written=6a13f01f06ab8ce1bdc58b848e3f1522c0ff7afb8a90ce263b52b8c0a171a7d1 verified= readback=native scoped=native aggregate=native status=unconfirmed
+PASS: written revision matches the terminal snapshot
+PASS: verified revision can only be the written one
+NATURAL_SUMMARY sessions=3 game_over=3 not_reached=0 seeds=93031,93032,93033
+NATURAL_DEEP_BEGIN path=refresh seed=93041
+NATURAL_SESSION_BEGIN seed=93041 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93041 over=true inputs=161 accepted=158 rejected=1 merges=89 cancelled=468 retries=451 score=1673 best=2883 highest=7 max_bodies=69 max_combo=9 max_danger=1 danger_approaches=3 danger_cleared=1 sim_seconds=201.25 wall_seconds=35.90 bodies_end=69 session=7e621e56082f70b0db58294b7f648319
+NATURAL_TERMINAL_STATE seed=93041 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93041 doc_status=ok doc_score=1673.0 doc_over=true generation=3887.0 details={"aggregate":"native","current_revision":"1286d454d59088e963dbe92caea9c7b9cea678b62a9594aeaab4c39f47ff5d38","powerup_generation":3887,"powerup_status":"native","readback":"native","requested_revision":"1286d454d59088e963dbe92caea9c7b9cea678b62a9594aeaab4c39f47ff5d38","requires_powerup":true,"scoped":"native","score":1673,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":3887,"written_revision":"1286d454d59088e963dbe92caea9c7b9cea678b62a9594aeaab4c39f47ff5d38"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: refresh-equivalent reaches gameplay through Continue
+PASS: refresh-equivalent: scene reloads from the terminal checkpoint
+PASS: refresh keeps the terminal Game Over state (got 2)
+PASS: refresh keeps the same session id
+PASS: refresh keeps the score (1673 vs 1673)
+PASS: refresh does not lower the best score
+PASS: refresh keeps the terminal body set (69 vs 69)
+PASS: refresh keeps the rescue budget (1)
+PASS: refresh re-shows the Game Over overlay
+PASS: refresh does not change the save status
+PASS: refresh keeps game_over_pending
+NATURAL_REFRESH seed=93041 revision=1286d454d59088e963dbe92caea9c7b9cea678b62a9594aeaab4c39f47ff5d38 score=1673 best=2883 bodies=69 rescue=1 session_match=true
+NATURAL_DEEP_BEGIN path=restart seed=93042
+NATURAL_SESSION_BEGIN seed=93042 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93042 over=true inputs=61 accepted=60 rejected=0 merges=12 cancelled=0 retries=0 score=158 best=2883 highest=6 max_bodies=48 max_combo=3 max_danger=1 danger_approaches=1 danger_cleared=0 sim_seconds=76.25 wall_seconds=5.88 bodies_end=48 session=61d92eb3edb1c0c6e4641a523274d4fa
+NATURAL_TERMINAL_STATE seed=93042 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93042 doc_status=ok doc_score=158.0 doc_over=true generation=4016.0 details={"aggregate":"native","current_revision":"2bc6317b710df66b68475325e6400d6c2c99ef841eeee8c470342159db23f794","powerup_generation":4016,"powerup_status":"native","readback":"native","requested_revision":"2bc6317b710df66b68475325e6400d6c2c99ef841eeee8c470342159db23f794","requires_powerup":true,"scoped":"native","score":158,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":4016,"written_revision":"2bc6317b710df66b68475325e6400d6c2c99ef841eeee8c470342159db23f794"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: restart fixture restores the terminal session through Continue
+PASS: restart fixture starts from the terminal state
+NATURAL_RESTART_TRACE strays_freed=1 boards_now=1
+PASS: restart produced a live session
+PASS: restart returns to PLAYING (got 0)
+PASS: restart creates a new session id
+PASS: restart resets the score (got 0)
+PASS: restart clears the board (0 bodies)
+PASS: restart clears merges, reservations and locks
+PASS: restart clears the combo counter
+PASS: restart restores the per-session power-up budgets
+PASS: restart preserves the legitimate best score (2883 >= 2883)
+PASS: restart leaves exactly one live board (1)
+NATURAL_RESTART_TRACE blockers=[] overlay_visible=false overlay_children=["Background|Panel|vis=true|filter=2","Title|Label|vis=true|filter=2","ResumeButton|Button|vis=true|filter=0","RestartButton|Button|vis=true|filter=0","SettingsButton|Button|vis=true|filter=0","MainMenuButton|Button|vis=true|filter=0","RescueButton|Button|vis=false|filter=0","RescueMessage|Label|vis=false|filter=2"]
+NATURAL_RESTART_TRACE drop_points=["(111.0, 700.0)","(171.0, 700.0)","(231.0, 700.0)"] chosen="(475.0, 620.0)" owner=none playing=true tree_paused=false spawn_state=0 mouse_down=false remove=false undo=false save_status=0
+NATURAL_RESTART_TRACE instance=16504988895208 state=0 spawn_state=0 paused=false overlay=false buttons=[[545.0,30.0,120.0,58.0],[75.0,30.0,155.0,52.0],[80.0,212.0,200.0,54.0],[285.0,212.0,155.0,54.0]] point=["(111.0, 700.0)","(171.0, 700.0)","(231.0, 700.0)"]
+NATURAL_RESTART_TRACE attempt=1 instance=16504988895208 valid=true spawns=1 state=0 spawn_state=3
+PASS: restart session accepts a real drop within four taps (0 refusals)
+PASS: restart session accepts the first drop
+PASS: the previous session's score does not leak into the new one
+PASS: no stale callback resurrects the old session
+PASS: the checkpoint no longer describes the abandoned terminal session
+NATURAL_RESTART old_session=61d92eb3edb1c0c6e4641a523274d4fa new_session=f06a132900b64682de035cfb433b4919 old_score=158 live_score=0 best=2883 overlays_pending=false
+NATURAL_RESCUE_ATTEMPT attempt=1 seed=93043
+NATURAL_SESSION_BEGIN seed=93043 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93043 over=true inputs=173 accepted=166 rejected=6 merges=97 cancelled=787 retries=775 score=2135 best=2883 highest=7 max_bodies=69 max_combo=8 max_danger=1 danger_approaches=1 danger_cleared=0 sim_seconds=216.25 wall_seconds=37.96 bodies_end=69 session=c4fad6f65078d53247f92f5eb3a7b736
+NATURAL_TERMINAL_STATE seed=93043 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93043 doc_status=ok doc_score=2135.0 doc_over=true generation=5045.0 details={"aggregate":"native","current_revision":"0d20483b058d6f2b003cd4eb84508f693b81266dc71011e05318b025839fd0e1","powerup_generation":5045,"powerup_status":"native","readback":"native","requested_revision":"0d20483b058d6f2b003cd4eb84508f693b81266dc71011e05318b025839fd0e1","requires_powerup":true,"scoped":"native","score":2135,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":5045,"written_revision":"0d20483b058d6f2b003cd4eb84508f693b81266dc71011e05318b025839fd0e1"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=20208643213805 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=19 bodies=69
+NATURAL_RESCUE_REFUSED seed=93043 score=2135 bodies=69 above_line=19 supported_above=0 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":69,"locked":0,"mandatory":19,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_ATTEMPT attempt=2 seed=93053
+NATURAL_SESSION_BEGIN seed=93053 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93053 over=true inputs=205 accepted=201 rejected=3 merges=133 cancelled=584 retries=568 score=2774 best=2883 highest=8 max_bodies=68 max_combo=8 max_danger=2 danger_approaches=3 danger_cleared=1 sim_seconds=256.25 wall_seconds=46.44 bodies_end=68 session=c7a6e6142134ce7ac9d1335710d09a05
+NATURAL_TERMINAL_STATE seed=93053 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93053 doc_status=ok doc_score=2774.0 doc_over=true generation=5979.0 details={"aggregate":"native","current_revision":"05adfbfbcbbfa0e87ddd2504eb3cbbcd9b8c3928bcb408e5f4d8fcb9f68848b0","powerup_generation":5979,"powerup_status":"native","readback":"native","requested_revision":"05adfbfbcbbfa0e87ddd2504eb3cbbcd9b8c3928bcb408e5f4d8fcb9f68848b0","requires_powerup":true,"scoped":"native","score":2774,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":5979,"written_revision":"05adfbfbcbbfa0e87ddd2504eb3cbbcd9b8c3928bcb408e5f4d8fcb9f68848b0"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=24255139940937 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=23 bodies=68
+NATURAL_RESCUE_REFUSED seed=93053 score=2774 bodies=68 above_line=23 supported_above=0 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":68,"locked":0,"mandatory":23,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_ATTEMPT attempt=3 seed=93063
+NATURAL_SESSION_BEGIN seed=93063 cap_inputs=260 cadence_ticks=150
+NATURAL_SESSION seed=93063 over=true inputs=255 accepted=244 rejected=9 merges=186 cancelled=1068 retries=1051 score=4194 best=4194 highest=8 max_bodies=64 max_combo=11 max_danger=1 danger_approaches=2 danger_cleared=0 sim_seconds=318.75 wall_seconds=70.47 bodies_end=58 session=32de75d3b94dc969a172588b57e36a65
+NATURAL_TERMINAL_STATE seed=93063 game_state=2 overlay=true rescue_ready=true rescue_text=Rescue: 1 free pending=0 locked=0
+NATURAL_SAVE_TRACE seed=93063 doc_status=ok doc_score=4194.0 doc_over=true generation=7430.0 details={"aggregate":"native","current_revision":"6e35b2f6b47da6401cf663b072efb2152e120500b0d4ecdcb067e4e4883aa507","powerup_generation":7430,"powerup_status":"native","readback":"native","requested_revision":"6e35b2f6b47da6401cf663b072efb2152e120500b0d4ecdcb067e4e4883aa507","requires_powerup":true,"scoped":"native","score":4194,"status":"unconfirmed","verified_revision":"","verified_score":-1,"written_generation":7430,"written_revision":"6e35b2f6b47da6401cf663b072efb2152e120500b0d4ecdcb067e4e4883aa507"}
+PASS: Continue is enabled for a valid checkpoint
+PASS: rescue fixture restores the terminal session through Continue
+PASS: rescue fixture starts from the terminal state
+PASS: free rescue button is available on Game Over (true / Rescue: 1 free)
+NATURAL_RESCUE_TRACE pre_click instance=29743084734951 text=Rescue: 1 free disabled=false pending=0 processing=false processing_flag=false checkpoint_pending=true point="(360.0, 792.5)"
+NATURAL_RESCUE_TRACE post_click processing=false message=Rescue failed: no safe clearing within the limit. text=Rescue: 1 free state=2 above_line=16 bodies=58
+NATURAL_RESCUE_REFUSED seed=93063 score=4194 bodies=58 above_line=16 supported_above=1 rescue=1 message=Rescue failed: no safe clearing within the limit. planner={"bodies":58,"locked":0,"mandatory":16,"max_remove":10,"plan_empty":true,"remove_uids":0,"snapshot_valid":false,"spawn_clear":false,"spawn_x":-1.0,"spawn_y":350.0} disabled_after=false
+FAIL: natural rescue completes on the first attempt (refused: Rescue failed: no safe clearing within the limit.)
+NATURAL_RESCUE_SUMMARY attempts=3 refusals=3 succeeded=false
+NATURAL_B3 checks=93 failures=3 sessions=8 events=1504
+WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 2 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+exit=1
