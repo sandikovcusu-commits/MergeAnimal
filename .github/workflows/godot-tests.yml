@@ -48,6 +48,10 @@ on:
         description: Run B.2 300-case dense-board physics penetration audit
         type: boolean
         default: false
+      physics_impact_b2:
+        description: Run B.2 real drop-impact penetration audit for all 12 levels
+        type: boolean
+        default: false
 permissions:
   contents: write
   checks: write
@@ -165,6 +169,18 @@ jobs:
             mkdir -p /tmp/b2-physics-user
             XDG_DATA_HOME=/tmp/b2-physics-user run_test 'b2 physics audit' --fixed-fps 120 --script res://tests/physics/physics_audit_b2.gd
           fi
+          if [[ "${{ inputs.physics_impact_b2 }}" == 'true' ]]; then
+            # policy 0 = shipped CAST_RAY, 1 = CAST_SHAPE, 2 = disabled. All six
+            # runs use the same 60 real drops so the modes are comparable.
+            for policy in 0 1 2; do
+              mkdir -p "/tmp/b2-impact-user-$policy"
+              echo "===== b2 impact policy $policy =====" | tee -a /tmp/godot-test-log.txt
+              XDG_DATA_HOME="/tmp/b2-impact-user-$policy" timeout 900 "$GODOT" --headless --path MergeAnimals --fixed-fps 120 --script res://tests/physics/physics_impact_b2.gd -- policy=$policy >> /tmp/godot-test-log.txt 2>&1
+              code=$?
+              echo "exit=$code" | tee -a /tmp/godot-test-log.txt
+              if [ "$code" -ne 0 ]; then status=1; fi
+            done
+          fi
           if [[ "${{ inputs.trace_compare }}" == 'true' ]]; then
             TRACE_EXPECT=fixed run_test 'Firefox trace approximate fixed' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd
             git fetch --depth=1 origin 5285aa036331a12ebf97f5c78024ceaf2a5f1d0a
@@ -187,6 +203,7 @@ jobs:
           fields = 'seed bodies policy frames max_depth mean_depth events escape duration_frames bodies_end worst_side worst_id worst_radius worst_x worst_y worst_vx worst_vy'.split()
           data = [dict(zip(fields, r[1:])) for r in rows]
           ev = [x for x in log.splitlines() if x.startswith('PHYSICS_EVENT ')]
+          imp = [x[len('IMPACT_CSV '):].split(',') for x in log.splitlines() if x.startswith('IMPACT_CSV ')]
           summary = pathlib.Path('/tmp/physics-summary.txt')
           out = []
           if data:
@@ -212,6 +229,27 @@ jobs:
                             worst['worst_radius'], worst['worst_x'], worst['worst_y'], worst['worst_vx'], worst['worst_vy'],
                             worst['frames'], worst['duration_frames']))
               out.append('PHYSICS_EVENTS recorded=%d' % len(ev))
+          ih = 'level,id,radius,mass,drop_height,v_pred,step_pred,frames_to_contact,max_impact_depth,rest_depth,recovery_frames,escape,bodies_end'.split(',')
+          ir = [dict(zip(ih, r)) for r in imp]
+          if ir:
+              out.append('IMPACT_SUMMARY cases=%d levels=%d max_depth=%.3f max_pred=%.4f escapes=%d over_pred=%d'
+                         % (len(ir), len({r['level'] for r in ir}),
+                            max(float(r['max_impact_depth']) for r in ir),
+                            max(float(r['step_pred']) for r in ir),
+                            sum(1 for r in ir if r['escape'] == 'true'),
+                            sum(1 for r in ir if float(r['max_impact_depth']) > float(r['step_pred']) + 0.5)))
+              wi = max(ir, key=lambda r: float(r['max_impact_depth']))
+              out.append('IMPACT_WORST level=%s id=%s radius=%s mass=%s drop_height=%s v_pred=%s step_pred=%s measured=%s rest=%s frames=%s'
+                         % (wi['level'], wi['id'], wi['radius'], wi['mass'], wi['drop_height'],
+                            wi['v_pred'], wi['step_pred'], wi['max_impact_depth'], wi['rest_depth'],
+                            wi['frames_to_contact']))
+              for lvl in sorted({int(r['level']) for r in ir}):
+                  g = [r for r in ir if int(r['level']) == lvl]
+                  out.append('IMPACT_LEVEL level=%d id=%s radius=%s measured_max=%.3f pred=%.4f rest_max=%.3f'
+                             % (lvl, g[0]['id'], float(g[0]['radius']),
+                                max(float(r['max_impact_depth']) for r in g),
+                                float(g[0]['step_pred']),
+                                max(float(r['rest_depth']) for r in g)))
           text = '\n'.join(out) + ('\n' if out else '')
           summary.write_text(text)
           # Also append to the transported log so the summary survives even when
