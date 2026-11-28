@@ -137,6 +137,9 @@ func empty_live() -> Dictionary:
 		"overlay_visible": false, "overlay_text": "", "highest_body_y": 0.0,
 		"spawn_count_delta_locked": 0,
 	}
+
+func live() -> Dictionary:
+	if not ensure_live(): return empty_live()
 	var pending := 0
 	var locked := 0
 	for pair in game.merge_manager.pending: pending += 1
