@@ -20,8 +20,11 @@ func fresh(combo: bool = false) -> Node:
 	await process_frame
 	game.danger_monitor.set_physics_process(false)
 	return game
-# Drop a pair of identical animals as close as legal so contact happens fast.
-func pair(game, data: AnimalData, y: float = 880.0, gap: float = 1.15) -> Array:
+# Spawn a pair of identical animals 1.9r apart. Exactly 2r produced no contact
+# report on the first attempt (measured: no merge in 240 frames), while the
+# 0.9r spacing used by animal_levels_b1 always did, so a 5% overlap is the
+# smallest value proven to enter the real narrowphase on spawn.
+func pair(game, data: AnimalData, y: float = 880.0, gap: float = 0.95) -> Array:
 	var a: Animal = game.create_animal(data, Vector2(360 - data.radius * gap, y))
 	var b: Animal = game.create_animal(data, Vector2(360 + data.radius * gap, y))
 	return [a, b]
@@ -113,9 +116,9 @@ func run() -> void:
 	# Three identical animals: only one pair may merge per contact window.
 	game = await fresh()
 	var mouse_r: float = game.animals[0].radius
-	var t1: Animal = game.create_animal(game.animals[0], Vector2(360 - mouse_r * 2.0 - 1.0, 900))
+	var t1: Animal = game.create_animal(game.animals[0], Vector2(360 - mouse_r * 1.9, 900))
 	var t2: Animal = game.create_animal(game.animals[0], Vector2(360, 900))
-	var t3: Animal = game.create_animal(game.animals[0], Vector2(360 + mouse_r * 2.0 + 1.0, 900))
+	var t3: Animal = game.create_animal(game.animals[0], Vector2(360 + mouse_r * 1.9, 900))
 	var tri_ok := false
 	for i in range(240):
 		if game.merge_manager.merge_count >= 1:
@@ -128,8 +131,10 @@ func run() -> void:
 	game.queue_free(); await process_frame
 	# Wall and floor merges are the same physics path but different support.
 	game = await fresh()
-	var wall_a: Animal = game.create_animal(game.animals[0], Vector2(game.left_bound + game.animals[0].radius + 1, 900))
-	var wall_b: Animal = game.create_animal(game.animals[0], Vector2(game.left_bound + game.animals[0].radius * 3 + 2, 900))
+	var wall_r: float = game.animals[0].radius
+	# Touching the wall and 1.9r from the partner: both contacts in one spawn.
+	var wall_a: Animal = game.create_animal(game.animals[0], Vector2(game.left_bound + wall_r, 900))
+	var wall_b: Animal = game.create_animal(game.animals[0], Vector2(game.left_bound + wall_r * 2.9, 900))
 	var wall_ok := false
 	for i in range(240):
 		if game.merge_manager.merge_count >= 1:
@@ -204,10 +209,10 @@ func run() -> void:
 	game = await fresh()
 	var elephant: AnimalData = game.animals[11]
 	check(elephant.golden_terminal, "elephant is the golden terminal resource")
-	# Legal spacing: two 125 px radii need 250 px of separation to avoid an
-	# artificial overlapping spawn; 251 px leaves a 1 px gap for gravity.
-	var g1: Animal = game.create_animal(elephant, Vector2(360 - elephant.radius - 0.5, 900))
-	var g2: Animal = game.create_animal(elephant, Vector2(360 + elephant.radius + 0.5, 900))
+	# 1.99r apart (1.25 px overlap for r = 125): the smallest overlap that
+	# registered contact for the other levels, kept minimal for a 250 px body.
+	var g1: Animal = game.create_animal(elephant, Vector2(360 - elephant.radius * 0.995, 900))
+	var g2: Animal = game.create_animal(elephant, Vector2(360 + elephant.radius * 0.995, 900))
 	var golden_done := false
 	for i in range(300):
 		if game.golden_label.visible or game.merge_manager.merge_count >= 1:
