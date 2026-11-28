@@ -186,6 +186,8 @@ jobs:
             done
           fi
           if [[ "${{ inputs.natural_b3 }}" == 'true' ]]; then
+            # A full run must show the matrix; a filtered run is developer use.
+            B3_REQUIRED="NATURAL_SUMMARY sessions=3 game_over=3"
             # Three independent natural sessions in separate user:// homes, so
             # each one starts from a clean profile as the protocol requires.
             for b3_actor in 1 2 3; do

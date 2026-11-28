@@ -28,7 +28,10 @@ func _initialize() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("seed="): seed_base = int(arg.split("=")[1])
 		if arg.begins_with("actor="): hero = arg.split("=")[1]
-		if arg.begins_with("only="): only = arg.split("=")[1]
+		# "all" is the validation default and means no filter at all.
+		if arg.begins_with("only="):
+			var value: String = arg.split("=")[1]
+			only = "" if value == "all" else value
 	call_deferred("run")
 
 func check(ok: bool, text: String) -> void:
@@ -801,5 +804,10 @@ func run() -> void:
 			rescue_refusals += 1
 		await dispose()
 	print("NATURAL_RESCUE_SUMMARY attempts=%d refusals=%d succeeded=%s" % [rescue_attempts, rescue_refusals, str(rescue_done)])
+	# A run that executed no check proves nothing, so it is a failure even when
+	# no individual check failed.
+	if checks == 0:
+		failures += 1
+		print("FAIL: the suite executed no check at all")
 	print("NATURAL_B3 checks=%d failures=%d sessions=%d events=%d" % [checks, failures, sessions_started, events])
 	quit(1 if failures else 0)
