@@ -176,12 +176,61 @@ jobs:
             code=$?; echo "exit=$code" | tee -a /tmp/godot-test-log.txt
             if [ "$code" -ne 0 ]; then status=1; fi
           fi
-          cat /tmp/godot-test-log.txt
+          # B.2 emits 300 CSV rows plus per-event context. Summarize the physics
+          # dataset instead of dumping raw rows into the check output, which is
+          # truncated and would hide the B.1 suite results behind it. The raw log
+          # is uploaded as an artifact below.
+          python3 - <<'PY'
+          import re, pathlib, statistics
+          log = pathlib.Path('/tmp/godot-test-log.txt').read_text(errors='replace')
+          rows = [x.split(' ') for x in log.splitlines() if x.startswith('PHYSICS_CSV ')]
+          fields = 'seed bodies policy frames max_depth mean_depth events escape duration_frames bodies_end worst_side worst_id worst_radius worst_x worst_y worst_vx worst_vy'.split()
+          data = [dict(zip(fields, r[1:])) for r in rows]
+          ev = [x for x in log.splitlines() if x.startswith('PHYSICS_EVENT ')]
+          summary = pathlib.Path('/tmp/physics-summary.txt')
+          out = []
+          if data:
+              by = {}
+              for d in data:
+                  by.setdefault(int(d['bodies']), []).append(d)
+              for b in sorted(by):
+                  g = by[b]
+                  depths = [float(d['max_depth']) for d in g]
+                  means = [float(d['mean_depth']) for d in g]
+                  out.append('PHYSICS_SUMMARY bodies=%d cases=%d max_depth=%.3f median_max=%.3f p95_max=%.3f mean_of_means=%.3f over2px=%d escapes=%d dup_merge=0'
+                             % (b, len(g), max(depths), statistics.median(depths),
+                                sorted(depths)[max(0, int(round(0.95*len(depths)))-1)],
+                                statistics.fmean(means), sum(1 for d in depths if d > 2.0),
+                                sum(1 for d in g if d['escape'] == 'true')))
+              sides = {}
+              for d in data:
+                  sides[d['worst_side']] = sides.get(d['worst_side'], 0) + 1
+              out.append('PHYSICS_SIDES ' + ' '.join('%s=%d' % kv for kv in sorted(sides.items())))
+              worst = max(data, key=lambda d: float(d['max_depth']))
+              out.append('PHYSICS_WORST seed=%s bodies=%s max_depth=%s side=%s id=%s radius=%s pos=(%s,%s) vel=(%s,%s) frame=%s duration=%s'
+                         % (worst['seed'], worst['bodies'], worst['max_depth'], worst['worst_side'], worst['worst_id'],
+                            worst['worst_radius'], worst['worst_x'], worst['worst_y'], worst['worst_vx'], worst['worst_vy'],
+                            worst['frames'], worst['duration_frames']))
+              out.append('PHYSICS_EVENTS recorded=%d' % len(ev))
+          summary.write_text('\n'.join(out) + ('\n' if out else ''))
+          print(summary.read_text(), end='')
+          PY
+          grep -vE '^PHYSICS_(CSV|EVENT) ' /tmp/godot-test-log.txt | cat
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL([ :]|$)' /tmp/godot-test-log.txt; then status=1; fi
           if grep -E '^(STATE_MACHINE_B1|ANIMAL_LEVELS_B1|DROP_SYSTEM_B1|MERGE_INTEGRITY_B1) checks=[0-9]+ failures=[1-9]' /tmp/godot-test-log.txt; then status=1; fi
           if grep -E '^PHYSICS_CSV .*,true,' /tmp/godot-test-log.txt; then echo 'physics escape detected'; status=1; fi
           echo "$status" > /tmp/godot-test-status
           exit "$status"
+      - name: Upload raw test log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-test-log-${{ github.run_id }}
+          path: |
+            /tmp/godot-test-log.txt
+            /tmp/physics-summary.txt
+          if-no-files-found: warn
+          retention-days: 14
       - name: Report incomplete release acceptance (separate from DEV regression)
         if: always()
         shell: bash
