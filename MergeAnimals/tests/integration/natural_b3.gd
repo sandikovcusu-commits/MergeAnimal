@@ -72,7 +72,7 @@ func click(point: Vector2, touch: bool = false) -> void:
 # restore the real stored session, so no seed is injected there.
 func start_new_session(seed_value: int) -> void:
 	paused = false
-	get_tree().remove_meta("continue_requested")
+	remove_meta("continue_requested")
 	game = scene.instantiate()
 	game.test_seed = seed_value
 	game.persist_best = true   # real save path: production checkpoints run
@@ -86,7 +86,7 @@ func start_new_session(seed_value: int) -> void:
 # press, so the suite drives exactly that path instead of injecting the flag.
 func go_to_menu() -> void:
 	paused = false
-	get_tree().remove_meta("continue_requested")
+	remove_meta("continue_requested")
 	var menu = menu_scene.instantiate()
 	root.add_child(menu)
 	current_scene = menu
@@ -477,7 +477,7 @@ func _body_signature() -> Array:
 func run() -> void:
 	print("NATURAL_CONFIG engine=%s physics=%d actor=%s" % [Engine.get_version_info().string, Engine.physics_ticks_per_second, hero if not hero.is_empty() else "none"])
 	# A clean starting state: no Continue flag, no tutorial injection.
-	get_tree().remove_meta("continue_requested")
+	remove_meta("continue_requested")
 	var sessions := [
 		{"seed": seed_base + 1, "cap": 400},
 		{"seed": seed_base + 2, "cap": 400},
