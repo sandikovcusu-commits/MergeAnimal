@@ -166,8 +166,17 @@ jobs:
             XDG_DATA_HOME=/tmp/b1-merge-user run_test 'b1 merge integrity' --fixed-fps 120 --script res://tests/integration/merge_integrity_b1.gd
           fi
           if [[ "${{ inputs.physics_audit_b2 }}" == 'true' ]]; then
-            mkdir -p /tmp/b2-physics-user
-            XDG_DATA_HOME=/tmp/b2-physics-user run_test 'b2 physics audit' --fixed-fps 120 --script res://tests/physics/physics_audit_b2.gd
+            # policy 0 = natural board (all 12 levels), 1 = small-animal
+            # compression (levels 1-3 only). Same 300 cases each.
+            for audit_policy in 0 1; do
+              mkdir -p "/tmp/b2-physics-user-$audit_policy"
+              mkdir -p "/tmp/b2-physics-user-$audit_policy"
+              echo "===== b2 physics audit $audit_policy =====" | tee -a /tmp/godot-test-log.txt
+              XDG_DATA_HOME="/tmp/b2-physics-user-$audit_policy" timeout 1500 "$GODOT" --headless --path MergeAnimals --fixed-fps 120 --script res://tests/physics/physics_audit_b2.gd -- policy=$audit_policy >> /tmp/godot-test-log.txt 2>&1
+              code=$?
+              echo "exit=$code" | tee -a /tmp/godot-test-log.txt
+              if [ "$code" -ne 0 ]; then status=1; fi
+            done
           fi
           if [[ "${{ inputs.physics_impact_b2 }}" == 'true' ]]; then
             # policy 0 = shipped CAST_RAY, 1 = CAST_SHAPE, 2 = disabled. All six
@@ -203,6 +212,8 @@ jobs:
           fields = 'seed bodies policy frames max_depth mean_depth events escape duration_frames bodies_end worst_side worst_id worst_radius worst_x worst_y worst_vx worst_vy'.split()
           data = [dict(zip(fields, r[1:])) for r in rows]
           ev = [x for x in log.splitlines() if x.startswith('PHYSICS_EVENT ')]
+          fx = [x for x in log.splitlines() if x.startswith('PHYSICS_FIXTURE ')]
+          bad_fixture = [x for x in fx if float(x.split('initial_overlap=')[1].split()[0]) > 0.5]
           imp = [x[len('IMPACT_CSV '):].split(',') for x in log.splitlines() if x.startswith('IMPACT_CSV ')]
           summary = pathlib.Path('/tmp/physics-summary.txt')
           out = []
@@ -212,10 +223,11 @@ jobs:
                   by.setdefault(int(d['bodies']), []).append(d)
               for b in sorted(by):
                   g = by[b]
+                  pol = g[0]['policy']
                   depths = [float(d['max_depth']) for d in g]
                   means = [float(d['mean_depth']) for d in g]
-                  out.append('PHYSICS_SUMMARY bodies=%d cases=%d max_depth=%.3f median_max=%.3f p95_max=%.3f mean_of_means=%.3f over2px=%d escapes=%d dup_merge=0'
-                             % (b, len(g), max(depths), statistics.median(depths),
+                  out.append('PHYSICS_SUMMARY policy=%s bodies=%d cases=%d max_depth=%.3f median_max=%.3f p95_max=%.3f mean_of_means=%.3f over2px=%d escapes=%d dup_merge=0'
+                             % (pol, b, len(g), max(depths), statistics.median(depths),
                                 sorted(depths)[max(0, int(round(0.95*len(depths)))-1)],
                                 statistics.fmean(means), sum(1 for d in depths if d > 2.0),
                                 sum(1 for d in g if d['escape'] == 'true')))
@@ -229,6 +241,9 @@ jobs:
                             worst['worst_radius'], worst['worst_x'], worst['worst_y'], worst['worst_vx'], worst['worst_vy'],
                             worst['frames'], worst['duration_frames']))
               out.append('PHYSICS_EVENTS recorded=%d' % len(ev))
+              out.append('PHYSICS_FIXTURE_CASES cases=%d overlapped_fixtures=%d worst_initial_overlap=%.3f'
+                         % (len(fx), len(bad_fixture),
+                            max([float(x.split('initial_overlap=')[1].split()[0]) for x in fx] or [0.0])))
           ih = 'level,id,radius,mass,drop_height,v_pred,step_pred,frames_to_contact,max_impact_depth,rest_depth,recovery_frames,escape,bodies_end'.split(',')
           ir = [dict(zip(ih, r)) for r in imp]
           if ir:
