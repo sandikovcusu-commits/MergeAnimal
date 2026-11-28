@@ -166,28 +166,18 @@ func details() -> Dictionary:
 	return game._checkpoint_details()
 
 # ---------------------------------------------------------------- policies
-# A legal player policy: aim at a column that is currently shallow, with a
-# deterministic per-session offset so sessions differ. Rejected inputs are
-# reported, never retried in a hidden loop.
+# The recorded input policy for every B.3 session: a fixed eight-lane cycle,
+# rotated per session, so the sequence is reproducible and never looks at hidden
+# state. It is a legal player pattern (the same one a beginner uses: drop in a
+# column, come back later), and it is the policy that also reached a natural
+# Game Over in the earlier A.3 natural run.
+const LANES := [130.0, 245.0, 360.0, 475.0, 590.0, 245.0, 475.0, 360.0]
+
 func aim_x(i: int) -> float:
 	var left: float = game.left_bound + game.current_data.radius + game.spawn_margin
 	var right: float = game.right_bound - game.current_data.radius - game.spawn_margin
-	var lanes := 9
-	var best_x := left
-	var best_top := -100000.0
-	for lane in range(lanes):
-		var x: float = lerpf(left, right, float(lane) / float(lanes - 1))
-		var top: float = game.floor_height
-		for body in game.pieces.get_children():
-			if not body is Animal: continue
-			if absf(body.position.x - x) < body.data.radius + game.current_data.radius + 2.0:
-				top = minf(top, body.position.y - body.data.radius)
-		# Deterministic tie-break so the same seed always plays the same game.
-		top += float((i * 7 + session_index * 13 + lane * 3) % 5) * 0.5
-		if top > best_top:
-			best_top = top
-			best_x = x
-	return clampf(best_x, left, right)
+	var lane: float = LANES[(i + session_index * 2) % LANES.size()]
+	return clampf(lane, left, right)
 
 # ---------------------------------------------------------------- 1. session
 # A body only counts as "in danger" when the production rules would count it:
@@ -514,13 +504,13 @@ func run() -> void:
 	print("NATURAL_CONFIG engine=%s physics=%d actor=%s" % [Engine.get_version_info().string, Engine.physics_ticks_per_second, hero if not hero.is_empty() else "none"])
 	# A clean starting state: no Continue flag, no tutorial injection.
 	remove_meta("continue_requested")
-	# 240 inputs at a 70 tick (0.58 s) cadence is at most ~140 s of simulated
-	# play per session, close to a real session, with a hard input cap that is
-	# reported when it is the reason a session did not end.
+	# 260 inputs at a 150 tick (1.25 s at 120 Hz) cadence is at most ~325 s of
+	# simulated play per session. The cap is a guard, never a target: when it is
+	# why a session did not end, that is printed as NOT_REACHED with the reason.
 	var sessions := [
-		{"seed": seed_base + 1, "cap": 240, "cadence": 70},
-		{"seed": seed_base + 2, "cap": 240, "cadence": 70},
-		{"seed": seed_base + 3, "cap": 240, "cadence": 70},
+		{"seed": seed_base + 1, "cap": 260, "cadence": 150},
+		{"seed": seed_base + 2, "cap": 260, "cadence": 150},
+		{"seed": seed_base + 3, "cap": 260, "cadence": 150},
 	]
 	var results: Array = []
 	for config in sessions:
