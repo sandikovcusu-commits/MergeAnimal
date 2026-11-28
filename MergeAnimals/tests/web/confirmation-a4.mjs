@@ -23,6 +23,9 @@ async function allowReads(){await page.evaluate(()=>{if(window.__origGet)IDBObje
 try{browser=await engine.launch({headless:false,args:name==='chromium'?['--no-sandbox','--use-gl=angle','--use-angle=swiftshader-webgl','--enable-unsafe-swiftshader']:[],firefoxUserPrefs:{'webgl.force-enabled':true}});ctx=await browser.newContext({viewport:{width:720,height:1280}});page=await ctx.newPage();page.on('pageerror',e=>errors.push(String(e)));await page.goto(url,{waitUntil:'domcontentloaded',timeout:120000});await page.waitForSelector('canvas',{timeout:120000});await sleep(15000);
  let r=await cmd('setup');check(r.result===0,'fixture initial session saved',r.details);
  check(await waitState('wild_garden_session.json','verified'),'session record verified');
+ // QA isolation: stop the periodic autosave so it cannot supersede the
+ // commits under test between commands (same technique as the A.3 fixture).
+ await cmd('suspend_autosave');await cmd('drain_autosave');
  // Ordinary autosave writes only the session file: no power-up record exists
  // yet, and that must never be reported as a verified checkpoint commit.
  let inf=await info();

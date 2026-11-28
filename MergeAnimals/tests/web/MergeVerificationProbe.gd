@@ -308,6 +308,11 @@ func dispatch(cmd: Dictionary) -> void:
 	# QA isolation for a same-request readback retry: stop the periodic
 	# autosave from superseding the deliberately faulted request.
 	elif op == "suspend_autosave": game.set_physics_process(false)
+	# QA isolation: drop an already scheduled deferred autosave so it cannot
+	# write a session-only commit between fixture commands.
+	elif op == "drain_autosave":
+		game.save_scheduled = false
+		game.autosave_elapsed = 0.0
 	elif op == "save": result = game.save_session()
 	elif op == "score_427":
 		game.score = 427; game.best_score = 427; game.progression.best_score = 427
