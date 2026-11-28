@@ -190,8 +190,31 @@ func aim_x(i: int) -> float:
 	return clampf(best_x, left, right)
 
 # ---------------------------------------------------------------- 1. session
-func session(seed_value: int, cap_inputs: int) -> Dictionary:
-	print("NATURAL_SESSION_BEGIN seed=%d cap_inputs=%d" % [seed_value, cap_inputs])
+# A body only counts as "in danger" when the production rules would count it:
+# above the Danger Line AND settled AND physically supported. A falling body at
+# spawn height is above the line by construction, so counting unfiltered
+# positions would report a permanent false approach.
+func danger_bodies() -> int:
+	var count := 0
+	for body in game.pieces.get_children():
+		if not body is Animal: continue
+		var above: bool = body.position.y - body.data.radius < game.danger_height
+		var settled: bool = body.sleeping or body.linear_velocity.length() <= 35.0
+		if above and settled and body.supported:
+			count += 1
+	return count
+
+# Wait a number of physics ticks, stopping early if the session ends. Returns
+# true when the session reached a terminal state while waiting.
+func settle_ticks(count: int) -> bool:
+	for i in range(count):
+		await ticks(1)
+		if not is_instance_valid(game): return true
+		if int(game.game_state) == 2: return true
+	return false
+
+func session(seed_value: int, cap_inputs: int, cadence_ticks: int) -> Dictionary:
+	print("NATURAL_SESSION_BEGIN seed=%d cap_inputs=%d cadence_ticks=%d" % [seed_value, cap_inputs, cadence_ticks])
 	await start_new_session(seed_value)
 	var start := live()
 	var accepted := 0
@@ -200,17 +223,18 @@ func session(seed_value: int, cap_inputs: int) -> Dictionary:
 	var retries := 0
 	var max_bodies := 0
 	var max_combo := 0
+	var max_danger := 0
 	var danger_approaches := 0
 	var danger_cleared := 0
 	var was_in_danger := false
 	var inputs := 0
 	var over := false
-	var overflow_seen := 0
-	var terminal_live := {}
 	var terminal_at_input := 0
+	var sim_seconds := 0.0
 	var started_ms := Time.get_ticks_msec()
 	while inputs < cap_inputs:
-		if not game.is_playing() and int(game.game_state) == 2:
+		if not is_instance_valid(game): break
+		if int(game.game_state) == 2:
 			over = true
 			terminal_at_input = inputs
 			break
@@ -226,9 +250,15 @@ func session(seed_value: int, cap_inputs: int) -> Dictionary:
 			rejected += 1
 		max_bodies = maxi(max_bodies, game.pieces.get_child_count())
 		max_combo = maxi(max_combo, game.combo_count)
-		# Danger Line observation: a real approach and a real relief.
-		var top := _highest_body_y()
-		if top < game.danger_height:
+		# A player cadence: hold the position long enough for the drop to land
+		# and the Danger Line to be evaluated against a settled board.
+		if await settle_ticks(cadence_ticks):
+			over = true
+			terminal_at_input = inputs
+			break
+		var in_danger := danger_bodies()
+		max_danger = maxi(max_danger, in_danger)
+		if in_danger > 0:
 			danger_approaches += 1
 			was_in_danger = true
 		elif was_in_danger:
@@ -236,22 +266,27 @@ func session(seed_value: int, cap_inputs: int) -> Dictionary:
 			was_in_danger = false
 		cancelled = int(game.merge_manager.cancelled_count)
 		retries = int(game.merge_manager.auto_retry_attempts)
-		# Keep input cadence close to a real player and let gravity work.
-		await ticks(24)
-	# Wait for a terminal checkpoint attempt to settle before reading it.
+		sim_seconds = float(inputs) * float(cadence_ticks) / float(Engine.physics_ticks_per_second)
+	if not over and is_instance_valid(game) and int(game.game_state) == 2:
+		over = true
+		terminal_at_input = inputs
+	if not over:
+		print("NATURAL_NOT_REACHED seed=%d reason=%s inputs=%d cap=%d" % [
+			seed_value, "input_cap" if inputs >= cap_inputs else "session_guard", inputs, cap_inputs])
+	# Let a terminal checkpoint attempt settle before reading it.
 	for i in range(40):
-		if int(game.game_state) != 2: break
+		if not is_instance_valid(game) or int(game.game_state) != 2: break
 		await frames(2)
 	var end_live := live()
 	var end_details := details()
 	var elapsed := (Time.get_ticks_msec() - started_ms) / 1000.0
-	if int(end_live.get("game_state", 0)) == 2: over = true
+	if over: sim_seconds = float(inputs) * float(cadence_ticks) / float(Engine.physics_ticks_per_second)
 	var doc := SessionSave.load_document()
-	overflow_seen = 1 if over else 0
-	print("NATURAL_SESSION seed=%d over=%s inputs=%d accepted=%d rejected=%d merges=%d cancelled=%d retries=%d score=%d best=%d highest=%d max_bodies=%d max_combo=%d danger_approaches=%d danger_cleared=%d seconds=%.2f bodies_end=%d session=%s" % [
+	print("NATURAL_SESSION seed=%d over=%s inputs=%d accepted=%d rejected=%d merges=%d cancelled=%d retries=%d score=%d best=%d highest=%d max_bodies=%d max_combo=%d max_danger=%d danger_approaches=%d danger_cleared=%d sim_seconds=%.2f wall_seconds=%.2f bodies_end=%d session=%s" % [
 		seed_value, str(over), inputs, accepted, rejected, end_live.get("merges", 0), cancelled, retries,
 		end_live.get("score", 0), end_live.get("best", 0), end_live.get("highest", 0), max_bodies,
-		max_combo, danger_approaches, danger_cleared, elapsed, end_live.get("bodies", 0), end_live.get("session_id", "")])
+		max_combo, max_danger, danger_approaches, danger_cleared, sim_seconds, elapsed,
+		end_live.get("bodies", 0), end_live.get("session_id", "")])
 	print("NATURAL_TERMINAL_STATE seed=%d game_state=%d overlay=%s rescue_ready=%s rescue_text=%s pending=%d locked=%d" % [
 		seed_value, end_live.get("game_state", -1), str(end_live.get("overlay_visible", false)),
 		str(end_live.get("rescue_ready", false)), end_live.get("rescue_text", ""),
@@ -265,8 +300,9 @@ func session(seed_value: int, cap_inputs: int) -> Dictionary:
 		"merges": int(end_live.get("merges", 0)), "cancelled": cancelled, "retries": retries,
 		"score": int(end_live.get("score", 0)), "best": int(end_live.get("best", 0)),
 		"highest": int(end_live.get("highest", 0)), "max_bodies": max_bodies, "max_combo": max_combo,
-		"danger_approaches": danger_approaches, "danger_cleared": danger_cleared,
-		"seconds": elapsed, "terminal_input": terminal_at_input, "session_id": str(end_live.get("session_id", "")),
+		"max_danger": max_danger, "danger_approaches": danger_approaches, "danger_cleared": danger_cleared,
+		"sim_seconds": sim_seconds, "wall_seconds": elapsed, "terminal_input": terminal_at_input,
+		"session_id": str(end_live.get("session_id", "")),
 		"start_score": int(start.get("score", 0)), "bodies_start": int(start.get("bodies", 0)),
 		"details": end_details, "doc_status": str(doc.get("status", "")),
 		"doc_game_over": bool(doc.data.get("game_over_pending", false)) if doc.has("data") else false,
@@ -478,15 +514,18 @@ func run() -> void:
 	print("NATURAL_CONFIG engine=%s physics=%d actor=%s" % [Engine.get_version_info().string, Engine.physics_ticks_per_second, hero if not hero.is_empty() else "none"])
 	# A clean starting state: no Continue flag, no tutorial injection.
 	remove_meta("continue_requested")
+	# 240 inputs at a 70 tick (0.58 s) cadence is at most ~140 s of simulated
+	# play per session, close to a real session, with a hard input cap that is
+	# reported when it is the reason a session did not end.
 	var sessions := [
-		{"seed": seed_base + 1, "cap": 400},
-		{"seed": seed_base + 2, "cap": 400},
-		{"seed": seed_base + 3, "cap": 400},
+		{"seed": seed_base + 1, "cap": 240, "cadence": 70},
+		{"seed": seed_base + 2, "cap": 240, "cadence": 70},
+		{"seed": seed_base + 3, "cap": 240, "cadence": 70},
 	]
 	var results: Array = []
 	for config in sessions:
 		session_index += 1
-		var result: Dictionary = await session(int(config.seed), int(config.cap))
+		var result: Dictionary = await session(int(config.seed), int(config.cap), int(config.cadence))
 		results.append(result)
 		await terminal_contract(result)
 		await dispose()
