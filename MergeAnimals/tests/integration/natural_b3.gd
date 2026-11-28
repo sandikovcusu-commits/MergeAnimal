@@ -539,10 +539,18 @@ func restart_isolation(result: Dictionary) -> void:
 	check(int(fresh.best) >= old_best, "restart preserves the legitimate best score (%d >= %d)" % [int(fresh.best), old_best])
 	# A drop must be possible immediately in the new session.
 	var spawns_before: int = int(fresh.spawns)
-	# A drop must start inside the legal spawn span. Left bound + fixed offsets can
-	# sit inside the board wall, where the game correctly refuses the drop, so the
-	# suite aims exactly like a player: the production clamp, then a board click.
-	var point: Vector2 = Vector2(aim_x(0), 700.0)
+	# A drop must start inside the legal spawn span and must not land on an action
+	# button that is still clickable in the reloaded scene; y=700 is inside the
+	# Restart row, so a tap there restarts again instead of dropping.
+	var point := safe_board_points(3)
+	var drop_y := 620.0
+	var drop_x: float = clampf(aim_x(0), float(game.left_bound) + 30.0, float(game.right_bound) - 30.0)
+	var drop_point := Vector2(drop_x, drop_y)
+	for candidate in point:
+		if absf(candidate.x - drop_x) < 40.0:
+			drop_point = candidate
+			break
+	print("NATURAL_RESTART_TRACE drop_points=%s chosen=%s" % [JSON.stringify(point), JSON.stringify(drop_point)])
 	print("NATURAL_RESTART_TRACE instance=%d state=%d spawn_state=%s paused=%s overlay=%s buttons=%s point=%s" % [
 		int(fresh.get("instance_id", 0)), int(fresh.game_state), str(int(fresh.spawn_state)), str(paused),
 		str(fresh.overlay_visible), JSON.stringify(visible_button_rects(root).map(func(r): return [r.position.x, r.position.y, r.size.x, r.size.y])), JSON.stringify(point)])
@@ -551,7 +559,10 @@ func restart_isolation(result: Dictionary) -> void:
 	# so the suite taps again and counts the refusals.
 	var drop_refusals := 0
 	for attempt in range(4):
-		await click(point)
+		if not ensure_live():
+			print("NATURAL_RESTART_TRACE attempt=%d scene_lost" % (attempt + 1))
+			break
+		await click(drop_point)
 		await ticks(6)
 		var live_after := live()
 		print("NATURAL_RESTART_TRACE attempt=%d instance=%d valid=%s spawns=%s state=%s spawn_state=%s" % [
