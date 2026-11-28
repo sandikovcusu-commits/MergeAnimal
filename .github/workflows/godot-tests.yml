@@ -40,6 +40,14 @@ on:
         description: Run A.4 synthetic stress with automatic contact retry
         type: boolean
         default: false
+      b1_gameplay:
+        description: Run B.1 state machine, 12 animal levels, 1000 drops and merge integrity suites
+        type: boolean
+        default: false
+      physics_audit_b2:
+        description: Run B.2 300-case dense-board physics penetration audit
+        type: boolean
+        default: false
 permissions:
   contents: write
   checks: write
@@ -67,6 +75,10 @@ jobs:
             echo "===== $1 =====" | tee -a /tmp/godot-test-log.txt
             limit=120
             if [[ "$1" == 'bot sessions '* ]]; then limit=1200; fi
+            if [[ "$1" == 'b1 drop system' ]]; then limit=900; fi
+            if [[ "$1" == 'b1 animal levels' || "$1" == 'b1 merge integrity' ]]; then limit=600; fi
+            if [[ "$1" == 'b1 state machine' ]]; then limit=300; fi
+            if [[ "$1" == 'b2 physics audit' ]]; then limit=1500; fi
             shift
             timeout "$limit" "$GODOT" --headless --path MergeAnimals "$@" >> /tmp/godot-test-log.txt 2>&1
             code=$?
@@ -142,6 +154,17 @@ jobs:
           if [[ "${{ inputs.merge_stress_a4 }}" == 'true' ]]; then
             run_test 'merge stress a4 100 seeds' --fixed-fps 60 --script res://tests/integration/merge_stress_a4.gd
           fi
+          if [[ "${{ inputs.b1_gameplay }}" == 'true' ]]; then
+            mkdir -p /tmp/b1-state-user /tmp/b1-levels-user /tmp/b1-drop-user /tmp/b1-merge-user
+            XDG_DATA_HOME=/tmp/b1-state-user run_test 'b1 state machine' --fixed-fps 120 --script res://tests/integration/state_machine_b1.gd
+            XDG_DATA_HOME=/tmp/b1-levels-user run_test 'b1 animal levels' --fixed-fps 120 --script res://tests/integration/animal_levels_b1.gd
+            XDG_DATA_HOME=/tmp/b1-drop-user run_test 'b1 drop system' --fixed-fps 120 --script res://tests/integration/drop_system_b1.gd
+            XDG_DATA_HOME=/tmp/b1-merge-user run_test 'b1 merge integrity' --fixed-fps 120 --script res://tests/integration/merge_integrity_b1.gd
+          fi
+          if [[ "${{ inputs.physics_audit_b2 }}" == 'true' ]]; then
+            mkdir -p /tmp/b2-physics-user
+            XDG_DATA_HOME=/tmp/b2-physics-user run_test 'b2 physics audit' --fixed-fps 120 --script res://tests/physics/physics_audit_b2.gd
+          fi
           if [[ "${{ inputs.trace_compare }}" == 'true' ]]; then
             TRACE_EXPECT=fixed run_test 'Firefox trace approximate fixed' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd
             git fetch --depth=1 origin 5285aa036331a12ebf97f5c78024ceaf2a5f1d0a
@@ -155,6 +178,8 @@ jobs:
           fi
           cat /tmp/godot-test-log.txt
           if grep -iE 'SCRIPT ERROR|Parse Error|ERROR:|Invalid Resource|Missing Texture|Missing experimental sprite|Invalid Method Call|Failed Scene Load|^FAIL([ :]|$)' /tmp/godot-test-log.txt; then status=1; fi
+          if grep -E '^(STATE_MACHINE_B1|ANIMAL_LEVELS_B1|DROP_SYSTEM_B1|MERGE_INTEGRITY_B1) checks=[0-9]+ failures=[1-9]' /tmp/godot-test-log.txt; then status=1; fi
+          if grep -E '^PHYSICS_CSV .*,true,' /tmp/godot-test-log.txt; then echo 'physics escape detected'; status=1; fi
           echo "$status" > /tmp/godot-test-status
           exit "$status"
       - name: Report incomplete release acceptance (separate from DEV regression)
