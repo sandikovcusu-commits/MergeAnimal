@@ -31,23 +31,29 @@ func run() -> void:
 			var pending_max: int = game.merge_manager.pending.size()
 			for i in range(6): await physics_frame
 			pending_max = maxi(pending_max, game.merge_manager.pending.size())
-			# Remove every blocker; only the two reserved pairs remain.
+			# Remove every blocker; only the two reserved pairs remain. Removed
+			# blockers are accounted for separately (they are not body loss).
+			var removed := 0
 			for animal in animals:
 				if animal != animals[first] and animal != animals[first+1] and animal != animals[first+2] and animal != animals[first+3]:
 					if is_instance_valid(animal) and animal.get_parent() == game.pieces:
-						game.pieces.remove_child(animal); animal.queue_free()
-			for i in range(120):
+						game.pieces.remove_child(animal); animal.queue_free(); removed += 1
+			# The first commit runs on the physics tick after the drop/removal, so
+			# wait for a settled state (no pending reservation and no tracked
+			# failure) instead of a fixed number of frames.
+			for i in range(180):
 				pending_max = maxi(pending_max, game.merge_manager.pending.size())
-				if game.merge_manager.pending.is_empty() and game.merge_manager.retry_state().failed == 0: break
+				if game.merge_manager.pending.is_empty() and game.merge_manager.retry_state().failed == 0 and game.merge_manager.merge_count >= 1:
+					break
 				await physics_frame
 			var state: Dictionary = game.merge_manager.retry_state()
 			var remaining: int = game.pieces.get_child_count()
 			var merges: int = game.merge_manager.merge_count
-			var lost: int = count - merges - remaining
+			var lost: int = count - removed - merges - remaining
 			var bad_locks := 0
 			for animal in game.pieces.get_children():
 				if animal.merge_locked: bad_locks += 1
-			var valid: bool = reserved == 2 and not duplicate and game.merge_manager.pending.is_empty() and bad_locks == 0 and merges <= 2 and game.score == 4 * merges and lost == 0 and state.failed == 0 and not game._session_snapshot().is_empty()
+			var valid: bool = reserved == 2 and not duplicate and game.merge_manager.pending.is_empty() and bad_locks == 0 and merges <= 2 and game.score == 4 * merges and lost == 0 and remaining == count - removed - merges and state.failed == 0 and not game._session_snapshot().is_empty()
 			if not valid: failures += 1
 			print("MERGE_STRESS_A4_CSV %d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%s" % [41000+seed_value,count,reserved,state.cancelled-before.cancelled,state.attempts-before.attempts,state.successes-before.successes,merges,game.score,lost,int(duplicate),pending_max,"ok" if valid else "failure"])
 			game.queue_free(); await process_frame

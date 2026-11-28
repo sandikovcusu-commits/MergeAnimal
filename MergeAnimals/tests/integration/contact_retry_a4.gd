@@ -92,12 +92,18 @@ func run() -> void:
 	game.game_state = game.GameState.PLAYING
 	check(await wait_merges(game, 1), "automatic retry resumes after resume")
 	await dispose(game)
-	# Game Over gate: scheduler inactive in terminal state.
+	# Game Over gate: scheduler inactive in terminal state. The board must be
+	# built above the Danger Line, otherwise the monitor clears the timers and
+	# no overflow can occur (the A.4 first attempt made exactly that mistake).
 	game = await fresh()
-	pair = dense_board(game); a = pair[0]; b = pair[1]
-	check(game.merge_manager.request_merge(a, b), "game-over pair reserves")
+	for row in range(7):
+		for col in range(7):
+			var body: Animal = game.create_animal(game.animals[0], Vector2(252+col*36, 236+row*36)); body.freeze = true
+			if row == 4 and col == 3: a = body
+			if row == 4 and col == 4: b = body
+	check(game.merge_manager.request_merge(a, b), "game-over pair reserves above danger line")
 	for i in range(4): await physics_frame
-	clear_blockers(game, a, b)
+	check(game.merge_manager.pending.is_empty() and game.score == 0 and game.merge_manager.retry_state().failed == 1, "above-line danger cancel tracked without merge")
 	game.danger_monitor.timers[a.instance_uid] = 1.95
 	game.danger_monitor.timers[b.instance_uid] = 1.95
 	a.supported = true; b.supported = true
@@ -106,7 +112,7 @@ func run() -> void:
 	check(game.game_state == game.GameState.GAME_OVER, "danger overflow reaches game over")
 	paused = false
 	for i in range(45): await physics_frame
-	check(game.merge_manager.merge_count == 0, "no automatic retry after game over")
+	check(game.merge_manager.merge_count == 0 and game.score == 0, "no automatic retry after game over")
 	await dispose(game)
 	# Golden terminal merge is unaffected and never enters retry tracking.
 	game = await fresh()
