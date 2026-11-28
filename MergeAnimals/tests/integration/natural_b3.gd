@@ -550,7 +550,19 @@ func restart_isolation(result: Dictionary) -> void:
 		if absf(candidate.x - drop_x) < 40.0:
 			drop_point = candidate
 			break
-	print("NATURAL_RESTART_TRACE drop_points=%s chosen=%s" % [JSON.stringify(point), JSON.stringify(drop_point)])
+	# Who owns the pixel we are about to tap, and can the board accept input?
+	var hover_probe := InputEventMouseMotion.new()
+	hover_probe.position = drop_point
+	root.push_input(hover_probe, true)
+	await frames(2)
+	var owner := root.gui_get_hovered_control()
+	var owner_text := "none"
+	if is_instance_valid(owner):
+		owner_text = "%s/%s filter=%d" % [owner.get_path(), owner.get_class(), int(owner.mouse_filter)]
+	print("NATURAL_RESTART_TRACE drop_points=%s chosen=%s owner=%s playing=%s tree_paused=%s spawn_state=%d mouse_down=%s remove=%s undo=%s save_status=%d" % [
+		JSON.stringify(point), JSON.stringify(drop_point), owner_text, str(game.is_playing()), str(paused),
+		int(game.spawn_state), str(bool(game.mouse_down)), str(bool(game.remove_selecting)),
+		str(bool(game.remove_committing)), int(game.save_status)])
 	print("NATURAL_RESTART_TRACE instance=%d state=%d spawn_state=%s paused=%s overlay=%s buttons=%s point=%s" % [
 		int(fresh.get("instance_id", 0)), int(fresh.game_state), str(int(fresh.spawn_state)), str(paused),
 		str(fresh.overlay_visible), JSON.stringify(visible_button_rects(root).map(func(r): return [r.position.x, r.position.y, r.size.x, r.size.y])), JSON.stringify(point)])
