@@ -59,6 +59,10 @@ on:
         description: "UI: chromium or firefox"
         default: 'chromium'
         required: true
+      b3_sessions:
+        description: 'B.3 natural sessions per browser (gameover scenario)'
+        default: '3'
+
 permissions:
   contents: write
   checks: write
@@ -219,6 +223,14 @@ jobs:
             "$GODOT" --headless --path /tmp/quality-project --export-release 'Web (single-threaded)' /tmp/web-test/quality-qa/index.html >> /tmp/web-qa/quality-export.log 2>&1
             URL=http://127.0.0.1:8765/quality-qa/
             if [ "$UI_MODE" = gameover-investigation ]; then TEST=gameover-save-investigation.mjs; elif [ "$UI_MODE" = natural-observe ] || [ "$UI_MODE" = natural-long ]; then TEST=natural-gameover-save.mjs; elif [ "$UI_MODE" = merge-deadlock ]; then TEST=merge-deadlock.mjs; else TEST=quality-matrix.mjs; fi
+          elif [[ "$UI_MODE" == natural-b3-* ]]; then
+            # Unmodified production export: real browser input, no probe, no
+            # prepared board. The scenario only chooses which flow to drive.
+            mkdir -p /tmp/b3-profile
+            TEST=natural-b3.mjs
+            export NATURAL_SCENARIO="${UI_MODE#natural-b3-}"
+            export NATURAL_PROFILE="/tmp/b3-profile/$UI_BROWSER"
+            export NATURAL_SESSIONS="${B3_SESSIONS:-3}"
           elif [ "$UI_MODE" = natural-gameover ]; then
             # Unmodified production export, real browser inputs, no board fixture.
             TEST=natural-gameover-save.mjs

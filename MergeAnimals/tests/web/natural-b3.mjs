@@ -268,6 +268,7 @@ async function scenarioGameover() {
     const text = await ocr(`session${i}-continue`);
     check(!!afterContinue.session, `session ${i}: Continue keeps a readable checkpoint`);
     check(/(game\s*over)|(rescue)|(continue)/i.test(text), `session ${i}: Continue shows the terminal screen, not a silent new game`);
+    check((afterContinue.session?.game_over_pending === true) || /(game\s*over)|(rescue)/i.test(text), `session ${i}: Continue keeps the terminal rules instead of resuming active play`);
   }
   serverLog(`NATURAL_MATRIX ${name} rows=${json(rows)}`);
 }
@@ -293,7 +294,6 @@ async function scenarioPersist() {
   check((afterRefresh.session_id || '') === (before.session_id || ''), 'persist: refresh keeps the session');
   check((afterRefresh.score || 0) === (before.score || 0), 'persist: refresh keeps the score');
   // Full browser close and reopen with the same persistent profile.
-  const profileDir = path.dirname(await page.evaluate(() => 'x'));
   await ctx.close();
   ctx = null; page = null; pageErrors = []; consoleErrors = [];
   await sleep(3000);
