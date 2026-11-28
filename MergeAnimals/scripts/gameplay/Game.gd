@@ -523,6 +523,7 @@ func _commit_undo() -> void:
 	if golden_tween and golden_tween.is_running(): golden_tween.kill()
 	golden_label.visible = false
 	_restore_session(candidate)
+	merge_manager.clear_retry_state()
 	FeelAudio.play_event("undo")
 	if persist_best: AchievementManager.synchronize(progression, {}, false)
 	for timer in danger_monitor.timers.values(): danger_monitor.peak_time = maxf(danger_monitor.peak_time, float(timer))

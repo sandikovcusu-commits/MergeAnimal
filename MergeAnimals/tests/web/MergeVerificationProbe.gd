@@ -31,7 +31,7 @@ func metrics(game) -> Dictionary:
 	var locks := 0
 	for b in game.pieces.get_children():
 		if b is Animal and b.merge_locked: locks += 1
-	return {"session_id":game.session_id, "state":game.game_state, "paused":get_tree().paused, "pending":game.merge_manager.pending.size(), "locks":locks, "count":game.pieces.get_child_count(), "score":game.score, "merges":game.merge_manager.merge_count, "spawns":game.spawn_count, "undo":game.undo_remaining, "remove":game.remove_remaining, "rescue_remaining":game.rescue_remaining, "rescue_finalized":game.rescue_finalized, "save_error":game.save_status, "snapshot_empty":game._session_snapshot().is_empty(), "details":game._checkpoint_details()}
+	return {"session_id":game.session_id, "state":game.game_state, "paused":get_tree().paused, "pending":game.merge_manager.pending.size(), "locks":locks, "count":game.pieces.get_child_count(), "score":game.score, "merges":game.merge_manager.merge_count, "spawns":game.spawn_count, "undo":game.undo_remaining, "remove":game.remove_remaining, "rescue_remaining":game.rescue_remaining, "rescue_finalized":game.rescue_finalized, "save_error":game.save_status, "snapshot_empty":game._session_snapshot().is_empty(), "retry":game.merge_manager.retry_state(), "details":game._checkpoint_details()}
 func dispatch(cmd: Dictionary) -> void:
 	var op := str(cmd.op)
 	if op == "setup":
@@ -158,6 +158,65 @@ func dispatch(cmd: Dictionary) -> void:
 		var center: Vector2 = (a.position+b.position)*0.5
 		var point: Variant = game.find_merge_position(center,game.animals[1].radius,a,b)
 		rows.append({"scenario":"wall_floor","x":center.x,"y":center.y,"result_x":point.x if point is Vector2 else -1.0,"result_y":point.y if point is Vector2 else -1.0,"distance":point.distance_to(center) if point is Vector2 else -1.0,"radius":game.animals[1].radius,"left":game.left_bound,"right":game.right_bound,"floor":game.floor_height})
+		finish(int(cmd.id), {"rows":rows}); return
+	if op == "contact_retry":
+		# A.4: frozen dense board, scheduler enabled. No explicit re-request
+		# after the blocker moves; the merge must happen automatically.
+		var game = await fresh(true)
+		var a: Animal; var b: Animal
+		for row in range(7):
+			for col in range(7):
+				var body: Animal = game.create_animal(game.animals[0], Vector2(252+col*36,800+row*36)); body.freeze = true
+				if row == 3 and col == 3: a = body
+				if row == 3 and col == 4: b = body
+		var reserved: bool = game.merge_manager.request_merge(a, b)
+		for i in range(6): await get_tree().physics_frame
+		var cancelled: Dictionary = game.merge_manager.retry_state()
+		for i in range(45): await get_tree().physics_frame
+		var static_state: Dictionary = game.merge_manager.retry_state()
+		for body in game.pieces.get_children():
+			if body != a and body != b and body.position.y >= 700:
+				game.pieces.remove_child(body); body.queue_free()
+		var merged := false
+		for i in range(240):
+			if game.merge_manager.merge_count >= 1: merged = true; break
+			await get_tree().physics_frame
+		for i in range(30): await get_tree().physics_frame
+		var saved: Error = game.save_session()
+		finish(int(cmd.id), {"reserved":reserved, "cancelled":cancelled, "static_state":static_state, "merged":merged, "saved":saved, "final":metrics(game)}); return
+	if op == "contact_retry_matrix":
+		var game = await fresh(false)
+		var rows := []
+		for count in [10,20,40]:
+			for seed_value in range(10):
+				for child in game.pieces.get_children(): game.pieces.remove_child(child); child.queue_free()
+				game.score = 0; game.merge_manager.merge_count = 0
+				var rng := RandomNumberGenerator.new(); rng.seed = 51000 + seed_value
+				var bodies: Array[Animal] = []
+				for i in range(count):
+					var body: Animal = game.create_animal(game.animals[0], Vector2(216 + (i % 8) * 36, 820 + (i / 8) * 36))
+					body.freeze = true; bodies.append(body)
+				var index: int = rng.randi_range(0, count / 2 - 2) * 2
+				var before: Dictionary = game.merge_manager.retry_state()
+				var start := Time.get_ticks_usec()
+				var r1: bool = game.merge_manager.request_merge(bodies[index], bodies[index+1])
+				for i in range(6): await get_tree().physics_frame
+				var cancelled: int = game.merge_manager.retry_state().cancelled - before.cancelled
+				for body in game.pieces.get_children():
+					if body != bodies[index] and body != bodies[index+1]:
+						game.pieces.remove_child(body); body.queue_free()
+				var merged := false
+				for i in range(180):
+					if game.merge_manager.merge_count >= 1: merged = true; break
+					await get_tree().physics_frame
+				for i in range(10): await get_tree().physics_frame
+				var state: Dictionary = game.merge_manager.retry_state()
+				var elapsed := (Time.get_ticks_usec() - start) / 1000.0
+				var locks := 0
+				for b in game.pieces.get_children():
+					if b is Animal and b.merge_locked: locks += 1
+				var valid: bool = r1 and game.merge_manager.pending.is_empty() and locks == 0 and game.score == 4 * game.merge_manager.merge_count and (game.merge_manager.merge_count == 1 or cancelled == 0)
+				rows.append({"seed":51000+seed_value,"bodies":count,"reserved":r1,"cancelled":cancelled,"attempts":state.attempts - before.attempts,"successes":state.successes - before.successes,"merges":game.merge_manager.merge_count,"score":game.score,"pending":game.merge_manager.pending.size(),"locks":locks,"pending_ms":elapsed,"merged":merged,"ok":valid})
 		finish(int(cmd.id), {"rows":rows}); return
 	if op == "cancel":
 		var game = await fresh(true)

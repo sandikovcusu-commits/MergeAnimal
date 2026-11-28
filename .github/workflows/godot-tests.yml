@@ -32,6 +32,14 @@ on:
         description: Run synthetic 100 seed merge stress at 10, 20 and 40 bodies
         type: boolean
         default: false
+      contact_retry_a4:
+        description: Run A.4 automatic contact retry fixture
+        type: boolean
+        default: false
+      merge_stress_a4:
+        description: Run A.4 synthetic stress with automatic contact retry
+        type: boolean
+        default: false
 permissions:
   contents: write
   checks: write
@@ -65,7 +73,17 @@ jobs:
             echo "exit=$code" | tee -a /tmp/godot-test-log.txt
             if [ "$code" -ne 0 ]; then status=1; fi
           }
-          run_test 'editor import' --editor --quit
+          # Godot 4.7.2 headless import intermittently aborts with glibc heap
+          # corruption after a successful reimport (see A.4 report). One clean
+          # retry is a CI reliability measure, not a product result.
+          if ! timeout 300 "$GODOT" --headless --path MergeAnimals --editor --quit >> /tmp/godot-test-log.txt 2>&1; then
+            echo 'editor import attempt 1 failed; clean retry' | tee -a /tmp/godot-test-log.txt
+            rm -rf MergeAnimals/.godot
+            timeout 300 "$GODOT" --headless --path MergeAnimals --editor --quit >> /tmp/godot-test-log.txt 2>&1
+            code=$?
+            echo "exit=$code" | tee -a /tmp/godot-test-log.txt
+            if [ "$code" -ne 0 ]; then status=1; fi
+          fi
           run_test 'integration' --script res://tests/integration/day2_suite.gd
           run_test 'character expression frames' --script res://tests/integration/expression_frames.gd
           run_test 'visual scheduler lifecycle' --fixed-fps 60 --script res://tests/integration/visual_scheduler.gd
@@ -116,6 +134,13 @@ jobs:
             mkdir -p /tmp/placement-a3-user
             XDG_DATA_HOME=/tmp/placement-a3-user run_test 'placement a3' --fixed-fps 60 --script res://tests/integration/placement_a3.gd
             TRACE_EXPECT=a3 run_test 'Firefox trace approximate a3' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd
+          fi
+          if [[ "${{ inputs.contact_retry_a4 }}" == 'true' ]]; then
+            mkdir -p /tmp/contact-retry-a4-user
+            XDG_DATA_HOME=/tmp/contact-retry-a4-user run_test 'contact retry a4' --fixed-fps 60 --script res://tests/integration/contact_retry_a4.gd
+          fi
+          if [[ "${{ inputs.merge_stress_a4 }}" == 'true' ]]; then
+            run_test 'merge stress a4 100 seeds' --fixed-fps 60 --script res://tests/integration/merge_stress_a4.gd
           fi
           if [[ "${{ inputs.trace_compare }}" == 'true' ]]; then
             TRACE_EXPECT=fixed run_test 'Firefox trace approximate fixed' --fixed-fps 60 --script res://tests/integration/merge_trace_reconstruction.gd

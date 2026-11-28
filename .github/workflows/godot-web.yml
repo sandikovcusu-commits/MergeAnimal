@@ -123,7 +123,14 @@ jobs:
           set -e -o pipefail
           GODOT=/tmp/godot/Godot_v4.7.2-stable_linux.x86_64
           mkdir -p /tmp/web-test /tmp/web-qa
-          "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/web-qa/export.log 2>&1
+          # Godot 4.7.2 headless import intermittently aborts with glibc heap
+          # corruption after a successful reimport (see A.4 report). One clean
+          # retry is a CI reliability measure, not a product result.
+          if ! "$GODOT" --headless --path MergeAnimals --editor --quit > /tmp/web-qa/export.log 2>&1; then
+            echo 'editor import attempt 1 failed; clean retry' >> /tmp/web-qa/export.log
+            rm -rf MergeAnimals/.godot
+            "$GODOT" --headless --path MergeAnimals --editor --quit >> /tmp/web-qa/export.log 2>&1
+          fi
           if [ "$UI_MODE" = perf ]; then for sprite in mouse hamster rabbit; do cp "MergeAnimals/assets/animals/$sprite/normal.png.import" "/tmp/web-qa/$sprite.import.txt"; done; fi
           if [ "$UI_MODE" = sdk-production ]; then PRESET='Web CrazyGames (experimental)'; elif [ "$UI_MODE" = reward-production ]; then PRESET='Web CrazyGames Rewarded (full-launch opt-in)'; else PRESET='Web (single-threaded)'; fi
           "$GODOT" --headless --path MergeAnimals --export-release "$PRESET" /tmp/web-test/index.html >> /tmp/web-qa/export.log 2>&1
@@ -194,14 +201,14 @@ jobs:
             "$GODOT" --headless --path /tmp/sdk-qa-project --export-release 'Web CrazyGames (experimental)' /tmp/web-test/sdk-qa/index.html >> /tmp/web-qa/export.log 2>&1
             URL=http://127.0.0.1:8765/sdk-qa/; TEST=sdk-smoke.mjs
             export SDK_CASE="${UI_MODE#sdk-}"
-          elif [ "$UI_MODE" = merge-verification ] || [ "$UI_MODE" = placement-a3 ] || [ "$UI_MODE" = confirm-a3-baseline ] || [ "$UI_MODE" = confirm-a3-fixed ]; then
+          elif [ "$UI_MODE" = merge-verification ] || [ "$UI_MODE" = placement-a3 ] || [ "$UI_MODE" = confirm-a3-baseline ] || [ "$UI_MODE" = confirm-a3-fixed ] || [ "$UI_MODE" = contact-retry-a4 ] || [ "$UI_MODE" = confirm-a4 ]; then
             cp -a MergeAnimals /tmp/verify-project
             cp MergeAnimals/tests/web/MergeVerificationProbe.gd /tmp/verify-project/scripts/MergeVerificationProbe.gd
             sed -i '/^\[autoload\]/a MergeVerificationProbe="*res://scripts/MergeVerificationProbe.gd"' /tmp/verify-project/project.godot
             mkdir -p /tmp/web-test/verify-qa
             "$GODOT" --headless --path /tmp/verify-project --editor --quit >> /tmp/web-qa/verify-export.log 2>&1
             "$GODOT" --headless --path /tmp/verify-project --export-release 'Web (single-threaded)' /tmp/web-test/verify-qa/index.html >> /tmp/web-qa/verify-export.log 2>&1
-            URL=http://127.0.0.1:8765/verify-qa/; if [ "$UI_MODE" = placement-a3 ]; then TEST=placement-a3.mjs; elif [[ "$UI_MODE" = confirm-a3-* ]]; then TEST=confirmation-a3.mjs; else TEST=merge-verification.mjs; fi
+            URL=http://127.0.0.1:8765/verify-qa/; if [ "$UI_MODE" = placement-a3 ]; then TEST=placement-a3.mjs; elif [ "$UI_MODE" = contact-retry-a4 ]; then TEST=contact-retry-a4.mjs; elif [ "$UI_MODE" = confirm-a4 ]; then TEST=confirmation-a4.mjs; elif [[ "$UI_MODE" = confirm-a3-* ]]; then TEST=confirmation-a3.mjs; else TEST=merge-verification.mjs; fi
           elif [ "$UI_MODE" = quality-matrix ] || [ "$UI_MODE" = gameover-investigation ] || [ "$UI_MODE" = natural-observe ] || [ "$UI_MODE" = natural-long ] || [ "$UI_MODE" = merge-deadlock ]; then
             # Test-only probe build; production export above is untouched.
             cp -a MergeAnimals /tmp/quality-project
