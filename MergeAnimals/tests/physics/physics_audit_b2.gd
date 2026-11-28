@@ -16,7 +16,7 @@ func _initialize() -> void:
 func run() -> void:
 	print("PHYSICS_CONFIG ticks=%d wall_left_x=91 wall_right_x=629 wall_half_thickness=16 floor_top_y=1094 gravity=%s" % [Engine.physics_ticks_per_second, str(ProjectSettings.get_setting("physics/2d/default_gravity"))])
 	print("PHYSICS_POLICY policy=%d max_level=%d merge_enabled=%s" % [chosen_policy, 11 if chosen_policy == 0 else 2, str(chosen_policy == 1)])
-	print("PHYSICS_CSV seed,bodies,policy,frames,max_depth,mean_depth,events,escape,duration_frames,bodies_end,worst_side,worst_id,worst_radius,worst_x,worst_y,worst_vx,worst_vy")
+	print("PHYSICS_CSV seed,target,spawned,policy,frames,max_depth,mean_depth,events,escape,duration_frames,bodies_end,worst_side,worst_id,worst_radius,worst_x,worst_y,worst_vx,worst_vy")
 	for count in [10, 20, 40]:
 		for seed_value in range(policy_cases):
 			await run_case(count, seed_value)
@@ -80,6 +80,9 @@ func run_case(count: int, seed_value: int) -> void:
 		cursor_x += r * 2.0 + 1.0
 		# The next row starts under the tallest body of this one.
 		row_top = minf(row_top, cursor_y - r * 2.0)
+	# Cases whose target body count could not be reached are reported honestly
+	# instead of silently measured at a lower density.
+	var shortfall: bool = spawned < count
 	# A fixture that starts overlapped cannot measure solver penetration.
 	var initial_overlap := 0.0
 	var nodes: Array = game.pieces.get_children()
@@ -94,7 +97,7 @@ func run_case(count: int, seed_value: int) -> void:
 		initial_overlap = maxf(initial_overlap, float(game.left_bound) - (a2.position.x - a2.data.radius))
 		initial_overlap = maxf(initial_overlap, (a2.position.x + a2.data.radius) - float(game.right_bound))
 		initial_overlap = maxf(initial_overlap, (a2.position.y + a2.data.radius) - float(game.floor_height))
-	print("PHYSICS_FIXTURE seed=%d bodies=%d spawned=%d initial_overlap=%.3f levels=%s merges=%d" % [seed_base + seed_value, count, spawned, initial_overlap, str(levels_used), game.merge_manager.merge_count])
+	print("PHYSICS_FIXTURE seed=%d bodies=%d spawned=%d shortfall=%s initial_overlap=%.3f levels=%s merges=%d" % [seed_base + seed_value, count, spawned, str(shortfall), initial_overlap, str(levels_used), game.merge_manager.merge_count])
 	var max_depth := 0.0
 	var depth_sum := 0.0
 	var depth_samples := 0
@@ -135,7 +138,7 @@ func run_case(count: int, seed_value: int) -> void:
 		events += updated.size()
 	var body_end: int = game.pieces.get_child_count()
 	var mean_depth: float = depth_sum / float(maxi(1, depth_samples))
-	print("PHYSICS_CSV %d,%d,%d,%d,%.3f,%.3f,%d,%s,%d,%d,%s,%s,%.2f,%.2f,%.2f,%.2f,%.2f" % [seed_base + seed_value, count, chosen_policy, frames, max_depth, mean_depth, events, str(escape), duration, body_end, worst_side, str(worst.get("id", "")), float(worst.get("radius", 0.0)), float(worst.get("x", 0.0)), float(worst.get("y", 0.0)), float(worst.get("vx", 0.0)), float(worst.get("vy", 0.0))])
+	print("PHYSICS_CSV %d,%d,%d,%d,%d,%.3f,%.3f,%d,%s,%d,%d,%s,%s,%.2f,%.2f,%.2f,%.2f,%.2f" % [seed_base + seed_value, count, spawned, chosen_policy, frames, max_depth, mean_depth, events, str(escape), duration, body_end, worst_side, str(worst.get("id", "")), float(worst.get("radius", 0.0)), float(worst.get("x", 0.0)), float(worst.get("y", 0.0)), float(worst.get("vx", 0.0)), float(worst.get("vy", 0.0))])
 	if max_depth > 0.0:
 		print("PHYSICS_EVENT seed=%d bodies=%d policy=%d frame=%d side=%s depth=%.3f id=%s radius=%.2f pos=(%.2f,%.2f) vel=(%.2f,%.2f) duration_frames=%d" % [seed_base + seed_value, count, chosen_policy, int(worst.get("frame", 0)), worst_side, max_depth, str(worst.get("id", "")), float(worst.get("radius", 0.0)), float(worst.get("x", 0.0)), float(worst.get("y", 0.0)), float(worst.get("vx", 0.0)), float(worst.get("vy", 0.0)), duration])
 	game.queue_free()

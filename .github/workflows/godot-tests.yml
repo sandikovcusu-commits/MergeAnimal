@@ -209,7 +209,7 @@ jobs:
           import re, pathlib, statistics
           log = pathlib.Path('/tmp/godot-test-log.txt').read_text(errors='replace')
           rows = [x.split(' ') for x in log.splitlines() if x.startswith('PHYSICS_CSV ')]
-          fields = 'seed bodies policy frames max_depth mean_depth events escape duration_frames bodies_end worst_side worst_id worst_radius worst_x worst_y worst_vx worst_vy'.split()
+          fields = 'seed target spawned policy frames max_depth mean_depth events escape duration_frames bodies_end worst_side worst_id worst_radius worst_x worst_y worst_vx worst_vy'.split()
           data = [dict(zip(fields, r[1:])) for r in rows]
           ev = [x for x in log.splitlines() if x.startswith('PHYSICS_EVENT ')]
           fx = [x for x in log.splitlines() if x.startswith('PHYSICS_FIXTURE ')]
@@ -220,14 +220,16 @@ jobs:
           if data:
               by = {}
               for d in data:
-                  by.setdefault(int(d['bodies']), []).append(d)
+                  by.setdefault(int(d['target']), []).append(d)
               for b in sorted(by):
                   g = by[b]
                   pol = g[0]['policy']
                   depths = [float(d['max_depth']) for d in g]
                   means = [float(d['mean_depth']) for d in g]
-                  out.append('PHYSICS_SUMMARY policy=%s bodies=%d cases=%d max_depth=%.3f median_max=%.3f p95_max=%.3f mean_of_means=%.3f over2px=%d escapes=%d dup_merge=0'
-                             % (pol, b, len(g), max(depths), statistics.median(depths),
+                  out.append('PHYSICS_SUMMARY policy=%s target=%d cases=%d spawned_min=%d shortfall_cases=%d max_depth=%.3f median_max=%.3f p95_max=%.3f mean_of_means=%.3f over2px=%d escapes=%d dup_merge=0'
+                             % (pol, b, len(g), min(int(x['spawned']) for x in g),
+                                sum(1 for x in g if int(x['spawned']) < b),
+                                max(depths), statistics.median(depths),
                                 sorted(depths)[max(0, int(round(0.95*len(depths)))-1)],
                                 statistics.fmean(means), sum(1 for d in depths if d > 2.0),
                                 sum(1 for d in g if d['escape'] == 'true')))
