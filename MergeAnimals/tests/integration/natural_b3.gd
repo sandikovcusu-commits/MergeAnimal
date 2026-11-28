@@ -132,7 +132,7 @@ func empty_live() -> Dictionary:
 		"locked": 0, "rescue_remaining": 0, "undo_remaining": 0, "remove_remaining": 0,
 		"session_id": "", "paused": false, "rescue_ready": false, "rescue_text": "",
 		"overlay_visible": false, "overlay_text": "", "highest_body_y": 0.0,
-		"spawn_count_delta_locked": 0,
+		"spawn_count_delta_locked": 0, "instance_id": 0,
 	}
 
 func live() -> Dictionary:
@@ -166,6 +166,7 @@ func live() -> Dictionary:
 		"overlay_text": str(game.overlay_title.text),
 		"highest_body_y": _highest_body_y(),
 		"spawn_count_delta_locked": int(game.spawn_count),
+		"instance_id": int(game.get_instance_id()),
 	}
 
 func _highest_body_y() -> float:
@@ -192,6 +193,39 @@ func aim_x(i: int) -> float:
 	var right: float = game.right_bound - game.current_data.radius - game.spawn_margin
 	var lane: float = LANES[(i + session_index * 2) % LANES.size()]
 	return clampf(lane, left, right)
+
+# ---------------------------------------------------------------- geometry
+# Result-overlay buttons cover part of the board. A click that lands on one of
+# them is a legal navigation press, not an illegal board input, so illegal-input
+# probes are placed from the live button rectangles instead of guessed pixels.
+func visible_button_rects(node: Node) -> Array:
+	var out: Array = []
+	for child in node.get_children():
+		if child is Button and child.is_visible_in_tree():
+			var button: Button = child
+			var rect: Rect2 = button.get_global_rect()
+			if rect.has_area(): out.append(rect)
+		out.append_array(visible_button_rects(child))
+	return out
+
+func safe_board_points(count: int) -> Array:
+	var blocked: Array = visible_button_rects(root)
+	var points: Array = []
+	var y := 700.0
+	var x := float(game.left_bound) + 20.0
+	while points.size() < count and y > 300.0:
+		var candidate := Vector2(x, y)
+		var blocked_here := false
+		for rect in blocked:
+			if rect.grow(8.0).has_point(candidate):
+				blocked_here = true
+				break
+		if not blocked_here: points.append(candidate)
+		x += 60.0
+		if x > float(game.right_bound) - 20.0:
+			x = float(game.left_bound) + 20.0
+			y -= 90.0
+	return points
 
 # ---------------------------------------------------------------- 1. session
 # A body only counts as "in danger" when the production rules would count it:
@@ -326,11 +360,15 @@ func terminal_contract(result: Dictionary) -> void:
 	var before := live()
 	check(int(before.game_state) == 2, "terminal state is GAME_OVER (%d)" % int(before.game_state))
 	check(bool(before.overlay_visible) and str(before.overlay_text).length() > 0, "terminal overlay is visible with text")
-	# Illegal input after Game Over: pointer presses must not spawn or score.
-	for i in range(6):
-		await click(Vector2(160.0 + i * 90.0, 700.0))
+	# Illegal input after Game Over: pointer presses on the board (never on an
+	# action button) must not spawn, score or navigate.
+	var probes := safe_board_points(6)
+	print("NATURAL_PROBE seed=%d points=%s buttons=%s" % [int(result.get("seed", -1)), JSON.stringify(probes), JSON.stringify(visible_button_rects(root).map(func(r): return [r.position.x, r.position.y, r.size.x, r.size.y]))])
+	for point in probes:
+		await click(point)
 		await ticks(2)
 	var after := live()
+	check(int(after.get("instance_id", 0)) == int(before.get("instance_id", -1)), "terminal board is still the same live scene after illegal input")
 	check(int(after.spawns) == int(before.spawns), "GAME_OVER refuses new drops (%d -> %d spawns)" % [int(before.spawns), int(after.spawns)])
 	check(int(after.score) == int(before.score), "GAME_OVER refuses new score (%d -> %d)" % [int(before.score), int(after.score)])
 	check(int(after.bodies) == int(before.bodies), "GAME_OVER keeps the body count (%d -> %d)" % [int(before.bodies), int(after.bodies)])
